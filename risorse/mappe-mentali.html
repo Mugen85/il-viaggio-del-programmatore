@@ -94,6 +94,21 @@
                 </div>
             </div>
 
+            <!-- CARD: Valore vs Riferimento -->
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm border-0" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modalValueRef">
+                    <img src="../assets/img/valore_vs_riferimento.svg" class="card-img-top p-3 bg-white" alt="Anteprima Mappa Valore vs Riferimento" style="height: 200px; object-fit: contain;">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Valore vs Riferimento</h5>
+                        <p class="card-text text-muted small">Struct vs Classi. Impara come C# gestisce la memoria per evitare che la modifica di una variabile rovini i dati in tutto il programma.</p>
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3">
+                        <button class="btn btn-outline-primary btn-sm w-100"><i class="fas fa-expand me-2"></i>Espandi e Studia</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Puoi aggiungere qui le prossime card seguendo lo stesso pattern -->
 
         </div>
@@ -254,6 +269,37 @@
             </div>
         </div>
     </div> 
+
+    <!-- Modal Valore vs Riferimento -->
+
+    <div class="modal fade" id="modalValueRef" tabindex="-1" aria-labelledby="modalValueRefLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h2 class="modal-title h4 fw-bold" id="modalValueRefLabel">Valore vs Riferimento: Chi possiede i dati?</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-3">
+                    <div class="mb-4">
+                        <p>In C#, capire se stai maneggiando l'oggetto reale o solo un "biglietto" con l'indirizzo è fondamentale. Questa distinzione decide come i dati vengono copiati e quanto pesano sulla memoria.</p>
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-6"><strong><i class="fas fa-clone text-primary me-2"></i>Tipi Valore (Struct):</strong> Copia fisica. Modificare la copia non tocca l'originale.</div>
+                            <div class="col-md-6"><strong><i class="fas fa-link text-primary me-2"></i>Tipi Riferimento (Class):</strong> Indirizzo condiviso. Se modifichi l'oggetto, tutti i riferimenti vedono il cambio.</div>
+                            <div class="col-md-6"><strong><i class="fas fa-layer-group text-primary me-2"></i>Stack:</strong> Memoria veloce per dati semplici e indirizzi.</div>
+                            <div class="col-md-6"><strong><i class="fas fa-warehouse text-primary me-2"></i>Heap:</strong> Il magazzino per gli oggetti pesanti e dinamici.</div>
+                        </div>
+                    </div>
+                    <div class="bg-light rounded p-3 overflow-auto text-center border" style="max-height: 65vh;">
+                        <img src="../assets/img/valore_vs_riferimento.svg" alt="Mappa mentale Valore vs Riferimento" class="bg-white rounded p-2" style="min-width: 800px; width: 100%; height: auto;">
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <a href="../assets/img/valore_vs_riferimento.svg" download="valore_vs_riferimento_csharp.svg" class="btn btn-primary"><i class="fas fa-download me-2"></i>Scarica SVG</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Bottone Torna Indietro Flottante -->
     <a href="../risorse.html" id="backToRisorse" class="btn btn-secondary shadow-lg rounded-circle position-fixed"
