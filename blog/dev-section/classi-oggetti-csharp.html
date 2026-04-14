@@ -2,21 +2,24 @@
 <html lang="it">
 
 <head>
-   
+
     <title>Classi e oggetti in C#: guida introduttiva per principianti (ma non solo)</title>
 
     <!-- Google section -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Scopri cosa sono le classi e gli oggetti in C# e perché rappresentano il primo passo concreto per diventare architetto software. Una guida chiara e completa per principianti ambiziosi.">
+    <meta name="description"
+        content="Scopri cosa sono le classi e gli oggetti in C# e perché rappresentano il primo passo concreto per diventare architetto software. Una guida chiara e completa per principianti ambiziosi.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/classi-oggetti-csharp.html">
 
     <!-- Open Graph (Facebook, LinkedIn, WhatsApp...) -->
     <meta property="og:title" content="Classi e oggetti in C#: guida introduttiva per principianti (ma non solo)">
-    <meta property="og:description" content="Una spiegazione concreta e moderna di classi e oggetti in C#, con esempi, codice e riflessioni per costruire basi solide da architetto software.">
+    <meta property="og:description"
+        content="Una spiegazione concreta e moderna di classi e oggetti in C#, con esempi, codice e riflessioni per costruire basi solide da architetto software.">
     <!-- <meta property="og:image" content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/classi-oggetti-csharp.webp"> -->
-    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/classi-oggetti-csharp.html">
+    <meta property="og:url"
+        content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/classi-oggetti-csharp.html">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Il Viaggio del Programmatore">
 
@@ -38,9 +41,9 @@
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
-        <script>
+    <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'G-VKFY8GY6HY');
@@ -57,198 +60,238 @@
     <!-- Blog Header -->
     <header class="blog-header header-development">
         <h1>Development</h1>
-        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il proprio futuro con coraggio e competenza.</p>
+        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il
+            proprio futuro con coraggio e competenza.</p>
     </header>
-<!-- Contenuto dell'articolo -->
-<div class="article-container">
-    <div class="article-content">
-        <img src="../../images/blog/development/classi-oggetti-csharp.webp" alt="Classi e oggetti in C# spiegati in modo semplice e professionale" class="article-image">
+    <!-- Contenuto dell'articolo -->
+    <div class="article-container">
+        <div class="article-content">
+            <img src="../../images/blog/development/classi-oggetti-csharp.webp"
+                alt="Classi e oggetti in C# spiegati in modo semplice e professionale" class="article-image">
 
-        <h2 class="article-title">Classi e oggetti in C#: guida introduttiva per principianti (ma non solo)</h2>
-    
-        <p class="text-muted">Scritto da Marco Morello il 6 maggio 2025</p>
+            <h2 class="article-title">Classi e oggetti in C#: guida introduttiva per principianti (ma non solo)</h2>
 
-        <p><strong>Hai mai pensato che ogni grande applicazione software, come Microsoft Visual Studio, è iniziata da una singola classe?</strong>  
-        Un piccolo blocco di codice, invisibile agli occhi del mondo, ma destinato a diventare la cellula madre di qualcosa di grande.</p>
-    
-        <p><strong>Tutti parlano di "classi e oggetti" quando iniziano a programmare in C#</strong>,  
-        ma pochi spiegano davvero cosa sono, come funzionano e perché rappresentano il cuore di tutto ciò che scriverai.  
-        Eppure, tutto nasce da lì.  
-        <strong>Da una riga di codice.</strong>  
-        <strong>Da un concetto che prende forma.</strong>  
-        <strong>Da una struttura che diventa pensiero.</strong></p>
-    
-        <p><strong>Proprio come la vita sulla Terra — nata da un singolo organismo e poi evoluta in un ecosistema complesso —</strong>  
-        anche il software si costruisce da elementi semplici ma potenti, come le classi.  
-        Quel piccolo costrutto che oggi potresti dare per scontato è in realtà il punto d’origine di interi sistemi,  
-        architetture distribuite, microservizi, giochi, app, intelligenze artificiali.</p>
-    
-        <p><strong>E dietro questa apparente semplicità ci sono decenni di studio, esperienza e raffinamento.</strong>  
-        Persone come <strong>Anders Hejlsberg</strong> (il creatore di C#), <strong>Bjarne Stroustrup</strong> (padre del C++),  
-        <strong>James Gosling</strong> (inventore di Java), <strong>Grady Booch</strong> (UML),  
-        <strong>Martin Fowler</strong> (Refactoring) , <strong>Eric Evans (Domain-Driven Design)</strong>
-        e <strong>Robert C. Martin</strong>, il celebre Uncle Bob, che ci ha lasciato un principio immortale:</p>
-    
-        <blockquote style="padding: 0px !important;">
-        <p><strong>“Il codice deve essere semplice, ma non semplicistico.”</strong></p>
-        </blockquote>
-    
-        <p>Quando scrivi qualcosa come:</p>
-    
-        <pre><code>var persona = new Persona();</code></pre>
-    
-        <p>potresti pensare di star solo creando una variabile.  
-        <strong>Ma stai dando vita a qualcosa.</strong>  
-        <strong>Un’entità che ha uno stato, può agire, può collaborare con altri oggetti, può evolvere.</strong>  
-        <strong>Questa è la programmazione orientata agli oggetti.</strong>  
-        <strong>Questo è il primo passo verso la mentalità da architetto software.</strong></p>
-    
-        <p><strong>Capire bene le classi e gli oggetti è come imparare ad osservare le cellule al microscopio,</strong>  
-        prima ancora di capire come funziona l’intero organismo.  
-        <strong>È il livello più vicino alla materia prima del software.</strong>  
-        Ed è da qui che si dirama tutto il resto: design pattern, architetture a livelli, microservizi,  
-        domain modeling, API, UI, AI…</p>
-    
-        <p><strong>Se il tuo obiettivo è diventare un vero sviluppatore — o persino un architetto software — devi partire da qui.</strong></p>
-    
-        <p>Non da una libreria copiata su GitHub.  
-        Non da un tutorial “in 10 minuti”.  
-        <strong>Ma da una comprensione profonda dei concetti fondamentali.</strong></p>
-    
-        <p>E non serve essere un genio per iniziare.  
-        <strong>Serve solo curiosità, rigore e visione.</strong></p>
+            <p class="text-muted">Scritto da Marco Morello il 6 maggio 2025</p>
 
-    <h3>Cos’è una classe in C# e perché è il tuo primo strumento da architetto</h3>
+            <p><strong>Hai mai pensato che ogni grande applicazione software, come Microsoft Visual Studio, è iniziata
+                    da una singola classe?</strong>
+                Un piccolo blocco di codice, invisibile agli occhi del mondo, ma destinato a diventare la cellula madre
+                di qualcosa di grande.</p>
 
-        <p><strong>Una classe non è solo un costrutto del linguaggio.</strong> È il tuo primo atto progettuale.</p>
+            <p><strong>Tutti parlano di "classi e oggetti" quando iniziano a programmare in C#</strong>,
+                ma pochi spiegano davvero cosa sono, come funzionano e perché rappresentano il cuore di tutto ciò che
+                scriverai.
+                Eppure, tutto nasce da lì.
+                <strong>Da una riga di codice.</strong>
+                <strong>Da un concetto che prende forma.</strong>
+                <strong>Da una struttura che diventa pensiero.</strong>
+            </p>
 
-        <p>È l’unità con cui scegli di rappresentare una parte del mondo reale dentro al codice.</p>
+            <p><strong>Proprio come la vita sulla Terra — nata da un singolo organismo e poi evoluta in un ecosistema
+                    complesso —</strong>
+                anche il software si costruisce da elementi semplici ma potenti, come le classi.
+                Quel piccolo costrutto che oggi potresti dare per scontato è in realtà il punto d’origine di interi
+                sistemi,
+                architetture distribuite, microservizi, giochi, app, intelligenze artificiali.</p>
 
-        <p><strong>In altre parole: una classe è un concetto che decidi di rendere concreto, ordinato, riutilizzabile.</strong></p>
+            <p><strong>E dietro questa apparente semplicità ci sono decenni di studio, esperienza e
+                    raffinamento.</strong>
+                Persone come <strong>Anders Hejlsberg</strong> (il creatore di C#), <strong>Bjarne Stroustrup</strong>
+                (padre del C++),
+                <strong>James Gosling</strong> (inventore di Java), <strong>Grady Booch</strong> (UML),
+                <strong>Martin Fowler</strong> (Refactoring) , <strong>Eric Evans (Domain-Driven Design)</strong>
+                e <strong>Robert C. Martin</strong>, il celebre Uncle Bob, che ci ha lasciato un principio immortale:
+            </p>
 
-        <p>In C#, la classe è il contenitore di:</p>
-        <ul>
-            <li><strong>campi</strong>, che rappresentano lo stato interno dell’oggetto;</li>
-            <li><strong>proprietà</strong>, che offrono un accesso controllato ai dati;</li>
-            <li><strong>metodi</strong>, che definiscono cosa l’oggetto sa fare;</li>
-            <li><strong>costruttori</strong>, che determinano come nasce l’oggetto.</li>
-        </ul>
+            <blockquote style="padding: 0px !important;">
+                <p><strong>“Il codice deve essere semplice, ma non semplicistico.”</strong></p>
+            </blockquote>
 
-        <p>Quando definisci una classe, stai dicendo:<br>
-        <em>"Questo elemento è così importante per il mio dominio applicativo, che merita una forma chiara, con responsabilità ben definite."</em></p>
+            <p>Quando scrivi qualcosa come:</p>
 
-        <p>È per questo che le classi sono ovunque: in un’API, in un microservizio, in un’app desktop, in un progetto mobile.<br>
-        <strong>Tutto parte da lì.</strong></p>
+            <pre><code>var persona = new Persona();</code></pre>
 
-        <hr>
-        <p><strong>► La classe è il tuo blueprint della realtà</strong></p>
+            <p>potresti pensare di star solo creando una variabile.
+                <strong>Ma stai dando vita a qualcosa.</strong>
+                <strong>Un’entità che ha uno stato, può agire, può collaborare con altri oggetti, può evolvere.</strong>
+                <strong>Questa è la programmazione orientata agli oggetti.</strong>
+                <strong>Questo è il primo passo verso la mentalità da architetto software.</strong>
+            </p>
 
-        <p>Pensa a un architetto che apre un software CAD come AutoCAD o Revit: la prima cosa che fa è disegnare la planimetria, definire gli spazi, impostare le relazioni tra ambienti.<br>
-        <strong>Nel mondo del software, quella planimetria è la classe.</strong> Vediamo un esempio basilare:</p>
+            <p><strong>Capire bene le classi e gli oggetti è come imparare ad osservare le cellule al
+                    microscopio,</strong>
+                prima ancora di capire come funziona l’intero organismo.
+                <strong>È il livello più vicino alla materia prima del software.</strong>
+                Ed è da qui che si dirama tutto il resto: design pattern, architetture a livelli, microservizi,
+                domain modeling, API, UI, AI…
+            </p>
 
-        <pre><code>public class Persona
+            <p><strong>Se il tuo obiettivo è diventare un vero sviluppatore — o persino un architetto software — devi
+                    partire da qui.</strong></p>
+
+            <p>Non da una libreria copiata su GitHub.
+                Non da un tutorial “in 10 minuti”.
+                <strong>Ma da una comprensione profonda dei concetti fondamentali.</strong>
+            </p>
+
+            <p>E non serve essere un genio per iniziare.
+                <strong>Serve solo curiosità, rigore e visione.</strong>
+            </p>
+
+            <h3>Cos’è una classe in C# e perché è il tuo primo strumento da architetto</h3>
+
+            <p><strong>Una classe non è solo un costrutto del linguaggio.</strong> È il tuo primo atto progettuale.</p>
+
+            <p>È l’unità con cui scegli di rappresentare una parte del mondo reale dentro al codice.</p>
+
+            <p><strong>In altre parole: una classe è un concetto che decidi di rendere concreto, ordinato,
+                    riutilizzabile.</strong></p>
+
+            <p>In C#, la classe è il contenitore di:</p>
+            <ul>
+                <li><strong>campi</strong>, che rappresentano lo stato interno dell’oggetto;</li>
+                <li><strong>proprietà</strong>, che offrono un accesso controllato ai dati;</li>
+                <li><strong>metodi</strong>, che definiscono cosa l’oggetto sa fare;</li>
+                <li><strong>costruttori</strong>, che determinano come nasce l’oggetto.</li>
+            </ul>
+
+            <p>Quando definisci una classe, stai dicendo:<br>
+                <em>"Questo elemento è così importante per il mio dominio applicativo, che merita una forma chiara, con
+                    responsabilità ben definite."</em>
+            </p>
+
+            <p>È per questo che le classi sono ovunque: in un’API, in un microservizio, in un’app desktop, in un
+                progetto mobile.<br>
+                <strong>Tutto parte da lì.</strong>
+            </p>
+
+            <hr>
+            <p><strong>► La classe è il tuo blueprint della realtà</strong></p>
+
+            <p>Pensa a un architetto che apre un software CAD come AutoCAD o Revit: la prima cosa che fa è disegnare la
+                planimetria, definire gli spazi, impostare le relazioni tra ambienti.<br>
+                <strong>Nel mondo del software, quella planimetria è la classe.</strong> Vediamo un esempio basilare:
+            </p>
+
+            <pre><code>public class Persona
         {
             public string Nome;
             public int Eta;
         }</code></pre>
 
-        <p>In questo frammento abbiamo creato una classe chiamata <strong>Persona</strong>.<br>
-        Contiene due campi pubblici:</p>
-        <ul>
-            <li><strong>Nome</strong> → rappresenta una stringa, un testo qualsiasi;</li>
-            <li><strong>Eta</strong> → rappresenta un numero intero, l’età della persona.</li>
-        </ul>
+            <p>In questo frammento abbiamo creato una classe chiamata <strong>Persona</strong>.<br>
+                Contiene due campi pubblici:</p>
+            <ul>
+                <li><strong>Nome</strong> → rappresenta una stringa, un testo qualsiasi;</li>
+                <li><strong>Eta</strong> → rappresenta un numero intero, l’età della persona.</li>
+            </ul>
 
-        <p>Questa è la forma più semplice e diretta per iniziare a modellare un concetto.</p>
+            <p>Questa è la forma più semplice e diretta per iniziare a modellare un concetto.</p>
 
-        <hr>
-        <p><strong>► Ma cos’è davvero un campo?</strong></p>
+            <hr>
+            <p><strong>► Ma cos’è davvero un campo?</strong></p>
 
-        <p>Un <strong>campo</strong> è una variabile dichiarata all'interno di una classe.<br>
-        Serve a conservare informazioni: è la <strong>memoria interna dell’oggetto</strong>.</p>
+            <p>Un <strong>campo</strong> è una variabile dichiarata all'interno di una classe.<br>
+                Serve a conservare informazioni: è la <strong>memoria interna dell’oggetto</strong>.</p>
 
-        <p>Ogni oggetto ha la sua copia dei campi. Se crei due istanze della stessa classe <code>Persona</code>, ciascuna avrà il suo <code>Nome</code> e la sua <code>Eta</code>.</p>
+            <p>Ogni oggetto ha la sua copia dei campi. Se crei due istanze della stessa classe <code>Persona</code>,
+                ciascuna avrà il suo <code>Nome</code> e la sua <code>Eta</code>.</p>
 
-        <p><strong>È questa separazione dello stato che rende ogni oggetto unico nel tempo.</strong></p>
+            <p><strong>È questa separazione dello stato che rende ogni oggetto unico nel tempo.</strong></p>
 
-        <p>Nel mondo reale: ogni persona ha un proprio nome e una propria età.<br>
-        Nel software: ogni istanza della classe <code>Persona</code> ha valori propri nei suoi campi.</p>
+            <p>Nel mondo reale: ogni persona ha un proprio nome e una propria età.<br>
+                Nel software: ogni istanza della classe <code>Persona</code> ha valori propri nei suoi campi.</p>
 
-        <p><strong>I campi sono il cuore dello stato di un oggetto.</strong><br>
-        Ma attenzione: <strong>rendere un campo pubblico espone i dati a modifiche incontrollate.</strong></p>
+            <p><strong>I campi sono il cuore dello stato di un oggetto.</strong><br>
+                Ma attenzione: <strong>rendere un campo pubblico espone i dati a modifiche incontrollate.</strong></p>
 
-        <p>Per questo motivo, anche se inizialmente usiamo campi <code>public</code> per facilitare la comprensione, la buona pratica è <strong>renderli <code>private</code> e accedervi tramite proprietà</strong>.<br>
-        (Tratteremo questo argomento nel dettaglio nei prossimi articoli, quando parleremo di incapsulamento.)</p>
+            <p>Per questo motivo, anche se inizialmente usiamo campi <code>public</code> per facilitare la comprensione,
+                la buona pratica è <strong>renderli <code>private</code> e accedervi tramite proprietà</strong>.<br>
+                (Tratteremo questo argomento nel dettaglio nei prossimi articoli, quando parleremo di incapsulamento.)
+            </p>
 
-        <p><strong>► Un’anteprima su metodi, costruttori e proprietà</strong><br>
-        Vediamoli brevemente, per farti capire come iniziano a comporsi gli elementi di una vera architettura a oggetti:</p>
+            <p><strong>► Un’anteprima su metodi, costruttori e proprietà</strong><br>
+                Vediamoli brevemente, per farti capire come iniziano a comporsi gli elementi di una vera architettura a
+                oggetti:</p>
 
-        <hr>
-    <h4>🧩 Metodi</h4>
-        <p><strong>I metodi sono azioni. Dicono cosa sa fare l’oggetto.</strong><br>
-        Possono modificare lo stato, restituire valori, o collaborare con altri oggetti.</p>
+            <hr>
+            <h4>🧩 Metodi</h4>
+            <p><strong>I metodi sono azioni. Dicono cosa sa fare l’oggetto.</strong><br>
+                Possono modificare lo stato, restituire valori, o collaborare con altri oggetti.</p>
 
-    <pre><code>public void Saluta()
+            <pre><code>public void Saluta()
     {
         Console.WriteLine
         ($"Ciao, mi chiamo {Nome} e ho {Eta} anni.");
     }</code></pre>
 
-        <p>In questo esempio abbiamo dichiarato un metodo pubblico (<code>public</code>), che non restituisce nulla (<code>void</code>) 
-            e che può essere invocato su qualsiasi istanza della classe <code>Persona</code>.</p>
+            <p>In questo esempio abbiamo dichiarato un metodo pubblico (<code>public</code>), che non restituisce nulla
+                (<code>void</code>)
+                e che può essere invocato su qualsiasi istanza della classe <code>Persona</code>.</p>
 
-        <p>All'interno del metodo usiamo <code>Console.WriteLine</code> per stampare un messaggio che
-             interpolando (<code>$</code>) le due proprietà <code>Nome</code> ed <code>Eta</code>, mostra il saluto della persona.</p>
-        <p>Non preoccuparti se non capisci tutti i termini ora, continua a seguire gli articoli e ti assicuro che capirai.</p>
-        <p>Anche io all'inizio faticavo a "collegare i puntini", ma mano a mano diventerà tutto più chiaro, anche perchè voglio essere
-            il più chiaro, concreto e dettagliato possibile senza tecnicismi inutili.
-        </p>
+            <p>All'interno del metodo usiamo <code>Console.WriteLine</code> per stampare un messaggio che
+                interpolando (<code>$</code>) le due proprietà <code>Nome</code> ed <code>Eta</code>, mostra il saluto
+                della persona.</p>
+            <p>Non preoccuparti se non capisci tutti i termini ora, continua a seguire gli articoli e ti assicuro che
+                capirai.</p>
+            <p>Anche io all'inizio faticavo a "collegare i puntini", ma mano a mano diventerà tutto più chiaro, anche
+                perchè voglio essere
+                il più chiaro, concreto e dettagliato possibile senza tecnicismi inutili.
+            </p>
 
-        <p><strong>Questo metodo è un perfetto esempio di comportamento</strong>: prende lo stato attuale dell’oggetto (<code>Nome</code>, <code>Eta</code>) e lo utilizza per interagire con l’esterno (in questo caso, il terminale).<br>
-        È semplice, ma racchiude già il cuore del paradigma a oggetti.</p>
+            <p><strong>Questo metodo è un perfetto esempio di comportamento</strong>: prende lo stato attuale
+                dell’oggetto (<code>Nome</code>, <code>Eta</code>) e lo utilizza per interagire con l’esterno (in questo
+                caso, il terminale).<br>
+                È semplice, ma racchiude già il cuore del paradigma a oggetti.</p>
 
-        <hr>
-    <h4>🛠️ Costruttori</h4>
-        <p><strong>Sono metodi speciali che vengono eseguiti automaticamente quando crei un nuovo oggetto.</strong><br>
-        Servono a impostare lo stato iniziale dell’oggetto, garantendo coerenza e validità.</p>
+            <hr>
+            <h4>🛠️ Costruttori</h4>
+            <p><strong>Sono metodi speciali che vengono eseguiti automaticamente quando crei un nuovo
+                    oggetto.</strong><br>
+                Servono a impostare lo stato iniziale dell’oggetto, garantendo coerenza e validità.</p>
 
-    <pre><code>public Persona(string nome, int eta)
+            <pre><code>public Persona(string nome, int eta)
     {
         Nome = nome;
         Eta = eta;
     }</code></pre>
 
-        <p>Questo è un costruttore parametrico: viene invocato quando chiami <code>new Persona("Luca", 28)</code>.<br>
-        I parametri <code>nome</code> e <code>eta</code> ricevuti in ingresso vengono assegnati alle proprietà <code>Nome</code> ed <code>Eta</code> tramite la notazione <code>Nome = nome;</code>.</p>
+            <p>Questo è un costruttore parametrico: viene invocato quando chiami
+                <code>new Persona("Luca", 28)</code>.<br>
+                I parametri <code>nome</code> e <code>eta</code> ricevuti in ingresso vengono assegnati alle proprietà
+                <code>Nome</code> ed <code>Eta</code> tramite la notazione <code>Nome = nome;</code>.</p>
 
-        <p><strong>Questo è ciò che consente all’oggetto di nascere già inizializzato correttamente.</strong></p>
+            <p><strong>Questo è ciò che consente all’oggetto di nascere già inizializzato correttamente.</strong></p>
 
-        <p><strong>Il vantaggio?</strong> Eviti oggetti "vuoti", parziali, o in stato incoerente.<br>
-        Con questo costruttore, ogni <code>Persona</code> avrà sempre un nome e un’età assegnati al momento della creazione.</p>
+            <p><strong>Il vantaggio?</strong> Eviti oggetti "vuoti", parziali, o in stato incoerente.<br>
+                Con questo costruttore, ogni <code>Persona</code> avrà sempre un nome e un’età assegnati al momento
+                della creazione.</p>
 
-        <hr>
-    <h4>🔒 Proprietà</h4>
-        <p><strong>Sono il modo moderno per accedere ai dati in sicurezza.</strong><br>
-        Dietro a un getter o un setter puoi inserire logica, validazione o trasformazione.</p>
+            <hr>
+            <h4>🔒 Proprietà</h4>
+            <p><strong>Sono il modo moderno per accedere ai dati in sicurezza.</strong><br>
+                Dietro a un getter o un setter puoi inserire logica, validazione o trasformazione.</p>
 
-        <pre><code>public string Nome { get; set; }</code></pre>
+            <pre><code>public string Nome { get; set; }</code></pre>
 
-        <p>Questa è una proprietà automatica: permette di leggere e scrivere il valore della variabile <code>Nome</code> senza dover dichiarare manualmente un campo di supporto.</p>
+            <p>Questa è una proprietà automatica: permette di leggere e scrivere il valore della variabile
+                <code>Nome</code> senza dover dichiarare manualmente un campo di supporto.</p>
 
-        <p>Quando scrivi:</p>
-        <pre><code>persona1.Nome = "Mario";</code></pre>
+            <p>Quando scrivi:</p>
+            <pre><code>persona1.Nome = "Mario";</code></pre>
 
-        <p>il <code>set</code> entra in azione e assegna il valore.</p>
+            <p>il <code>set</code> entra in azione e assegna il valore.</p>
 
-        <p>Quando scrivi:</p>
-        <pre><code>Console.WriteLine(persona1.Nome);</code></pre>
+            <p>Quando scrivi:</p>
+            <pre><code>Console.WriteLine(persona1.Nome);</code></pre>
 
-        <p>il <code>get</code> restituisce il valore attuale.</p>
+            <p>il <code>get</code> restituisce il valore attuale.</p>
 
-        <p><strong>Il vantaggio rispetto a un campo pubblico è che in futuro potrai aggiungere logica interna senza cambiare la firma della classe.</strong><br>
-        Ad esempio:</p>
+            <p><strong>Il vantaggio rispetto a un campo pubblico è che in futuro potrai aggiungere logica interna senza
+                    cambiare la firma della classe.</strong><br>
+                Ad esempio:</p>
 
-<pre><code>private string _nome;
+            <pre><code>private string _nome;
     public string Nome
     {
         get => _nome;        
@@ -256,161 +299,183 @@
         //.Trim() pulisce eventuali spazi
     }</code></pre>
 
-        <p><strong>Con le proprietà, il tuo codice diventa più manutenibile, sicuro e leggibile, anche in progetti più complessi.</strong></p>
+            <p><strong>Con le proprietà, il tuo codice diventa più manutenibile, sicuro e leggibile, anche in progetti
+                    più complessi.</strong></p>
 
-        <h3>Cos’è un oggetto (e perché dà vita al codice)</h3>
+            <h3>Cos’è un oggetto (e perché dà vita al codice)</h3>
 
-        <p>Una classe, per quanto elegante e ben progettata, è solo potenziale.<br>
-        Un oggetto, invece, è realtà viva nel tuo sistema.</p>
+            <p>Una classe, per quanto elegante e ben progettata, è solo potenziale.<br>
+                Un oggetto, invece, è realtà viva nel tuo sistema.</p>
 
-        <p>Se la classe è la planimetria disegnata da un architetto in un software CAD come AutoCAD,<br>
-        l'oggetto è l’edificio costruito, concreto, abitabile.<br>
-        Se la classe è uno spartito, l’oggetto è la musica che suona.<br>
-        Se la classe è una cellula madre, l’oggetto è l’organismo che si muove e reagisce.</p>
+            <p>Se la classe è la planimetria disegnata da un architetto in un software CAD come AutoCAD,<br>
+                l'oggetto è l’edificio costruito, concreto, abitabile.<br>
+                Se la classe è uno spartito, l’oggetto è la musica che suona.<br>
+                Se la classe è una cellula madre, l’oggetto è l’organismo che si muove e reagisce.</p>
 
-        <p><strong>Creare un oggetto significa trasformare un’idea in qualcosa di tangibile, dinamico, autonomo.</strong><br>
-        È qui che il tuo codice prende vita: esegue istruzioni, conserva uno stato, interagisce col mondo.</p>
+            <p><strong>Creare un oggetto significa trasformare un’idea in qualcosa di tangibile, dinamico,
+                    autonomo.</strong><br>
+                È qui che il tuo codice prende vita: esegue istruzioni, conserva uno stato, interagisce col mondo.</p>
 
-        <p><strong>È in questo passaggio — dal concetto all’esecuzione — che la programmazione a oggetti mostra tutta la sua potenza.</strong></p>
+            <p><strong>È in questo passaggio — dal concetto all’esecuzione — che la programmazione a oggetti mostra
+                    tutta la sua potenza.</strong></p>
 
-        <hr>
-        <p><strong>► Istanziare: il momento in cui tutto comincia</strong></p>
+            <hr>
+            <p><strong>► Istanziare: il momento in cui tutto comincia</strong></p>
 
-        <p>Nel linguaggio della programmazione, "creare un oggetto" si traduce con il verbo <strong>istanza</strong>.<br>
-        Si crea un'istanza di una classe. In C#, questo avviene con la keyword <code>new</code>, che chiede al runtime di:</p>
-        <ol>
-        <li>Allocare memoria,</li>
-        <li>Inizializzare lo stato attraverso un costruttore,</li>
-        <li>Restituire un riferimento a quell’oggetto.</li>
-        </ol>
+            <p>Nel linguaggio della programmazione, "creare un oggetto" si traduce con il verbo
+                <strong>istanza</strong>.<br>
+                Si crea un'istanza di una classe. In C#, questo avviene con la keyword <code>new</code>, che chiede al
+                runtime di:</p>
+            <ol>
+                <li>Allocare memoria,</li>
+                <li>Inizializzare lo stato attraverso un costruttore,</li>
+                <li>Restituire un riferimento a quell’oggetto.</li>
+            </ol>
 
-        <p>Esempio pratico:</p>
-        <pre><code>Persona persona1 = new Persona();
+            <p>Esempio pratico:</p>
+            <pre><code>Persona persona1 = new Persona();
         persona1.Nome = "Luca";
         persona1.Eta = 28;</code></pre>
 
-        <p>In queste tre righe:</p>
-        <ul>
-        <li>Viene creato un oggetto della classe <code>Persona</code>;</li>
-        <li>Gli vengono assegnati dei valori iniziali;</li>
-        <li>Si ottiene un'entità pronta a essere usata nel programma.</li>
-        </ul>
+            <p>In queste tre righe:</p>
+            <ul>
+                <li>Viene creato un oggetto della classe <code>Persona</code>;</li>
+                <li>Gli vengono assegnati dei valori iniziali;</li>
+                <li>Si ottiene un'entità pronta a essere usata nel programma.</li>
+            </ul>
 
-        <p>E se ne puoi creare uno, puoi crearne molti:</p>
-        <pre><code>Persona persona2 = new Persona();
+            <p>E se ne puoi creare uno, puoi crearne molti:</p>
+            <pre><code>Persona persona2 = new Persona();
         persona2.Nome = "Anna";
         persona2.Eta = 35;</code></pre>
 
-        <p>Ognuno ha la sua identità, il suo stato, e — se definito — il suo comportamento.<br>
-        Questo è il cuore della programmazione orientata agli oggetti:<br>
-        <strong>modellare il mondo attraverso entità autonome, consistenti e comunicanti.</strong></p>
+            <p>Ognuno ha la sua identità, il suo stato, e — se definito — il suo comportamento.<br>
+                Questo è il cuore della programmazione orientata agli oggetti:<br>
+                <strong>modellare il mondo attraverso entità autonome, consistenti e comunicanti.</strong>
+            </p>
 
-        <hr>
-        <p><strong>► Ogni oggetto ha una sua identità, uno stato e un comportamento</strong></p>
+            <hr>
+            <p><strong>► Ogni oggetto ha una sua identità, uno stato e un comportamento</strong></p>
 
-        <p>Tre parole chiave da scolpire nella mente.<br>
-        Sono la trinità concettuale dell’OOP, il cuore di ogni oggetto:</p>
+            <p>Tre parole chiave da scolpire nella mente.<br>
+                Sono la trinità concettuale dell’OOP, il cuore di ogni oggetto:</p>
 
-        <h4>🆔 Identità</h4>
-        <p>È ciò che rende un oggetto sé stesso, anche se ha gli stessi valori di un altro.<br>
-        Quando scrivi <code>new Persona()</code>, stai creando un’entità unica in memoria.<br>
-        ➡️ È come il numero di telaio di un’auto: due modelli identici, ma ciascuno ha una storia e una posizione nel mondo.<br>
-        In C#, ogni oggetto ha un’identità distinta, gestita dal runtime, che puoi anche confrontare tramite <code>ReferenceEquals()</code>.</p>
+            <h4>🆔 Identità</h4>
+            <p>È ciò che rende un oggetto sé stesso, anche se ha gli stessi valori di un altro.<br>
+                Quando scrivi <code>new Persona()</code>, stai creando un’entità unica in memoria.<br>
+                ➡️ È come il numero di telaio di un’auto: due modelli identici, ma ciascuno ha una storia e una
+                posizione nel mondo.<br>
+                In C#, ogni oggetto ha un’identità distinta, gestita dal runtime, che puoi anche confrontare tramite
+                <code>ReferenceEquals()</code>.</p>
 
-        <h4>💾 Stato</h4>
-        <p>È l’insieme dei valori contenuti nei suoi campi e proprietà in un dato momento.<br>
-        Nell’esempio, lo stato è composto dal <code>Nome</code> e dall’<code>Eta</code>.<br>
-        Ma attenzione: <strong>lo stato non è statico</strong>.<br>
-        Può evolvere, mutare nel tempo.<br>
-        Una <code>Persona</code> può cambiare età, cambiare nome, aggiornarsi.<br>
-        <strong>Lo stato racconta chi è l’oggetto in questo preciso istante.</strong></p>
+            <h4>💾 Stato</h4>
+            <p>È l’insieme dei valori contenuti nei suoi campi e proprietà in un dato momento.<br>
+                Nell’esempio, lo stato è composto dal <code>Nome</code> e dall’<code>Eta</code>.<br>
+                Ma attenzione: <strong>lo stato non è statico</strong>.<br>
+                Può evolvere, mutare nel tempo.<br>
+                Una <code>Persona</code> può cambiare età, cambiare nome, aggiornarsi.<br>
+                <strong>Lo stato racconta chi è l’oggetto in questo preciso istante.</strong>
+            </p>
 
-        <h4>⚙️ Comportamento</h4>
-        <p>È ciò che un oggetto può fare. È espresso attraverso i metodi.<br>
-        Il comportamento trasforma lo stato in azione.</p>
+            <h4>⚙️ Comportamento</h4>
+            <p>È ciò che un oggetto può fare. È espresso attraverso i metodi.<br>
+                Il comportamento trasforma lo stato in azione.</p>
 
-<pre><code>public void Saluta()
+            <pre><code>public void Saluta()
     {
         Console.WriteLine
         ($"Ciao, mi chiamo {Nome} e ho {Eta} anni.");
     }</code></pre>
 
-        <p>Qui il comportamento è dire al mondo chi sei, usando lo stato attuale.<br>
-        Ma in un sistema reale, un oggetto può inviare email, calcolare interessi, validare input, orchestrare altri oggetti.</p>
+            <p>Qui il comportamento è dire al mondo chi sei, usando lo stato attuale.<br>
+                Ma in un sistema reale, un oggetto può inviare email, calcolare interessi, validare input, orchestrare
+                altri oggetti.</p>
 
-        <p><strong>Questi tre aspetti — identità, stato, comportamento — non devono mai essere trattati separatamente.</strong><br>
-        Vivono insieme, si influenzano, si completano.<br>
-        Un oggetto senza stato è inutile, senza comportamento è passivo, senza identità è indistinguibile.</p>
+            <p><strong>Questi tre aspetti — identità, stato, comportamento — non devono mai essere trattati
+                    separatamente.</strong><br>
+                Vivono insieme, si influenzano, si completano.<br>
+                Un oggetto senza stato è inutile, senza comportamento è passivo, senza identità è indistinguibile.</p>
 
-        <p><strong>Martin Fowler</strong>, autore di <em>Refactoring</em> e <em>Patterns of Enterprise Application Architecture</em>,
-        sottolinea spesso come l’identità sia cruciale per modellare il dominio.<br>
-        E ha ragione.</p>
+            <p><strong>Martin Fowler</strong>, autore di <em>Refactoring</em> e <em>Patterns of Enterprise Application
+                    Architecture</em>,
+                sottolinea spesso come l’identità sia cruciale per modellare il dominio.<br>
+                E ha ragione.</p>
 
-        <p><strong>Se vuoi scrivere codice che non si limiti a “funzionare”, ma che modelli davvero la complessità del mondo reale,</strong>
-        devi interiorizzare questi tre pilastri.</p>
+            <p><strong>Se vuoi scrivere codice che non si limiti a “funzionare”, ma che modelli davvero la complessità
+                    del mondo reale,</strong>
+                devi interiorizzare questi tre pilastri.</p>
 
-        <hr>
-        <p><strong>► Cosa succede davvero quando crei un oggetto?</strong></p>
+            <hr>
+            <p><strong>► Cosa succede davvero quando crei un oggetto?</strong></p>
 
-        <p>Quando scrivi:</p>
-        <pre><code>Persona persona1 = new Persona();</code></pre>
+            <p>Quando scrivi:</p>
+            <pre><code>Persona persona1 = new Persona();</code></pre>
 
-        <p>succedono cose importanti dietro le quinte:</p>
-        <ol>
-        <li>Il costruttore viene eseguito, inizializzando lo stato;</li>
-        <li>Viene allocata memoria nell’<em>heap</em>, l’area dedicata agli oggetti;</li>
-        <li>Un riferimento all’oggetto viene memorizzato nello <em>stack</em> locale, tramite la variabile <code>persona1</code>.</li>
-        </ol>
+            <p>succedono cose importanti dietro le quinte:</p>
+            <ol>
+                <li>Il costruttore viene eseguito, inizializzando lo stato;</li>
+                <li>Viene allocata memoria nell’<em>heap</em>, l’area dedicata agli oggetti;</li>
+                <li>Un riferimento all’oggetto viene memorizzato nello <em>stack</em> locale, tramite la variabile
+                    <code>persona1</code>.</li>
+            </ol>
 
-        <p>Se poi scrivi:</p>
-        <pre><code>Persona persona3 = persona1;</code></pre>
+            <p>Se poi scrivi:</p>
+            <pre><code>Persona persona3 = persona1;</code></pre>
 
-        <p>non stai creando una copia.<br>
-        Stai solo creando un secondo riferimento allo stesso oggetto.<br>
-        Modificare <code>persona3.Eta</code> influenzerà anche <code>persona1.Eta</code>.</p>
+            <p>non stai creando una copia.<br>
+                Stai solo creando un secondo riferimento allo stesso oggetto.<br>
+                Modificare <code>persona3.Eta</code> influenzerà anche <code>persona1.Eta</code>.</p>
 
-        <p>➡️ Questo concetto è fondamentale per evitare bug legati a modifiche “a sorpresa” negli oggetti.</p>
+            <p>➡️ Questo concetto è fondamentale per evitare bug legati a modifiche “a sorpresa” negli oggetti.</p>
 
-        <hr>
-        <p><strong>► L’oggetto è la tua unità fondamentale di pensiero</strong></p>
+            <hr>
+            <p><strong>► L’oggetto è la tua unità fondamentale di pensiero</strong></p>
 
-        <p>Ogni oggetto nel tuo programma rappresenta un concetto concreto del dominio che stai modellando.<br>
-        È il modo in cui la tua applicazione parla la lingua del problema che vuole risolvere.</p>
+            <p>Ogni oggetto nel tuo programma rappresenta un concetto concreto del dominio che stai modellando.<br>
+                È il modo in cui la tua applicazione parla la lingua del problema che vuole risolvere.</p>
 
-        <p><strong>Un oggetto ben progettato è un piccolo capolavoro.</strong><br>
-        Ha uno scopo preciso, sa cosa fare, sa cosa non deve fare.<br>
-        È semplice da usare e difficile da usare male.<br>
-        Non è solo un contenitore di dati, ma un attore coerente, con un ruolo chiaro nel tuo sistema.</p>
+            <p><strong>Un oggetto ben progettato è un piccolo capolavoro.</strong><br>
+                Ha uno scopo preciso, sa cosa fare, sa cosa non deve fare.<br>
+                È semplice da usare e difficile da usare male.<br>
+                Non è solo un contenitore di dati, ma un attore coerente, con un ruolo chiaro nel tuo sistema.</p>
 
-        <p><strong>Quando costruisci un oggetto, stai contribuendo a un ecosistema.</strong><br>
-        E proprio come in natura, un ecosistema sano nasce da unità forti, coese, indipendenti e ben coordinate.</p>
+            <p><strong>Quando costruisci un oggetto, stai contribuendo a un ecosistema.</strong><br>
+                E proprio come in natura, un ecosistema sano nasce da unità forti, coese, indipendenti e ben coordinate.
+            </p>
 
-        <hr>
-        <p><strong>► Il vero potenziale nasce dalla collaborazione</strong></p>
+            <hr>
+            <p><strong>► Il vero potenziale nasce dalla collaborazione</strong></p>
 
-        <p>Un oggetto da solo non costruisce un’applicazione.<br>
-        Ma quando cominci a farli collaborare, a definire ruoli, dipendenze, responsabilità, interazioni, allora sì:</p>
+            <p>Un oggetto da solo non costruisce un’applicazione.<br>
+                Ma quando cominci a farli collaborare, a definire ruoli, dipendenze, responsabilità, interazioni, allora
+                sì:</p>
 
-        <p><strong>stai facendo architettura.</strong><br>
-        <strong>Stai creando strutture.</strong><br>
-        <strong>Stai costruendo design.</strong></p>
+            <p><strong>stai facendo architettura.</strong><br>
+                <strong>Stai creando strutture.</strong><br>
+                <strong>Stai costruendo design.</strong>
+            </p>
 
-        <p>In natura, da una singola cellula si arriva a un organismo.<br>
-        In informatica, da una classe si arriva a un sistema.</p>
+            <p>In natura, da una singola cellula si arriva a un organismo.<br>
+                In informatica, da una classe si arriva a un sistema.</p>
 
-        <p><strong>Nel prossimo articolo vedremo come rendere gli oggetti ancora più potenti attraverso i metodi:</strong>
-        le azioni che possono compiere.</p>
+            <p><strong>Nel prossimo articolo vedremo come rendere gli oggetti ancora più potenti attraverso i
+                    metodi:</strong>
+                le azioni che possono compiere.</p>
 
-        <p><strong>Ma ora sai cosa sono, come nascono e perché sono centrali nel tuo percorso da sviluppatore.</strong><br>
-        E da qui in poi, ogni oggetto che creerai avrà un significato più profondo.</p>
+            <p><strong>Ma ora sai cosa sono, come nascono e perché sono centrali nel tuo percorso da
+                    sviluppatore.</strong><br>
+                E da qui in poi, ogni oggetto che creerai avrà un significato più profondo.</p>
 
-        <h3>Classi e oggetti in azione: la prima vera collaborazione</h3>
+            <h3>Classi e oggetti in azione: la prima vera collaborazione</h3>
 
-        <p>Ora che hai compreso in profondità cosa sono le classi e cosa rappresentano gli oggetti, è il momento di vedere come lavorano insieme in un esempio pratico e concreto.</p>
+            <p>Ora che hai compreso in profondità cosa sono le classi e cosa rappresentano gli oggetti, è il momento di
+                vedere come lavorano insieme in un esempio pratico e concreto.</p>
 
-        <p><strong>Iniziamo con una classe <code>Persona</code></strong> che incapsula uno stato semplice (<code>nome</code> e <code>età</code>) e un comportamento essenziale (<code>salutare</code>). È uno scenario minimalista, ma già utile per ragionare con chiarezza.</p>
+            <p><strong>Iniziamo con una classe <code>Persona</code></strong> che incapsula uno stato semplice
+                (<code>nome</code> e <code>età</code>) e un comportamento essenziale (<code>salutare</code>). È uno
+                scenario minimalista, ma già utile per ragionare con chiarezza.</p>
 
-<pre><code>public class Persona
+            <pre><code>public class Persona
 {
 public string Nome { get; set; }
 public int Eta { get; set; }
@@ -431,163 +496,184 @@ public int Eta { get; set; }
 var persona1 = new Persona("Luca", 28);
 persona1.Saluta();</code></pre>
 
-        <p><strong>🔍 Analizziamo ogni parte con attenzione:</strong></p>
+            <p><strong>🔍 Analizziamo ogni parte con attenzione:</strong></p>
 
-        <h4>✅ 1. La dichiarazione della classe</h4>
-        <pre><code>public class Persona</code></pre>
-        <p>Definiamo una nuova classe pubblica chiamata <code>Persona</code>.<br>
-        Essendo pubblica, può essere utilizzata ovunque nel progetto.<br>
-        È un’entità autonoma, pensata per rappresentare un concetto chiaro del dominio.</p>
+            <h4>✅ 1. La dichiarazione della classe</h4>
+            <pre><code>public class Persona</code></pre>
+            <p>Definiamo una nuova classe pubblica chiamata <code>Persona</code>.<br>
+                Essendo pubblica, può essere utilizzata ovunque nel progetto.<br>
+                È un’entità autonoma, pensata per rappresentare un concetto chiaro del dominio.</p>
 
-        <hr>
-        <h4>✅ 2. Le proprietà</h4>
-<pre><code>public string Nome { get; set; }
+            <hr>
+            <h4>✅ 2. Le proprietà</h4>
+            <pre><code>public string Nome { get; set; }
 public int Eta { get; set; }</code></pre>
-        <p>Qui abbiamo due proprietà automatiche:</p>
-        <ul>
-        <li><strong>Nome</strong>: rappresenta il nome della persona;</li>
-        <li><strong>Eta</strong>: rappresenta la sua età.</li>
-        </ul>
-        <p>Usare proprietà (invece dei campi pubblici) è una buona pratica perché permette maggiore flessibilità:<br>
-        in futuro potremo inserire controlli o trasformazioni nel getter/setter senza rompere il codice esistente.</p>
+            <p>Qui abbiamo due proprietà automatiche:</p>
+            <ul>
+                <li><strong>Nome</strong>: rappresenta il nome della persona;</li>
+                <li><strong>Eta</strong>: rappresenta la sua età.</li>
+            </ul>
+            <p>Usare proprietà (invece dei campi pubblici) è una buona pratica perché permette maggiore
+                flessibilità:<br>
+                in futuro potremo inserire controlli o trasformazioni nel getter/setter senza rompere il codice
+                esistente.</p>
 
-        <hr>
-        <h4>✅ 3. Il costruttore</h4>
-        <pre><code>public Persona(string nome, int eta)
+            <hr>
+            <h4>✅ 3. Il costruttore</h4>
+            <pre><code>public Persona(string nome, int eta)
     {
         Nome = nome;
         Eta = eta;
     }</code></pre>
-        <p>Il costruttore accetta due parametri e li assegna alle proprietà dell’oggetto.<br>
-        In questo modo, ogni <code>Persona</code> verrà creata già in uno stato coerente e completo, senza dover impostare manualmente i valori dopo.<br>
-        Questo approccio riduce il rischio di oggetti inconsistenti e migliora la leggibilità del codice.</p>
+            <p>Il costruttore accetta due parametri e li assegna alle proprietà dell’oggetto.<br>
+                In questo modo, ogni <code>Persona</code> verrà creata già in uno stato coerente e completo, senza dover
+                impostare manualmente i valori dopo.<br>
+                Questo approccio riduce il rischio di oggetti inconsistenti e migliora la leggibilità del codice.</p>
 
-        <hr>
-        <h4>✅ 4. Il comportamento (metodo)</h4>
-        <pre><code>public void Saluta()
+            <hr>
+            <h4>✅ 4. Il comportamento (metodo)</h4>
+            <pre><code>public void Saluta()
     {
         Console.WriteLine
         ($"Ciao! Mi chiamo {Nome} e ho {Eta} anni.");
     }</code></pre>
-        <p>Qui introduciamo un metodo pubblico che rappresenta un’azione dell’oggetto: <strong>salutare</strong>.<br>
-        Questo metodo accede allo stato attuale (<code>Nome</code> ed <code>Eta</code>) e lo usa per interagire con l’esterno.<br>
-        È un esempio base di come lo stato e il comportamento lavorano insieme, proprio come previsto dalla programmazione orientata agli oggetti.</p>
+            <p>Qui introduciamo un metodo pubblico che rappresenta un’azione dell’oggetto:
+                <strong>salutare</strong>.<br>
+                Questo metodo accede allo stato attuale (<code>Nome</code> ed <code>Eta</code>) e lo usa per interagire
+                con l’esterno.<br>
+                È un esempio base di come lo stato e il comportamento lavorano insieme, proprio come previsto dalla
+                programmazione orientata agli oggetti.</p>
 
-        <hr>
-        <h4>✅ 5. L’istanza e la chiamata</h4>
-        <pre><code>var persona1 = new Persona("Luca", 28);
+            <hr>
+            <h4>✅ 5. L’istanza e la chiamata</h4>
+            <pre><code>var persona1 = new Persona("Luca", 28);
 persona1.Saluta();</code></pre>
-        <p>Infine, creiamo un oggetto <code>persona1</code> usando il costruttore con i parametri "Luca" e 28,<br>
-        e invochiamo il metodo <code>Saluta()</code>.</p>
+            <p>Infine, creiamo un oggetto <code>persona1</code> usando il costruttore con i parametri "Luca" e 28,<br>
+                e invochiamo il metodo <code>Saluta()</code>.</p>
 
-        <p>Il risultato a schermo sarà:</p>
-        <pre><code>Ciao! Mi chiamo Luca e ho 28 anni.</code></pre>
+            <p>Il risultato a schermo sarà:</p>
+            <pre><code>Ciao! Mi chiamo Luca e ho 28 anni.</code></pre>
 
-        <p>Con questo piccolo frammento di codice hai già utilizzato:</p>
-        <ul>
-        <li><strong>una classe</strong> per definire un concetto,</li>
-        <li><strong>un oggetto</strong> per istanziare e manipolare quel concetto,</li>
-        <li><strong>uno stato</strong> inizializzato correttamente,</li>
-        <li><strong>un comportamento</strong> coerente con il dominio rappresentato.</li>
-        </ul>
+            <p>Con questo piccolo frammento di codice hai già utilizzato:</p>
+            <ul>
+                <li><strong>una classe</strong> per definire un concetto,</li>
+                <li><strong>un oggetto</strong> per istanziare e manipolare quel concetto,</li>
+                <li><strong>uno stato</strong> inizializzato correttamente,</li>
+                <li><strong>un comportamento</strong> coerente con il dominio rappresentato.</li>
+            </ul>
 
-        <hr>
-        <h4>🧱 Un primo mattoncino… ma con spazio per crescere</h4>
-        <p>Anche se questo codice è semplice e chiaro, ci sono diversi miglioramenti che potremo apportare nei prossimi articoli, ad esempio:</p>
-        <ul>
-        <li>Rendere lo stato più protetto con <code>proprietà private set</code> o convalidando i dati;</li>
-        <li>Separare responsabilità: ad esempio, evitare che una persona gestisca direttamente la stampa a console;</li>
-        <li>Rendere il codice più testabile, introducendo livelli di astrazione.</li>
-        </ul>
+            <hr>
+            <h4>🧱 Un primo mattoncino… ma con spazio per crescere</h4>
+            <p>Anche se questo codice è semplice e chiaro, ci sono diversi miglioramenti che potremo apportare nei
+                prossimi articoli, ad esempio:</p>
+            <ul>
+                <li>Rendere lo stato più protetto con <code>proprietà private set</code> o convalidando i dati;</li>
+                <li>Separare responsabilità: ad esempio, evitare che una persona gestisca direttamente la stampa a
+                    console;</li>
+                <li>Rendere il codice più testabile, introducendo livelli di astrazione.</li>
+            </ul>
 
-        <p>Ma ogni cosa a suo tempo. Per ora, hai compreso <strong>come classi e oggetti collaborano per dare forma al tuo software</strong>.<br>
-        Ed è questo il passo fondamentale che apre la strada a tutto il resto.</p>
+            <p>Ma ogni cosa a suo tempo. Per ora, hai compreso <strong>come classi e oggetti collaborano per dare forma
+                    al tuo software</strong>.<br>
+                Ed è questo il passo fondamentale che apre la strada a tutto il resto.</p>
 
-        <h3>Conclusione</h3>
+            <h3>Conclusione</h3>
 
-        <p><strong>Hai appena compiuto un passo importante:</strong> non solo hai letto un articolo su “classi e oggetti in C#”, ma hai scelto di capire davvero.<br>
-        Di non accontentarti delle spiegazioni superficiali. Di entrare nel codice con la stessa cura con cui si progetta una struttura che deve durare nel tempo.</p>
+            <p><strong>Hai appena compiuto un passo importante:</strong> non solo hai letto un articolo su “classi e
+                oggetti in C#”, ma hai scelto di capire davvero.<br>
+                Di non accontentarti delle spiegazioni superficiali. Di entrare nel codice con la stessa cura con cui si
+                progetta una struttura che deve durare nel tempo.</p>
 
-        <p>Hai scoperto che <strong>una classe non è solo una definizione astratta</strong>, ma la forma tecnica di un’idea.<br>
-        Che <strong>un oggetto non è solo un’istanza</strong>, ma una creatura autonoma con identità, stato e comportamento.</p>
+            <p>Hai scoperto che <strong>una classe non è solo una definizione astratta</strong>, ma la forma tecnica di
+                un’idea.<br>
+                Che <strong>un oggetto non è solo un’istanza</strong>, ma una creatura autonoma con identità, stato e
+                comportamento.</p>
 
-        <p>Hai visto come <strong>C# ti mette in mano strumenti potenti</strong>, e quanto sia importante usarli con consapevolezza sin da subito: costruttori, proprietà, metodi...<br>
-        Ogni riga, ogni parola chiave che hai incontrato oggi, è un pezzo di linguaggio che ti aiuta a modellare la realtà dentro al software.</p>
+            <p>Hai visto come <strong>C# ti mette in mano strumenti potenti</strong>, e quanto sia importante usarli con
+                consapevolezza sin da subito: costruttori, proprietà, metodi...<br>
+                Ogni riga, ogni parola chiave che hai incontrato oggi, è un pezzo di linguaggio che ti aiuta a modellare
+                la realtà dentro al software.</p>
 
-        <p><strong>E non è un caso se chi scrive codice bene pensa in modo diverso.</strong><br>
-        Più preciso. Più ordinato. Più consapevole.<br>
-        È questo il modo in cui inizia il percorso verso una vera maturità tecnica.</p>
+            <p><strong>E non è un caso se chi scrive codice bene pensa in modo diverso.</strong><br>
+                Più preciso. Più ordinato. Più consapevole.<br>
+                È questo il modo in cui inizia il percorso verso una vera maturità tecnica.</p>
 
-        <p>Un percorso che ti porterà, passo dopo passo, a <strong>ragionare come un architetto software</strong>: uno sviluppatore che non si limita a “far funzionare le cose”, ma le progetta per essere chiare, solide e mantenibili nel tempo.</p>
+            <p>Un percorso che ti porterà, passo dopo passo, a <strong>ragionare come un architetto software</strong>:
+                uno sviluppatore che non si limita a “far funzionare le cose”, ma le progetta per essere chiare, solide
+                e mantenibili nel tempo.</p>
 
-        <p><strong>Nei prossimi articoli entreremo ancora più nel vivo:</strong>
-        parleremo di metodi, proprietà avanzate, encapsulation, responsabilità, testabilità del codice, e inizieremo a costruire vere e proprie architetture.</p>
+            <p><strong>Nei prossimi articoli entreremo ancora più nel vivo:</strong>
+                parleremo di metodi, proprietà avanzate, encapsulation, responsabilità, testabilità del codice, e
+                inizieremo a costruire vere e proprie architetture.</p>
 
-        <p>Se questo primo passo ti è stato utile, <strong>ti invito a continuare a seguirmi</strong>.<br>
-        Ogni contenuto che pubblico nasce da uno studio serio, dalla voglia di crescere, e dalla volontà di condividere solo ciò che funziona davvero.</p>
+            <p>Se questo primo passo ti è stato utile, <strong>ti invito a continuare a seguirmi</strong>.<br>
+                Ogni contenuto che pubblico nasce da uno studio serio, dalla voglia di crescere, e dalla volontà di
+                condividere solo ciò che funziona davvero.</p>
 
-        <p><strong>Costruire software è un atto creativo.</strong><br>
-        Ma anche di rigore, di metodo, e di passione.<br>
-        Se stai leggendo fino a qui, probabilmente senti la stessa cosa.</p>
+            <p><strong>Costruire software è un atto creativo.</strong><br>
+                Ma anche di rigore, di metodo, e di passione.<br>
+                Se stai leggendo fino a qui, probabilmente senti la stessa cosa.</p>
 
-        <hr>
+            <hr>
 
-        <p><strong>Tutto quello che scrivo nasce dalla mia passione.</strong><br>
-        Non pretendo di insegnare nulla a nessuno: <strong>non sono un professorone</strong>, non uso tecnicismi tanto per fare scena.</p>
+            <p><strong>Tutto quello che scrivo nasce dalla mia passione.</strong><br>
+                Non pretendo di insegnare nulla a nessuno: <strong>non sono un professorone</strong>, non uso tecnicismi
+                tanto per fare scena.</p>
 
-        <p>Voglio solo <strong>condividere in modo chiaro, concreto e onesto</strong> ciò che imparo e applico.<br>
-        Senza fronzoli, senza scorciatoie.<br>
-        Solo con la voglia di fare le cose bene.<br>
-        Con <strong>professionalità, serietà e rispetto</strong> per questo mestiere.</p>
+            <p>Voglio solo <strong>condividere in modo chiaro, concreto e onesto</strong> ciò che imparo e applico.<br>
+                Senza fronzoli, senza scorciatoie.<br>
+                Solo con la voglia di fare le cose bene.<br>
+                Con <strong>professionalità, serietà e rispetto</strong> per questo mestiere.</p>
 
-        <p><strong>Questo è il mio progetto. Questo è il mio percorso.</strong><br>
-        E se ti ritrovi in questo modo di crescere, <strong>sei nel posto giusto</strong>.</p>
+            <p><strong>Questo è il mio progetto. Questo è il mio percorso.</strong><br>
+                E se ti ritrovi in questo modo di crescere, <strong>sei nel posto giusto</strong>.</p>
 
-        <p>Se ti è piaciuto questo articolo, <strong>condividilo</strong> con chi sta affrontando lo stesso percorso.<br>
-        Potrebbe essergli utile quanto lo è stato per te.</p>
+            <p>Se ti è piaciuto questo articolo, <strong>condividilo</strong> con chi sta affrontando lo stesso
+                percorso.<br>
+                Potrebbe essergli utile quanto lo è stato per te.</p>
 
-        <p>E se vuoi continuare a crescere insieme, seguimi per i prossimi approfondimenti:<br>
-        <strong>ogni settimana un nuovo tassello</strong> per costruire software in modo solido, moderno e consapevole.</p>
+            <p>E se vuoi continuare a crescere insieme, seguimi per i prossimi approfondimenti:<br>
+                <strong>ogni settimana un nuovo tassello</strong> per costruire software in modo solido, moderno e
+                consapevole.
+            </p>
+        </div>
+        <!-- Firma -->
+        <div id="firma-placeholder"></div>
+
+
     </div>
-   <!-- Firma -->
-  <div id="firma-placeholder"></div>
 
+    <!-- Bottone dinamico per tornare alla pagina mindset -->
+    <a href="../../blog/development.html" class="btn btn-hero" id="backToDevelopment"
+        style="position: fixed; bottom: 150px; right: 20px; z-index: 999; font-size: 0.8rem !important">
+        &larr; Torna indietro
+    </a>
 
-</div>
+    <!-- Include Footer -->
+    <div id="footer-placeholder" class="mt-auto"></div>
 
-<!-- Bottone dinamico per tornare alla pagina mindset -->
-    <a href="../../blog/development.html"
-    class="btn btn-hero"
-    id="backToDevelopment"
-    style="position: fixed; bottom: 150px; right: 20px; z-index: 999; font-size: 0.8rem !important">
-    &larr; Torna indietro
-</a>  
-   
-<!-- Include Footer -->
-   <div id="footer-placeholder" class="mt-auto"></div>
-   
-<!-- JS -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <script>
-     $(function () {
-         $("#header-placeholder").load("../../header.html");
-         $("#footer-placeholder").load("../../footer.html");
-           //firma placeholder
-           $("#firma-placeholder").load("../../firma.html");
-     });
-   
-// Mostra bottone di ritorno dopo 400px di scroll
-     window.addEventListener("scroll", function () {
-         const backBtn = document.getElementById("backToDevelopment");
-         if (window.scrollY > 2000) {
-             backBtn.style.display = "block";
-         } else {
-             backBtn.style.display = "none";
-         }
-     });
-   </script>
-   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-   </body>
-   
-   </html>
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("#header-placeholder").load("../../header.html");
+            $("#footer-placeholder").load("../../footer.html");
+            //firma placeholder
+            $("#firma-placeholder").load("../../firma.html");
+        });
+
+        // Mostra bottone di ritorno dopo 400px di scroll
+        window.addEventListener("scroll", function () {
+            const backBtn = document.getElementById("backToDevelopment");
+            if (window.scrollY > 2000) {
+                backBtn.style.display = "block";
+            } else {
+                backBtn.style.display = "none";
+            }
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
