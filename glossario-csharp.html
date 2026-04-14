@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Glossario C# - I ferri del mestiere | Il viaggio del programmatore</title>
+
+    <!-- Google section -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Il dizionario pratico del programmatore C# e .NET. Dalla sintassi base ai pattern architetturali avanzati, spiegati analizzando codice reale in produzione.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/glossario-csharp.html">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="base.css" rel="stylesheet">
+
+    <!-- Material Icons & Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="images/postazione-di-lavoro-100.png" type="image/png">
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "qxx2bckw9a");
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+        {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Marco Morello",
+        "url": "https://www.ilviaggiodelprogrammatore.com/",
+        "jobTitle": "Sviluppatore C# .NET e Architetto Software",
+        "sameAs": [
+            "https://github.com/Mugen85",
+            "https://www.linkedin.com/in/marco-morello-b43b2a108"
+        ],
+        "knowsAbout": ["C#", ".NET", "Software Architecture", "Azure", "SQL Server", ".NET MAUI"]
+        }
+    </script>
+
+    <!-- AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+
+    <style>
+        :root {
+            --dict-primary: #2563eb;
+            --dict-card-bg: #ffffff;
+            --dict-text-main: #1e293b;
+            --dict-text-muted: #64748b;
+            --dict-code-bg: #1e1e1e;
+            --dict-code-text: #d4d4d4;
+        }
+
+        /* ── SEARCH / FILTER BAR ────────────────────────────── */
+        .glossary-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.75rem 0;
+            width: 100%; 
+            overflow-x: hidden; 
+        }
+
+        .search-wrap {
+            position: relative;
+        }
+
+        .search-wrap .fa-search {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+
+        #glossarySearch {
+            width: 100%;
+            padding: 0.55rem 0.9rem 0.55rem 2.3rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--dict-text-main);
+            background: #f8fafc;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        #glossarySearch:focus {
+            outline: none;
+            border-color: var(--dict-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            background: #fff;
+        }
+
+        .tag-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 0.6rem;
+        }
+
+        .tag-pill {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 11px;
+            border-radius: 20px;
+            border: 1.5px solid #e2e8f0;
+            background: #fff;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.18s;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .tag-pill:hover {
+            border-color: #93c5fd;
+            color: #2563eb;
+        }
+
+        .tag-pill.active {
+            background: var(--dict-primary);
+            border-color: var(--dict-primary);
+            color: #fff;
+        }
+
+        .tag-pill[data-filter="all"].active {
+            background: #1e293b;
+            border-color: #1e293b;
+        }
+
+        /* ── CATEGORY HEADER ─────────────────────────────────── */
+        .category-section {
+            scroll-margin-top: 120px;
+            /* offset for sticky toolbar */
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid currentColor;
+        }
+
+        .category-header h3 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .toggle-section-btn {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 1.5px solid currentColor;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.18s;
+            white-space: nowrap;
+            flex-shrink: 0;
+            --section-color: currentColor;
+            /* snapshot del colore al momento della definizione */
+        }
+
+        .toggle-section-btn:hover {
+            background-color: currentColor;
+            /* ← RIMUOVI color: #fff da qui */
+        }
+
+        .toggle-section-btn:hover span,
+        .toggle-section-btn:hover {
+            color: #fff;
+            -webkit-text-fill-color: #fff;
+        }
+
+        /* ── GRID ────────────────────────────────────────────── */
+        .dictionary-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (min-width: 992px) {
+            .dictionary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ── CARD ────────────────────────────────────────────── */
+        .dict-card {
+            background-color: var(--dict-card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.09);
+            overflow: hidden;
+            border-left: 5px solid var(--dict-primary);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.2s;
+            min-width: 0;
+        }
+
+        .dict-card:hover {
+            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+        }
+
+        .section-intro a { word-break: break-all; }
+
+        .dict-card.hidden {
+            display: none;
+        }
+
+        .dict-card-header {
+            padding: 1rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            background-color: #ffffff;
+            transition: background-color 0.2s;
+            gap: 0.75rem;
+        }
+
+        .dict-card-header:hover {
+            background-color: #f8fafc;
+        }
+
+        .dict-card-header[aria-expanded="true"] .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .term-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            min-width: 0;
+        }
+
+        .term {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dict-primary);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .toggle-icon {
+            color: var(--dict-primary);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        /* ── TAGS ─────────────────────────────────────────────── */
+        .dict-tag {
+            font-size: 0.68rem;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 3px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .dict-tag.pattern {
+            background-color: #fef3c7;
+            color: #b45309;
+        }
+
+        .dict-tag.maui {
+            background-color: #f3e8ff;
+            color: #7e22ce;
+        }
+
+        .dict-tag.db {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+
+        .dict-tag.struttura {
+            background-color: #fce7f3;
+            color: #be185d;
+        }
+
+        .dict-tag.oop {
+            background-color: #fff7ed;
+            color: #c2410c;
+        }
+
+        /* ── CARD BODY ───────────────────────────────────────── */
+        .dict-card-body {
+            padding: 0 1.25rem 1.25rem;
+        }
+
+        .definition {
+            font-style: italic;
+            color: var(--dict-text-muted);
+            margin: 0 0 1rem 0;
+            font-size: 0.92rem;
+            line-height: 1.55;
+        }
+
+        .code-block {
+            background-color: var(--dict-code-bg);
+            color: var(--dict-code-text);
+            padding: 1rem 1.1rem;
+            margin: 0 0 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            line-height: 1.55;
+        }
+
+        .code-keyword {
+            color: #569cd6;
+        }
+
+        .code-type {
+            color: #4ec9b0;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-comment {
+            color: #6a9955;
+        }
+
+        .code-method {
+            color: #dcdcaa;
+        }
+
+        .dict-context {
+            padding: 1rem;
+            background-color: #f8fafc;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .dict-context h4 {
+            margin: 0 0 0.4rem 0;
+            color: var(--dict-text-main);
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .dict-context h4::before {
+            content: "💡";
+            margin-right: 8px;
+        }
+
+        .dict-context p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        /* ── EMPTY STATE ─────────────────────────────────────── */
+        #emptyState {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #94a3b8;
+        }
+
+        #emptyState .fa-search {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.4;
+        }
+
+        /* ── SECTION HIDDEN ──────────────────────────────────── */
+        .category-section.section-hidden .dictionary-grid {
+            display: none;
+        }
+
+        .category-section.section-hidden .category-header {
+            margin-bottom: 0;
+            border-bottom-style: dashed;
+            opacity: 0.65;
+        }
+
+        /* ── BACK TO TOP ─────────────────────────────────────── */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Include Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <header class="blog-header" id="blog">
+        <h1>I ferri del mestiere 🛠️</h1>
+        <p>Il mio dizionario personale di C# e .NET. Dalla sintassi base ai pattern architetturali, spiegati analizzando
+            il codice reale dei miei progetti in produzione.</p>
+    </header>
+
+    <!-- Introductory Section -->
+    <section class="section-intro mb-4 container text-center">
+        <p class="lead">
+            Non la solita teoria accademica, ma una vera e propria <strong>Knowledge Base operativa</strong>. Ogni
+            termine è accompagnato da snippet di codice estratti direttamente dalle mie applicazioni (come MotoLogPro o
+            Wallet Wise), per farti vedere come i concetti si traducono in soluzioni reali.
+        </p>
+        <p class="lead mt-3">
+            <i class="fab fa-github"></i>
+            <strong>Dai un'occhiata al mio profilo GitHub</strong> per esplorare il codice sorgente completo:
+            <a href="https://github.com/Mugen85" target="_blank">github.com/Mugen85</a>
+        </p>
+    </section>
+
+    <!-- ═══════════════ STICKY TOOLBAR ═══════════════ -->
+    <div class="glossary-toolbar mb-4">
+        <div class="container">
+            <!-- Search -->
+            <div class="search-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="glossarySearch" placeholder="Cerca un termine… (es. Interfaccia, Lambda, Enum)"
+                    autocomplete="off" />
+            </div>
+            <!-- Tag filter pills -->
+            <div class="tag-filters" id="tagFilters">
+                <span class="tag-pill active" data-filter="all">Tutti</span>
+                <span class="tag-pill" data-filter="struttura">Struttura C#</span>
+                <span class="tag-pill" data-filter="oop">Basi OOP</span>
+                <span class="tag-pill" data-filter="pilastro">OOP: Pilastro</span>
+                <span class="tag-pill" data-filter="pattern">Design / Pattern</span>
+                <span class="tag-pill" data-filter="maui">MAUI</span>
+                <span class="tag-pill" data-filter="db">EF Core / DB</span>
+                <span class="tag-pill" data-filter="flusso">Flusso / Asincrono</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+    <main class="container mb-5" id="glossaryContent">
+
+        <!-- ▓▓▓ CATEGORIA 1: FONDAMENTA OOP ▓▓▓ -->
+        <div class="category-section mb-5" id="cat-fondamenta">
+            <div class="category-header" style="color:#2563eb;">
+                <h3>Fondamenta OOP e Struttura</h3>
+                <button class="toggle-section-btn" style="color:#2563eb;"
+                    onclick="toggleSection(this, 'cat-fondamenta')">Chiudi tutto</button>
+            </div>
+            <div class="dictionary-grid align-items-start">
+
+                <!-- NAMESPACE -->
+                <div class="dict-card" data-term="namespace" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseNamespace"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Namespace</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseNamespace" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Un "contenitore logico" che organizza e raggruppa classi affini,
+                                evitando conflitti di nomi tra parti diverse del programma o librerie esterne.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">namespace</span> MotoLogPro.Domain.Entities;
+
+                                <span class="code-keyword">public class</span> <span class="code-type">Motorcycle</span>
+                                {
+                                <span class="code-comment">// ...</span>
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Usando il C# moderno (file-scoped namespace) evito di indentare tutto il file.
+                                    Raggruppo tutte le entità del database sotto <code>MotoLogPro.Domain.Entities</code>
+                                    per mantenere l'architettura Clean e ordinata.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODIFICATORI DI ACCESSO -->
+                <div class="dict-card" data-term="modificatori di accesso public private protected internal"
+                    data-tag="oop">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseModifiers"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Modificatori di Accesso</h2>
+                            <span class="dict-tag oop">Basi OOP</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseModifiers" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Parole chiave che definiscono la <em>visibilità</em> (chi può usare)
+                                di una classe, un metodo o una proprietà. Sono il primo strumento di Incapsulamento.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public</span> <span class="code-comment">// Visibile a tutti
+                                    (interno + esterno all'assembly)</span>
+                                <span class="code-keyword">private</span> <span class="code-comment">// Visibile solo
+                                    alla classe stessa</span>
+                                <span class="code-keyword">protected</span> <span class="code-comment">// Visibile alla
+                                    classe e alle sue figlie (Ereditarietà)</span>
+                                <span class="code-keyword">internal</span> <span class="code-comment">// Visibile solo
+                                    all'interno dello stesso progetto (.dll)</span>
+
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">AuthService</span>
+                                {
+                                <span class="code-keyword">private readonly</span> <span
+                                    class="code-type">HttpClient</span> _httpClient; <span class="code-comment">// solo
+                                    per questa classe</span>
+                                <span class="code-keyword">public</span> <span class="code-type">Task</span> <span
+                                    class="code-method">LoginAsync</span>() { ... } <span class="code-comment">//
+                                    accessibile dall'esterno</span>
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>La regola d'oro</h4>
+                                <p>Principio del minimo privilegio: esponi sempre il meno possibile. Inizia con
+                                    <code>private</code>, e allarga la visibilità solo quando strettamente necessario.
+                                    Rende il codice più sicuro e manutenibile.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CLASSE -->
+                <div class="dict-card" data-term="classe class" data-tag="oop">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseClasse"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Classe (Class)</h2>
+                            <span class="dict-tag oop">Basi OOP</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseClasse" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Il "progetto" o lo "stampo" da cui vengono creati gli oggetti in
+                                memoria. Raggruppa i dati (stato) e i metodi (comportamento). È un <em>tipo
+                                    riferimento</em>: l'oggetto vive nell'heap e viene gestito dal Garbage Collector.
+                            </p>
+                            <div class="code-block">
+                                <span class="code-keyword">public class</span> <span class="code-type">Motorcycle</span>
+                                {
+                                <span class="code-keyword">public int</span> Id { <span class="code-keyword">get</span>;
+                                <span class="code-keyword">set</span>; }
+                                <span class="code-keyword">public string</span> Brand { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">set</span>; } = <span
+                                    class="code-keyword">string</span>.Empty;
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Uso questa classe come entità fondamentale del dominio. Rappresenta la mappa nel
+                                    codice di quello che diventerà una vera e propria tabella nel database relazionale.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STRUCT -->
+                <div class="dict-card" data-term="struct struttura value type tipo valore" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseStruct"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Struct (Tipo Valore)</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseStruct" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Simile alla classe, ma è un <em>tipo valore</em>: vive nello stack
+                                (più veloce) e viene copiato per valore ad ogni assegnazione. Ideale per dati piccoli,
+                                immutabili e ad alta frequenza di utilizzo.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Esempio: Point è struct in .NET (copia il valore, non il
+                                    riferimento)</span>
+                                <span class="code-keyword">public readonly struct</span> <span
+                                    class="code-type">Money</span>
+                                {
+                                <span class="code-keyword">public decimal</span> Amount { <span
+                                    class="code-keyword">get</span>; }
+                                <span class="code-keyword">public string</span> Currency { <span
+                                    class="code-keyword">get</span>; }
+
+                                <span class="code-keyword">public</span> <span class="code-type">Money</span>(<span
+                                    class="code-keyword">decimal</span> amount, <span class="code-keyword">string</span>
+                                currency)
+                                => (Amount, Currency) = (amount, currency);
+                                }
+
+                                <span class="code-type">Money</span> a = <span class="code-keyword">new</span>(100m,
+                                <span class="code-string">"EUR"</span>);
+                                <span class="code-type">Money</span> b = a; <span class="code-comment">// b è una COPIA
+                                    indipendente di a</span>
+                            </div>
+                            <div class="dict-context">
+                                <h4>Class vs Struct: quando scegliere?</h4>
+                                <p>Usa <strong>struct</strong> per dati piccoli (2-3 campi), immutabili e usati spesso
+                                    (coordinate, colori, intervalli di tempo). Usa <strong>class</strong> per tutto il
+                                    resto. In WalletWise potrei usare una <code>struct Money</code> per incapsulare
+                                    importo + valuta senza overhead di allocazione.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ENUM -->
+                <div class="dict-card" data-term="enum enumerazione enumeratori" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseEnum"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Enum (Enumerazione)</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseEnum" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Un tipo speciale che definisce un insieme di costanti con nome.
+                                Trasforma "numeri magici" o stringhe fragili in valori leggibili, tipizzati e sicuri a
+                                compile-time.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public enum</span> <span class="code-type">FuelType</span>
+                                {
+                                Benzina = 0,
+                                Diesel = 1,
+                                Elettrico = 2,
+                                Ibrido = 3
+                                }
+
+                                <span class="code-comment">// Utilizzo nella classe Motorcycle</span>
+                                <span class="code-keyword">public</span> <span class="code-type">FuelType</span> Fuel {
+                                <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; } = <span
+                                    class="code-type">FuelType</span>.Benzina;
+
+                                <span class="code-comment">// Pattern matching su enum → codice leggibilissimo</span>
+                                <span class="code-keyword">var</span> label = vehicle.Fuel <span
+                                    class="code-keyword">switch</span>
+                                {
+                                <span class="code-type">FuelType</span>.Elettrico => <span class="code-string">"⚡ Zero
+                                    emissioni"</span>,
+                                <span class="code-type">FuelType</span>.Ibrido => <span class="code-string">"🌿
+                                    Ibrido"</span>,
+                                _ => <span class="code-string">"⛽ Carburante"</span>
+                                };
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Invece di salvare nel DB la stringa <code>"benzina"</code> (con tutti i rischi di
+                                    typo), salvo il valore intero <code>0</code> e mappo l'enum via Entity Framework. Il
+                                    codice è autodescrittivo e il compilatore mi avvisa subito se uso un valore
+                                    inesistente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EREDITARIETA' -->
+                <div class="dict-card" data-term="ereditarietà inheritance eredità" data-tag="pilastro">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseInheritance"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Ereditarietà (Inheritance)</h2>
+                            <span class="dict-tag pilastro">OOP: Pilastro</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseInheritance" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">La capacità di una classe (figlia) di assorbire e riutilizzare tutti i
+                                campi, le proprietà e i metodi di un'altra classe (genitore).</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">ApplicationUser</span> : <span
+                                    class="code-type">IdentityUser</span>
+                                {
+                                <span class="code-keyword">public string</span> FirstName { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">set</span>; } = <span
+                                    class="code-keyword">string</span>.Empty;
+                                <span class="code-keyword">public string</span> LastName { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">set</span>; } = <span
+                                    class="code-keyword">string</span>.Empty;
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Sfrutto la potenza del framework ASP.NET: ereditando da <code>IdentityUser</code>, la
+                                    mia classe riceve gratis Email, Password, e sicurezza. Io aggiungo solo i campi
+                                    extra che mi servono (Nome e Cognome).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OVERRIDE (POLIMORFISMO) -->
+                <div class="dict-card" data-term="override polimorfismo virtual" data-tag="pilastro">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseOverride"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Override (Polimorfismo)</h2>
+                            <span class="dict-tag pilastro">OOP: Pilastro</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseOverride" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Permette a una classe figlia di "sovrascrivere" il comportamento di un
+                                metodo ereditato dal genitore (marcato <code>virtual</code>) per personalizzarne il
+                                funzionamento.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">protected override void</span> <span
+                                    class="code-method">OnModelCreating</span>(<span
+                                    class="code-type">ModelBuilder</span> builder)
+                                {
+                                <span class="code-keyword">base</span>.<span
+                                    class="code-method">OnModelCreating</span>(builder);
+                                <span class="code-comment">// Aggiungo le mie regole personalizzate per le
+                                    tabelle</span>
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Nel <code>ApplicationDbContext</code> sovrascrivo questo metodo nativo di Entity
+                                    Framework. Richiamo prima le logiche base del genitore con
+                                    <code>base.OnModelCreating</code>, poi ci aggancio le mie configurazioni custom per
+                                    le tabelle.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CLASSE ASTRATTA -->
+                <div class="dict-card" data-term="classe astratta abstract" data-tag="oop">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseAbstract"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Classe Astratta (Abstract)</h2>
+                            <span class="dict-tag oop">Basi OOP</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseAbstract" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Una classe incompleta che non può essere istanziata direttamente (no
+                                <code>new</code>), ma funge da base concettuale obbligando altre classi a derivare da
+                                essa.</p>
+                            <div class="code-block">
+                                [<span class="code-type">ApiController</span>]
+                                [<span class="code-type">Route</span>(<span class="code-string">"[controller]"</span>)]
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">WeatherForecastController</span> : <span
+                                    class="code-type">ControllerBase</span>
+                                {
+                                <span class="code-comment">// Eredita metodi come Ok(), BadRequest() da
+                                    ControllerBase</span>
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Nelle mie API utilizzo <code>ControllerBase</code>, che è una classe astratta nativa
+                                    di ASP.NET. Fornisce fondamenta robuste e metodi pronti all'uso per gestire le
+                                    risposte HTTP.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SEALED -->
+                <div class="dict-card" data-term="sealed sigillata non ereditabile" data-tag="oop">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseSealed"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Classe Sealed (Sigillata)</h2>
+                            <span class="dict-tag oop">Basi OOP</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseSealed" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">L'opposto dell'abstract: una classe marcata <code>sealed</code>
+                                <em>non può</em> essere ereditata da nessuna altra classe. È la versione finale, chiusa
+                                ad ogni estensione.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public sealed class</span> <span
+                                    class="code-type">TokenService</span> : <span class="code-type">ITokenService</span>
+                                {
+                                <span class="code-comment">// Nessuno potrà mai fare: class HackedTokenService :
+                                    TokenService</span>
+                                <span class="code-keyword">public string</span> <span
+                                    class="code-method">GenerateToken</span>(<span
+                                    class="code-type">ApplicationUser</span> user) { ... }
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Perché usarla?</h4>
+                                <p>Sicurezza e performance. Il compilatore e il runtime sanno che non esiste alcuna
+                                    classe derivata, quindi possono ottimizzare le chiamate ai metodi (no dispatch
+                                    virtuale). Perfetta per servizi critici come la generazione di token JWT, dove
+                                    l'ereditarietà incontrollata sarebbe un rischio.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INTERFACCIA -->
+                <div class="dict-card" data-term="interfaccia interface contratto" data-tag="pattern">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseInterface"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Interfaccia (Interface)</h2>
+                            <span class="dict-tag pattern">Design / Astrazione</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseInterface" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Un contratto rigoroso. Definisce <i>quali</i> metodi e proprietà una
+                                classe deve possedere, ma non dichiara mai <i>come</i> devono essere implementati.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public interface</span> <span
+                                    class="code-type">IVehicleService</span>
+                                {
+                                <span class="code-type">Task</span>&lt;<span
+                                    class="code-type">IEnumerable</span>&lt;<span
+                                    class="code-type">VehicleDto</span>&gt;&gt; <span
+                                    class="code-method">GetMyVehiclesAsync</span>();
+                                <span class="code-type">Task</span>&lt;<span class="code-keyword">bool</span>&gt; <span
+                                    class="code-method">AddVehicleAsync</span>(<span class="code-type">VehicleDto</span>
+                                vehicle);
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Separa il "cosa" dal "come". L'app sa che esiste un servizio per recuperare i veicoli
+                                    (l'interfaccia), ma non le importa se questo li legge da un'API remota, da un
+                                    database locale SQLite o da un file di testo (l'implementazione).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STATIC -->
+                <div class="dict-card" data-term="static statico singleton" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseStatic"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Static (Membro/Classe Statica)</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseStatic" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Un membro <code>static</code> appartiene alla <em>classe stessa</em>,
+                                non a una sua istanza. Esiste uno e un solo esemplare di quel membro, condiviso da tutti
+                                gli oggetti e accessibile senza fare <code>new</code>.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Classe statica: non istanziabile, solo metodi di
+                                    utilità</span>
+                                <span class="code-keyword">public static class</span> <span
+                                    class="code-type">DateTimeHelper</span>
+                                {
+                                <span class="code-keyword">public static string</span> <span
+                                    class="code-method">ToItalianFormat</span>(<span class="code-type">DateTime</span>
+                                dt)
+                                => dt.<span class="code-method">ToString</span>(<span
+                                    class="code-string">"dd/MM/yyyy"</span>);
+                                }
+
+                                <span class="code-comment">// Uso diretto senza new:</span>
+                                <span class="code-keyword">var</span> label = <span
+                                    class="code-type">DateTimeHelper</span>.<span
+                                    class="code-method">ToItalianFormat</span>(<span
+                                    class="code-type">DateTime</span>.Now);
+                            </div>
+                            <div class="dict-context">
+                                <h4>Quando usarlo (e quando no)</h4>
+                                <p>Perfetto per classi di utilità pure (helper, costanti, extension methods). Da
+                                    <strong>evitare</strong> per la logica di business: le classi statiche non sono
+                                    iniettabili via DI, non sono mockabili nei test e creano dipendenze globali
+                                    difficili da gestire.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXTENSION METHODS -->
+                <div class="dict-card" data-term="extension methods metodi estensione this" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseExtension"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Extension Methods</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseExtension" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Permettono di "aggiungere" nuovi metodi a un tipo esistente (anche a
+                                quelli del framework come <code>string</code> o <code>IEnumerable</code>) senza
+                                modificarne il codice sorgente.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Definizione: primo parametro con "this" = tipo da
+                                    estendere</span>
+                                <span class="code-keyword">public static class</span> <span
+                                    class="code-type">StringExtensions</span>
+                                {
+                                <span class="code-keyword">public static bool</span> <span
+                                    class="code-method">IsValidEmail</span>(<span class="code-keyword">this
+                                    string</span> email)
+                                => email.<span class="code-method">Contains</span>(<span class="code-string">'@'</span>)
+                                && email.<span class="code-method">Contains</span>(<span
+                                    class="code-string">'.'</span>);
+                                }
+
+                                <span class="code-comment">// Utilizzo: sembra un metodo nativo di string!</span>
+                                <span class="code-keyword">bool</span> ok = <span
+                                    class="code-string">"marco@test.it"</span>.<span
+                                    class="code-method">IsValidEmail</span>(); <span class="code-comment">// →
+                                    true</span>
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Li utilizzo per registrare i servizi in <code>MauiProgram.cs</code> in modo ordinato.
+                                    Invece di avere un file unico con 200 righe di <code>builder.Services.Add...</code>,
+                                    creo metodi di estensione come <code>services.AddMotoLogProServices()</code> che
+                                    raggruppano registrazioni correlate in file separati.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CLASSE PARZIALE -->
+                <div class="dict-card" data-term="classe parziale partial source generator" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapsePartial"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Classe Parziale (Partial)</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapsePartial" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Permette di dividere la definizione di una singola classe su più file
+                                fisici. Il compilatore unirà tutti i frammenti al momento della compilazione.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public partial class</span> <span
+                                    class="code-type">LoginViewModel</span> : <span
+                                    class="code-type">ObservableObject</span>
+                                {
+                                <span class="code-comment">// Io scrivo qui le mie proprietà e comandi</span>
+                                <span class="code-comment">// Il CommunityToolkit genera il resto in background!</span>
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Fondamentale in MAUI (MVVM). Grazie a <code>partial</code>, i Source Generators
+                                    analizzano il mio codice e autogenerano centinaia di righe di boilerplate in un file
+                                    nascosto, unendolo alla mia classe per magia.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RECORD -->
+                <div class="dict-card" data-term="record immutabile dto" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseRecord"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Record</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseRecord" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Tipo di dato reference (come la classe) pensato principalmente per
+                                incapsulare dati "immutabili" (che non cambiano dopo la creazione) in modo
+                                ultracompatto.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public record</span> <span
+                                    class="code-type">LoginRequestDto</span>(
+                                <span class="code-keyword">string</span> Email,
+                                <span class="code-keyword">string</span> Password
+                                );
+
+                                <span class="code-comment">// Uguaglianza strutturale gratis! Due record sono
+                                    uguali</span>
+                                <span class="code-comment">// se hanno gli stessi dati (non lo stesso riferimento in
+                                    memoria)</span>
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Li utilizzo massicciamente per i DTO (Data Transfer Objects). Mi permettono di
+                                    definire "pacchetti postali" usa-e-getta che viaggiano tra il client MAUI e le Web
+                                    API con un'unica riga di codice pulitissima.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CAMPO -->
+                <div class="dict-card" data-term="campo field variabile interna stato" data-tag="oop">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseCampo"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Campo (Field)</h2>
+                            <span class="dict-tag oop">Basi OOP</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseCampo" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Una variabile dichiarata internamente alla classe. Per rispettare il
+                                principio di "Incapsulamento", si imposta come <code>private</code> (preceduto spesso da
+                                underscore <code>_</code>).</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">AuthService</span> : <span class="code-type">IAuthService</span>
+                                {
+                                <span class="code-keyword">private readonly</span> <span
+                                    class="code-type">HttpClient</span> _httpClient;
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Serve per mantenere uno stato interno accessibile solo alla classe stessa.
+                                    Aggiungendo <code>readonly</code> mi assicuro che la connessione HTTP, una volta
+                                    assegnata, non possa più essere alterata accidentalmente.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONST VS READONLY -->
+                <div class="dict-card" data-term="const readonly costante immutabile" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseConst2"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">const vs readonly</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseConst2" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Due modi per rendere un valore non modificabile, con una differenza
+                                cruciale: <code>const</code> è risolto a compile-time (valore noto subito),
+                                <code>readonly</code> è risolto a runtime (valore assegnato nel costruttore).</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public class</span> <span class="code-type">ApiConfig</span>
+                                {
+                                <span class="code-comment">// const: valore fisso, noto e immutabile per sempre</span>
+                                <span class="code-keyword">public const string</span> ApiVersion = <span
+                                    class="code-string">"v1"</span>;
+
+                                <span class="code-comment">// readonly: assegnato una volta sola nel costruttore</span>
+                                <span class="code-keyword">public readonly</span> <span class="code-type">Uri</span>
+                                BaseUrl;
+
+                                <span class="code-keyword">public</span> <span class="code-type">ApiConfig</span>(<span
+                                    class="code-keyword">string</span> host)
+                                {
+                                BaseUrl = <span class="code-keyword">new</span> <span
+                                    class="code-type">Uri</span>(host); <span class="code-comment">// può dipendere da
+                                    parametri!</span>
+                                }
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>La regola pratica</h4>
+                                <p>Usa <code>const</code> per valori primitivi davvero fissi (stringhe di versione,
+                                    limiti numerici). Usa <code>readonly</code> per qualsiasi dipendenza o oggetto
+                                    iniettato via costruttore — è il pattern che usi in ogni <code>AuthService</code> o
+                                    <code>ViewModel</code>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROPRIETÀ -->
+                <div class="dict-card" data-term="proprietà property get set" data-tag="oop">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseProperty"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Proprietà (Property)</h2>
+                            <span class="dict-tag oop">Basi OOP</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseProperty" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Funge da "portinaio" per l'accesso ai dati. Permette di esporre un
+                                valore pubblico, controllandone la lettura (get) e la scrittura (set).</p>
+                            <div class="code-block">
+                                [<span class="code-type">ObservableProperty</span>]
+                                <span class="code-keyword">private string</span> _email = <span
+                                    class="code-keyword">string</span>.Empty;
+
+                                <span class="code-comment">// Tradotto (da MAUI e MVVM) equivarrebbe a:</span>
+                                <span class="code-keyword">public string</span> Email
+                                {
+                                <span class="code-keyword">get</span> => _email;
+                                <span class="code-keyword">set</span> { _email = value; <span
+                                    class="code-method">OnPropertyChanged</span>(); }
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Grazie al Toolkit MAUI uso l'attributo sul campo privato, che genera in automatico la
+                                    Proprietà Pubblica. Il magico blocco <code>set</code> avvisa in tempo reale
+                                    l'interfaccia grafica quando l'utente digita qualcosa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- METODO -->
+                <div class="dict-card" data-term="metodo method funzione comportamento" data-tag="oop">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseMethod"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Metodo (Method)</h2>
+                            <span class="dict-tag oop">Basi OOP</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseMethod" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Un blocco di codice che racchiude una logica specifica o un'azione.
+                                Definisce il comportamento e "cosa sa fare" l'oggetto.</p>
+                            <div class="code-block">
+                                [<span class="code-type">HttpGet</span>(<span
+                                    class="code-string">"GetWeatherForecast"</span>)]
+                                <span class="code-keyword">public</span> <span
+                                    class="code-type">IEnumerable</span>&lt;<span
+                                    class="code-type">WeatherForecast</span>&gt; <span class="code-method">Get</span>()
+                                {
+                                <span class="code-comment">// Codice che elabora e ritorna dati</span>
+                                <span class="code-keyword">return</span> forecastList;
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Nelle Web API un metodo pubblico agganciato a un attributo <code>[HttpGet]</code>
+                                    diventa un Endpoint: un "pulsante virtuale" che l'app mobile preme tramite internet
+                                    per farsi inviare informazioni (es. la lista delle moto).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DELEGATI / ACTION / FUNC -->
+                <div class="dict-card" data-term="delegato delegate action func puntatore funzione"
+                    data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseDelegate"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Delegati, Action e Func</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseDelegate" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Un <em>delegato</em> è un tipo che rappresenta un riferimento a un
+                                metodo (come un "puntatore a funzione" tipizzato). <code>Action</code> e
+                                <code>Func</code> sono delegati generici predefiniti in .NET che evitano di definire
+                                delegati custom.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Action: metodo che non ritorna nulla (void)</span>
+                                <span class="code-type">Action</span>&lt;<span class="code-keyword">string</span>&gt;
+                                showAlert = (msg) => Console.<span class="code-method">WriteLine</span>(msg);
+                                <span class="code-method">showAlert</span>(<span class="code-string">"Login
+                                    riuscito!"</span>);
+
+                                <span class="code-comment">// Func: metodo che ritorna un valore (ultimo T = tipo
+                                    ritorno)</span>
+                                <span class="code-type">Func</span>&lt;<span class="code-keyword">decimal</span>, <span
+                                    class="code-keyword">decimal</span>, <span class="code-keyword">decimal</span>&gt;
+                                addIva = (price, rate) => price * (1 + rate);
+                                <span class="code-keyword">var</span> total = <span
+                                    class="code-method">addIva</span>(100m, 0.22m); <span class="code-comment">// →
+                                    122</span>
+
+                                <span class="code-comment">// Uso tipico: callback e pipeline di elaborazione
+                                    dati</span>
+                                <span class="code-keyword">public void</span> <span
+                                    class="code-method">ProcessVehicles</span>(<span
+                                    class="code-type">Func</span>&lt;<span class="code-type">Vehicle</span>, <span
+                                    class="code-keyword">bool</span>&gt; filter)
+                                {
+                                <span class="code-keyword">var</span> result = _vehicles.<span
+                                    class="code-method">Where</span>(filter);
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>La connessione con LINQ e Lambda</h4>
+                                <p>Sono il cuore di LINQ: ogni metodo come <code>.Where()</code>,
+                                    <code>.Select()</code>, <code>.OrderBy()</code> accetta in realtà un
+                                    <code>Func</code> come parametro. Quando scrivi una lambda
+                                    <code>x => x.Brand == "Yamaha"</code>, stai passando una
+                                    <code>Func&lt;Vehicle, bool&gt;</code> in modo compatto.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LAMBDA -->
+                <div class="dict-card" data-term="lambda espressione freccia arrow linq" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseLambda"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Espressioni Lambda (=&gt;)</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseLambda" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Una sintassi compatta per definire funzioni anonime (senza nome)
+                                inline. Il simbolo <code>=&gt;</code> si legge "tale che" o "va in". Sono il modo
+                                moderno e conciso per passare logica come parametro.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Sintassi base: (parametri) => espressione</span>
+                                <span class="code-type">Func</span>&lt;<span class="code-keyword">int</span>, <span
+                                    class="code-keyword">int</span>&gt; square = x => x * x;
+
+                                <span class="code-comment">// In LINQ per filtrare, trasformare, ordinare</span>
+                                <span class="code-keyword">var</span> yamahas = vehicles
+                                .<span class="code-method">Where</span>(v => v.Brand == <span
+                                    class="code-string">"Yamaha"</span>)
+                                .<span class="code-method">OrderBy</span>(v => v.Year)
+                                .<span class="code-method">Select</span>(v => <span class="code-keyword">new</span> {
+                                v.Model, v.Year });
+
+                                <span class="code-comment">// Metodi con corpo multi-riga</span>
+                                <span class="code-type">Func</span>&lt;<span class="code-keyword">int</span>, <span
+                                    class="code-keyword">string</span>&gt; classify = km =>
+                                {
+                                <span class="code-keyword">if</span> (km &lt; 10000) <span
+                                    class="code-keyword">return</span> <span class="code-string">"Nuova"</span>;
+                                <span class="code-keyword">if</span> (km &lt; 50000) <span
+                                    class="code-keyword">return</span> <span class="code-string">"Usata"</span>;
+                                <span class="code-keyword">return</span> <span class="code-string">"Alta
+                                    percorrenza"</span>;
+                                };
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Ovunque ci sia LINQ, ci sono le lambda. Le uso per filtrare le moto per utente, per
+                                    ordinare i log di manutenzione per data, o per trasformare le entità del DB nei DTO
+                                    da inviare all'app mobile — tutto in poche righe leggibili e senza classi
+                                    intermedie.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VAR -->
+                <div class="dict-card" data-term="var inferenza tipo implicito" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseVar"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">var (Inferenza di Tipo)</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseVar" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Parola chiave che lascia al compilatore il compito di dedurre
+                                automaticamente il tipo di una variabile dal valore assegnato. Non è "tipizzazione
+                                dinamica": il tipo è fisso e sicuro, determinato a compile-time.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Con var: il compilatore deduce il tipo corretto</span>
+                                <span class="code-keyword">var</span> vehicles = <span class="code-keyword">await</span>
+                                _context.Motorcycles.<span class="code-method">ToListAsync</span>();
+                                <span class="code-comment">// → tipo effettivo: List&lt;Motorcycle&gt;</span>
+
+                                <span class="code-keyword">var</span> response = <span class="code-keyword">await</span>
+                                _httpClient.<span class="code-method">PostAsJsonAsync</span>(<span
+                                    class="code-string">"/login"</span>, dto);
+                                <span class="code-comment">// → tipo effettivo: HttpResponseMessage</span>
+
+                                <span class="code-comment">// NON usare var quando il tipo non è ovvio dal
+                                    contesto</span>
+                                <span class="code-keyword">var</span> x = <span class="code-method">GetData</span>();
+                                <span class="code-comment">// ❌ poco chiaro</span>
+                                <span class="code-type">List</span>&lt;<span class="code-type">Vehicle</span>&gt; x =
+                                <span class="code-method">GetData</span>(); <span class="code-comment">// ✅
+                                    esplicito</span>
+                            </div>
+                            <div class="dict-context">
+                                <h4>La regola d'oro</h4>
+                                <p>Usa <code>var</code> quando il tipo è <strong>ovvio</strong> dalla parte destra
+                                    dell'espressione (es. risultati di LINQ, <code>new</code>, metodi con nome
+                                    descrittivo). Evitalo quando il tipo non è immediatamente chiaro per chi legge il
+                                    codice dopo di te.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GENERICS -->
+                <div class="dict-card" data-term="generics t type jolly tipizzazione" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseGenerics"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Generics &lt;T&gt;</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseGenerics" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Consentono di definire classi, metodi o interfacce "jolly", ritardando
+                                la specifica del tipo di dato (Type) finché non viene effettivamente utilizzato.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Iniezione di una dipendenza (Metodo Generico)</span>
+                                builder.Services.<span class="code-method">AddHttpClient</span>&lt;<span
+                                    class="code-type">IAuthService</span>, <span
+                                    class="code-type">AuthService</span>&gt;(...);
+
+                                <span class="code-comment">// Ritorno tipizzato asincrono (Classe Generica)</span>
+                                <span class="code-keyword">public</span> <span class="code-type">Task</span>&lt;<span
+                                    class="code-type">IEnumerable</span>&lt;<span
+                                    class="code-type">VehicleDto</span>&gt;&gt; <span
+                                    class="code-method">GetMyVehiclesAsync</span>();
+
+                                <span class="code-comment">// Repository generico: un solo metodo, qualsiasi
+                                    entità</span>
+                                <span class="code-keyword">public async</span> <span
+                                    class="code-type">Task</span>&lt;<span class="code-type">T</span>?&gt; <span
+                                    class="code-method">GetByIdAsync</span>&lt;<span
+                                    class="code-type">T</span>&gt;(<span class="code-keyword">int</span> id) <span
+                                    class="code-keyword">where</span> <span class="code-type">T</span> : <span
+                                    class="code-type">BaseEntity</span>
+                                => <span class="code-keyword">await</span> _context.<span
+                                    class="code-method">Set</span>&lt;<span class="code-type">T</span>&gt;().<span
+                                    class="code-method">FindAsync</span>(id);
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>C# è fortemente tipizzato (Type-Safe). Invece di avere un <code>Task</code> che
+                                    restituisce "roba indefinita", i generics mi permettono di dire esattamente cosa
+                                    ritornerà un'operazione asincrona, prevenendo errori già in fase di scrittura del
+                                    codice.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /dictionary-grid -->
+        </div><!-- /cat-fondamenta -->
+
+        <!-- ▓▓▓ CATEGORIA 2: INIZIALIZZAZIONE E FLUSSO ▓▓▓ -->
+        <div class="category-section mb-5" id="cat-flusso">
+            <div class="category-header" style="color:#059669;">
+                <h3>Inizializzazione e flussi d'esecuzione</h3>
+                <button class="toggle-section-btn" style="color:#059669;"
+                    onclick="toggleSection(this, 'cat-flusso')">Chiudi tutto</button>
+            </div>
+            <div class="dictionary-grid align-items-start">
+
+                <!-- COSTRUTTORE CLASSICO -->
+                <div class="dict-card" data-term="costruttore classico constructor new ciclo vita" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseConst"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Costruttore Classico</h2>
+                            <span class="dict-tag struttura">Ciclo di Vita</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseConst" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Un metodo speciale (avente lo stesso nome della classe) eseguito una
+                                sola volta, l'istante in cui l'oggetto prende vita (<code>new</code>). Prepara lo stato
+                                iniziale.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">AuthService</span> : <span class="code-type">IAuthService</span>
+                                {
+                                <span class="code-keyword">private readonly</span> <span
+                                    class="code-type">HttpClient</span> _httpClient;
+
+                                <span class="code-comment">// Questo è il costruttore "classico"</span>
+                                <span class="code-keyword">public</span> <span
+                                    class="code-type">AuthService</span>(<span class="code-type">HttpClient</span>
+                                httpClient)
+                                {
+                                _httpClient = httpClient;
+                                }
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>La logica Enterprise</h4>
+                                <p>Riceve in ingresso le "dipendenze" (come la connessione al web) passate dal sistema e
+                                    le salva nei campi interni. Era lo standard assoluto fino a C# 11.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COSTRUTTORE PRIMARIO -->
+                <div class="dict-card" data-term="costruttore primario primary constructor c# 12" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapsePrimaryConst"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Costruttore Primario</h2>
+                            <span class="dict-tag struttura">C# 12</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapsePrimaryConst" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">L'evoluzione "leggera". Invece di scrivere il metodo del costruttore
+                                all'interno della classe, le dipendenze si dichiarano direttamente affianco al nome
+                                della classe.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">public partial class</span> <span
+                                    class="code-type">LoginViewModel</span>(<span class="code-type">IAuthService</span>
+                                authService)
+                                {
+                                <span class="code-keyword">private readonly</span> <span
+                                    class="code-type">IAuthService</span> _authService = authService;
+                                }
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Abbatte vertiginosamente le righe di codice (boilerplate) da scrivere quando devo
+                                    iniettare servizi ripetitivi nei miei ViewModel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- USING / IDISPOSABLE -->
+                <div class="dict-card" data-term="using idisposable dispose risorse memoria stream" data-tag="flusso">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseUsing"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">using / IDisposable</h2>
+                            <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Risorse</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseUsing" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Lo statement <code>using</code> garantisce che un oggetto che gestisce
+                                risorse esterne (file, connessioni DB, stream) venga <em>sempre</em> rilasciato
+                                correttamente al termine del blocco, anche in caso di eccezione.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Sintassi classica: Dispose() chiamato in automatico alla
+                                    fine del blocco</span>
+                                <span class="code-keyword">using</span> (<span class="code-keyword">var</span> stream =
+                                <span class="code-keyword">new</span> <span class="code-type">FileStream</span>(path,
+                                <span class="code-type">FileMode</span>.Open))
+                                {
+                                <span class="code-comment">// leggo il file...</span>
+                                } <span class="code-comment">// ← stream.Dispose() chiamato qui, sempre</span>
+
+                                <span class="code-comment">// Sintassi moderna (C# 8+): scope della variabile = fine del
+                                    metodo</span>
+                                <span class="code-keyword">using var</span> connection = <span
+                                    class="code-keyword">new</span> <span
+                                    class="code-type">SqlConnection</span>(connectionString);
+                                <span class="code-keyword">await</span> connection.<span
+                                    class="code-method">OpenAsync</span>();
+                                <span class="code-comment">// connection.Dispose() chiamato automaticamente quando il
+                                    metodo termina</span>
+                            </div>
+                            <div class="dict-context">
+                                <h4>La connessione con IDisposable</h4>
+                                <p>Qualsiasi classe che implementa l'interfaccia <code>IDisposable</code> espone un
+                                    metodo <code>Dispose()</code> con la logica di pulizia. Lo statement
+                                    <code>using</code> è semplicemente zucchero sintattico che chiama quel metodo in
+                                    modo garantito — è l'alternativa sicura al ricordarsi di farlo a mano in un
+                                    <code>finally</code>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NULLABLE TYPES -->
+                <div class="dict-card" data-term="nullable null tipo nullabile ? null reference" data-tag="struttura">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseNullable"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Nullable Types e Null Safety</h2>
+                            <span class="dict-tag struttura">Struttura C#</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseNullable" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">C# distingue tra tipi che <em>possono</em> essere null (marcati con
+                                <code>?</code>) e tipi che non lo possono essere. Con Nullable Reference Types
+                                abilitati, il compilatore avvisa quando rischi una <code>NullReferenceException</code>
+                                prima ancora di eseguire il codice.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// int non può essere null. int? sì.</span>
+                                <span class="code-keyword">int</span> km = <span class="code-keyword">null</span>; <span
+                                    class="code-comment">// ❌ errore di compilazione</span>
+                                <span class="code-keyword">int</span>? kmOpt = <span class="code-keyword">null</span>;
+                                <span class="code-comment">// ✅ OK</span>
+
+                                <span class="code-comment">// Null-conditional operator ?. — cortocircuita se
+                                    null</span>
+                                <span class="code-keyword">string</span>? name = user?.FirstName; <span
+                                    class="code-comment">// null se user è null, nessuna eccezione</span>
+
+                                <span class="code-comment">// Null-coalescing operator ?? — valore di fallback</span>
+                                <span class="code-keyword">string</span> display = user?.FullName ?? <span
+                                    class="code-string">"Ospite"</span>;
+
+                                <span class="code-comment">// Null-forgiving operator ! — "so quello che faccio,
+                                    fidati"</span>
+                                <span class="code-keyword">var</span> token = SecureStorage.<span
+                                    class="code-method">GetAsync</span>(<span
+                                    class="code-string">"token"</span>).Result!;
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Con <code>&lt;Nullable&gt;enable&lt;/Nullable&gt;</code> nel <code>.csproj</code>, il
+                                    compilatore mi avvisa se provo ad accedere a una proprietà di un oggetto che
+                                    potrebbe essere null. Ho eliminato decine di potenziali crash in produzione ancora
+                                    prima di avviare l'app, solo seguendo i warning del compilatore.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PATTERN MATCHING -->
+                <div class="dict-card" data-term="pattern matching is switch expression when type pattern"
+                    data-tag="flusso">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapsePattern"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">Pattern Matching</h2>
+                            <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Flusso</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapsePattern" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Una sintassi potente per testare un'espressione non solo contro un
+                                valore, ma anche contro un <em>tipo</em>, una <em>struttura</em> o una
+                                <em>condizione</em>, estraendo direttamente le informazioni in un'unica operazione.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// is-pattern: controlla il tipo E assegna la variabile in un
+                                    colpo</span>
+                                <span class="code-keyword">if</span> (shape <span class="code-keyword">is</span> <span
+                                    class="code-type">Circle</span> c)
+                                Console.<span class="code-method">WriteLine</span>($<span class="code-string">"Raggio:
+                                    {c.Radius}"</span>);
+
+                                <span class="code-comment">// switch expression (C# 8+): compatto, senza break, ritorna
+                                    un valore</span>
+                                <span class="code-keyword">var</span> message = statusCode <span
+                                    class="code-keyword">switch</span>
+                                {
+                                200 => <span class="code-string">"✅ OK"</span>,
+                                401 => <span class="code-string">"🔒 Non autorizzato"</span>,
+                                404 => <span class="code-string">"❓ Non trovato"</span>,
+                                >= 500 => <span class="code-string">"💥 Errore server"</span>,
+                                _ => <span class="code-string">"⚠️ Sconosciuto"</span>
+                                };
+
+                                <span class="code-comment">// Property pattern: match su proprietà dell'oggetto</span>
+                                <span class="code-keyword">var</span> label = vehicle <span
+                                    class="code-keyword">switch</span>
+                                {
+                                { Fuel: <span class="code-type">FuelType</span>.Elettrico, Year: > 2022 } => <span
+                                    class="code-string">"⚡ EV Recente"</span>,
+                                { Km: > 100_000 } => <span class="code-string">"🔧 Alta percorrenza"</span>,
+                                _ => <span class="code-string">"🏍️ Standard"</span>
+                                };
+                            </div>
+                            <div class="dict-context">
+                                <h4>Il caso d'uso in MotoLogPro</h4>
+                                <p>Lo uso per mappare i codici di risposta HTTP delle Web API in messaggi leggibili, e
+                                    per categorizzare i veicoli in base a più proprietà combinate senza if/else a
+                                    cascata. Il codice risultante è più corto, privo di bug di <code>break</code>
+                                    dimenticati e immediatamente leggibile.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LINQ -->
+                <div class="dict-card" data-term="linq query select where orderby groupby collezioni liste"
+                    data-tag="flusso">
+                    <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseLinq"
+                        aria-expanded="false" role="button">
+                        <div class="term-wrapper">
+                            <h2 class="term">LINQ (Language Integrated Query)</h2>
+                            <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Flusso / Dati</span>
+                        </div>
+                        <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                    </div>
+                    <div id="collapseLinq" class="collapse">
+                        <div class="dict-card-body">
+                            <p class="definition">Un sistema di query integrato nel linguaggio che permette di filtrare,
+                                trasformare e aggregare qualsiasi collezione (liste, array, risultati DB) con una
+                                sintassi uniforme e leggibile, senza scrivere cicli <code>for</code> a mano.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Method syntax (la più usata in produzione)</span>
+                                <span class="code-keyword">var</span> result = vehicles
+                                .<span class="code-method">Where</span>(v => v.UserId == currentUserId)
+                                .<span class="code-method">OrderByDescending</span>(v => v.Year)
+                                .<span class="code-method">Select</span>(v => <span class="code-keyword">new</span>
+                                <span class="code-type">VehicleDto</span>
+                                {
+                                Id = v.Id,
+                                Brand = v.Brand,
+                                Model = v.Model
+                                })
+                                .<span class="code-method">ToListAsync</span>(); <span class="code-comment">// eseguito
+                                    UNA SOLA VOLTA sul DB (deferred execution)</span>
+
+                                <span class="code-comment">// Aggregazioni immediate</span>
+                                <span class="code-keyword">int</span> count = vehicles.<span
+                                    class="code-method">Count</span>(v => v.Fuel == <span
+                                    class="code-type">FuelType</span>.Elettrico);
+                                <span class="code-keyword">decimal</span> avgKm = vehicles.<span
+                                    class="code-method">Average</span>(v => v.Km);
+                                <span class="code-keyword">bool</span> hasOld = vehicles.<span
+                                    class="code-method">Any</span>(v => v.Year < 2000); </div>
+                                    <div class="dict-context">
+                                        <h4>Il caso d'uso in MotoLogPro</h4>
+                                        <p>Con Entity Framework Core, LINQ non gira in memoria: viene tradotto in SQL
+                                            ottimizzato e inviato al database. Scrivo codice C# tipizzato e leggibile,
+                                            il framework si occupa di generare la query SQL corretta. Nessun SQL scritto
+                                            a mano, zero rischi di SQL injection.</p>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- METODO ASINCRONO -->
+                    <div class="dict-card" data-term="asincrono async await task thread" data-tag="flusso">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseAsync"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">Metodo Asincrono (Async/Await)</h2>
+                                <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Flusso</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseAsync" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">Un blocco di codice progettato per avviare compiti "lenti" (API,
+                                    DB, I/O) mettendo in attesa solo se stesso (tramite <code>await</code>), senza
+                                    paralizzare il dispositivo dell'utente.</p>
+                                <div class="code-block">
+                                    <span class="code-keyword">public async</span> <span
+                                        class="code-type">Task</span>&lt;<span class="code-keyword">bool</span>&gt;
+                                    <span class="code-method">LoginAsync</span>(<span class="code-keyword">string</span>
+                                    email, <span class="code-keyword">string</span> pwd)
+                                    {
+                                    <span class="code-keyword">var</span> response = <span
+                                        class="code-keyword">await</span> _httpClient.<span
+                                        class="code-method">PostAsJsonAsync</span>(<span
+                                        class="code-string">"/login"</span>, dto);
+                                    <span class="code-keyword">return</span> response.IsSuccessStatusCode;
+                                    }
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Il caso d'uso in MotoLogPro</h4>
+                                    <p>Nelle app mobile è obbligatorio: permette al "thread della UI" di continuare a
+                                        far girare l'animazione di caricamento mentre il sistema dialoga pazientemente
+                                        col server web nel background.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CANCELLATION TOKEN -->
+                    <div class="dict-card" data-term="cancellationtoken annulla cancella operazione asincrona timeout"
+                        data-tag="flusso">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseCancellation"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">CancellationToken</h2>
+                                <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Flusso</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseCancellation" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">Un meccanismo cooperativo per segnalare a un'operazione asincrona
+                                    che dovrebbe interrompersi. Non la ferma con la forza: il codice deve controllare il
+                                    token e decidere quando fermarsi.</p>
+                                <div class="code-block">
+                                    <span class="code-comment">// Lato Controller: il framework inietta il token
+                                        automaticamente</span>
+                                    [<span class="code-type">HttpGet</span>]
+                                    <span class="code-keyword">public async</span> <span
+                                        class="code-type">Task</span>&lt;<span
+                                        class="code-type">IActionResult</span>&gt; <span
+                                        class="code-method">GetVehiclesAsync</span>(<span
+                                        class="code-type">CancellationToken</span> ct)
+                                    {
+                                    <span class="code-keyword">var</span> vehicles = <span
+                                        class="code-keyword">await</span> _context.Motorcycles
+                                    .<span class="code-method">ToListAsync</span>(ct); <span class="code-comment">// si
+                                        interrompe se il client chiude la connessione</span>
+                                    <span class="code-keyword">return</span> <span
+                                        class="code-method">Ok</span>(vehicles);
+                                    }
+
+                                    <span class="code-comment">// Lato client: timeout manuale dopo 10 secondi</span>
+                                    <span class="code-keyword">using var</span> cts = <span
+                                        class="code-keyword">new</span> <span
+                                        class="code-type">CancellationTokenSource</span>(<span
+                                        class="code-type">TimeSpan</span>.FromSeconds(10));
+                                    <span class="code-keyword">var</span> data = <span class="code-keyword">await</span>
+                                    _service.<span class="code-method">GetVehiclesAsync</span>(cts.Token);
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Perché è importante</h4>
+                                    <p>Senza <code>CancellationToken</code>, se un utente naviga via da una pagina
+                                        mentre una query è in esecuzione, il server continua a lavorare inutilmente
+                                        sprecando risorse. Passando il token di ASP.NET Core alla query EF Core, la
+                                        chiamata al DB viene annullata automaticamente se il client si disconnette.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- YIELD RETURN -->
+                    <div class="dict-card" data-term="yield return ienumerable lazy evaluation sequenza pigra"
+                        data-tag="flusso">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseYield"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">yield return (Lazy Sequences)</h2>
+                                <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Flusso</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseYield" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">Permette di costruire sequenze "pigre" (lazy): gli elementi
+                                    vengono generati uno alla volta <em>solo quando richiesti</em>, senza creare una
+                                    lista completa in memoria. Il metodo si "mette in pausa" ad ogni <code>yield</code>
+                                    e riprende alla chiamata successiva.</p>
+                                <div class="code-block">
+                                    <span class="code-comment">// Senza yield: crea TUTTA la lista in memoria prima di
+                                        restituirla</span>
+                                    <span class="code-type">IEnumerable</span>&lt;<span
+                                        class="code-keyword">int</span>&gt; <span
+                                        class="code-method">GetEvenNumbers</span>(<span class="code-keyword">int</span>
+                                    max)
+                                    {
+                                    <span class="code-keyword">var</span> list = <span class="code-keyword">new</span>
+                                    <span class="code-type">List</span>&lt;<span class="code-keyword">int</span>&gt;();
+                                    <span class="code-keyword">for</span> (<span class="code-keyword">int</span> i = 0;
+                                    i <= max; i +=2) list.<span class="code-method">Add</span>(i);
+                                        <span class="code-keyword">return</span> list;
+                                        }
+
+                                        <span class="code-comment">// Con yield: produce UN elemento alla volta, solo se
+                                            serve</span>
+                                        <span class="code-type">IEnumerable</span>&lt;<span
+                                            class="code-keyword">int</span>&gt; <span
+                                            class="code-method">GetEvenNumbers</span>(<span
+                                            class="code-keyword">int</span> max)
+                                        {
+                                        <span class="code-keyword">for</span> (<span class="code-keyword">int</span> i =
+                                        0; i <= max; i +=2) <span class="code-keyword">yield return</span> i; <span
+                                                class="code-comment">// pausa qui, riprende alla prossima
+                                                iterazione</span>
+                                            }
+
+                                            <span class="code-comment">// Se ci fermo al 3° elemento, gli altri NON
+                                                vengono mai calcolati</span>
+                                            <span class="code-keyword">var</span> first3 = <span
+                                                class="code-method">GetEvenNumbers</span>(1_000_000).<span
+                                                class="code-method">Take</span>(3); <span class="code-comment">// 0, 2,
+                                                4</span>
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Quando usarlo</h4>
+                                    <p>Ideale per pipeline di dati, validazioni con più regole (restituisci gli errori
+                                        uno alla volta), o quando lavori con sequenze potenzialmente infinite o molto
+                                        grandi dove caricare tutto in memoria sarebbe costoso. In LINQ, molti operatori
+                                        come <code>.Where()</code> e <code>.Select()</code> usano <code>yield</code>
+                                        internamente — è per questo che LINQ è lazy per default.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TRY CATCH -->
+                    <div class="dict-card" data-term="try catch finally eccezione errore exception" data-tag="flusso">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseTry"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">Try-Catch-Finally</h2>
+                                <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Sicurezza</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseTry" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">Il giubbotto antiproiettile per il codice. Tenta un'esecuzione
+                                    (try), cattura eventuali esplosioni o errori inaspettati (catch), e assicura una
+                                    pulizia finale (finally).</p>
+                                <div class="code-block">
+                                    <span class="code-keyword">try</span>
+                                    {
+                                    IsBusy = <span class="code-keyword">true</span>;
+                                    <span class="code-keyword">await</span> _authService.<span
+                                        class="code-method">LoginAsync</span>(Email, Pwd);
+                                    }
+                                    <span class="code-keyword">catch</span> (<span
+                                        class="code-type">HttpRequestException</span> ex) <span
+                                        class="code-keyword">when</span> (ex.StatusCode == 401)
+                                    {
+                                    ErrorMessage = <span class="code-string">"Credenziali non valide."</span>;
+                                    }
+                                    <span class="code-keyword">catch</span> (<span class="code-type">Exception</span>
+                                    ex)
+                                    {
+                                    <span class="code-keyword">await</span> Shell.Current.<span
+                                        class="code-method">DisplayAlert</span>(<span
+                                        class="code-string">"Errore"</span>, ex.Message, <span
+                                        class="code-string">"OK"</span>);
+                                    }
+                                    <span class="code-keyword">finally</span>
+                                    {
+                                    IsBusy = <span class="code-keyword">false</span>;
+                                    }
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Il caso d'uso in MotoLogPro</h4>
+                                    <p>Nota il <code>catch when</code>: permette di filtrare le eccezioni non solo per
+                                        tipo ma anche per condizione, gestendo il 401 separatamente dagli altri errori
+                                        di rete. Il <code>finally</code> spegne a prescindere l'indicatore di
+                                        caricamento — anche se il catch stesso lancia un'eccezione.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ▓▓▓ CATEGORIA 3: PATTERN ARCHITETTURALI ▓▓▓ -->
+            <div class="category-section mb-5" id="cat-pattern">
+                <div class="category-header" style="color:#7c3aed;">
+                    <h3>Pattern architetturali e dati</h3>
+                    <button class="toggle-section-btn" style="color:#7c3aed;"
+                        onclick="toggleSection(this, 'cat-pattern')">Chiudi tutto</button>
+                </div>
+                <div class="dictionary-grid align-items-start">
+
+                    <!-- DEPENDENCY INJECTION -->
+                    <div class="dict-card" data-term="dependency injection di ioc container inversione controllo"
+                        data-tag="pattern">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseDI"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">Dependency Injection (DI)</h2>
+                                <span class="dict-tag pattern">Architettura</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseDI" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">Un paradigma in cui una classe non "costruisce da sola" i suoi
+                                    attrezzi (con <code>new</code>), ma li richiede in ingresso nel suo costruttore.</p>
+                                <div class="code-block">
+                                    <span class="code-comment">// 1. All'avvio dell'app registro il servizio
+                                        (MauiProgram.cs)</span>
+                                    builder.Services.<span class="code-method">AddHttpClient</span>&lt;<span
+                                        class="code-type">IAuthService</span>, <span
+                                        class="code-type">AuthService</span>&gt;();
+
+                                    <span class="code-comment">// 2. Il ViewModel riceve il servizio in "Iniezione"
+                                        (LoginViewModel.cs)</span>
+                                    <span class="code-keyword">public</span> <span
+                                        class="code-type">LoginViewModel</span>(<span
+                                        class="code-type">IAuthService</span> authService) { ... }
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Il caso d'uso in MotoLogPro</h4>
+                                    <p>È il cuore di .NET. Gestendo tutto il "magazzino attrezzi" (IoC Container) da un
+                                        unico file, posso cambiare il motore del software senza toccare minimamente le
+                                        pagine o le classi.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DATA ANNOTATIONS -->
+                    <div class="dict-card" data-term="data annotations attributi validazione ef core entity framework"
+                        data-tag="db">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseEF"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">Data Annotations</h2>
+                                <span class="dict-tag db">EF Core</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseEF" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">"Etichette" speciali da applicare alle proprietà. Servono sia per
+                                    la validazione automatica (Frontend) che per mappare lo schema del Database
+                                    (Backend).</p>
+                                <div class="code-block">
+                                    [<span class="code-type">Required</span>]
+                                    [<span class="code-type">MaxLength</span>(17)]
+                                    <span class="code-keyword">public string</span> Vin { <span
+                                        class="code-keyword">get</span>; <span class="code-keyword">set</span>; } =
+                                    <span class="code-keyword">string</span>.Empty; <span class="code-comment">//
+                                        Telaio</span>
+
+                                    [<span class="code-type">ForeignKey</span>(<span
+                                        class="code-keyword">nameof</span>(UserId))]
+                                    <span class="code-keyword">public virtual</span> <span
+                                        class="code-type">ApplicationUser</span>? User { <span
+                                        class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Il caso d'uso in MotoLogPro</h4>
+                                    <p>Le uso nelle Entità del database WebAPI per dire con precisione ad Entity
+                                        Framework Core che il telaio moto è obbligatorio e lungo max 17 caratteri,
+                                        configurando contemporaneamente la chiave esterna per la tabella utente.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ▓▓▓ CATEGORIA 4: MAUI E TOOLS ▓▓▓ -->
+            <div class="category-section mb-5" id="cat-maui">
+                <div class="category-header" style="color:#ea580c;">
+                    <h3>Tooling specifico e .NET MAUI</h3>
+                    <button class="toggle-section-btn" style="color:#ea580c;"
+                        onclick="toggleSection(this, 'cat-maui')">Chiudi tutto</button>
+                </div>
+                <div class="dictionary-grid align-items-start">
+
+                    <!-- RELAY COMMAND -->
+                    <div class="dict-card" data-term="relay command comando mvvm bottone click" data-tag="maui">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseRelay"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">RelayCommand</h2>
+                                <span class="dict-tag maui">MAUI / MVVM</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseRelay" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">Un attributo del <code>CommunityToolkit.Mvvm</code> che converte
+                                    in automatico un normale metodo C# in un Comando eseguibile direttamente al click di
+                                    un bottone dall'interfaccia UI.</p>
+                                <div class="code-block">
+                                    [<span class="code-type">RelayCommand</span>]
+                                    <span class="code-keyword">private async</span> <span class="code-type">Task</span>
+                                    <span class="code-method">LoginAsync</span>()
+                                    {
+                                    <span class="code-keyword">if</span> (IsBusy) <span
+                                        class="code-keyword">return</span>;
+                                    <span class="code-comment">// Logica del login...</span>
+                                    }
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Il caso d'uso in MotoLogPro</h4>
+                                    <p>Nel passato bisognava scrivere decine di righe extra creando una classe intera
+                                        chiamata <code>ICommand</code>. Oggi basta questa riga e nello XAML della pagina
+                                        ti basta agganciare <code>Command="{Binding LoginCommand}"</code>!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SHELL NAVIGATION -->
+                    <div class="dict-card" data-term="navigazione shell routing url maui pagine" data-tag="maui">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseNav"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">Navigazione Shell</h2>
+                                <span class="dict-tag maui">MAUI</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseNav" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">Un sistema di routing intuitivo, basato su stringhe URL, usato da
+                                    MAUI per spostarsi tra le schermate in modo fluido gestendo lo storico (Back Stack).
+                                </p>
+                                <div class="code-block">
+                                    <span class="code-comment">// I doppi slash "//" indicano un instradamento
+                                        ASSOLUTO</span>
+                                    <span class="code-keyword">await</span> Shell.Current.<span
+                                        class="code-method">GoToAsync</span>(<span
+                                        class="code-string">"//DashboardPage"</span>);
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Il caso d'uso in MotoLogPro</h4>
+                                    <p>Dopo un login andato a buon fine, uso i doppi <code>//</code>. Questo "resetta"
+                                        la storia di navigazione: se l'utente preme il tasto indietro, l'app viene
+                                        minimizzata invece di riportarlo alla schermata di Login.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECURE STORAGE -->
+                    <div class="dict-card" data-term="secure storage sicurezza token keystore keychain crittografia"
+                        data-tag="maui">
+                        <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseStorage"
+                            aria-expanded="false" role="button">
+                            <div class="term-wrapper">
+                                <h2 class="term">Secure Storage</h2>
+                                <span class="dict-tag maui">MAUI Essent.</span>
+                            </div>
+                            <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
+                        </div>
+                        <div id="collapseStorage" class="collapse">
+                            <div class="dict-card-body">
+                                <p class="definition">API nativa multi-piattaforma del pacchetto "Essentials" per
+                                    salvare piccoli pezzi di testo cifrati usando gli standard di massima sicurezza del
+                                    sistema ospite.</p>
+                                <div class="code-block">
+                                    <span class="code-keyword">if</span> (!<span
+                                        class="code-keyword">string</span>.IsNullOrEmpty(result.AccessToken))
+                                    {
+                                    <span class="code-keyword">await</span> SecureStorage.<span
+                                        class="code-method">SetAsync</span>(<span
+                                        class="code-string">"auth_token"</span>, result.AccessToken);
+                                    }
+                                </div>
+                                <div class="dict-context">
+                                    <h4>Il caso d'uso in MotoLogPro</h4>
+                                    <p>Lo sfrutto in <code>AuthService.cs</code> per salvare il token generato al login.
+                                        Utilizza internamente la crittografia basata sul Keystore (Android) e sul
+                                        Keychain (iOS). I dati salvati non sono visibili in nessun log o navigatore di
+                                        file del dispositivo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Empty state -->
+            <div id="emptyState">
+                <i class="fas fa-search"></i>
+                <p style="font-size:1.1rem; font-weight:600;">Nessun termine trovato</p>
+                <p>Prova con un termine diverso o rimuovi il filtro per tag.</p>
+            </div>
+
+    </main>
+
+    <!-- Back to Top -->
+    <button id="backToTopBtn" class="btn btn-hero rounded-circle shadow-lg"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'});" aria-label="Torna in cima">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Include Footer -->
+    <div id="footer-placeholder" class="mt-auto"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("#header-placeholder").load("header.html");
+            $("#footer-placeholder").load("footer.html");
+        });
+
+        /* ─── SEARCH + TAG FILTER ─────────────────────────────── */
+        const searchInput = document.getElementById('glossarySearch');
+        const tagPills = document.querySelectorAll('.tag-pill');
+        const cards = document.querySelectorAll('.dict-card');
+        const emptyState = document.getElementById('emptyState');
+
+        let activeTag = 'all';
+
+        function normalizeStr(s) {
+            return s.toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function filterCards() {
+            const query = normalizeStr(searchInput.value.trim());
+            let anyVisible = false;
+
+            cards.forEach(card => {
+                const term = normalizeStr(card.dataset.term || '');
+                const tagData = card.dataset.tag || '';
+
+                const matchesSearch = !query || term.includes(query);
+                const matchesTag = activeTag === 'all' || tagData === activeTag;
+
+                if (matchesSearch && matchesTag) {
+                    card.classList.remove('hidden');
+                    anyVisible = true;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Show/hide category sections based on visible cards
+            document.querySelectorAll('.category-section').forEach(section => {
+                const visibleInSection = section.querySelectorAll('.dict-card:not(.hidden)').length > 0;
+                section.style.display = visibleInSection ? '' : 'none';
+            });
+
+            emptyState.style.display = anyVisible ? 'none' : 'block';
+        }
+
+        searchInput.addEventListener('input', filterCards);
+
+        tagPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                tagPills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                activeTag = pill.dataset.filter;
+                filterCards();
+            });
+        });
+
+        /* ─── TOGGLE SECTION (Espandi / Chiudi tutto) ─────────── */
+        function toggleSection(btn, sectionId) {
+            const section = document.getElementById(sectionId);
+            const collapses = section.querySelectorAll('[data-bs-target]');
+            const isClosing = btn.textContent.trim() === 'Chiudi tutto';
+
+            collapses.forEach(header => {
+                const targetId = header.getAttribute('data-bs-target');
+                const targetEl = document.querySelector(targetId);
+                if (!targetEl) return;
+                const bsCollapse = bootstrap.Collapse.getOrCreateInstance(targetEl, { toggle: false });
+                isClosing ? bsCollapse.hide() : bsCollapse.show();
+                header.setAttribute('aria-expanded', isClosing ? 'false' : 'true');
+            });
+
+            btn.textContent = isClosing ? 'Espandi tutto' : 'Chiudi tutto';
+        }
+
+        /* ─── BACK TO TOP ─────────────────────────────────────── */
+        window.addEventListener('scroll', function () {
+            const btn = document.getElementById('backToTopBtn');
+            btn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+        });
+    </script>
+</body>
+
+</html>

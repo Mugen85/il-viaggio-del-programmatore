@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Polimorfismo in C#: la guida per scrivere codice flessibile | Il Viaggio del Programmatore</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Una guida completa al polimorfismo in C#. Impara a scrivere codice flessibile e robusto con virtual, override, interfacce e pattern da architetto software.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/polimorfismo-csharp-codice-flessibile.html">
+
+    <meta property="og:title" content="Polimorfismo in C#: la guida per scrivere codice flessibile">
+    <meta property="og:description" content="Scopri come usare il polimorfismo in C# con esempi pratici, pro tip e scenari reali per scrivere codice da vero architetto software.">
+    <meta property="og:image" content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/polimorfismo-csharp-codice-flessibile.webp">
+    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/polimorfismo-csharp-codice-flessibile.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+
+    <style>
+        #backToDevelopment {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <!-- AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+    <!-- Fine AdSense -->
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+    <header class="blog-header header-development">
+        <h1>Development</h1>
+        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il proprio futuro
+                 con coraggio e competenza.</p>
+    </header>
+
+<div class="article-container">
+    <div class="article-content">
+        <img src="../../images/blog/development/polimorfismo-csharp-codice-flessibile.webp"
+             alt="Polimorfismo in C# - Guida per scrivere codice flessibile" class="article-image">
+
+        <h2 class="article-title">
+            Polimorfismo in C#: la guida per scrivere codice flessibile
+        </h2>
+
+        <p class="text-muted">Scritto da Marco Morello il 25 agosto 2025</p>
+
+        <blockquote class="blockquote alert alert-info my-4">
+            <p class="mb-0">
+                <strong>💡 TL;DR</strong>: Il polimorfismo permette di trattare oggetti diversi in modo uniforme, rendendo il codice adattabile
+                 e facile da estendere. 
+                Questa guida ti mostra come usare <code>virtual</code>, <code>override</code> e interfacce per passare da codice rigido
+                 a software che evolve con te.
+            </p>
+        </blockquote>
+        
+        <hr>
+        
+        <p>Nell'ultimo articolo abbiamo messo le basi dell'<strong>ereditarietà</strong>, quel fantastico meccanismo che ci permette di dire
+             "un'<code>Auto</code> è un <code>Veicolo</code>". Se te lo sei perso, ti consiglio
+              di dargli un'occhiata <a href="ereditarieta-csharp-riuso-codice.html">qui</a>, perché oggi costruiremo su quelle fondamenta.</p>
+
+        <p>Avere una gerarchia è un ottimo punto di partenza, ma la vera svolta arriva quando ci poniamo una domanda: come possiamo
+             trattare oggetti diversi (una Ferrari e una Ducati) in modo uniforme, come se fossero tutti semplici "veicoli"?
+              Questa domanda è il cuore di quasi ogni applicazione complessa.</p>
+
+        <p>La risposta è una parola che all'inizio suona complicata, ma che in realtà nasconde un concetto di una potenza disarmante:
+             <strong>polimorfismo</strong>. Fidati, una volta che ti entra in testa, il tuo modo di scrivere codice non solo cambierà,
+              ma farà un salto di qualità verso la professionalità.</p>
+
+        <p>Per rendere tutto più concreto, ho preparato un piccolo progetto su GitHub dove potrai trovare tutti gli esempi di codice
+             di questo articolo e degli altri dedicati ai pilastri della OOP. Ti invito a clonarlo e a sperimentare mentre
+              leggi: <a href="https://github.com/Mugen85/sandbox-dev/tree/main/PrincipiOOP_CSharp" target="_blank" rel="noopener noreferrer">PrincipiOOP_CSharp su GitHub</a>.</p>
+
+        <hr>
+
+        <h3 id="il-problema">🚨 Il problema: un garage pieno di motori diversi</h3>
+        <p>Torniamo al nostro garage. Grazie all'ereditarietà, possiamo creare una lista di <code>Veicolo</code> e metterci
+             dentro di tutto: una <code>Auto</code>, una <code>Moto</code>, e così via. Questo è già un grande vantaggio.</p>
+<pre><code>var garage = new List&lt;Veicolo&gt;
+{
+    new Auto("Ferrari", "SF90"),
+    new Moto("Ducati", "Panigale V4")
+};
+
+foreach (var veicolo in garage)
+{
+    veicolo.MostraInfo();
+}</code></pre>
+        <p>Se eseguiamo questo codice, l'output è corretto, ma un po' deludente. È come guardare due mezzi fantastici
+             e dire solo "sono due veicoli". Il nostro codice vede solo la loro natura comune, la loro "etichetta" di <code>Veicolo</code>.</p>
+<pre><code>Info Veicolo: Ferrari SF90
+Info Veicolo: Ducati Panigale V4</code></pre>
+        <p>Il programma esegue sempre il metodo <code>MostraInfo()</code> della classe base <code>Veicolo</code>, ignorando
+             che il primo oggetto è un'auto con le sue porte e il secondo una moto con la sua cilindrata. Il nostro codice è rigido;
+              per ogni <code>veicolo</code> nel ciclo, l'unica versione di <code>MostraInfo()</code> che conosce è quella definita
+               nella classe base. Come facciamo a dirgli di essere un po' più specifico e di riconoscere le peculiarità di ciascuno?</p>
+
+        <hr>
+
+        <h3 id="la-soluzione">💪 La soluzione: dare voce alle specializzazioni con `virtual` e `override`</h3>
+        <p>Il polimorfismo in C# si realizza con una coppia di parole chiave che lavorano in perfetta sintonia. 
+            Pensa a loro come a un dialogo tra la classe base e le sue figlie, un dialogo che introduce flessibilità.</p>
+        <ul>
+            <li><strong><code>virtual</code></strong>: la classe base usa questa parola per dire: "ecco il mio metodo standard,
+                 ma se qualcuna di voi, classi figlie, pensa di poter fare di meglio, si faccia avanti! Vi do il permesso di ridefinire
+                  questo comportamento".</li>
+            <li><strong><code>override</code></strong>: la classe figlia risponde: "sfida accettata! Raccogliamo il permesso 
+                e forniamo la nostra versione personalizzata di quel metodo, perché noi sappiamo come farlo meglio per il nostro caso specifico".</li>
+        </ul>
+        <p>Vediamo come funziona. Per prima cosa, andiamo nella classe <code>Veicolo</code> e rendiamo il nostro metodo "aperto"
+             alla personalizzazione.</p>
+<pre><code>// File: Veicolo.cs
+public class Veicolo
+{
+    // ... proprietà e costruttore ...
+
+    // Aggiungiamo 'virtual' per dire che questo metodo può essere "sovrascritto"
+    public virtual void MostraInfo()
+    {
+        Console.WriteLine($"Info Veicolo: {Marca} {Modello}");
+    }
+}</code></pre>
+        <p>Ora, andiamo nelle classi <code>Auto</code> e <code>Moto</code> e forniamo la nostra implementazione specifica,
+             sfruttando il permesso che ci è stato accordato.</p>
+<pre><code>// File: Auto.cs
+public class Auto : Veicolo
+{
+    // ...
+    public override void MostraInfo()
+    {
+        Console.WriteLine($"Info AUTO: {Marca} {Modello}, {NumeroPorte} porte.");
+    }
+}
+
+// File: Moto.cs
+public class Moto : Veicolo
+{
+    // ...
+    public override void MostraInfo()
+    {
+        Console.WriteLine($"Info MOTO: {Marca} {Modello}, cilindrata {Cilindrata}cc.");
+    }
+}</code></pre>
+        <p>Adesso rieseguiamo lo stesso, identico ciclo <code>foreach</code> di prima. Guarda cosa succede:</p>
+<pre><code>Info AUTO: Ferrari SF90, 4 porte.
+Info MOTO: Ducati Panigale V4, cilindrata 1000cc.</code></pre>
+        <p>Magia! Ma cosa è successo esattamente? Il programma, durante l'esecuzione (a runtime), per ogni elemento della lista
+             non si ferma più a guardare l'etichetta <code>Veicolo</code>. Fa un passo in più: controlla il tipo <em>reale</em> dell'oggetto
+              in memoria (<code>Auto</code> o <code>Moto</code>) e, se trova una versione specializzata (<code>override</code>) del metodo,
+               esegue quella. Altrimenti, ripiega sulla versione di base (<code>virtual</code>). Questo è il polimorfismo in azione:
+                scrivere codice generico che si adatta a comportamenti specifici.</p>
+
+        <blockquote class="blockquote my-4">
+            <p class="mb-0"><strong>💡 Pro Tip #1: Bloccare la catena con `sealed`</strong></p>
+            <p>E se volessimo che la personalizzazione della <code>Moto</code> fosse quella definitiva? A volte,
+                 specialmente in gerarchie complesse, potremmo voler impedire ulteriori modifiche. Possiamo usare
+                  la parola chiave <code>sealed</code> sull'override per "sigillare" il metodo. È un modo per dire:
+                   "la gerarchia di personalizzazione per questo metodo finisce qui. Chiunque erediterà da <code>Moto</code> dovrà
+                    usare questa versione di <code>MostraInfo</code>".</p>
+            <pre><code>public sealed override void MostraInfo() { /* ... */ }</code></pre>
+            <p class="mb-0">È un piccolo strumento di controllo che dimostra una profonda comprensione del design delle classi.</p>
+        </blockquote>
+
+        <blockquote class="blockquote my-4">
+            <p class="mb-0"><strong>💡 Pro Tip #2: Composizione sull'Ereditarietà, un mantra da architetto</strong></p>
+            <p>L'ereditarietà è potente, ma anche pericolosa. Crea un legame molto forte tra le classi: se modifichi la classe base,
+                 rischi di rompere tutte le sue figlie. Un architetto software, prima di usare l'ereditarietà, si fa sempre una domanda:
+                  "è una relazione 'is-a' (è un) o 'has-a' (ha un)?".</p>
+            <p>Un'<code>Auto</code> <em>è un</em> <code>Veicolo</code>, quindi l'ereditarietà ha senso.
+                 Ma un'<code>Auto</code> <em>ha un</em> <code>Motore</code>. Non scriveremmo mai <code>class Auto : Motore</code>.
+                  Invece, creeremmo una classe <code>Motore</code> separata e la inseriremmo dentro <code>Auto</code>.
+                   Questa si chiama <strong>composizione</strong>.</p>
+            <p class="mb-0">Privilegiare la composizione sull'ereditarietà porta a un codice più flessibile,
+                 fatto di tanti piccoli pezzi indipendenti e riutilizzabili che possono essere "assemblati" a piacimento.
+                  Ricordatelo: è uno dei segreti per un design di qualità.</p>
+        </blockquote>
+
+        <hr>
+
+        <h3 id="interfacce">🚀 Il livello successivo: le interfacce in uno scenario reale e robusto</h3>
+        <p><code>Virtual</code> e <code>override</code> sono perfetti, ma a volte abbiamo bisogno di ancora più flessibilità.
+             Ed è qui che le <strong>interfacce</strong> diventano le nostre migliori amiche.</p>
+        <p>Parliamo di qualcosa di molto concreto: <strong>un sistema di notifiche</strong>. Nel mondo reale, non basta inviare una notifica;
+             dobbiamo sapere se l'invio è andato a buon fine e perché è fallito. Un semplice <code>bool</code> di ritorno è troppo limitato,
+              non ci dice nulla sulla natura del problema.</p>
+        
+        <h4>1. Definiamo un contratto più intelligente</h4>
+        <p>Miglioriamo il nostro contratto. Invece di un semplice <code>bool</code>, il metodo <code>Invia</code> restituirà
+             un oggetto <code>RisultatoInvio</code> che ci darà tutte le informazioni necessarie per reagire in modo appropriato.</p>
+<pre><code>public class RisultatoInvio
+{
+    public bool Successo { get; set; }
+    public string MessaggioErrore { get; set; }
+}
+
+public interface INotifica
+{
+    RisultatoInvio Invia();
+}</code></pre>
+        <p>Questo piccolo cambiamento è fondamentale: trasforma il nostro sistema da uno che dice solo "sì/no" a uno che "dialoga"
+             e fornisce contesto.</p>
+
+        <h4>2. Creiamo classi concrete e robuste</h4>
+        <p>Ora le nostre classi implementeranno il nuovo contratto, gestendo anche i possibili fallimenti e restituendo un risultato parlante.</p>
+<pre><code>public class NotificaEmail : INotifica
+{
+    private readonly string _destinatario;
+    public NotificaEmail(string destinatario) { _destinatario = destinatario; }
+
+    public RisultatoInvio Invia()
+    {
+        Console.WriteLine($"Invio Email a {_destinatario}...");
+        // Simuliamo un errore di validazione
+        if (string.IsNullOrEmpty(_destinatario) || !_destinatario.Contains("@"))
+        {
+            return new RisultatoInvio { Successo = false, MessaggioErrore = "Destinatario email non valido." };
+        }
+        // Qui ci sarebbe la logica reale che potrebbe fallire per altri motivi (server non raggiungibile, etc.)
+        return new RisultatoInvio { Successo = true };
+    }
+}
+
+public class NotificaSms : INotifica
+{
+    private readonly string _numero;
+    public NotificaSms(string numero) { _numero = numero; }
+
+    public RisultatoInvio Invia()
+    {
+        Console.WriteLine($"Invio SMS al numero {_numero}...");
+        // Qui la logica reale potrebbe fallire per credito insufficiente, numero inesistente, etc.
+        return new RisultatoInvio { Successo = true };
+    }
+}</code></pre>
+
+        <h4>3. Costruiamo un servizio che reagisce e gestisce casi specifici</h4>
+        <p>Il nostro <code>ServizioNotifiche</code> ora può controllare l'esito di ogni invio e agire di conseguenza.
+             Ma non solo: possiamo usare il <strong>pattern matching</strong> per eseguire logiche speciali solo per alcuni
+              tipi di notifica, senza rinunciare alla flessibilità del ciclo generico.</p>
+<pre><code>public class ServizioNotifiche
+{
+    public void InviaTutte(List&lt;INotifica&gt; notificheDaInviare)
+    {
+        foreach (var notifica in notificheDaInviare)
+        {
+            var risultato = notifica.Invia();
+
+            if (!risultato.Successo)
+            {
+                // Ora possiamo loggare un errore significativo!
+                Console.WriteLine($"ERRORE: Invio fallito. Causa: {risultato.MessaggioErrore}");
+                // Potremmo inserire la notifica in una coda per un nuovo tentativo
+                continue; // Passa alla notifica successiva
+            }
+
+            // Pattern Matching: se la notifica è un SMS, fai qualcosa di specifico.
+            // Questo è un modo pulito per gestire le eccezioni alla regola generale.
+            if (notifica is NotificaSms)
+            {
+                Console.WriteLine("LOG: Registrato costo per invio SMS.");
+            }
+        }
+    }
+}</code></pre>
+        <p>Questo approccio è potente: abbiamo un ciclo principale che tratta tutte le notifiche allo stesso modo,
+             fidandosi del contratto <code>INotifica</code>. Allo stesso tempo, abbiamo la possibilità di "sbirciare"
+              il tipo reale quando serve, per gestire eccezioni o logiche particolari in modo pulito ed elegante.</p>
+
+        <blockquote class="blockquote my-4">
+             <p class="mb-0"><strong>💡 Pro Tip #3: un assaggio di Dependency Injection</strong></p>
+             <p>Il modo in cui abbiamo "passato" la lista di notifiche al servizio dall'esterno è la base di un pattern fondamentale:
+                 la <strong>Dependency Injection (DI)</strong>.</p>
+             <p>Invece di lasciare che una classe si crei da sola gli oggetti di cui ha bisogno (le sue "dipendenze"),
+                 glieli forniamo dall'esterno. È come dire al nostro <code>ServizioNotifiche</code>: "non preoccuparti di come
+                  vengono create le notifiche, il tuo unico compito è inviarle. A crearle ci pensa qualcun altro".
+                   Questo rende il codice incredibilmente più flessibile, modulare e facile da testare.</p>
+             <p class="mb-0">È un argomento vasto e cruciale. Se vuoi iniziare a esplorarlo, la documentazione ufficiale
+                 di Microsoft è il punto di partenza migliore: <a href="https://learn.microsoft.com/it-it/aspnet/core/fundamentals/dependency-injection" target="_blank" rel="noopener noreferrer">Dependency Injection in ASP.NET Core</a>.</p>
+        </blockquote>
+
+        <hr>
+
+        <h3 id="conclusione">🎯 Conclusione: il tuo codice ora ha una marcia in più</h3>
+        <p>Capire e padroneggiare il polimorfismo è ciò che ti permette di passare dallo scrivere codice che <em>funziona</em> allo
+             scrivere codice che <em>dura nel tempo</em>. Ti consente di gestire la complessità e di aggiungere nuove funzionalità
+              senza dover riscrivere tutto da capo, riducendo il rischio di introdurre bug.</p>
+        <p>Abbiamo visto come <code>virtual</code> e <code>override</code> ci aiutano a specializzare il comportamento e
+             come le <code>interfacce</code>, unite a un design robusto, ci permettono di disaccoppiare i componenti del nostro sistema,
+              rendendoli pronti al cambiamento.</p>
+        <p>Questo è il potere di scrivere codice flessibile. È un cambio di mentalità che ti avvicina, passo dopo passo,
+             a pensare come un vero architetto del software.</p>
+        <p>Non dimenticare di dare un'occhiata al codice sorgente completo su GitHub, dove puoi vedere tutti questi
+             concetti in azione e sperimentare in prima persona: <a href="https://github.com/Mugen85/sandbox-dev/tree/main/PrincipiOOP_CSharp" target="_blank" rel="noopener noreferrer">Progetto PrincipiOOP_CSharp</a>.</p>
+        <p>Buono studio e buon codice!</p>
+
+        <div id="firma-placeholder"></div>
+    </div>
+</div>
+<a href="../../blog/development.html"
+    class="btn btn-hero"
+    id="backToDevelopment"
+    style="position: fixed; bottom: 150px; right: 20px; z-index: 999; font-size: 0.8rem !important">
+    &larr; Torna indietro
+</a>     
+
+<div id="footer-placeholder" class="mt-auto"></div>
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $("#header-placeholder").load("../../header.html");
+        $("#footer-placeholder").load("../../footer.html");
+        $("#firma-placeholder").load("../../firma.html");
+    });
+    
+    // Mostra bottone di ritorno dopo una certa quantità di scroll
+    window.addEventListener("scroll", function () {
+        const backBtn = document.getElementById("backToDevelopment");
+        if (window.scrollY > 400) {
+            backBtn.style.display = "block";
+        } else {
+            backBtn.style.display = "none";
+        }
+    });
+</script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Il Codice della Libertà: sviluppatore per lavorare da dove voglio | Mindset – Il Viaggio del Programmatore
+    </title>
+
+    <meta name="description"
+        content="Perché voglio diventare sviluppatore software? Non solo per la passione per il codice. C'è un motore più profondo: la libertà di lavorare da dove voglio, scegliere i clienti, costruire qualcosa di davvero mio.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical"
+        href="https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/010-codice-della-liberta.html">
+
+    <meta property="og:title" content="Il Codice della Libertà: sviluppatore per lavorare da dove voglio | Mindset">
+    <meta property="og:description"
+        content="40 milioni di nomadi digitali nel mondo, il 19% sono developer. Non è una moda: è una trasformazione permanente del lavoro. E io voglio farne parte.">
+    <meta property="og:image"
+        content="https://www.ilviaggiodelprogrammatore.com/images/blog/mindset/codice-della-liberta.webp">
+    <meta property="og:url"
+        content="https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/010-codice-della-liberta.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+
+    <style>
+        /* ── Bottone ritorno ── */
+        #backToMindset {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            display: none;
+            z-index: 999;
+            font-size: 0.8rem !important;
+        }
+
+        /* ── Leggibilità base ── */
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #2d2d2d;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            max-width: 68ch;
+        }
+
+        /* ── Paragrafo introduttivo ── */
+        .article-intro {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #444;
+            border-left: 4px solid #5a8a5a;
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 68ch;
+        }
+
+        /* ── Sezioni con separatore visivo ── */
+        .article-section {
+            margin-top: 2.8rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .article-content h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.01em;
+        }
+        
+
+        /* ── Pull quote ── */
+        .pull-quote {
+            background: #f7f9f7;
+            border-left: 5px solid #5a8a5a;
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #3a3a3a;
+        }
+
+        .pull-quote cite {
+            display: block;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 0.6rem;
+        }
+
+        /* ── Callout / box evidenza ── */
+        .callout {
+            background: #eef4ee;
+            border: 1px solid #c5d9c5;
+            border-radius: 8px;
+            padding: 1.3rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .callout strong {
+            display: block;
+            font-size: 1rem;
+            color: #2d5a2d;
+            margin-bottom: 0.5rem;
+        }
+
+        .callout p {
+            margin-bottom: 0 !important;
+            color: #3a4a3a;
+            font-size: 0.97rem;
+        }
+
+        /* ── Lista visiva ── */
+        .insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .insight-list li {
+            padding: 0.65rem 0 0.65rem 2rem;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1rem;
+            color: #3a3a3a;
+        }
+
+        .insight-list li:last-child {
+            border-bottom: none;
+        }
+
+        .insight-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #5a8a5a;
+            font-weight: 700;
+        }
+
+        /* ── Card piattaforma ── */
+        .platform-card {
+            border: 1px solid #d4e4d4;
+            border-radius: 10px;
+            padding: 1.5rem 1.8rem;
+            margin: 1.8rem 0;
+            background: #fafcfa;
+        }
+
+        .platform-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2d5a2d;
+            margin-bottom: 0.8rem;
+        }
+
+        .platform-card h3 a {
+            color: #2d5a2d;
+            text-decoration: none;
+            border-bottom: 2px solid #5a8a5a;
+            padding-bottom: 1px;
+            transition: color 0.2s;
+        }
+
+        .platform-card h3 a:hover {
+            color: #5a8a5a;
+        }
+
+        .platform-card .badge-accept {
+            display: inline-block;
+            background: #2d5a2d;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 20px;
+            padding: 0.2rem 0.75rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .platform-card p {
+            margin-bottom: 0.8rem;
+            font-size: 0.97rem;
+            color: #3a4a3a;
+            max-width: 100%;
+        }
+
+        .platform-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Stat numerica in evidenza ── */
+        .stat-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-box {
+            flex: 1 1 180px;
+            background: #f0f5f0;
+            border-radius: 8px;
+            padding: 1rem 1.2rem;
+            text-align: center;
+        }
+
+        .stat-box .stat-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #2d5a2d;
+            display: block;
+        }
+
+        .stat-box .stat-label {
+            font-size: 0.82rem;
+            color: #555;
+            margin-top: 0.2rem;
+        }
+
+        /* ── Label sezione nell'header ── */
+        .section-label {
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.75);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+    </style>
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <header class="blog-header header-mindset">
+        <span class="section-label">Mindset</span>
+        <p>Parole che ispirano azione, pensieri che accendono l'ambizione,
+            storie che risvegliano la tua forza più vera.</p>
+    </header>
+
+    <div class="article-container">
+
+        <img src="../../images/blog/mindset/codice-della-liberta.webp"
+            alt="Laptop aperto con vista panoramica, simbolo del lavoro da remoto e della libertà professionale"
+            class="article-image">
+
+        <h1 class="article-title">Il Codice della Libertà: perché voglio diventare sviluppatore per lavorare da dove
+            voglio</h1>
+
+        <p class="text-muted">Scritto da Marco Morello il 01 Marzo 2026</p>
+
+        <div class="article-content">
+
+            <p class="article-intro">
+                C'è una domanda che mi faccio spesso, quasi ogni mattina mentre mi avvio al lavoro:
+                <strong>e se potessi lavorare da quella spiaggia in Portogallo? O da quel bar con vista sulle
+                    Dolomiti?</strong>
+                Non è una fantasia da pigro. È una visione. Ed è uno dei motori più potenti — forse il più
+                onesto da ammettere — che alimenta il mio percorso nello sviluppo software.
+            </p>
+
+            <p>Potrei dirti che lo faccio solo perché mi appassiona il codice, che mi piace la Clean Architecture
+                e che sento un brivido ogni volta che una REST API risponde con un 200 OK. Sarebbe tutto vero.
+                Ma non sarebbe tutta la verità.</p>
+
+            <p>La verità completa è che voglio libertà. Voglio poter scegliere da dove lavoro, non solo su cosa.</p>
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Non tutti vogliono la stessa cosa — ed è giusto così</h2>
+
+                <p>Partiamo da un punto fondamentale, perché altrimenti rischio di sembrare quello che non sono:
+                    non esiste una vita giusta e una sbagliata. Ci sono persone che amano la routine, che trovano
+                    pace nel sapere esattamente cosa le aspetta il lunedì mattina, che si sentono al sicuro con
+                    orari fissi, un ufficio in cui tornare, colleghi con cui fare la pausa caffè alle dieci.
+                    Lo rispetto profondamente, davvero.</p>
+
+                <p>Io non sono così. Non lo sono mai stato, e probabilmente non lo sarò mai.</p>
+
+                <p>A me quella struttura pesa. Non perché sia uno scansafatiche — e ci tengo a dirlo in modo
+                    netto, perché il rischio di essere frainteso è alto — ma perché <strong>il mio modo di dare il
+                        massimo funziona secondo regole diverse</strong>. Quando lavoro su qualcosa che sento mio, che
+                    mi
+                    appassiona, che vedo crescere giorno dopo giorno sotto le mie mani, mi dimentico persino di
+                    mangiare. Il weekend per me non è "staccare dalla settimana": è il momento in cui posso
+                    finalmente immergermi nel codice senza interruzioni. È quando mi formo, studio, costruisco
+                    progetti, sperimento cose nuove.</p>
+
+                <div class="pull-quote">
+                    Se potessi fare solo questo, probabilmente lavorerei 15 ore al giorno senza nemmeno
+                    rendermene conto. Non per obbligo, non per ambizione spicciola. Per pura, sana, genuina passione.
+                </div>
+
+                <p>E sapere questo di sé — sapere dove batte il motore — è una delle consapevolezze più
+                    importanti che un essere umano possa raggiungere. Il problema non è la fatica.
+                    Il problema è la fatica spesa per qualcosa che non sento mio.</p>
+            </div>
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Due mondi paralleli</h2>
+
+                <p>Ho un altro lavoro, e ci tengo a dirlo senza ambiguità perché sarebbe disonesto il contrario:
+                    mi piace. C'è una soddisfazione molto concreta, quasi viscerale, nel vedere una macchina che hai
+                    assemblato con le tue mani muovere i primi passi, fare esattamente quello per cui è stata
+                    progettata. Mi sento parte di un processo produttivo reale, tangibile. C'è un risultato che puoi
+                    toccare, osservare, misurare. E questo ha un valore che non sottovaluto.</p>
+
+                <p>Ma è un mondo molto fisico, molto diverso da quello del codice. Sono due strade parallele
+                    che partono dallo stesso punto — la voglia di fare bene le cose — ma che portano a destinazioni
+                    completamente diverse.</p>
+
+                <p>Il punto non è che una sia migliore dell'altra. Il punto è che <strong>io so dove voglio
+                        arrivare</strong>. E quella destinazione — la libertà professionale, la flessibilità geografica,
+                    la possibilità di costruire qualcosa che sia davvero mio — passa attraverso lo sviluppo software.
+                    Per questo il tempo libero lo investo qui, in questo percorso, anche quando sarebbe molto più
+                    comodo fermarsi sul divano.</p>
+            </div>
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Lo sviluppo software come strumento di libertà</h2>
+
+                <p>Qui entra in gioco la programmazione. E non solo perché mi appassiona tecnicamente —
+                    anche se lo fa, eccome.</p>
+
+                <p>Lo sviluppo software è forse l'unica professione che unisce in modo così naturale
+                    <strong>competenza tecnica profonda</strong> e <strong>libertà geografica totale</strong>.
+                    Un buon sviluppatore, specialmente freelance o consulente, può lavorare da qualsiasi posto
+                    nel mondo con una connessione decente. Può scegliere i clienti, i progetti, i ritmi, e in
+                    molti casi anche l'orario in cui iniziare la giornata.
+                </p>
+
+                <div class="callout">
+                    <strong>✈️ La scomodità che in realtà è libertà</strong>
+                    <p>Per qualcuno come me — che ha voglia di viaggiare, di svegliarsi in posti diversi, di
+                        vivere con un po' più di quella "scomodità" fatta di zaini, voli last minute e alberghi
+                        con vista su qualcosa che vale la pena guardare — questo non è un dettaglio. È una delle
+                        ragioni principali per cui mi sto costruendo questa strada, mattone dopo mattone,
+                        sera dopo sera davanti al terminale.</p>
+                </div>
+            </div>
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Il sogno concreto: consulente, non fantasma con un laptop</h2>
+
+                <p>Voglio essere chiaro su una cosa, perché non voglio passare per uno di quei personaggi da
+                    coach motivazionale che vende l'idea del laptop-e-spiaggia come se fosse la soluzione a tutto:
+                    non ho in testa quell'immagine romantica. Quella roba funziona in qualche reel di Instagram,
+                    nella realtà è spesso più complicata e meno sostenibile di quanto sembri.</p>
+
+                <p>Quello che immagino per me è qualcosa di più solido e concreto: diventare un <strong>consulente
+                        esterno specializzato in architettura software e sviluppo .NET</strong>, con rapporti
+                    continuativi
+                    e a lungo termine con aziende strutturate, anche grandi realtà. Non il lavoretto precario da
+                    freelance che passa da un micro-progetto all'altro sperando che arrivi il prossimo cliente.
+                    Una figura professionale riconoscibile, con un posizionamento chiaro, che porta valore vero —
+                    architettura, soluzioni C#, problem solving tecnico su sistemi complessi — e che in cambio di
+                    quel valore ha la libertà di gestire il proprio tempo e il proprio spazio.</p>
+
+                <p>E questo modello esiste, è diffuso, ed è in crescita. Non è fantascienza. Sono numeri.</p>
+            </div>
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>I numeri che danno concretezza al sogno</h2>
+
+                <p>A volte quando descrivo questi pensieri a qualcuno che non frequenta il mondo tech, la
+                    reazione è uno sguardo un po' scettico. Come se stessi parlando di diventare astronauta o
+                    cantante rock. Allora mi aiutano i numeri, perché i numeri sono difficili da ignorare.</p>
+
+                <p>Secondo il report annuale di MBO Partners — uno degli istituti di ricerca più autorevoli
+                    e citati sul mondo del lavoro indipendente — nel 2024 il mercato dei nomadi digitali ha
+                    raggiunto dimensioni difficili da ignorare:</p>
+
+                <div class="stat-row">
+                    <div class="stat-box">
+                        <span class="stat-number">40M</span>
+                        <span class="stat-label">nomadi digitali nel mondo nel 2024</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">+147%</span>
+                        <span class="stat-label">di crescita rispetto al 2019 (pre-pandemia)</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">19%</span>
+                        <span class="stat-label">lavora nell'IT e nello sviluppo software</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">35%</span>
+                        <span class="stat-label">dichiara redditi tra $100k e $250k/anno</span>
+                    </div>
+                </div>
+
+                <p>Non è una moda passeggera: è una trasformazione strutturale e permanente del mercato del
+                    lavoro globale. E la categoria più rappresentata tra questi professionisti è proprio quella
+                    dell'IT e dello sviluppo software.</p>
+
+                <div class="callout">
+                    <strong>📊 Il dato che smonta il pregiudizio</strong>
+                    <p>L'età media di chi vive davvero questo stile di vita è tra i 36 e i 39 anni. Sono
+                        professionisti con esperienza, con un portfolio, con clienti che li cercano per la loro
+                        competenza — non per il prezzo più basso. Non è roba da ventenni in cerca di avventura.</p>
+                </div>
+            </div>
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Le piattaforme che rendono tutto questo reale</h2>
+
+                <p>Fin qui i numeri. Ma come funziona concretamente questo mondo? Dove si trova lavoro come
+                    consulente o contractor remoto di alto livello, senza passare da una bacheca di annunci generici
+                    piena di offerte a 15 euro l'ora?</p>
+
+                <p>Ho scoperto — anche per curiosità personale, non solo per questo articolo — che esistono
+                    piattaforme costruite esattamente per questo. Vale la pena conoscerle nel dettaglio, perché
+                    non sono tutte uguali e capire come funzionano aiuta anche a capire dove bisogna arrivare
+                    per poterci entrare. Sono punti di arrivo, non di partenza — ma avere una mappa del territorio
+                    cambia tutto.</p>
+
+                <!-- Toptal -->
+                <div class="platform-card">
+                    <h3><a href="https://www.toptal.com" target="_blank" rel="noopener noreferrer">Toptal →</a></h3>
+                    <span class="badge-accept">Accetta il top 3% dei candidati</span>
+                    <p>Fondata nel 2010, è probabilmente la più conosciuta e selettiva. Il processo di ammissione
+                        si articola in tre fasi progressive: prima un colloquio di screening sulla comunicazione e
+                        sul profilo professionale (l'inglese deve essere fluente), poi una serie di esercizi tecnici
+                        da completare offline con vincoli di tempo, infine una sessione di pair-programming live con
+                        un ingegnere Toptal che valuta in tempo reale mentre si risolvono problemi.</p>
+                    <p>Su oltre 200.000 candidature all'anno, ne superano il processo meno di 6.000. Ed è
+                        esattamente questa durezza a renderla appetibile per le aziende: i clienti includono
+                        Fortune 500 e startup della Silicon Valley. Per chi supera la selezione, contratti
+                        completamente da remoto, tariffe orarie libere — spesso oltre i 100 dollari/ora per
+                        profili senior su architettura e tecnologie enterprise.</p>
+                </div>
+
+                <!-- Gun.io -->
+                <div class="platform-card">
+                    <h3><a href="https://www.gun.io" target="_blank" rel="noopener noreferrer">Gun.io →</a></h3>
+                    <span class="badge-accept">Accetta l'1-2% dei candidati</span>
+                    <p>Un approccio più boutique — e forse il modello che sento più vicino a quello che voglio
+                        costruire. La selezione viene condotta direttamente da un team di senior developer, non da
+                        recruiter o HR generici. Questa distinzione è fondamentale: chi ti valuta sa davvero cosa
+                        sta guardando, capisce il codice e conosce il dominio.</p>
+                    <p>Cosa mi ha colpito: Gun.io non parte dai coding test. Parte dalla tua storia lavorativa,
+                        perché il lavoro passato racconta più di qualsiasi quiz. Una volta dentro, la piattaforma
+                        gestisce tutta la parte amministrativa — contratti, fatturazione, pagamenti garantiti. I
+                        developer fissano le proprie tariffe e tengono il 100% di quello che guadagnano: zero
+                        commissioni nascoste. Focus su contratti long-term con aziende USA ed europee.</p>
+                </div>
+
+                <!-- Arc.dev -->
+                <div class="platform-card">
+                    <h3><a href="https://www.arc.dev" target="_blank" rel="noopener noreferrer">Arc.dev →</a></h3>
+                    <span class="badge-accept">Accetta il top 2% — gratuita per i developer</span>
+                    <p>La più ampia delle tre: oltre 350.000 professionisti in 190 paesi. Nata come Codementor
+                        Exchange, supporta contratti freelance (da 4 settimane a un anno), posizioni full-time
+                        remote e ruoli da contractor a lungo termine. Il vetting si concentra su comunicazione in
+                        inglese e competenza tecnica nel proprio dominio.</p>
+                    <p>Arc ha sviluppato un sistema di matching basato su AI (HireAI) che riduce i tempi di
+                        selezione drasticamente — candidature qualificate presentate in pochi secondi invece che
+                        in settimane. Le tariffe per sviluppatori senior con 5+ anni di esperienza oscillano tra
+                        80 e 120 dollari/ora, con punte superiori per specializzazioni avanzate. Per i developer
+                        è completamente gratuita.</p>
+                </div>
+
+                <p>Nessuna di queste è una bacchetta magica. Ci vuole competenza reale, reputazione costruita
+                    nel tempo, un portfolio che parli da solo. Ma sapere che esistono — sapere che c'è un mercato
+                    strutturato e serio che cerca esattamente il tipo di figura che voglio diventare — <strong>cambia
+                        radicalmente la percezione del percorso</strong>. La destinazione esiste, è mappata, e ci sono
+                    già milioni di persone che ci camminano sopra.</p>
+            </div>
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Perché te ne parlo</h2>
+
+                <p>Questo blog si chiama "Il Viaggio del Programmatore" non per caso. È un viaggio — tecnico,
+                    umano, a volte frustrante e spesso esaltante. Un viaggio in cui ogni riga di codice scritta la
+                    sera, ogni progetto personale portato avanti nel weekend, ogni concetto difficile masticato e
+                    rimasticato finché non diventa chiaro, è un passo. Piccolo, forse. Ma nella direzione giusta.</p>
+
+                <p>E un viaggio, per definizione, ha una destinazione. La mia ha un nome chiaro: <strong>libertà
+                        professionale</strong>. Quella di scegliere da dove lavorare, con chi lavorare, su cosa
+                    lavorare.
+                    Non entro domani — sarei disonesto a dirtelo. Ci vuole competenza profonda, reputazione costruita
+                    mattone su mattone, tempo. Ma la direzione è quella, il percorso è già iniziato, e ogni volta
+                    che apro l'IDE dopo una lunga giornata so esattamente perché lo sto facendo.</p>
+
+                <div class="pull-quote">
+                    Il codice che scrivi oggi è la libertà di domani.
+                </div>
+
+                <p>Se stai leggendo queste righe e ti riconosci in queste sensazioni — se anche tu hai quel
+                    fuoco addosso, se anche tu stai investendo il tempo libero per costruire qualcosa di diverso,
+                    per orientarti verso una professione che ti dia più controllo sulla tua vita — sappi che non
+                    sei solo. Che non sei strano. E che probabilmente stai già facendo la cosa giusta.</p>
+
+                <p><em>Hai un sogno simile? Stai percorrendo un cammino di transizione professionale verso lo
+                        sviluppo software? Scrivimi, mi farebbe piacere sentire la tua storia.</em></p>
+            </div>
+
+            <!-- ── Contatti ── -->
+            <div class="article-section">
+
+                <ul class="insight-list">
+                    <li>
+                        <strong>Email:</strong>
+                        <a href="mailto:doppiam1@gmail.com">doppiam1@gmail.com</a>
+                        — per messaggi più articolati, collaborazioni o semplicemente per raccontarmi la tua storia
+                    </li>
+                    <li>
+                        <strong>LinkedIn:</strong>
+                        <a href="https://www.linkedin.com/in/marco-morello-b43b2a108" target="_blank"
+                            rel="noopener noreferrer">Marco Morello</a>
+                        — per restare in contatto, seguire il percorso e confrontarsi nel tempo
+                    </li>
+                </ul>
+            </div>
+
+            <div id="firma-placeholder"></div>
+        </div>
+    </div>
+
+    <a href="../../blog/mindset.html" class="btn btn-hero" id="backToMindset">
+        &larr; Torna indietro
+    </a>
+
+    <div id="footer-placeholder" class="mt-auto"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("#header-placeholder").load("../../header.html");
+            $("#footer-placeholder").load("../../footer.html");
+            $("#firma-placeholder").load("../../firma.html");
+        });
+
+        window.addEventListener("scroll", function () {
+            const backBtn = document.getElementById("backToMindset");
+            backBtn.style.display = window.scrollY > 2000 ? "block" : "none";
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

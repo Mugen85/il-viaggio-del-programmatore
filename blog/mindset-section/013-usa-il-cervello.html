@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Il tuo cervello non fa il tifo per te — Borzacchiello spiegato bene | Mindset – Il Viaggio del Programmatore</title>
+
+    <meta name="description"
+        content="Amigdala, dopamina, cortisolo, ossitocina: cosa succede davvero nel tuo cervello ogni giorno. Una riflessione sul libro di Borzacchiello 'Usa il cervello prima che lui usi te' — e su anni di lavoro interiore.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical"
+        href="https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/013-usa-il-cervello.html">
+
+    <meta property="og:title" content="Il tuo cervello non fa il tifo per te — Borzacchiello spiegato bene">
+    <meta property="og:description"
+        content="Amigdala, dopamina, cortisolo, ossitocina: cosa succede davvero nel tuo cervello ogni giorno. Una riflessione sul libro di Borzacchiello e su anni di viaggio interiore.">
+    <meta property="og:image"
+        content="https://www.ilviaggiodelprogrammatore.com/images/blog/mindset/usa-il-cervello.webp">
+    <meta property="og:url"
+        content="https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/013-usa-il-cervello.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+
+    <style>
+        #backToMindset {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            display: none;
+            z-index: 999;
+            font-size: 0.8rem !important;
+        }
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #2d2d2d;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            max-width: 68ch;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+        }
+
+        .article-intro {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #444;
+            border-left: 4px solid #4a7ab5;
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 68ch;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+        }
+
+        .article-section {
+            margin-top: 2.8rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .article-content h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.01em;
+        }
+
+        .article-content h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e3f6f;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .blog-header {
+            padding-top: calc(70px + 4rem);
+            padding-bottom: 4rem;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-header p {
+            max-width: 600px;
+            margin: 0.8rem auto 0;
+            font-size: 1.05rem;
+            opacity: 0.88;
+            line-height: 1.7;
+        }
+
+        .pull-quote {
+            background: #f5f7fb;
+            border-left: 5px solid #4a7ab5;
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #3a3a3a;
+        }
+
+        .pull-quote cite {
+            display: block;
+            font-style: normal;
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 0.6rem;
+        }
+
+        .callout {
+            background: #eef2f9;
+            border: 1px solid #c2d0e8;
+            border-radius: 8px;
+            padding: 1.3rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .callout strong {
+            display: block;
+            font-size: 1rem;
+            color: #1e3f6f;
+            margin-bottom: 0.5rem;
+        }
+
+        .callout p {
+            margin-bottom: 0 !important;
+            color: #3a4050;
+            font-size: 0.97rem;
+        }
+
+        .insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .insight-list li {
+            padding: 0.65rem 0 0.65rem 2rem;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1rem;
+            color: #3a3a3a;
+        }
+
+        .insight-list li:last-child {
+            border-bottom: none;
+        }
+
+        .insight-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4a7ab5;
+            font-weight: 700;
+        }
+
+        .section-label {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.75);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .neuro-block {
+            border-left: 3px solid #4a7ab5;
+            padding: 0.4rem 0 0.4rem 1.1rem;
+            margin: 1.8rem 0 0.6rem;
+        }
+
+        .neuro-block strong {
+            font-size: 1rem;
+            color: #1e3f6f;
+        }
+    </style>
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <header class="blog-header header-mindset">
+        <span class="section-label">Mindset</span>
+        <p>Parole che ispirano azione, pensieri che accendono l'ambizione,
+            storie che risvegliano la tua forza più vera.</p>
+    </header>
+
+    <div class="article-container">
+
+        <img src="../../images/blog/mindset/usa-il-cervello.webp"
+            alt="Illustrazione del cervello umano con i suoi personaggi interiori — amigdala, corteccia, dopamina"
+            class="article-image">
+
+        <h1 class="article-title">Il tuo cervello non fa il tifo per te — e questo libro te lo spiega benissimo</h1>
+
+        <p class="text-muted">Scritto da Marco Morello il 23 Marzo 2026</p>
+
+        <div class="article-content">
+
+            <p class="article-intro">
+                Sono anni che lavoro su me stesso. Non nel senso Instagram del termine — niente citazioni motivazionali
+                al mattino, niente rituali da influencer. Intendo dire che da un po' di anni a questa parte mi sono
+                accorto di una cosa semplice e un po' scomoda: <strong>non mi capivo.</strong>
+            </p>
+
+            <p>Reagivo in certi modi e non sapevo perché. Prendevo decisioni che andavano contro i miei stessi
+                obiettivi. Avevo abitudini che volevo cambiare da anni e che erano ancora lì, immobili, a sorridermi.
+            </p>
+
+            <p>E allora ho cominciato a fare quello che faccio con tutto quello che non capisco: <strong>ho iniziato
+                    a smontarlo.</strong></p>
+
+            <p>Libri, podcast, corsi, conversazioni, riflessioni. Piano piano, pezzo per pezzo, ho cominciato a costruire
+                una mappa di me stesso. Non è un percorso lineare — è un viaggio, con deviazioni, tornanti e scoperte
+                inaspettate. Alcune cose le ho capite subito. Altre le sto ancora metabolizzando.</p>
+
+            <p>Quando ho iniziato ad ascoltare <strong>"Usa il cervello prima che lui usi te"</strong> di Borzacchiello
+                su Audible, mi sono fermato quasi subito.</p>
+
+            <div class="pull-quote">
+                "La nostra mente è brillante. Peccato che a volte usi la sua brillantezza per crearci problemi."
+            </div>
+
+            <p>Pausa. Riavvolgi. Riascolta.</p>
+
+            <p>Non era una scoperta rivoluzionaria in senso assoluto. Ma era la cosa giusta, arrivata nel momento
+                giusto, detta nel modo giusto. <strong>Quella sensazione che hai quando qualcuno mette le parole
+                    esatte su qualcosa che sentivi ma non riuscivi a formulare.</strong></p>
+
+            <p>Borzacchiello parte da un'idea provocatoria — e dimostrata: il cervello non fa il tifo per te. Non
+                gli interessa se stai bene o male. Fa quello che è abituato a fare, sulla base di sinapsi che hanno
+                percorso sempre gli stessi sentieri.</p>
+
+            <p>Non è colpa tua. È il tuo sistema operativo che gira su schemi antichi.</p>
+
+            <p>La buona notizia? Puoi imparare a gestirlo. Non a cancellarlo — millenni di programmazione biologica
+                non si azzerano con un colpo di spugna — ma ad <strong>aggirare gli ostacoli</strong>, fornendo al
+                cervello nuove strade che gli permettano di perseguire i suoi scopi senza farti del male.</p>
+
+            <p>Questo libro è, in pratica, il manuale di istruzioni che non ti hanno mai dato.</p>
+
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Il cast del teatro interiore</h2>
+
+                <p>Il format del libro è geniale: Borzacchiello mette in scena i protagonisti del tuo cervello come
+                    personaggi in un dialogo immaginario. Ognuno ha un nome, un ruolo, una personalità.</p>
+
+                <p>E da quando li conosci, non riesci più a ignorarli.</p>
+
+                <h3>L'Amigdala — <em>la sentinella emotiva perennemente all'erta</em></h3>
+
+                <p>È il tuo sistema d'allarme più antico. Ha milioni di anni di evoluzione alle spalle e un solo
+                    mandato: tenerti in vita.</p>
+
+                <p><strong>Il problema è che non ha aggiornato il firmware da centinaia di migliaia di anni.</strong>
+                </p>
+
+                <p>Non distingue un predatore dalla savana da un collega che ti critica in riunione. Per lei è la
+                    stessa emergenza. Attiva la risposta di attacco o fuga, inonda il corpo di cortisolo, e tu ti
+                    ritrovi in modalità reattiva prima ancora di aver capito cosa sta succedendo.</p>
+
+                <p><em>Qualcuno ti manda un messaggio con tono secco. Prima ancora di finire di leggere, sei già
+                        teso.</em> Non è debolezza — è la sentinella che fa il suo lavoro.</p>
+
+                <h3>La Corteccia Prefrontale — <em>la regista razionale sempre pronta a pianificare</em></h3>
+
+                <p>È la parte adulta di te. Ragiona, pianifica, valuta le conseguenze a lungo termine. È lei che vuoi
+                    al timone quando prendi decisioni importanti.</p>
+
+                <p><strong>Il problema? È lenta. E quando l'amigdala prende il controllo, la regista va
+                        praticamente offline.</strong></p>
+
+                <p>Ecco perché quando sei arrabbiato dici cose che non pensi. Non è debolezza caratteriale — è
+                    fisiologia. La corteccia si riprende il controllo solo quando lo stato emotivo si abbassa.</p>
+
+                <div class="callout">
+                    <b>Implicazione pratica</b>
+                    <p>Prima di rispondere quando sei in stato di reattività, <b>aspetta</b>. Non perché sei
+                        debole. Perché stai aspettando che torni online la parte giusta.</p>
+                </div>
+
+                <h3>Il Nucleus Accumbens — <em>l'amante del piacere</em></h3>
+
+                <p>È la zona del cervello più direttamente collegata alla ricompensa. Quando si attiva, vuole di più.
+                    Sempre.</p>
+
+                <p>Social media, zucchero, notifiche, maratone di serie TV: tutto passa da qui. <strong>Il tuo cervello
+                        non distingue tra una ricompensa costruttiva e una distruttiva — registra solo l'intensità
+                        del segnale.</strong></p>
+
+                <p>Borzacchiello qui tocca un punto importante: non puoi combattere l'amante del piacere a forza di
+                    volontà pura. Puoi però <em>progettare il contesto</em> in modo che i comportamenti che vuoi
+                    diventino quelli con meno attrito — e quelli che vuoi evitare diventino più difficili da
+                    raggiungere.</p>
+
+                <h3>Il Sistema Limbico — <em>il quartier generale emotivo</em></h3>
+
+                <p>Non è un singolo personaggio, ma un insieme di strutture che lavorano in squadra: amigdala,
+                    ippocampo, ipotalamo e altre ancora. Il suo ruolo è <strong>colorare emotivamente ogni
+                        esperienza</strong>.</p>
+
+                <p>Due persone vivono la stessa situazione. Una la percepisce come una sfida, l'altra come una
+                    trappola. La differenza non è nell'evento — è nel modo in cui il sistema limbico ha imparato a
+                    classificarlo, spesso sulla base di qualcosa che è successo anni fa.</p>
+
+                <h3>L'Ippocampo — <em>l'archivista</em></h3>
+
+                <p>Lavora in coppia con l'amigdala: mentre lei registra <em>l'intensità emotiva</em> di
+                    un'esperienza, l'ippocampo registra <em>i dettagli</em>. Insieme costruiscono i ricordi più
+                    vividi — quelli che non dimentichi mai.</p>
+
+                <p>C'è però un dato che lascia il segno: <strong>lo stress cronico danneggia fisicamente
+                        l'ippocampo.</strong> Il cortisolo elevato nel tempo riduce la capacità di apprendere e
+                    formare nuovi ricordi. Non è metafora. È struttura che si modifica.</p>
+            </div>
+
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>La chimica del comportamento</h2>
+
+                <p>Se le strutture sono i personaggi, gli ormoni e i neurotrasmettitori sono le battute che recitano.</p>
+
+                <div class="neuro-block">
+                    <strong>Dopamina — il motivatore da palco</strong>
+                </div>
+                <p>Borzacchiello smonta subito il mito: la dopamina non è l'ormone del piacere. È l'ormone
+                    dell'<em>anticipazione</em> del piacere. <strong>Ti spinge verso l'obiettivo. Ma una volta
+                        raggiunto, sparisce.</strong></p>
+                <p>È il motore che ti fa scorrere il feed all'infinito, che ti tiene agganciato a qualsiasi cosa
+                    prometta una ricompensa imminente. Usarla bene significa strutturare piccole vittorie nel percorso
+                    — non aspettare l'obiettivo finale per sentirti soddisfatto.</p>
+
+                <div class="neuro-block">
+                    <strong>Serotonina — a.k.a. la "Queen"</strong>
+                </div>
+                <p>È il barometro del tuo valore sociale. Sale quando senti che conti per qualcuno, quando hai
+                    rispetto, quando fai parte di qualcosa. Scende quando ti senti escluso, ignorato, sminuito.</p>
+                <p><strong>Molti comportamenti che sembrano irrazionali hanno qui la radice chimica.</strong> Il
+                    bisogno ossessivo di approvazione, la sensibilità eccessiva alle critiche — non sono difetti del
+                    carattere. Sono risposte a segnali di esclusione sociale. Per milioni di anni, l'esclusione dal
+                    gruppo significava morte. Il tuo cervello non ha ancora aggiornato quella regola.</p>
+
+                <div class="neuro-block">
+                    <strong>Cortisolo — il project manager ansioso</strong>
+                </div>
+                <p>Utilissimo a dosi brevi. Devastante se cronico. Il corpo non sa distinguere tra uno stress reale
+                    e uno percepito: se vivi in allerta costante, il conto lo paghi fisicamente — insonnia, calo
+                    cognitivo, sistema immunitario indebolito.</p>
+                <p>Borzacchiello è diretto su questo: <strong>la consapevolezza da sola non basta.</strong> Servono
+                    strumenti concreti. Sonno, movimento, natura, respirazione. Non è wellness — è manutenzione del
+                    sistema operativo.</p>
+
+                <div class="neuro-block">
+                    <strong>Ossitocina — l'abbracciatrice professionista</strong>
+                </div>
+                <p>È l'ormone del legame e della fiducia. Si rilascia nel contatto fisico, nella cooperazione
+                    autentica, nella vicinanza vera. Ma ha un lato oscuro spesso ignorato: <strong>rafforza il
+                        legame con il proprio gruppo <em>contro</em> gli estranei.</strong></p>
+                <p>Costruire relazioni autentiche — non solo connessioni superficiali — non è una questione
+                    sentimentale. Cambia letteralmente la tua chimica interna.</p>
+
+                <div class="neuro-block">
+                    <strong>Adrenalina e Noradrenalina — il turbo</strong>
+                </div>
+                <p>Vengono rilasciate nelle situazioni di emergenza percepita. Aumentano la frequenza cardiaca,
+                    affinano la concentrazione, preparano il corpo all'azione. La noradrenalina ha un ruolo chiave
+                    nel focus: <strong>livelli ottimali lo migliorano, livelli fuori scala lo distruggono.</strong>
+                    L'esercizio fisico intenso la rilascia in modo controllato — è uno dei motivi per cui dopo un
+                    allenamento pensi più chiaramente.</p>
+
+                <div class="neuro-block">
+                    <strong>Endorfine — il sistema antidolore naturale</strong>
+                </div>
+                <p>Vengono rilasciate in risposta allo sforzo fisico, ma anche al riso genuino. Il "runner's high"
+                    è endorfine. <strong>Le persone più resilienti tendono ad avere più senso dell'umorismo — non
+                        è solo carattere, è anche chimica.</strong></p>
+
+                <div class="neuro-block">
+                    <strong>GABA — il freno</strong>
+                </div>
+                <p>È il principale neurotrasmettitore inibitorio del cervello. <strong>Il suo lavoro è rallentare,
+                        calmare, spegnere il rumore.</strong> Livelli bassi sono associati ad ansia cronica e
+                    difficoltà a "staccare". L'alcol agisce proprio sui recettori del GABA — ecco perché inizialmente
+                    rilassa, e perché il corpo poi compensa aumentando l'eccitabilità. Meditazione, respirazione
+                    profonda, esercizio regolare lo aumentano naturalmente. Le solite cose — che funzionano proprio
+                    perché agiscono sulla chimica, non sulla forza di volontà.</p>
+            </div>
+
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Quello che mi ha colpito davvero</h2>
+
+                <p>Faccio il manutentore meccanico da anni. Ho sempre smontato le cose — non per distruggerle, ma
+                    per capire come funzionano dall'interno. Cosa tiene insieme i pezzi, perché certi meccanismi si
+                    inceppano, dove sta il punto di rottura.</p>
+
+                <p>A un certo punto ho cominciato ad applicare la stessa logica a me stesso.</p>
+
+                <p>Non è stata una scelta romantica. È stata una necessità. Mi ritrovavo a fare sempre le stesse cose,
+                    a reagire sempre nello stesso modo, a desiderare cambiamenti che non arrivavano mai.
+                    <strong>Non mi capivo.</strong> Ero un sistema complesso che non riuscivo a leggere. Così ho
+                    cominciato a smontare anche quello.
+                </p>
+
+                <p>Anni di letture, di ascolti, di riflessioni. Di momenti in cui pensavi di aver capito qualcosa e
+                    poi ti accorgevi che era solo uno strato più superficiale. Di scoperte che ti cambiano un'abitudine.
+                    Di ricadute che ti insegnano qualcosa di diverso. È un viaggio interiore nel senso più concreto
+                    del termine — non nel senso New Age, ma nel senso che ogni volta che arrivi da qualche parte,
+                    scopri che c'è ancora altro da esplorare.</p>
+
+                <p>Non ho trovato nessuna verità assoluta. Ho trovato strumenti. Prospettive. Pezzi di mappa.</p>
+
+                <p>E questo libro è uno di quei pezzi.</p>
+
+                <p><strong>Sapere che l'amigdala si attiva prima che io possa pensare</strong> non mi rende una
+                    vittima — mi dà un secondo di vantaggio. Quello che mi serve per riconoscere lo stato, respirare,
+                    aspettare che la corteccia torni online, e <em>poi</em> scegliere come rispondere invece di
+                    reagire in automatico.</p>
+
+                <p><strong>Sapere che la dopamina mi spinge verso la distrazione</strong> non vuol dire combatterla
+                    a colpi di forza di volontà. Vuol dire progettare la mia giornata in modo che il comportamento
+                    giusto sia quello con meno attrito — e quello sbagliato diventi un po' più scomodo da
+                    raggiungere.</p>
+
+                <p>Piccole cose. Ma le piccole cose, nel tempo, sono le uniche che contano davvero.</p>
+
+                <p>Non ho intenzione di diventare la versione perfetta di me stesso — non esiste, e onestamente mi
+                    annoia già solo l'idea. Voglio diventare, ogni giorno, <strong>una versione un po' più
+                        consapevole.</strong> Uno che capisce un po' meglio perché fa quello che fa. Uno che sbaglia
+                    con più lucidità e impara con più velocità.</p>
+
+                <p>Questo libro mi aiuta in quel senso. E questo mi basta.</p>
+            </div>
+
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <h2>Vale la pena ascoltarlo?</h2>
+
+                <p>Ancora non l'ho finito — lo sto ascoltando su Audible, e ogni tanto devo fermarmi perché ho
+                    bisogno di stare un po' con quello che ho appena sentito.</p>
+
+                <p>Lo stile è diretto, i dialoghi immaginari tra le parti del cervello sono divertenti e taglienti
+                    allo stesso tempo. Ogni concetto è collegato a qualcosa che riconosci immediatamente nella tua
+                    vita.</p>
+
+                <p>Se sei curioso di capire perché reagisci come reagisci, perché certe abitudini sembrano impossibili
+                    da spezzare, perché l'umore condiziona così tanto le tue decisioni — <strong>questo è il posto
+                        da cui partire.</strong></p>
+
+                <div class="pull-quote">
+                    Non ti trasforma. Non promette miracoli. Ti dà una mappa. E per orientarsi, una mappa vale tutto.
+                </div>
+            </div>
+
+
+            <!-- ──────────────────────────────────────── -->
+            <div class="article-section">
+                <p>Stai leggendo o ascoltando questo libro? Hai un tuo percorso di crescita personale di cui ti
+                    piacerebbe parlare? Scrivimi — mi interessa davvero sapere come lo vivi tu.</p>
+
+                <ul class="insight-list">
+                    <li>
+                        <strong>Email:</strong>
+                        <a href="mailto:doppiam1@gmail.com">doppiam1@gmail.com</a>
+                        — per messaggi più articolati, collaborazioni o per raccontarmi la tua storia
+                    </li>
+                    <li>
+                        <strong>LinkedIn:</strong>
+                        <a href="https://www.linkedin.com/in/marco-morello-b43b2a108" target="_blank"
+                            rel="noopener noreferrer">Marco Morello</a>
+                        — per restare in contatto e seguire il percorso
+                    </li>
+                </ul>
+            </div>
+
+            <div id="firma-placeholder"></div>
+        </div>
+    </div>
+
+    <a href="../../blog/mindset.html" class="btn btn-hero" id="backToMindset">
+        &larr; Torna indietro
+    </a>
+
+    <div id="footer-placeholder" class="mt-auto"></div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("#header-placeholder").load("../../header.html");
+            $("#footer-placeholder").load("../../footer.html");
+            $("#firma-placeholder").load("../../firma.html");
+        });
+
+        window.addEventListener("scroll", function () {
+            const backBtn = document.getElementById("backToMindset");
+            backBtn.style.display = window.scrollY > 2000 ? "block" : "none";
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

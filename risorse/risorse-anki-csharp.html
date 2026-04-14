@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mazzo Anki C# completo da scaricare | Risorse – Il Viaggio del Programmatore</title>
+
+    <meta name="description"
+        content="Scarica gratis il mazzo Anki C# completo in italiano. 246 flashcard su basi, OOP, LINQ, Async, Entity Framework, Design Pattern, Microservizi, MAUI, Web API. Aggiornato continuamente.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical"
+        href="https://www.ilviaggiodelprogrammatore.com/risorse/risorse-anki-csharp.html">
+
+    <meta property="og:title" content="Mazzo Anki C# completo — 246 flashcard in italiano, gratis">
+    <meta property="og:description"
+        content="246 flashcard su tutto il percorso C#: dalle basi a Clean Architecture, Microservizi, Blazor e MAUI. Zero-scroll su smartphone. Gratis, niente registrazioni.">
+    <meta property="og:url"
+        content="https://www.ilviaggiodelprogrammatore.com/risorse/risorse-anki-csharp.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="../base.css" rel="stylesheet">
+
+    <style>
+        #backToRisorse {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            display: none;
+            z-index: 999;
+            font-size: 0.8rem !important;
+        }
+
+        .article-content {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: #2d2d2d;
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            max-width: 68ch;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+        }
+
+        .article-intro {
+            font-size: 1.15rem;
+            line-height: 1.9;
+            color: #444;
+            border-left: 4px solid #4a7ab5;
+            padding-left: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 68ch;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+        }
+
+        .article-section {
+            margin-top: 2.8rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e8e8e8;
+        }
+
+        .article-content h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2d2d2d;
+            margin-bottom: 1.2rem;
+            letter-spacing: -0.01em;
+        }
+
+        .blog-header {
+            padding-top: calc(70px + 4rem);
+            padding-bottom: 4rem;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-header p {
+            max-width: 600px;
+            margin: 0.8rem auto 0;
+            font-size: 1.05rem;
+            opacity: 0.88;
+            line-height: 1.7;
+        }
+
+        .pull-quote {
+            background: #f5f7fb;
+            border-left: 5px solid #4a7ab5;
+            padding: 1.2rem 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 6px 6px 0;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #3a3a3a;
+        }
+
+        .callout {
+            background: #eef2f9;
+            border: 1px solid #c2d0e8;
+            border-radius: 8px;
+            padding: 1.3rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .callout strong {
+            display: block;
+            font-size: 1rem;
+            color: #1e3f6f;
+            margin-bottom: 0.5rem;
+        }
+
+        .callout p {
+            margin-bottom: 0 !important;
+            color: #3a4050;
+            font-size: 0.97rem;
+        }
+
+        .insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .insight-list li {
+            padding: 0.65rem 0 0.65rem 2rem;
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1rem;
+            color: #3a3a3a;
+        }
+
+        .insight-list li:last-child { border-bottom: none; }
+
+        .insight-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4a7ab5;
+            font-weight: 700;
+        }
+
+        .section-label {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.75);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 1.8rem auto;
+            max-width: 68ch;
+        }
+
+        .download-card {
+            background: #fff;
+            border: 1px solid #c2d0e8;
+            border-radius: 10px;
+            padding: 1.3rem 1.2rem;
+            text-align: center;
+            text-decoration: none;
+            color: #2d2d2d;
+            transition: box-shadow 0.2s, transform 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-card:hover {
+            box-shadow: 0 4px 18px rgba(74, 122, 181, 0.18);
+            transform: translateY(-2px);
+            color: #1e3f6f;
+            text-decoration: none;
+        }
+
+        .download-card .dc-icon { font-size: 2rem; line-height: 1; }
+
+        .download-card .dc-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e3f6f;
+        }
+
+        .download-card .dc-sub { font-size: 0.82rem; color: #777; }
+
+        .download-card-main {
+            background: #1e3f6f;
+            border-color: #1e3f6f;
+            color: #fff;
+        }
+
+        .download-card-main .dc-title,
+        .download-card-main .dc-sub { color: rgba(255, 255, 255, 0.85); }
+
+        .download-card-main:hover { background: #16315a; color: #fff; }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem auto 2rem;
+            max-width: 68ch;
+        }
+
+        .step-list li {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1rem;
+            color: #3a3a3a;
+        }
+
+        .step-list li:last-child { border-bottom: none; }
+
+        .step-num {
+            background: #4a7ab5;
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.2rem auto;
+            max-width: 68ch;
+        }
+
+        .topic-badge {
+            background: #eef2f9;
+            border: 1px solid #c2d0e8;
+            color: #1e3f6f;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+    </style>
+
+    <link rel="icon" href="../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <header class="blog-header header-mindset">
+        <span class="section-label">Risorse</span>
+        <p>Strumenti pratici per studiare meglio, ricordare di più e crescere ogni giorno — anche in pausa caffè.</p>
+    </header>
+
+    <div class="article-container">
+
+        <h1 class="article-title">Mazzo Anki C# — tutto il percorso in italiano, gratis e sempre aggiornato</h1>
+
+        <p class="text-muted">Scritto da Marco Morello · aggiornato continuamente</p>
+
+        <div class="article-content">
+
+            <p class="article-intro">
+                Studiare C# richiede tempo. Spesso più tempo di quello che abbiamo. Ma ci sono dieci minuti al giorno
+                — in pausa, in treno, aspettando qualcuno — che di solito buttiamo via. Questo mazzo Anki è nato
+                per trasformare quei dieci minuti in qualcosa di utile.
+            </p>
+
+            <p>
+                Ho costruito queste flashcard durante il mio percorso come sviluppatore, aggiungendo carte man mano
+                che affrontavo argomenti nuovi. Non si tratta solo delle basi — il mazzo copre l'intero viaggio:
+                dalle variabili fino a Clean Architecture, Microservizi, Blazor, MAUI, Web API e Testing con xUnit.
+                Ogni carta è scritta in italiano, con esempi concreti e spiegazioni dirette.
+            </p>
+
+            <p>
+                Siamo a quota <strong>246 carte</strong> nella versione attuale (v1.2.0), completamente gratuite.
+                Il mazzo cresce nel tempo — quando pubblico una nuova versione, trovi sempre il file aggiornato
+                qui sotto. Niente account, niente abbonamenti.
+            </p>
+
+            <div class="callout">
+                <strong>📌 Documento vivo</strong>
+                <p>Questo mazzo viene aggiornato regolarmente con nuovi argomenti e correzioni.
+                Torna ogni tanto a controllare — o segui la repo GitHub per ricevere le notifiche delle nuove release.</p>
+            </div>
+
+            <!-- ── Download ── -->
+            <div class="article-section">
+                <h2>Scarica il mazzo</h2>
+
+                <p>Il file <code>.apkg</code> è il formato nativo di Anki — basta un clic per salvarlo
+                automaticamente, senza configurare nulla.</p>
+
+                <div class="download-grid">
+                    <a href="https://github.com/Mugen85/anki-mazzi/releases/download/v1.2.0/CSharp-Italiano.apkg"
+                        class="download-card download-card-main" target="_blank" rel="noopener noreferrer">
+                        <span class="dc-icon">📦</span>
+                        <span class="dc-title">Mazzo C# Completo</span>
+                        <span class="dc-sub">246 flashcard · .apkg · gratuito</span>
+                    </a>
+                </div>
+
+                <p style="font-size:0.9rem; color:#777; text-align:center; margin-top:-0.5rem;">
+                    File ospitato su
+                    <a href="https://github.com/Mugen85/anki-mazzi" target="_blank" rel="noopener noreferrer">GitHub · Mugen85</a>
+                </p>
+            </div>
+
+            <!-- ── Argomenti ── -->
+            <div class="article-section">
+                <h2>Cosa trovi nel mazzo</h2>
+
+                <p>246 carte organizzate in 36 moduli, dal linguaggio base fino alle architetture enterprise.
+                Puoi studiare in ordine o saltare direttamente agli argomenti che ti servono.</p>
+
+                <div class="badge-grid">
+                    <span class="topic-badge">01 · Basi del linguaggio</span>
+                    <span class="topic-badge">02 · Controllo del flusso</span>
+                    <span class="topic-badge">03 · Metodi</span>
+                    <span class="topic-badge">04 · OOP — Classi e oggetti</span>
+                    <span class="topic-badge">05 · Ereditarietà e polimorfismo</span>
+                    <span class="topic-badge">06 · Interfacce e classi astratte</span>
+                    <span class="topic-badge">07 · Generics</span>
+                    <span class="topic-badge">08 · Collezioni</span>
+                    <span class="topic-badge">09 · LINQ</span>
+                    <span class="topic-badge">10 · Gestione eccezioni</span>
+                    <span class="topic-badge">11 · Async / Await</span>
+                    <span class="topic-badge">12 · Delegate, Event e Lambda</span>
+                    <span class="topic-badge">13 · Nullable e null safety</span>
+                    <span class="topic-badge">14 · Pattern Matching</span>
+                    <span class="topic-badge">15 · Record e tipi immutabili</span>
+                    <span class="topic-badge">16 · Entity Framework Core</span>
+                    <span class="topic-badge">17 · Clean Architecture</span>
+                    <span class="topic-badge">18 · Design Pattern 1</span>
+                    <span class="topic-badge">19 · Design Pattern 2</span>
+                    <span class="topic-badge">20 · Dependency Injection / IoC</span>
+                    <span class="topic-badge">21 · Web API — ASP.NET Core</span>
+                    <span class="topic-badge">22 · Web API Pro</span>
+                    <span class="topic-badge">23 · Autenticazione JWT / RBAC</span>
+                    <span class="topic-badge">24 · SQL Avanzato</span>
+                    <span class="topic-badge">25 · .NET MAUI</span>
+                    <span class="topic-badge">26 · MAUI Pro</span>
+                    <span class="topic-badge">27 · Testing xUnit e Moq</span>
+                    <span class="topic-badge">28 · C# Avanzato</span>
+                    <span class="topic-badge">29 · Pattern Architetturali 2</span>
+                    <span class="topic-badge">30 · OOP avanzato e IoC</span>
+                    <span class="topic-badge">31 · EF Core avanzato</span>
+                    <span class="topic-badge">32 · Microservizi & API Gateway</span>
+                    <span class="topic-badge">33 · Blazor WASM & Server</span>
+                    <span class="topic-badge">34 · Sicurezza & RBAC</span>
+                    <span class="topic-badge">35 · C# 12+ & Nuove Feature</span>
+                    <span class="topic-badge">36 · Performance & Memoria</span>
+                </div>
+            </div>
+
+            <!-- ── Novità Mobile ── -->
+            <div class="article-section">
+                <h2>📱 Ottimizzazione Mobile-First (Zero-Scroll)</h2>
+                
+                <p>
+                    Se sei in officina, in treno o in pausa, non hai tempo di scorrere lo schermo a destra e a sinistra per decifrare una riga di codice.
+                </p>
+
+                <div class="callout" style="border-left: 4px solid #e67e22;">
+                    <strong>Il CSS interno è stato riscritto per chi ha le mani occupate.</strong>
+                    <p>Tutti gli snippet di codice C# e XAML vanno a capo automaticamente (<code>word-wrap: break-word;</code>). L'impaginazione è perfetta e contenuta nei bordi del tuo smartphone. Leggi, ripassi e memorizzi con un pollice solo.</p>
+                </div>
+            </div>
+
+            <!-- ── Cos'è Anki ── -->
+            <div class="article-section">
+                <h2>Cos'è Anki e perché funziona</h2>
+
+                <p>
+                    Anki è un programma gratuito per lo studio con le flashcard — carte con domanda e risposta,
+                    come quelle di carta ma molto più intelligenti. Usa un algoritmo chiamato
+                    <strong>ripetizione spaziata</strong>: ti mostra ogni carta nel momento esatto in cui
+                    stai per dimenticarla.
+                </p>
+
+                <p>
+                    Il risultato? Ricordi di più, in meno tempo, con meno sforzo. Non è magia — è come funziona
+                    la memoria a lungo termine. Anki viene usato da studenti di medicina, avvocati, poliglotti
+                    seriali. Funziona per qualsiasi cosa si voglia ricordare davvero.
+                </p>
+
+                <div class="pull-quote">
+                    Dieci minuti al giorno con Anki valgono più di un'ora di studio passivo. Non perché sia
+                    più intenso — ma perché il cervello ricorda quello che viene richiamato, non quello che
+                    viene letto.
+                </div>
+
+                <div class="download-grid">
+                    <a href="https://apps.ankiweb.net" class="download-card" target="_blank" rel="noopener noreferrer">
+                        <span class="dc-icon">🖥️</span>
+                        <span class="dc-title">Scarica Anki PC</span>
+                        <span class="dc-sub">Windows · Mac · Linux · Gratuito</span>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.ichi2.anki"
+                        class="download-card" target="_blank" rel="noopener noreferrer">
+                        <span class="dc-icon">📱</span>
+                        <span class="dc-title">AnkiDroid — Android</span>
+                        <span class="dc-sub">Google Play · Gratuito</span>
+                    </a>
+                    <a href="https://ankiweb.net" class="download-card" target="_blank" rel="noopener noreferrer">
+                        <span class="dc-icon">☁️</span>
+                        <span class="dc-title">AnkiWeb — Sync</span>
+                        <span class="dc-sub">Account gratuito per sincronizzare</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ── Come importare ── -->
+            <div class="article-section">
+                <h2>Come importare il mazzo in 4 passi</h2>
+
+                <p>Ci vogliono meno di due minuti. Una volta importato, il mazzo è tuo per sempre.</p>
+
+                <ul class="step-list">
+                    <li>
+                        <span class="step-num">1</span>
+                        <span>
+                            <strong>Scarica e installa Anki</strong> sul PC dal link qui sopra, oppure
+                            AnkiDroid sul tuo Android dal Play Store.
+                        </span>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <span>
+                            <strong>Scarica il file <code>.apkg</code></strong> usando il pulsante blu
+                            qui sopra. Si salva come un file normale sul tuo dispositivo.
+                        </span>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <span>
+                            <strong>Su PC:</strong> apri Anki → <em>File → Importa</em> → seleziona il file
+                            <code>.apkg</code>. Il mazzo compare automaticamente nella lista.<br>
+                            <strong>Su Android:</strong> apri AnkiDroid → tocca il file <code>.apkg</code>
+                            dal file manager, oppure vai su <em>⋮ → Importa</em>.
+                        </span>
+                    </li>
+                    <li>
+                        <span class="step-num">4</span>
+                        <span>
+                            <strong>Inizia a studiare.</strong> Anki ti mostra le carte una alla volta.
+                            Valuta quanto è stato facile ricordare la risposta — e lui farà il resto,
+                            pianificando le ripetizioni al momento giusto.
+                        </span>
+                    </li>
+                </ul>
+
+                <div class="callout">
+                    <strong>💡 Vuoi studiare su PC e telefono insieme?</strong>
+                    <p>Crea un account gratuito su <a href="https://ankiweb.net" target="_blank"
+                            rel="noopener noreferrer">AnkiWeb</a> e usa il pulsante
+                        <em>Sincronizza</em> su entrambi i dispositivi. I tuoi progressi si aggiornano
+                        ovunque in automatico.</p>
+                </div>
+            </div>
+
+            <!-- ── Aggiornamenti ── -->
+            <div class="article-section">
+                <h2>Aggiornamenti e contributi</h2>
+
+                <p>
+                    Il mazzo è un documento vivo. Quando affronto un argomento nuovo, aggiungo le carte.
+                    Quando trovo un errore o una spiegazione da migliorare, la correggo e pubblico una nuova
+                    versione sulla repo GitHub. Puoi seguire la repo con il tasto <strong>Watch → Releases</strong>
+                    per ricevere una notifica ogni volta che esce un aggiornamento.
+                </p>
+
+                <p>
+                    Se trovi un errore in una carta, una spiegazione poco chiara, o vuoi suggerire un argomento
+                    che manca — scrivimi. Questo mazzo migliora anche grazie a chi lo usa.
+                </p>
+
+                <ul class="insight-list">
+                    <li>
+                        <strong>Email:</strong>
+                        <a href="mailto:doppiam1@gmail.com">doppiam1@gmail.com</a>
+                        — per segnalazioni, suggerimenti o collaborazioni
+                    </li>
+                    <li>
+                        <strong>GitHub:</strong>
+                        <a href="https://github.com/Mugen85/anki-mazzi" target="_blank"
+                            rel="noopener noreferrer">github.com/Mugen85/anki-mazzi</a>
+                        — repo del progetto, file sorgente e tutte le release
+                    </li>
+                    <li>
+                        <strong>LinkedIn:</strong>
+                        <a href="https://www.linkedin.com/in/marco-morello-b43b2a108" target="_blank"
+                            rel="noopener noreferrer">Marco Morello</a>
+                        — per restare in contatto e seguire il percorso
+                    </li>
+                </ul>
+            </div>
+
+            <div id="firma-placeholder"></div>
+        </div>
+    </div>
+
+    <a href="../risorse.html" class="btn btn-hero" id="backToRisorse">
+        &larr; Torna alle risorse
+    </a>
+
+    <div id="footer-placeholder" class="mt-auto"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            $("#header-placeholder").load("../header.html");
+            $("#footer-placeholder").load("../footer.html");
+            $("#firma-placeholder").load("../firma.html");
+        });
+
+        window.addEventListener("scroll", function () {
+            const backBtn = document.getElementById("backToRisorse");
+            backBtn.style.display = window.scrollY > 800 ? "block" : "none";
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

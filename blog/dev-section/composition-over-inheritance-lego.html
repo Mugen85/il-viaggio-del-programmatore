@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Composition over inheritance: i LEGO vs la saldatrice | Il Viaggio del Programmatore</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Perché preferire la composizione all'ereditarietà in C#? Scopri come evitare il problema del gorilla e la banana e costruire software flessibile come i LEGO.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/composition-over-inheritance-lego.html">
+
+    <meta property="og:title" content="Composition over inheritance: i LEGO vs la saldatrice">
+    <meta property="og:description" content="Smetti di saldare le classi insieme! Scopri perché assemblare componenti è la strategia vincente per un'architettura software scalabile. Guida pratica C#.">
+    <meta property="og:image" content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/lego-technic-assemblage.webp">
+    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/composition-over-inheritance-lego.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        #backToDevelopment {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+        }
+
+        /* 3. OVERRIDE PER FORZARE LO STILE DARK VS CODE */
+        /* Questo blocco assicura che il codice sia scuro anche se Bootstrap prova a cambiarlo */
+        pre[class*="language-"] {
+            background-color: #1e1e1e !important; /* Grigio scuro VS Code */
+            border: 1px solid #333 !important;
+            border-radius: 8px !important;
+            margin-bottom: 2rem !important;
+            padding: 1.5rem !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+
+                    /* --- AGGIUNTE PER IL MOBILE (RESPONSIVE) --- */
+            max-width: 100% !important; /* Non uscire mai dallo schermo */
+            overflow-x: auto !important; /* Abilita lo scroll orizzontale */
+            white-space: pre !important; /* Mantiene la formattazione senza andare a capo a caso */
+        }
+
+        /* Colore del testo base nel codice */
+        code[class*="language-"], pre[class*="language-"] {
+            text-shadow: none !important;
+            color: #d4d4d4 !important; /* Bianco sporco leggibile */
+            font-family: 'Consolas', 'Monaco', 'Andale Mono', monospace !important;
+            font-size: 0.95rem;
+        }
+
+        /* Stile personalizzato per il Quiz */
+        .quiz-card {
+            border-left: 5px solid #007bff;
+            background-color: #f8f9fa;
+        }
+        .accordion-button:not(.collapsed) {
+            color: #0d6efd;
+            background-color: #e7f1ff;
+        }
+        .quiz-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <!-- AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+    <!-- Fine AdSense -->
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+    <header class="blog-header header-development">
+        <h1>Development</h1>
+        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il proprio futuro
+                 con coraggio e competenza.</p>
+    </header>
+
+<div class="article-container">
+    <div class="article-content">
+        
+        <!-- IMMAGINE E DIDASCALIA AGGIORNATE -->
+        <figure class="figure w-100 text-center mb-5">
+            <img src="../../images/blog/development/composition-over-inheritance-lego.webp"
+                 alt="Dettaglio di ingranaggi e componenti LEGO Technic della mia collezione personale" 
+                 class="figure-img img-fluid rounded shadow-sm"
+                 style="max-height: 500px; object-fit: cover;">
+            <figcaption class="figure-caption mt-2">
+                <i class="fas fa-camera me-1"></i> 
+                <em>Foto reale dal mio garage: i miei LEGO Technic, compagni fedeli di relax e ottimi maestri di modularità.</em>
+            </figcaption>
+        </figure>
+
+        <h2 class="article-title">
+            Composition over inheritance: perché i LEGO vincono sulla saldatrice
+        </h2>
+
+        <p class="text-muted">Scritto da Marco Morello il 30 Dicembre 2025</p>
+
+        <blockquote class="blockquote alert alert-info my-4">
+            <p class="mb-0">
+                <strong>💡 TL;DR</strong>: l'ereditarietà crea legami rigidi ("saldature") che si rompono quando i requisiti cambiano. La composizione permette di assemblare oggetti ("LEGO") combinando piccoli componenti indipendenti. In questo articolo vediamo perché (quasi) sempre conviene avvitare invece che saldare.
+            </p>
+        </blockquote>
+        
+        <hr>
+        
+        <p>Se hai letto il mio utimo articolo sulle <a href="interfacce-vs-classi-astratte-csharp-guida.html" class="text-decoration-underline"> classi astratte e le interfacce</a>, ti ricorderai che ci eravamo lasciati con una promessa: smontare il mito dell'ereditarietà come soluzione a tutti i mali.</p>
+
+        <p>Quando ho iniziato a studiare C#, l'ereditarietà mi sembrava la cosa più magica del mondo, quasi un superpotere.<br>
+        <em>"Wow! Posso creare una classe <code>Animale</code>, poi <code>Mammifero</code>, poi <code>Cane</code>, poi <code>Bassotto</code> ed eredito tutto il codice gratis!"</em></p>
+
+        <p>Sembrava il paradiso del risparmio di tempo. Da montatore meccanico quale sono nella vita reale, la vedevo come una catena di montaggio perfetta, dove ogni pezzo usciva già pronto, verniciato e assemblato. Pensavo: "Perché riscrivere codice se posso semplicemente ereditarlo?". Mi sentivo furbo: scrivevo una riga e ottenevo cento metodi.</p>
+
+        <p>Poi però, come succede sempre nei viaggi (sia in moto che nel codice), ho incontrato la realtà. E la realtà ha curve molto più strette, asfalto molto più scivoloso e buche più profonde di quanto dicano i manuali universitari.</p>
+
+        <p>Oggi parliamo di uno dei principi più importanti per un aspirante architetto software, uno di quelli che separa i junior dai senior: <strong>composition over inheritance</strong> (preferire la composizione all'ereditarietà).</p>
+
+        <p class="fs-5 fw-bold text-center my-4">O, come piace dire a me: perché è meglio assemblare componenti coi bulloni piuttosto che saldarli insieme in un blocco unico.</p>
+
+        <hr>
+
+        <h3 id="problema-gorilla">Il problema del "gorilla e la banana"</h3>
+        
+        <p>C'è una frase famosa di Joe Armstrong (il creatore di Erlang) che riassume perfettamente il problema dell'abuso dell'ereditarietà e che mi ha aperto gli occhi anni fa:</p>
+
+        <blockquote class="blockquote border-start border-primary border-4 ps-3 fst-italic">
+            "Il problema dei linguaggi orientati agli oggetti è che si portano dietro tutto l'ambiente implicito. Volevi solo una banana, ma hai ottenuto un gorilla che regge la banana e l'intera giungla."
+        </blockquote>
+
+        <p>Cosa significa in pratica? Quando usi l'ereditarietà (<code>class Figlio : Padre</code>), stai creando un accoppiamento fortissimo, il più forte che esista in programmazione. È un vincolo "genetico". Il figlio si porta dietro <strong>tutto</strong> del padre: metodi pubblici, proprietà, campi privati, dipendenze dal database, logger e logiche di validazione che magari nemmeno ti servono o, peggio, che cozzano con quello che devi fare tu.</p>
+
+        <p>Immaginiamo di dover gestire dei personaggi per un videogioco (o dei robot in una linea di produzione, per restare in tema officina).</p>
+
+        <h4>L'approccio "saldato" (ereditarietà)</h4>
+        <p>Parti con una classe base <code>Nemico</code>. Ci metti dentro un po' di logica di movimento base (<code>Muoviti()</code>) e di attacco (<code>Spara()</code>). Poi crei <code>NemicoCheCammina</code> e <code>NemicoCheVola</code>.</p>
+        
+        <p>Tutto sembra funzionare alla grande, il codice è pulito. Finché il tuo capo (o il cliente, che è sempre la variabile impazzita) non ti dice: <em>"Ehi, ora voglio un nemico che vola E spara laser, ma che ogni tanto può atterrare e camminare. Ah, e voglio anche una mina vagante che esplode ma non si muove."</em></p>
+
+        <p>Tu vai nel panico. Dove lo attacchi in quella gerarchia rigida?</p>
+        <ul>
+            <li>Se erediti da <code>NemicoCheVola</code>, devi duplicare il codice dello sparo.</li>
+            <li>Se erediti da <code>NemicoCheSpara</code>, devi riscrivere da zero il codice del volo.</li>
+            <li>Se provi a mettere tutto nella classe padre <code>Nemico</code> (il famoso "god object"), ti ritrovi con un mostro pieno di <code>if</code> e <code>switch</code>.</li>
+        </ul>
+
+        <p>Per risolvere il problema della mina che non deve volare, finisci a fare questo orrore:</p>
+
+<pre><code class="language-csharp">public override void Vola()
+{
+    throw new NotImplementedException("Le mine non volano!");
+}</code></pre>
+
+        <p>Questo è il campanello d'allarme definitivo. Se devi lanciare un'eccezione per "spegnere" una funzionalità ereditata, <strong>hai sbagliato astrazione</strong>. Hai violato il principio di sostituzione (Liskov): stai dicendo al compilatore che la mina è un nemico (che sa volare), ma a runtime menti e spacchi tutto.</p>
+
+        <div class="alert alert-warning">
+            <h5 class="alert-heading">⚠️ I pericoli subdoli: la "fragile base class"</h5>
+            <p>L'ereditarietà rompe l'incapsulamento. Immagina di avere una classe base <code>Motore</code> e dieci classi figlie. Un giorno correggi un bug in <code>Motore</code> cambiando il calcolo della temperatura. Compili, tutto verde.</p>
+            <p>Sei mesi dopo scopri che <code>MotoreDaCorsa</code> (che non hai toccato!) è esploso perché <em>dipendeva implicitamente</em> dal vecchio calcolo sbagliato. Modificando il padre, hai rotto i figli. Nell'ereditarietà, le modifiche si propagano a cascata, spesso in modo distruttivo.</p>
+        </div>
+
+        <hr>
+
+        <h3 id="soluzione-lego">La soluzione: i LEGO (composizione)</h3>
+        
+        <p>Qui entra in gioco il mindset del <strong>montatore meccanico</strong>. Invece di costruire un pezzo unico fuso insieme, costruiamo un telaio vuoto e ci "montiamo" sopra i pezzi che ci servono, avvitandoli al momento del bisogno.</p>
+
+        <p>L'idea fondamentale è passare da una relazione <strong>IS-A</strong> (è un) a una relazione <strong>HAS-A</strong> (ha un).<br>
+        Invece di dire: "Il bassotto E' un cane", diciamo: "Il robot HA un motore e HA un'arma".</p>
+
+        <div class="alert alert-light border-start border-success border-4 mt-3">
+            <p class="mb-0 small">
+                <i class="fas fa-check-circle text-success me-2"></i>
+                <strong>Validazione autorevole:</strong> non è solo una mia opinione. Questo principio è la "Regola #1" del libro <em>Design Patterns</em> (Gang of Four), la bibbia della programmazione a oggetti.
+                <a href="https://en.wikipedia.org/wiki/Composition_over_inheritance" target="_blank" class="fw-bold text-decoration-underline link-dark">Leggi la definizione tecnica specifica (Wikipedia)</a>.
+            </p>
+        </div>
+
+        <h4>L'approccio "assemblato"</h4>
+        <p>Creiamo componenti isolati, ognuno responsabile di una singola azione. Sono "scatole nere": non mi interessa come funzionano dentro, mi interessa solo cosa fanno.</p>
+
+<pre><code class="language-csharp">// Definisco i "pezzi" del mio LEGO (i contratti)
+public interface IMovimento { void Muoviti(); }
+public interface IAttacco { void Attacca(); }
+
+// Implementazione dei pezzi: piccoli, semplici e testabili
+public class MotoreVolo : IMovimento
+{
+    public void Muoviti() => Console.WriteLine("Sto volando tra le nuvole!");
+}
+
+public class MotoreCingoli : IMovimento
+{
+    public void Muoviti() => Console.WriteLine("Avanzo lentamente sui cingoli.");
+}
+
+public class NessunMovimento : IMovimento // Ottimo per torrette fisse o mine!
+{
+    public void Muoviti() => Console.WriteLine("Sono immobile.");
+}
+
+public class CannoneLaser : IAttacco
+{
+    public void Attacca() => Console.WriteLine("PEW PEW! Laser sparato.");
+}</code></pre>
+
+        <p>Ora, il nostro <code>Nemico</code> non è più il nodo finale di una complessa gerarchia. È un <strong>delegatore</strong>. Non fa il lavoro, dice agli altri di farlo.</p>
+
+<pre><code class="language-csharp">public class Nemico
+{
+    // Il nemico NON sa come ci si muove o come si attacca.
+    // HA dei componenti che lo sanno fare.
+    private readonly IMovimento _movimento;
+    private readonly IAttacco _attacco;
+
+    // COSTRUTTORE: Qui avviene la magia dell'assemblaggio.
+    // Gli passo i componenti che voglio usare. Iniezione pura!
+    public Nemico(IMovimento movimento, IAttacco attacco)
+    {
+        _movimento = movimento;
+        _attacco = attacco;
+    }
+
+    public void EseguiAzione()
+    {
+        // Delega: "Ehi motore, pensaci tu!"
+        _movimento.Muoviti();
+        _attacco.Attacca();
+    }
+}</code></pre>
+
+        <h3 id="vantaggi">Perché questo approccio ti salva la vita</h3>
+        <p>Immagina che il cliente torni: <em>"Voglio un robot assurdo che si muove sui cingoli ma spara frecce, e una torretta fissa laser."</em></p>
+        <p><strong>Con la composizione:</strong> non devi creare <em>nessuna</em> nuova classe. Ti limiti ad assemblare diversamente i pezzi che hai già.</p>
+
+<pre><code class="language-csharp">// Robot cingolato con arco
+var robotStrano = new Nemico(new MotoreCingoli(), new ArcoFrecce());
+robotStrano.EseguiAzione();
+
+// Torretta fissa con laser
+var torretta = new Nemico(new NessunMovimento(), new CannoneLaser());
+torretta.EseguiAzione();</code></pre>
+
+        <p>I vantaggi reali che pagano l'affitto:</p>
+        <ol>
+            <li><strong>Flessibilità estrema (runtime):</strong> con l'ereditarietà, un oggetto nasce e muore con quel tipo. Con la composizione, puoi tecnicamente cambiare il comportamento di un oggetto "a caldo".</li>
+            <li><strong>Testabilità (unit testing):</strong> come testo il <code>CannoneLaser</code> se è saldato in un <code>Nemico</code> gigante? Con la composizione, testo la classe <code>CannoneLaser</code> da sola. È come testare un carburatore sul banco di prova prima di montarlo sulla moto.</li>
+            <li><strong>Sicurezza:</strong> se modifico <code>MotoreVolo</code>, so che l'unico impatto sarà sul metodo <code>Muoviti</code>. Ognuno si fa i fatti suoi.</li>
+        </ol>
+
+        <hr>
+
+        <h3 id="difesa-ereditarieta">Ma allora... l'ereditarietà è da buttare? (Quando usare la saldatrice)</h3>
+        <p>Assolutamente no! L'ereditarietà è uno dei tre pilastri sacri della OOP. Non sto dicendo di buttare la saldatrice dalla finestra dell'officina. Sto dicendo di non usarla per avvitare una lampadina.</p>
+        <p>Ecco i casi in cui la <strong>saldatura (ereditarietà)</strong> è strutturalmente migliore dell'assemblaggio:</p>
+
+        <h4>1. Il principio "IS-A" è forte e stabile (identità)</h4>
+        <p>Un esempio classico sono le <strong>entità</strong> del database. Quasi tutte le tabelle hanno un ID e una data di creazione. Non ha senso usare la composizione per l'ID ("L'utente HA un ID"? No, l'ID è parte della sua identità).</p>
+
+<pre><code class="language-csharp">public abstract class BaseEntity
+{
+    public int Id { get; set; }
+    public DateTime DataCreazione { get; set; } = DateTime.Now;
+    public bool IsNew() => Id == 0;
+}
+
+public class Utente : BaseEntity 
+{
+    public string Nome { get; set; }
+    // Eredita Id e DataCreazione automaticamente.
+    // Qui la "saldatura" va bene perché un Utente NON smetterà mai di avere un ID.
+}</code></pre>
+
+        <h4>2. Framework e "superpoteri" gratuiti</h4>
+        <p>In C# lavorerai spesso con framework come ASP.NET Core. Qui l'ereditarietà è il modo standard per accedere alle funzionalità del sistema. Erediti da <a href="https://learn.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.controllerbase" target="_blank" rel="noopener noreferrer">ControllerBase</a> per ottenere gratuitamente tutta la complessità della gestione HTTP.</p>
+
+<pre><code class="language-csharp">public class MioController : ControllerBase 
+{
+    [HttpGet]
+    public IActionResult Get()
+    {
+        // Posso usare Ok(), NotFound() e accedere a this.User 
+        // perché li ho ereditati dal framework.
+        return Ok("Tutto ok!");
+    }
+}</code></pre>
+
+        <p><strong>La regola d'oro:</strong> usa l'ereditarietà per definire <strong>chi è</strong> l'oggetto (identità) o per riutilizzare infrastruttura stabile. Usa la composizione per definire <strong>cosa fa</strong> l'oggetto (comportamento).</p>
+
+        <hr>
+
+        <!-- SEZIONE QUIZ DINAMICO -->
+        <h3 class="mb-4 text-center"><i class="fas fa-gamepad me-2 text-primary"></i>Mettiti alla prova: saldatrice o cacciavite?</h3>
+        <p class="text-center mb-4">Hai capito la differenza? Prova a decidere quale strumento usare in questi scenari reali. Clicca sulla domanda per svelare la risposta dell'architetto.</p>
+
+        <div class="accordion mb-5 shadow-sm" id="quizAccordion">
+            
+            <!-- Domanda 1 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Scenario #1: gestione dipendenti aziendali
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#quizAccordion">
+                    <div class="accordion-body bg-light">
+                        <p><strong>La situazione:</strong> devi modellare i dipendenti. Tutti hanno nome, cognome, matricola e data di assunzione. Queste proprietà non cambieranno mai e sono l'identità base di ogni persona in azienda.</p>
+                        <hr>
+                        <p class="text-success fw-bold"><i class="fas fa-fire-alt me-2"></i>Soluzione: saldatrice (ereditarietà)</p>
+                        <p><strong>Perché?</strong> Qui c'è una forte relazione di identità ("È un"). Un Dipendente <em>è</em> una Persona. Non ha senso comporre l'identità base. Una classe base <code>DipendenteBase</code> è perfetta per evitare duplicazioni.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domanda 2 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Scenario #2: potenziamenti in un videogioco
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#quizAccordion">
+                    <div class="accordion-body bg-light">
+                        <p><strong>La situazione:</strong> il tuo personaggio può raccogliere oggetti che gli danno abilità temporanee: doppi salti, invisibilità o sparo rapido. Queste abilità possono essere combinate e perse se viene colpito.</p>
+                        <hr>
+                        <p class="text-primary fw-bold"><i class="fas fa-cubes me-2"></i>Soluzione: LEGO (composizione)</p>
+                        <p><strong>Perché?</strong> Le abilità sono temporanee e intercambiabili. Se usassi l'ereditarietà (`PersonaggioInvisibile`, `PersonaggioDoppioSalto`) impazziresti a combinare tutto (`PersonaggioInvisibileConDoppioSalto`). Meglio avere una lista di componenti <code>IAbilita</code> da aggiungere e rimuovere a runtime.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domanda 3 -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Scenario #3: notifiche utente
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#quizAccordion">
+                    <div class="accordion-body bg-light">
+                        <p><strong>La situazione:</strong> hai un servizio che deve inviare avvisi. Oggi mandiamo email, domani vorremo mandare SMS, e forse dopodomani notifiche push su Telegram. Vuoi poter cambiare il metodo di invio senza toccare la logica principale.</p>
+                        <hr>
+                        <p class="text-primary fw-bold"><i class="fas fa-cubes me-2"></i>Soluzione: LEGO (composizione)</p>
+                        <p><strong>Perché?</strong> Questo è il classico <em>strategy pattern</em>. La tua classe principale non deve sapere <em>come</em> si invia (ereditarietà), ma deve <em>avere</em> un componente che sa inviare (<code>INotificatore</code>). Così puoi "svitare" l'invio email e "avvitare" l'invio SMS senza rompere nulla.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FINE SEZIONE QUIZ -->
+
+        <h3>Conclusione: la cassetta degli attrezzi</h3>
+        <p>L'ereditarietà è come un matrimonio vecchio stampo: finché morte non vi separi. La composizione è come un appuntamento: stiamo insieme finché funziona, se le esigenze cambiano, ci stringiamo la mano e amici come prima.</p>
+
+        <p>Da quando ho iniziato a vedere le mie classi non come statue di marmo da scolpire, ma come <strong>set di LEGO da assemblare</strong>, il mio codice è diventato più pulito, più facile da leggere e, soprattutto, molto più resistente alle modifiche.</p>
+
+        <p>Ti è piaciuto l'articolo? Hai mai creato una "classe mostro" impossibile da gestire che ti ha fatto rimpiangere di aver scelto di fare il programmatore? Discutiamone insieme! Scrivimi direttamente su <a href="https://www.linkedin.com/in/marco-morello-b43b2a108" target="_blank">LinkedIn</a> per raccontarmi la tua esperienza o chiedermi un parere.</p>
+
+        <div class="mt-5 p-4 bg-light rounded border">
+            <h4>🔜 Prossimamente su "Il Viaggio del Programmatore"</h4>
+            <p>Hai visto come nel costruttore abbiamo passato i componenti manualmente? In un progetto vero diventerebbe un incubo! Nel prossimo articolo vedremo come automatizzare questo assemblaggio con la <strong>dependency injection</strong>, lasciando che sia il sistema a fornirci i pezzi giusti al momento giusto.</p>
+            <p class="mb-0">Prepara il cacciavite!</p>
+        </div>
+
+        <div id="firma-placeholder"></div>
+    </div>
+</div>
+<a href="../../blog/development.html"
+    class="btn btn-hero"
+    id="backToDevelopment"
+    style="position: fixed; bottom: 150px; right: 20px; z-index: 999; font-size: 0.8rem !important">
+    &larr; Torna indietro
+</a>    
+
+<div id="footer-placeholder" class="mt-auto"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+
+<script>
+    $(function () {
+        $("#header-placeholder").load("../../header.html");
+        $("#footer-placeholder").load("../../footer.html");
+        $("#firma-placeholder").load("../../firma.html");
+    });
+    
+    // Mostra bottone di ritorno dopo una certa quantità di scroll
+    window.addEventListener("scroll", function () {
+        const backBtn = document.getElementById("backToDevelopment");
+        if (window.scrollY > 400) {
+            backBtn.style.display = "block";
+        } else {
+            backBtn.style.display = "none";
+        }
+    });
+</script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

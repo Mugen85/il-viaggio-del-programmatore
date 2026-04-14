@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Ereditarietà in C#: l'arte di riutilizzare il codice (senza errori)</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Una guida pratica all'ereditarietà in C#. Impara a riutilizzare il codice con la relazione 'is-a', a usare le interfacce e a scegliere tra ereditarietà e composizione.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/ereditarieta-csharp-riuso-codice.html">
+
+    <meta property="og:title" content="Ereditarietà in C#: L'Arte di Riutilizzare il Codice (Senza Errori)">
+    <meta property="og:description" content="Scopri come usare l'ereditarietà in C# per creare codice pulito e riutilizzabile, evitando le trappole comuni come l'accoppiamento stretto.">
+    <meta property="og:image" content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/ereditarieta-csharp-riuso-codice.webp">
+    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/ereditarieta-csharp-riuso-codice.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+
+    <style>
+        #backToDevelopment {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+        }
+        .quiz-option {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+        }
+        .quiz-option:hover {
+            background-color: #f0f0f0;
+        }
+        .quiz-explanation {
+            display: none;
+            margin-top: 15px;
+        }
+        .correct {
+            border-color: #198754;
+            background-color: #d1e7dd;
+        }
+        .incorrect {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <!-- AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+    <!-- Fine AdSense -->
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+    <header class="blog-header header-development">
+        <h1>Development</h1>
+        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il proprio futuro con coraggio e competenza.</p>
+    </header>
+
+<div class="article-container">
+    <div class="article-content">
+        <img src="../../images/blog/development/ereditarieta-csharp-riuso-codice.webp"
+             alt="Concetto di ereditarietà in C# rappresentato da una famiglia e una casa di carta su un laptop." class="article-image">
+
+        <h2 class="article-title">
+            Ereditarietà in C#: l'arte di riutilizzare il codice (senza errori)
+        </h2>
+
+        <p class="text-muted">Scritto da Marco Morello il 10 Agosto 2025</p>
+
+        <p>Ciao developer e aspiranti tali!</p>
+        <p>
+            Nei nostri ultimi viaggi, abbiamo imparato a costruire oggetti solidi con i <strong>costruttori</strong> e a proteggerli con l'<strong>incapsulamento</strong>. Abbiamo creato dei "mattoncini" di codice robusti e autonomi. Ora è il momento di fare il passo successivo: scoprire come questi mattoncini possono essere messi in relazione tra loro per costruire strutture più complesse e, soprattutto, per <strong>non ripetere mai più lo stesso codice</strong>.
+        </p>
+        <p>
+            Pensa all'ereditarietà come alla costruzione di un veicolo specializzato. Non parti da zero metallo grezzo. Parti da un telaio standard (la classe base), che ha già un motore, ruote e un sistema di sterzo. Da questa base solida, puoi creare un'auto sportiva (aggiungendo un alettone e un motore potenziato) o un furgone (aggiungendo un ampio vano di carico). Stai <strong>riutilizzando il lavoro già fatto</strong> e <strong>specializzando per un nuovo scopo</strong>.
+        </p>
+        <p>
+            Nella programmazione a oggetti, l'<strong>ereditarietà</strong> è esattamente questo: un meccanismo che permette a una nuova classe (la classe "figlia" o derivata) di ereditare campi, proprietà e metodi da una classe esistente (la classe "madre" o base). È il principio fondamentale del riuso del codice, ma, come ogni strumento potente, va usato con saggezza.
+        </p>
+        <p>
+            In questa guida, vedremo come funziona l'ereditarietà in C#, quando usarla e, cosa ancora più importante, quando evitarla per non cadere in trappole comuni.
+        </p>
+
+        <div class="card bg-light my-4">
+            <div class="card-body">
+                <h5 class="card-title">📋 In questo articolo</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#che-cose-ereditarieta">🤔 Che cos'è l'ereditarietà? La relazione "is-a"</a></li>
+                    <li><a href="#sintassi-base">✍️ Sintassi base: come creare una classe figlia</a></li>
+                    <li><a href="#parola-chiave-base">🔑 La parola chiave `base`: dialogare con la classe genitore</a></li>
+                    <li><a href="#modificatore-protected">🛡️ Il modificatore `protected`: i segreti di famiglia</a></li>
+                    <li><a href="#limiti-ereditarieta">⛓️ I limiti dell'ereditarietà: niente ereditarietà multipla</a></li>
+                    <li><a href="#interfacce-soccorso">💡 E se una classe avesse bisogno di più 'genitori'? Le interfacce al soccorso</a></li>
+                    <li><a href="#ereditarieta-vs-composizione">⚠️ Ereditarietà vs composizione: la domanda da un milione di dollari</a></li>
+                    <li><a href="#test-comprensione">🧠 Metti alla prova la tua comprensione</a></li>
+                    <li><a href="#conclusione">🏁 Conclusione: ereditare con criterio</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <hr>
+
+        <h3 id="che-cose-ereditarieta">🤔 Che cos'è l'ereditarietà? La relazione "is-a"</h3>
+        <p>L'ereditarietà <strong>stabilisce una relazione di tipo "is-a"</strong> (è un/una) tra due classi. Una classe <code>Automobile</code> <strong>è un</strong> <code>Veicolo</code>. Una classe <code>Manager</code> <strong>è un</strong> <code>Dipendente</code>. Questa relazione, che sembra semplice, è il test fondamentale per decidere se l'ereditarietà è la scelta giusta. Se la frase "la classe figlia è un tipo di classe madre" ha senso, allora sei sulla strada giusta.</p>
+        <p>Questo significa che la classe figlia (o <strong>derivata</strong>) ottiene automaticamente tutti i membri pubblici e protetti della classe madre (o <strong>base</strong>), e può aggiungerne di nuovi o specializzare quelli esistenti.</p>
+
+        <h3 id="sintassi-base">✍️ Sintassi base: come creare una classe figlia</h3>
+        <p>L'idea è semplice: invece di scrivere da capo una classe <code>Automobile</code> e una classe <code>Motocicletta</code> con le stesse proprietà (es. <code>Velocita</code>, <code>Colore</code>, <code>Marca</code>), creiamo una classe base <code>Veicolo</code> che le contiene e facciamo in modo che le altre due la "estendano".</p>
+<pre><code>// La classe base (o madre)
+public class Veicolo
+{
+    public string Marca { get; set; }
+    public int Velocita { get; protected set; }
+
+    public void Accelera(int incremento)
+    {
+        Velocita += incremento;
+    }
+}
+
+// La classe derivata (o figlia)
+public class Automobile : Veicolo // La sintassi ":" stabilisce l'ereditarietà
+{
+    public int NumeroPorte { get; set; }
+}
+</code></pre>
+        <img src="../../images/blog/development/PrincipiOOP_Csharp_UML.png" alt="Diagramma UML che mostra l'ereditarietà tra Veicolo, Automobile e Motocicletta" class="img-fluid rounded my-3">
+        <p>Questo diagramma mostra visivamente che <code>Automobile</code> è un tipo specializzato di <code>Veicolo</code>, ereditandone tutte le caratteristiche e aggiungendone di proprie.</p>
+
+        <h3 id="parola-chiave-base">🔑 La parola chiave `base`: dialogare con la classe genitore</h3>
+        <p>La parola chiave <code>base</code> è il <strong>ponte di comunicazione tra una classe figlia e la sua classe madre</strong>. Ha due usi principali e fondamentali.</p>
+        
+        <h4>1. Chiamare il costruttore della classe base</h4>
+        <p>Se la classe base ha un costruttore che richiede dei parametri, la classe figlia ha la responsabilità di fornirglieli. Per farlo, usiamo <code>: base(...)</code> nella dichiarazione del suo costruttore. È un modo per dire: "Cara classe madre, prima di fare le mie cose, prendi questi dati e costruisci la tua parte".</p>
+<pre><code>public class Dipendente
+{
+    public string Nome { get; }
+
+    public Dipendente(string nome)
+    {
+        if (string.IsNullOrWhiteSpace(nome)) throw new ArgumentException("Nome obbligatorio");
+        Nome = nome;
+    }
+}
+
+public class Manager : Dipendente
+{
+    public int BonusAnnuale { get; set; }
+
+    public Manager(string nome, int bonus) 
+        : base(nome) // Passiamo i dati al costruttore della classe base
+    {
+        this.BonusAnnuale = bonus;
+    }
+}
+</code></pre>
+        <blockquote class="blockquote alert alert-info my-4">
+            <p class="mb-0">🧠 <strong>Malizia da pro</strong>: se non chiami esplicitamente un costruttore con <code>: base(...)</code>, C# cercherà di chiamare il costruttore senza parametri della classe base (<code>base()</code>). Se questo non esiste, otterrai un errore di compilazione. È una regola ferrea: <strong>la parte "madre" di un oggetto deve essere sempre costruita prima della parte "figlia"</strong>.</p>
+        </blockquote>
+
+        <h4>2. Accedere ai metodi della classe base</h4>
+        <p>A volte una classe figlia ha bisogno di <strong>specializzare un comportamento, ma non di sostituirlo completamente</strong>. In questo caso, può ridefinire un metodo e, al suo interno, richiamare l'implementazione originale della classe base usando <code>base.NomeMetodo()</code>.</p>
+<pre><code>public class Veicolo
+{
+    public virtual string MostraInfo()
+    {
+        return "Questo è un veicolo generico.";
+    }
+}
+
+public class Automobile : Veicolo
+{
+    public override string MostraInfo()
+    {
+        string infoBase = base.MostraInfo(); // Chiamo il metodo originale
+        return $"{infoBase} Nello specifico, è un'automobile.";
+    }
+}
+</code></pre>
+        <blockquote class="blockquote alert alert-info my-4">
+            <p class="mb-0">📘 <strong>Collegamento al futuro</strong>: le parole chiave <code>virtual</code> e <code>override</code> sono il cuore del <strong>polimorfismo</strong>, l'argomento del nostro prossimo articolo. Per ora, ti basta sapere che permettono questa specializzazione controllata dei metodi.</p>
+        </blockquote>
+
+        <h3 id="modificatore-protected">🛡️ Il modificatore `protected`: i segreti di famiglia</h3>
+        <p>Un membro <code>protected</code> è come un segreto di famiglia: è invisibile al mondo esterno (come <code>private</code>), ma è visibile e utilizzabile da tutte le classi che ereditano da essa. È lo strumento perfetto per <strong>esporre dati o metodi di supporto alle classi figlie</strong> senza però renderli parte dell'interfaccia pubblica.</p>
+
+        <h3 id="limiti-ereditarieta">⛓️ I limiti dell'ereditarietà: niente ereditarietà multipla</h3>
+        <p>C'è una regola importante in C#: <strong>una classe può ereditare da una e una sola classe base</strong>. Questa limitazione serve a evitare un problema complesso noto come <strong>"problema del diamante" (diamond problem)</strong>. Immagina che <code>ClasseB</code> e <code>ClasseC</code> ereditino entrambe da <code>ClasseA</code> e ridefiniscano un suo metodo. Se <code>ClasseD</code> potesse ereditare sia da <code>B</code> che da <code>C</code>, si troverebbe di fronte a un'ambiguità irrisolvibile: quale versione del metodo dovrebbe usare? Quella di B o quella di C? C# risolve il problema alla radice, impedendo questa situazione.</p>
+
+        <h3 id="interfacce-soccorso">💡 E se una classe avesse bisogno di più 'genitori'? Le interfacce al soccorso</h3>
+        <p>La risposta di C# al problema del diamante è elegante e potente: le <strong>interfacce</strong>.</p>
+        <p>Se l'ereditarietà definisce una relazione <strong>"is-a"</strong> (un'automobile <em>è un</em> veicolo), un'interfaccia definisce una relazione <strong>"can-do"</strong> (può fare). Un'interfaccia è un contratto che definisce un set di abilità che una classe si impegna a implementare. Una classe può ereditare da una sola classe base, ma può <strong>implementare quante interfacce vuole</strong>.</p>
+<pre><code>public interface IDanneggiabile { void SubisciDanno(int danno); }
+public interface IRiparabile { void Ripara(int quantita); }
+
+// La nostra Automobile EREDITA da Veicolo e IMPLEMENTA due interfacce
+public class Automobile : Veicolo, IDanneggiabile, IRiparabile
+{
+    public void SubisciDanno(int danno) { /* ... */ }
+    public void Ripara(int quantita) { /* ... */ }
+}
+</code></pre>
+        <p>Con questo approccio, la nostra <code>Automobile</code> <strong>è un</strong> <code>Veicolo</code>, ma <strong>può anche</strong> essere danneggiata e riparata.</p>
+
+        <h3 id="ereditarieta-vs-composizione">⚠️ Ereditarietà vs composizione: la domanda da un milione di dollari</h3>
+        <p>L'ereditarietà crea un <strong>accoppiamento stretto</strong>. Per questo, la programmazione moderna segue un principio fondamentale: <strong>"favorire la composizione rispetto all'ereditarietà."</strong></p>
+        <ul>
+            <li><strong>Ereditarietà (is-a)</strong>: <code>Automobile</code> <strong>è un</strong> <code>Veicolo</code>.</li>
+            <li><strong>Composizione (has-a)</strong>: <code>Automobile</code> <strong>ha un</strong> <code>Motore</code>.</li>
+        </ul>
+        <h4>Come scegliere: una guida pratica</h4>
+        <p>Fatti queste domande per decidere:</p>
+        <ol>
+            <li><strong>È una vera relazione "is-a"?</strong> Se un metodo si aspetta un <code>Veicolo</code>, dovrebbe poter funzionare senza problemi sia con un'<code>Automobile</code> che con una <code>Motocicletta</code>. Se questa sostituzione non è logicamente corretta, l'ereditarietà è la scelta sbagliata.</li>
+            <li><strong>La classe base è stabile?</strong> Se stai ereditando da una classe di una libreria esterna che potrebbe cambiare nelle future versioni, l'ereditarietà è molto rischiosa. La composizione ti isola da questi cambiamenti.</li>
+            <li><strong>Hai bisogno di tutta la classe base o solo di una sua funzionalità?</strong> Se ti serve solo un pezzetto del comportamento di una classe, non ereditare l'intera gerarchia solo per quel metodo. È come comprare un intero supermercato quando ti serve solo un litro di latte. Usa la composizione per includere solo la parte che ti serve.</li>
+        </ol>
+
+        <hr>
+
+        <h3 id="test-comprensione">🧠 Metti alla prova la tua comprensione</h3>
+        <p>Verifica se i concetti chiave sono chiari con queste domande.</p>
+        
+        <!-- Domanda 1 -->
+        <div class="quiz-question mb-4">
+            <h5>Domanda 1: Quale delle seguenti è la migliore candidata per una relazione di ereditarietà?</h5>
+            <div class="quiz-option" onclick="checkAnswer(this, 'C')">A) Una classe `Automobile` e una classe `Ruota`.</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'C')">B) Una classe `Database` e una classe `Logger`.</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'C')">C) Una classe `Documento` e una classe `Fattura`.</div>
+            <div class="quiz-explanation alert alert-info">
+                <p><strong>Risposta corretta: C) Una classe `Documento` e una classe `Fattura`.</strong></p>
+                <p><strong>Spiegazione:</strong> Una <code>Fattura</code> <strong>è un</strong> tipo specifico di <code>Documento</code>. Questa è una chiara relazione "is-a". Un'automobile <strong>ha delle</strong> ruote (composizione) e un database <strong>usa un</strong> logger (composizione o dipendenza), ma non sono la stessa cosa. (Rivedi la sezione: <a href="#che-cose-ereditarieta">Che cos'è l'ereditarietà? La relazione "is-a"</a>).</p>
+            </div>
+        </div>
+
+        <!-- Domanda 2 -->
+        <div class="quiz-question mb-4">
+            <h5>Domanda 2: Stai creando una classe `DroneSpia`. Questo drone deve ereditare da `Drone` e deve avere anche le capacità di registrare video e trasmettere dati. Come modelli questa situazione in C#?</h5>
+            <div class="quiz-option" onclick="checkAnswer(this, 'B')">A) `class DroneSpia : Drone, RegistratoreVideo, TrasmettitoreDati`</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'B')">B) `class DroneSpia : Drone, IRegistratoreVideo, ITrasmettitoreDati`</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'B')">C) `class DroneSpia : IRegistratoreVideo, ITrasmettitoreDati`</div>
+            <div class="quiz-explanation alert alert-info">
+                <p><strong>Risposta corretta: B) `class DroneSpia : Drone, IRegistratoreVideo, ITrasmettitoreDati`</strong></p>
+                <p><strong>Spiegazione:</strong> In C# una classe può ereditare da una sola classe base (<code>Drone</code>) ma può implementare multiple interfacce (<code>IRegistratoreVideo</code>, <code>ITrasmettitoreDati</code>). Le interfacce definiscono le capacità "can-do" e sono la soluzione perfetta per aggiungere comportamenti multipli. (Rivedi la sezione: <a href="#interfacce-soccorso">E se una classe avesse bisogno di più 'genitori'? Le interfacce al soccorso</a>).</p>
+            </div>
+        </div>
+
+        <!-- Domanda 3 -->
+        <div class="quiz-question mb-4">
+            <h5>Domanda 3: Perché la programmazione moderna suggerisce di "favorire la composizione rispetto all'ereditarietà"?</h5>
+            <div class="quiz-option" onclick="checkAnswer(this, 'B')">A) Perché l'ereditarietà è un concetto obsoleto.</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'B')">B) Perché l'ereditarietà crea un accoppiamento forte, rendendo il codice più rigido e difficile da mantenere se la classe base cambia.</div>
+            <div class="quiz-option" onclick="checkAnswer(this, 'B')">C) Perché la composizione permette sempre di scrivere meno codice.</div>
+            <div class="quiz-explanation alert alert-info">
+                <p><strong>Risposta corretta: B) Perché l'ereditarietà crea un accoppiamento forte, rendendo il codice più rigido e difficile da mantenere se la classe base cambia.</strong></p>
+                <p><strong>Spiegazione:</strong> Il problema principale dell'ereditarietà è l'accoppiamento stretto. Una modifica alla classe base può "rompere" in modi inaspettati tutte le classi figlie. La composizione crea relazioni più deboli e flessibili, rendendo il sistema più facile da modificare e mantenere. (Rivedi la sezione: <a href="#ereditarieta-vs-composizione">Ereditarietà vs composizione: la domanda da un milione di dollari</a>).</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <h3 id="conclusione">🏁 Conclusione: ereditare con criterio</h3>
+        <p>L'ereditarietà è uno strumento fondamentale. Permette di creare gerarchie eleganti e di riutilizzare il codice in modo efficace. Tuttavia, il suo potere deriva da un forte accoppiamento. Ricorda la regola d'oro: <strong>usa l'ereditarietà per le relazioni "is-a" e per abilitare il polimorfismo</strong>, e affidati alla composizione e alle interfacce per tutto il resto. Questa scelta consapevole è uno dei segni distintivi di un programmatore maturo.</p>
+
+        <h3 id="risorse-utili">🔗 Dalla teoria alla pratica: il codice sorgente</h3>
+        <p>La teoria è fondamentale, ma il codice è il nostro mestiere. 
+            In questo repository su GitHub trovi un progetto C# con esempi pratici e funzionanti non solo sull'ereditarietà,
+             ma su tutti i pilastri della programmazione a oggetti che stiamo esplorando. Clonalo, eseguilo e sperimenta in prima persona!</p>
+        <ul>
+            <li><a href="https://github.com/Mugen85/sandbox-dev/tree/main/PrincipiOOP_CSharp" target="_blank" rel="noopener noreferrer">Repository Principi OOP in C#</a></li>
+        </ul>
+        
+        <hr>
+
+        <p>Ora che abbiamo capito come creare gerarchie di classi, siamo pronti per il vero superpotere che queste sbloccano. Nel prossimo articolo parleremo di <strong>polimorfismo</strong>, e vedremo come scrivere codice che può lavorare con oggetti di tipi diversi in modo uniforme e flessibile. A presto! 🚀</p>
+
+        <div id="firma-placeholder"></div>
+    </div>
+</div>
+
+<a href="../../blog/development.html" class="btn btn-hero" id="backToDevelopment" style="position: fixed; bottom: 150px; right: 20px; z-index: 999; font-size: 0.8rem !important">&larr; Torna indietro</a>
+
+<div id="footer-placeholder" class="mt-auto"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        $("#header-placeholder").load("../../header.html");
+        $("#footer-placeholder").load("../../footer.html");
+        $("#firma-placeholder").load("../../firma.html");
+    });
+
+    window.addEventListener("scroll", function () {
+        const backBtn = document.getElementById("backToDevelopment");
+        if (window.scrollY > 400) {
+            backBtn.style.display = "block";
+        } else {
+            backBtn.style.display = "none";
+        }
+    });
+
+    function checkAnswer(selectedOption, correctAnswer) {
+        const questionContainer = selectedOption.parentElement;
+        const options = questionContainer.querySelectorAll('.quiz-option');
+        const explanation = questionContainer.querySelector('.quiz-explanation');
+
+        // Disabilita ulteriori click
+        options.forEach(opt => opt.style.pointerEvents = 'none');
+
+        // Controlla la risposta
+        if (selectedOption.textContent.trim().startsWith(correctAnswer + ')')) {
+            selectedOption.classList.add('correct');
+        } else {
+            selectedOption.classList.add('incorrect');
+            // Evidenzia la risposta corretta
+            options.forEach(opt => {
+                if (opt.textContent.trim().startsWith(correctAnswer + ')')) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+
+        // Mostra la spiegazione
+        explanation.style.display = 'block';
+    }
+</script>
+</body>
+</html>

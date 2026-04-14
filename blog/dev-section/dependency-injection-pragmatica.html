@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <title>Dependency Injection: Smetti di saldare, inizia a imbullonare | Il Viaggio del Programmatore</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guida completa alla Dependency Injection in .NET: scopri come disaccoppiare il codice, gestire i cicli di vita (Lifetime) ed evitare memory leak. Smetti di usare 'new' e inizia a progettare.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/dependency-injection-pragmatica.html">
+
+    <meta property="og:title" content="Dependency Injection: Smetti di saldare i tuoi oggetti">
+    <meta property="og:description" content="Perché il 'new' è il nemico? Guida pratica alla DI in C# per rendere il tuo software manutenibile e testabile. Dal pattern Strategy ai cicli di vita Scoped e Singleton.">
+    <meta property="og:image" content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/dependency-injection-preview.webp">
+    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/dependency-injection-pragmatica.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        #backToDevelopment {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+        }
+
+        /* 3. OVERRIDE PER FORZARE LO STILE DARK VS CODE */
+        pre[class*="language-"] {
+            background-color: #1e1e1e !important; /* Grigio scuro VS Code */
+            border: 1px solid #333 !important;
+            border-radius: 8px !important;
+            margin-bottom: 2rem !important;
+            padding: 1.5rem !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            max-width: 100% !important; 
+            overflow-x: auto !important; 
+            white-space: pre !important; 
+        }
+
+        code[class*="language-"], pre[class*="language-"] {
+            text-shadow: none !important;
+            color: #d4d4d4 !important; 
+            font-family: 'Consolas', 'Monaco', 'Andale Mono', monospace !important;
+            font-size: 0.95rem;
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <!-- AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+    <!-- Fine AdSense -->
+</head>
+<body>
+<div id="header-placeholder"></div>
+
+    <header class="blog-header header-development">
+        <h1>Sviluppo Software</h1>
+        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il proprio futuro con coraggio e competenza.</p>
+    </header>
+
+<div class="article-container">
+    <div class="article-content">
+        
+        <!-- Placeholder Immagine -->
+        <figure class="figure w-100 text-center mb-5">
+            <img src="../../images/blog/development/dependency-injection-tools.webp"
+                 alt="Carrello degli attrezzi in officina, metafora della Dependency Injection" 
+                 class="figure-img img-fluid rounded shadow-sm"
+                 style="max-height: 500px; object-fit: cover;">
+            <figcaption class="figure-caption mt-2">
+                <i class="fas fa-tools me-1"></i> 
+                <em>Il carrello degli attrezzi: tutto quello che serve, esattamente dove ti aspetti che sia.</em>
+            </figcaption>
+        </figure>
+
+        <h2 class="article-title">
+            Dependency Injection: smetti di saldare i tuoi oggetti, usa il carrello degli attrezzi
+        </h2>
+
+        <p class="text-muted">Scritto da Marco Morello il 4 Febbraio 2026</p>
+
+        <blockquote class="blockquote alert alert-info my-4">
+            <p class="mb-0">
+                <strong>💡 TL;DR</strong>: Il <code>new</code> all'interno delle classi è una "saldatura" che impedisce la manutenzione. La Dependency Injection è il "bullone" che ti permette di cambiare componenti senza rompere il sistema. In questo articolo esploriamo Lifetimes, Container e Best Practices in .NET.
+            </p>
+        </blockquote>
+        
+        <hr>
+        
+        <p>Nel post precedente abbiamo parlato di <strong>Composition over Inheritance</strong> usando l'analogia dei LEGO. Abbiamo capito che è meglio assemblare piccoli componenti specializzati piuttosto che creare gerarchie rigide. Ma una volta che abbiamo tutti questi pezzi (servizi, logger, database), sorge un problema meccanico fondamentale: <strong>chi ha la responsabilità di assemblarli?</strong></p>
+
+        <p>Se nel tuo codice scrivi <code>new MioServizio()</code> dentro una classe, stai effettuando quella che io chiamo una <strong>saldatura strutturale</strong>. In meccanica, se saldi un componente al telaio invece di usare dadi e bulloni, rendi la manutenzione un incubo: per cambiare un pezzo devi tagliare, smerigliare e risaldare. In informatica, il <code>new</code> dentro una classe crea un <strong>accoppiamento forte (Tight Coupling)</strong> che rende il codice rigido, fragile e impossibile da testare seriamente.</p>
+
+        <p>Oggi entriamo nel profondo della <strong>Dependency Injection (DI)</strong>. Non vedremo solo come usarla, ma capiremo perché è il sistema nervoso centrale di ogni applicazione .NET moderna, da una complessa Web API a un'app MAUI per la gestione dell'officina.</p>
+
+        <hr>
+
+        <h3 id="genesi-filosofica">1. La genesi filosofica: la trinità del controllo</h3>
+        
+        <p>Per padroneggiare la DI, dobbiamo prima fare pulizia terminologica. Molti sviluppatori usano IoC, DIP e DI come sinonimi, ma sono concetti posti su livelli diversi di astrazione. Capire questa gerarchia è ciò che distingue un programmatore che "copia codice" da un architetto del software.</p>
+
+        <h4>A. Inversion of Control (IoC) - Il cambio di paradigma</h4>
+        <p>L'IoC è il concetto più ampio. Normalmente, il tuo codice è il "pilota": decide quando frenare, quando curvare e quando cambiare marcia. In un sistema IoC, tu scrivi solo la logica dei singoli componenti e deleghi a un "pilota automatico" (il Framework) il compito di decidere quando chiamarli.</p>
+        <ul>
+            <li><strong>Mantra:</strong> <em>"Don't call us, we'll call you"</em> (Il principio di Hollywood).</li>
+            <li><strong>Analogia meccanica:</strong> in un'officina tradizionale, il meccanico deve ricordarsi di accendere il compressore, aprire l'aria e poi usare la pistola pneumatica. In un'officina "IoC", appena il meccanico solleva la pistola dal supporto, il compressore parte e l'aria arriva automaticamente. Il controllo della logistica è invertito: il meccanico si concentra solo sul bullone.</li>
+        </ul>
+
+        <h4>B. Dependency Inversion Principle (DIP) - La regola architetturale</h4>
+        <p>È la "D" dei principi SOLID. Martin Fowler e Robert C. Martin sottolineano due regole:</p>
+        <ol>
+            <li>I moduli di alto livello (la tua logica di business, es. "Calcola Margine Officina") non devono dipendere da quelli di basso livello (es. "Salva su SQLite"). Entrambi devono dipendere da <strong>astrazioni</strong>.</li>
+            <li>Le astrazioni non devono dipendere dai dettagli. I dettagli (le implementazioni) devono dipendere dalle astrazioni.</li>
+        </ol>
+        <p><strong>Perché è vitale?</strong> Se la tua logica di business dipende direttamente da <code>SqliteDatabase</code>, la tua logica è "ostaggio" della tecnologia. Se il database fallisce o cambia, la tua logica deve essere riscritta. Se dipendi da un'interfaccia <code>IDataStore</code>, la tua logica è pura, protetta e pronta a correre su qualsiasi strada, che sia sterrata o asfaltata come la SS45.</p>
+
+        <h4>C. Dependency Injection (DI) - Lo strumento pratico</h4>
+        <p>La DI è il pattern specifico che realizza l'IoC per quanto riguarda la gestione delle dipendenze. È l'atto fisico di fornire a un oggetto le risorse di cui ha bisogno tramite un fornitore esterno (il Container), invece di fargliele creare internamente.</p>
+
+        <hr>
+
+        <h3 id="problema-saldatura">2. Anatomia del problema: il costo nascosto della "saldatura"</h3>
+        
+        <p>Analizziamo cosa succede realmente quando scriviamo <code>new</code> in un metodo.</p>
+
+<pre><code class="language-csharp">public class ManutenzioneService {
+    public void EseguiTagliando() {
+        // SALDATURA: Accoppiamento forte e rigido
+        var logger = new FileLogger(@"C:\logs\officina.txt");
+        var database = new SqliteDatabase();
+        
+        logger.Info("Inizio tagliando...");
+        database.Salva("Intervento su Yamaha XT1200Z");
+    }
+}</code></pre>
+
+        <p>Questo frammento nasconde tre "mine anti-uomo":</p>
+        <ol>
+            <li><strong>Rigidità (Open/Closed violation):</strong> se vuoi inviare i log a un database in cloud (es. Azure Application Insights), devi modificare, ricompilare e ridistribuire <code>ManutenzioneService</code>.</li>
+            <li><strong>Propagazione dell'errore (Fragilità):</strong> se il costruttore di <code>FileLogger</code> cambia (magari richiede un parametro extra), tutte le classi che lo istanziano smettono di compilare. È l'effetto domino che ti tiene sveglio la notte.</li>
+            <li><strong>Mancanza di isolamento:</strong> non puoi testare questa logica senza avere un file fisico o un database reale. I tuoi Unit Test diventano lenti, sporchi e dipendenti dall'ambiente.</li>
+        </ol>
+
+        <hr>
+
+        <h3 id="motore-dotnet">3. Il motore di .NET: <code>IServiceCollection</code> e il grafo delle dipendenze</h3>
+        
+        <p>Quando avvii un'app .NET, il framework crea un <strong>Container</strong> (il <code>IServiceProvider</code>). Immaginalo come un magazziniere con un registro di montaggio millimetrico che tiene traccia di come costruire ogni singolo pezzo della tua moto.</p>
+
+        <h4>La registrazione (il catalogo)</h4>
+        <p>Nel <code>Program.cs</code>, compili questa lista usando <code>IServiceCollection</code>.</p>
+
+<pre><code class="language-csharp">var builder = WebApplication.CreateBuilder(args);
+
+// Associazioni tra Contratto (Interface) e Implementazione (Classe)
+builder.Services.AddScoped&lt;IRepositoryMoto, SqlServerRepository&gt;();
+builder.Services.AddSingleton&lt;IEmailService, SendGridEmailService&gt;();</code></pre>
+
+        <h4>La risoluzione (il runtime)</h4>
+        <p>Quando chiedi al Container un oggetto, avviene la <strong>Dependency Graph Resolution</strong>. 
+        Se chiedi un <code>Controller</code>, il Container vede che serve <code>ServiceA</code>, il quale richiede <code>RepositoryB</code>, il quale richiede <code>DbContext</code>. Il Container risale l'intera catena (il grafo delle dipendenze), crea tutti gli oggetti nell'ordine corretto (dai più profondi ai più superficiali) e te li consegna già assemblati. Se un pezzo del puzzle manca, l'app "esplode" al boot invece che crashare in modo casuale mentre l'utente la usa: un vantaggio enorme per la stabilità.</p>
+
+        <hr>
+
+        <h3 id="lifetimes">4. Lifetimes: gestione della memoria e pericoli degli <code>IDisposable</code></h3>
+        
+        <p>Questa è la parte dove si decidono le performance dell'app. Sbagliare il Lifetime non crea solo bug logici, ma può saturare la RAM o corrompere i dati tra diversi utenti.</p>
+
+        <h4>A. Transient (<code>AddTransient</code>) - L'elettrodo</h4>
+        <p>Viene creata una nuova istanza <strong>ogni singola volta</strong> che viene richiesta.</p>
+        <ul>
+            <li><strong>Uso:</strong> Servizi leggeri, senza stato (stateless). Come un elettrodo della saldatrice: lo usi per quel punto e poi lo getti.</li>
+            <li>⚠️ <strong>Attenzione agli IDisposable:</strong> Se registri un servizio <code>IDisposable</code> come Transient, il container terrà un riferimento ad esso fino alla chiusura dello "scope". Se lo risolvi migliaia di volte in un ciclo, potresti causare un memory leak temporaneo ma massiccio perché il container non può liberarli finché lo scope non finisce.</li>
+        </ul>
+
+        <h4>B. Scoped (<code>AddScoped</code>) - La scheda di officina</h4>
+        <p>Viene creata una sola volta per ogni "Scope" (tipicamente una richiesta HTTP).</p>
+        <ul>
+            <li><strong>Importante:</strong> È il lifetime obbligatorio per il <code>DbContext</code> di Entity Framework. Garantisce che tutti i repository che lavorano sulla stessa richiesta usino la stessa connessione, permettendo le transazioni atomiche (o tutto o niente).</li>
+        </ul>
+
+        <h4>C. Singleton (<code>AddSingleton</code>) - Il compressore imbullonato</h4>
+        <p>Viene creata una sola volta e vive finché l'app non viene spenta.</p>
+        <ul>
+            <li><strong>Pericolo Thread-Safety:</strong> Poiché un Singleton è condiviso da tutti i thread (e quindi da tutti gli utenti) contemporaneamente, i suoi metodi devono essere "Thread-Safe". Mai usare liste o variabili globali senza protezioni (come i <code>lock</code> o le <code>ConcurrentCollections</code>).</li>
+        </ul>
+
+        <div class="alert alert-danger border-start border-danger border-4">
+            <h5>D. La trappola mortale: captive dependency</h5>
+            <p>Si verifica quando un oggetto con un lifetime lungo (Singleton) dipende da uno con un lifetime breve (Scoped).</p>
+            <p><strong>Esempio:</strong> Immagina il <strong>Capo Officina</strong> (Singleton) che prende la <strong>Scheda di Lavoro</strong> di un cliente (Scoped). Se trattiene quella scheda per sempre, finirà per annotare i lavori di tutti i clienti futuri su quel vecchio foglio ormai chiuso, mischiando i dati. In .NET, questo porta spesso a errori di "DbContext disposed" o leak di memoria. .NET moderno lancia un'eccezione in modalità Development se rileva questa situazione proprio per salvarti la pelle.</p>
+        </div>
+
+        <hr>
+
+        <h3 id="options-pattern">5. Configurazione professionale: options pattern</h3>
+        
+        <p>Non iniettare mai stringhe di connessione o chiavi API "nude" nei tuoi servizi. Questo accoppia il tuo codice al file di configurazione. La soluzione professionale è l'<strong>Options Pattern</strong>, che trasforma il tuo JSON in oggetti C# validati e pronti all'uso.</p>
+
+<pre><code class="language-csharp">// Classe per le impostazioni
+public class OfficinaSettings {
+    public string ConnectionString { get; set; }
+    public int MaxRiparazioniContemporanee { get; set; }
+}
+
+// Nel Program.cs
+builder.Services.Configure&lt;OfficinaSettings&gt;(builder.Configuration.GetSection("Officina"));
+
+// Nel servizio
+public class CalcoloService(IOptions&lt;OfficinaSettings&gt; options) {
+    private readonly OfficinaSettings _settings = options.Value;
+}</code></pre>
+
+        <ul>
+            <li><strong><code>IOptions&lt;T&gt;</code></strong>: Singleton, legge i dati una volta.</li>
+            <li><strong><code>IOptionsSnapshot&lt;T&gt;</code></strong>: Scoped, utile se vuoi cambiare le impostazioni nel file JSON senza riavviare il server.</li>
+            <li><strong><code>IOptionsMonitor&lt;T&gt;</code></strong>: Singleton, ma aggiorna i valori in tempo reale con eventi di notifica.</li>
+        </ul>
+
+        <hr>
+
+        <h3 id="gestione-avanzata">6. Gestione avanzata: scopes manuali e keyed services</h3>
+
+        <h4><code>IServiceScopeFactory</code> (Il "garage temporaneo")</h4>
+        <p>A volte ti trovi in un servizio Singleton (come un Background Worker che gira ogni ora) e hai bisogno di un servizio Scoped (come il database). Non puoi iniettarlo direttamente (causeresti una Captive Dependency). Devi creare uno scope manuale:</p>
+
+<pre><code class="language-csharp">public class MyWorker(IServiceScopeFactory scopeFactory) : BackgroundService {
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
+        using (var scope = scopeFactory.CreateScope()) {
+            var db = scope.ServiceProvider.GetRequiredService&lt;MyDbContext&gt;();
+            // Ora puoi usare il DB in sicurezza e verrà chiuso correttamente al termine del using
+        }
+    }
+}</code></pre>
+
+        <h4>Keyed Services (.NET 8+)</h4>
+        <p>Cosa succede se hai due implementazioni di <code>IStorage</code> (uno locale e uno cloud)? Fino a .NET 7 era complesso gestirli. Con .NET 8 puoi usare una chiave:</p>
+
+<pre><code class="language-csharp">builder.Services.AddKeyedSingleton&lt;IStorage, LocalStorage&gt;("locale");
+builder.Services.AddKeyedSingleton&lt;IStorage, AzureStorage&gt;("cloud");
+
+// Iniezione mirata tramite attributo nel costruttore
+public class BackupService([FromKeyedServices("cloud")] IStorage backupDrive) { ... }</code></pre>
+
+        <hr>
+
+        <h3 id="performance">7. Performance e database: <code>AddDbContextPool</code></h3>
+        <p>Nelle applicazioni ad alto traffico, creare migliaia di istanze di <code>DbContext</code> al secondo è un carico pesante per il Garbage Collector. EF Core offre il <strong>pooling</strong>: invece di distruggere l'oggetto, il container lo "pulisce" e lo rimette in una coda per riutilizzarlo.</p>
+        <ul>
+            <li>Usa <code>AddDbContextPool&lt;MyDbContext&gt;(...)</code> per ridurre l'overhead di allocazione.</li>
+            <li>⚠️ <strong>Nota:</strong> Non usarlo se il tuo DbContext mantiene uno stato interno specifico per l'utente che deve essere resettato manualmente.</li>
+        </ul>
+
+        <hr>
+
+        <h3 id="unit-testing">8. Unit testing: perché la DI è la tua polizza assicurativa</h3>
+        <p>Il vero potere della DI si vede quando devi garantire che il tuo codice funzioni senza "sporcarti le mani" con database reali.</p>
+
+        <h4>Mocking vs stubbing</h4>
+        <p>Quando inietti una dipendenza per un test, usi dei simulatori:</p>
+        <ul>
+            <li><strong>Stub:</strong> Un oggetto finto che restituisce sempre lo stesso valore (es. un repository che dice "ho trovato 0 moto").</li>
+            <li><strong>Mock:</strong> Un oggetto intelligente (usando librerie come <code>Moq</code>) che verifica se i metodi sono stati chiamati correttamente con i parametri giusti.</li>
+        </ul>
+
+<pre><code class="language-csharp">[Fact]
+public void Esegui_DovrebbeSalvareDati_SenzaToccareIlDatabaseReale() {
+    var mockRepo = new Mock&lt;IRepositoryMoto&gt;();
+    var service = new ManutenzioneService(mockRepo.Object);
+
+    service.Esegui("Tagliando 20.000km");
+
+    // Verifica: Il servizio ha davvero tentato di salvare?
+    mockRepo.Verify(r => r.SalvaIntervento("Tagliando 20.000km"), Times.Once);
+}</code></pre>
+
+        <hr>
+
+        <h3 id="errori-comuni">9. Errori comuni e "codice che puzza" (code smells)</h3>
+        <ol>
+            <li><strong>Service locator pattern:</strong> Se scrivi <code>_provider.GetService&lt;T&gt;()</code> dentro una funzione, stai imbrogliando. Stai nascondendo le dipendenze sotto il tappeto. Le dipendenze devono essere esplicite nel costruttore per rendere chiaro cosa serve alla classe per "vivere".</li>
+            <li><strong>Dipendenze circolari:</strong> A ha bisogno di B, e B ha bisogno di A. Il sistema va in blocco al boot. È il segnale che le tue classi sono troppo "grasse" e intrecciate.</li>
+            <li><strong>Costruttori infiniti:</strong> Se vedi 10+ parametri nel costruttore, la classe sta facendo troppo. Torna all'articolo sulla <a href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/composition-over-inheritance-lego.html" class="fw-bold text-decoration-underline">Composition</a> e dividi le responsabilità.</li>
+        </ol>
+
+        <hr>
+
+        <h3>Conclusione: la strada verso l'eccellenza</h3>
+        <p>La Dependency Injection non è un muro da scalare, è l'infrastruttura che permette al tuo software di crescere senza diventare fragile. È ciò che ti permette di cambiare fornitore di database in un pomeriggio o di scrivere migliaia di test che garantiscono che la tua app non crashi mentre l'utente è in officina.</p>
+
+        <p>Quando progetterai la tua prossima app (magari quel tool per i margini di finanza), chiediti sempre: <strong>"Sto saldando o sto imbullonando?"</strong>. Se imbulloni, sarai pronto a cambiare qualsiasi pezzo della tua moto senza dover buttare via il telaio.</p>
+
+        <div class="alert alert-light border-start border-success border-4 mt-3">
+            <p class="mb-0 small">
+                <i class="fas fa-book-reader text-success me-2"></i>
+                <strong>Per chi vuole approfondire (Fonti Master):</strong>
+                <ul class="mb-0 mt-2">
+                    <li><a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-guidelines" target="_blank" class="fw-bold text-decoration-underline link-dark">Microsoft Learn: Dependency Injection Guidelines</a></li>
+                    <li><a href="https://martinfowler.com/articles/injection.html" target="_blank" class="fw-bold text-decoration-underline link-dark">Martin Fowler: IoC Containers and the DI pattern</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/ef/core/dbcontext-configuration/" target="_blank" class="fw-bold text-decoration-underline link-dark">EF Core: DbContext Lifetime and Initialization</a></li>
+                </ul>
+            </p>
+        </div>
+
+        <p class="mt-4"><strong>Buon viaggio tra le dipendenze, e ricorda: la pulizia del codice è come la pulizia in officina. Se è tutto in ordine, i problemi si trovano subito.</strong></p>
+
+        <div class="mt-5 p-4 bg-light rounded border">
+            <h4>🔜 Prossimamente su "Il viaggio del programmatore"</h4>
+            <p>Abbiamo disaccoppiato le classi e gestito le dipendenze. Ma cosa succede quando qualcosa va storto? 
+                Nel prossimo articolo parleremo di <strong>Error Handling pragmatico</strong>: perché il <code>try-catch</code> 
+                non è un estintore e come gestire le eccezioni senza nascondere la polvere sotto il tappeto.</p>
+        </div>
+
+        <div id="firma-placeholder"></div>
+    </div>
+</div>
+<a href="../../blog/development.html"
+    class="btn btn-hero"
+    id="backToDevelopment"
+    style="position: fixed; bottom: 150px; right: 20px; z-index: 999; font-size: 0.8rem !important">
+    &larr; Torna indietro
+</a>    
+
+<div id="footer-placeholder" class="mt-auto"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+
+<script>
+    $(function () {
+        $("#header-placeholder").load("../../header.html");
+        $("#footer-placeholder").load("../../footer.html");
+        $("#firma-placeholder").load("../../firma.html");
+    });
+    
+    // Mostra bottone di ritorno dopo una certa quantità di scroll
+    window.addEventListener("scroll", function () {
+        const backBtn = document.getElementById("backToDevelopment");
+        if (window.scrollY > 400) {
+            backBtn.style.display = "block";
+        } else {
+            backBtn.style.display = "none";
+        }
+    });
+</script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

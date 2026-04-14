@@ -1,0 +1,15 @@
+# Consenti a tutti gli user-agent di accedere al sito
+User-agent: *
+
+# Disallow facoltativi per evitare pagine non rilevanti (opzionale)
+Disallow: /admin/
+Disallow: /scripts/
+Disallow: /includes/
+Disallow: /cgi-bin/
+Disallow: /header.html
+Disallow: /footer.html
+
+# (Disallow altri percorsi solo se non vuoi che vengano indicizzati)
+
+# Indica la sitemap XML ufficiale del sito
+Sitemap: https://www.ilviaggiodelprogrammatore.com/sitemap.xml

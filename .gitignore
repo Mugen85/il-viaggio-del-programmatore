@@ -1,0 +1,8 @@
+# Escludi le build di C#
+SitemapBuilder/bin/
+SitemapBuilder/obj/
+
+# Escludi eventuali file di sistema
+.DS_Store
+Thumbs.db
+
