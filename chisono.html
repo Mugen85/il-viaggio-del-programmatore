@@ -12,7 +12,7 @@
     <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/chisono.html">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons (Aggiunto per le icone delle nuove sezioni) -->
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="../base.css" rel="stylesheet">
     <!-- Favicon -->
@@ -31,27 +31,136 @@
     <!-- Fine AdSense -->
 
     <style>
-        /* Piccole aggiunte per migliorare la resa visiva senza toccare base.css */
-        .story-section p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #4a4a4a;
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+        .about-container {
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        .highlight-box {
-            border-left: 4px solid #0d6efd;
-            /* Blu di bootstrap */
-            background-color: #f8f9fa;
+        /* Ottimizzazione Tipografica per la lettura */
+        .story-section {
+            color: #3f4247;
+        }
+
+        .story-section p {
+            font-size: 1.15rem;
+            /* Leggermente più grande per leggibilità */
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .story-section p:hover {
+            color: #1a1d20;
+        }
+
+        .story-chapter-title {
+            position: relative;
+            padding-bottom: 12px;
+            margin-top: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: transparent;
+            background: linear-gradient(90deg, #0d6efd, #00d2ff);
+            background-clip: text;
+            -webkit-background-clip: text;
+            font-weight: 800;
+            display: inline-block;
+        }
+
+        .story-chapter-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, #0d6efd, #00d2ff);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .story-section:hover .story-chapter-title::after {
+            width: 100%;
+        }
+
+        .highlight-quote {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 0;
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin: 3rem 0;
+            font-style: italic;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .highlight-quote::before {
+            content: '\201C';
+            font-size: 6rem;
+            color: rgba(13, 110, 253, 0.12);
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-family: Georgia, serif;
+            line-height: 1;
         }
 
         .tool-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.03) !important;
+            background: #ffffff !important;
+            border-radius: 20px !important;
         }
 
         .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .mission-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+            border: 1px solid rgba(0, 0, 0, 0.05) !important;
+            border-radius: 24px !important;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mission-section:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .mission-icon {
+            font-size: clamp(4rem, 12vw, 8rem);
+            line-height: 1;
+            pointer-events: none;
+            opacity: 0.25;
+            top: -10px;
+            right: 10px;
+            transition: transform 0.5s ease;
+        }
+
+        .mission-section:hover .mission-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .profile-img {
+            border-radius: 24px !important;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #0d6efd, #6610f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
         }
     </style>
 </head>
@@ -68,27 +177,30 @@
         <!-- SEZIONE 1: Intro e Foto affiancata -->
         <div class="row align-items-center mb-5 pb-4 border-bottom">
             <div class="col-lg-7 mb-4 mb-lg-0 story-section">
-                <h2 class="display-5 fw-bold mb-4">Benvenuto/a! <span class="text-primary fs-3 d-block mt-2">Piacere di
+                <h2 class="display-5 fw-bold mb-4 gradient-text">Benvenuto/a! <span class="fs-3 d-block mt-2"
+                        style="-webkit-text-fill-color: initial; color: #6c757d;">Piacere di
                         averti qui!</span></h2>
-                <p class="lead">Ciao, sono Marco Morello! <strong>Benvenuto sul mio sito</strong>!</p>
+                <p class="lead fw-bold">Ciao, sono Marco Morello! Benvenuto sul mio sito!</p>
                 <p>Se sei qui è perché <i>sono riuscito a incuriosirti</i> un po' e ne sono contento.</p>
                 <p>Sono un 40enne alle prese con mille domande sulla propria vita.</p>
                 <p><strong>Nasco a Genova</strong> nell'ormai lontano 1985 e cresco in questa città di mare e montagne.
                 </p>
-                <p><strong>Sono cresciuto in periferia</strong> e ne sono contento riflettendoci oggi con le esperienze
+                <p>Sono cresciuto in periferia e ne sono contento riflettendoci oggi con le esperienze
                     di vita che ho vissuto.</p>
                 <p>Sono una persona normale, che conduce una vita abbastanza normale, ma con <strong>grandi sogni e
                         ambizioni</strong>.</p>
             </div>
             <div class="col-lg-5 text-center">
-                <img src="../images/chisono/io-e-cri.webp" class="img-fluid rounded shadow-lg"
-                    alt="Marco Morello e Cristina" style="max-height: 650px; object-fit: cover;" />
+                <img src="../images/chisono/io-e-cri.webp" class="img-fluid profile-img shadow-lg"
+                    alt="Marco Morello e Cristina" style="max-height: 600px; object-fit: cover;" />
             </div>
         </div>
 
-        <!-- SEZIONE 2: La storia (Muro di testo diviso) -->
-        <div class="row mb-5 story-section">
-            <div class="col-md-6 mb-4">
+        <!-- SEZIONE 2: La storia (Colonna singola centrata e ariosa) -->
+        <div class="row justify-content-center story-section mb-5">
+            <div class="col-lg-10">
+
+                <h3 class="story-chapter-title fs-4">Le prime sfide</h3>
                 <p>Non sono mai stato quello che da adolescente tutti cercano, ma <strong>ho dovuto conquistare la mia
                         sicurezza</strong> negli anni.</p>
                 <p><strong>Ho dovuto combattere con l'obesità</strong> alle medie, periodo tra i peggiori probabilmente
@@ -98,52 +210,47 @@
                 </p>
                 <p>Tuttavia questa situazione mi ha instradato a diventare la persona che sono oggi, quindi non posso
                     che essere grato anche dell'aver subito del bullismo (come viene definito oggi)!</p>
-                <div class="p-3 mt-4 highlight-box rounded">
-                    <p class="mb-0">Tanto è vero che dopo le medie ho iniziato ad allenarmi in palestra, prima per
+
+                <div class="highlight-quote shadow-sm">
+                    <p class="mb-0 fs-5">Tanto è vero che dopo le medie ho iniziato ad allenarmi in palestra, prima per
                         dimostrare agli altri di cosa ero capace, ma poi col tempo ho capito che se lo facevo
                         principalmente per me ero ancora più motivato e soddisfatto.</p>
                 </div>
-            </div>
 
-            <div class="col-md-6 mb-4">
+                <h3 class="story-chapter-title fs-4">Crisi e consapevolezza</h3>
                 <p>Infatti non ho più smesso per molti anni e anzi, ho iniziato ad andare in <strong>mountain
-                        bike</strong>, grazie a un mio ex collega, sì perché nel frattempo si cresce e si inizia a
+                        bike</strong>, grazie a un mio ex collega. Sì, perché nel frattempo si cresce e si inizia a
                     lavorare.</p>
                 <p>E qui iniziano le prime "<strong>crisi di identità</strong>" che mi hanno portato ad affrontare tanti
                     scheletri nell'armadio, che piano piano ho eliminato con soddisfazione.</p>
                 <p>A partire dal percorso di studi dopo le medie, che mi ha portato a essere un <strong>ragioniere
-                        perito programmatore</strong>, che mi fa un po' ridere perché mi viene in mente il ragioner
+                        perito programmatore</strong>, che mi fa un po' ridere perché mi viene in mente il ragionier
                     Fantozzi.</p>
                 <p>Percorso scelto un po' a caso (a 13 anni non si hanno le idee molto chiare) e per seguire qualcuno
                     che ritenevo una persona che mi ispirava fiducia in quel momento. Poi però ha scelto un'altra strada
                     e mi ha lasciato da solo, ma forse anche questo è stato un bene, perché ho conosciuto un sacco di
                     persone meravigliose che frequento ancora oggi!</p>
-            </div>
-        </div>
 
-        <!-- SEZIONE 3: La consapevolezza -->
-        <div class="row justify-content-center mb-5 story-section">
-            <div class="col-lg-10 text-center">
-                <p>Poi <strong>i mille lavori cambiati</strong> e <strong>i mille corsi frequentati</strong>, di cui ti
+                <h3 class="story-chapter-title fs-4">I fuorigiri e la direzione</h3>
+                <p>Poi ci sono stati <strong>i mille lavori cambiati</strong> e <strong>i mille corsi
+                        frequentati</strong>, di cui ti
                     racconterò nel mio blog.</p>
                 <p>La <strong>continua ricerca di affermazione e accettazione</strong> fino al punto di fare disastri
                     economici per avere gli ultimi accessori alla moda.</p>
-                <p class="fs-4 mt-4 fw-light">Insomma diciamo che ho affrontato diverse situazioni esteriori e interiori
+                <p>Insomma diciamo che ho affrontato diverse situazioni esteriori e interiori
                     che mi hanno portato qui dove sei ora, cioè sul <strong>mio sito personale</strong>.</p>
             </div>
         </div>
 
-        <!-- INIZIO MISSION (Leggermente rivista graficamente ma testo invariato) -->
+        <!-- SEZIONE 3: Mission -->
         <div class="row justify-content-center mb-5">
             <div class="col-lg-10">
-                <section class="p-5 border-0 rounded-4 shadow bg-light position-relative overflow-hidden">
-                    <div class="position-absolute opacity-10"
-                        style="top: 0; right: 0; padding: 10px; font-size: clamp(4rem, 12vw, 8rem); line-height: 1; pointer-events: none;">
-                        🎯</div>
-                    <h3 class="mb-4 text-primary position-relative z-1">La mia missione</h3>
+                <section class="p-5 mission-section position-relative overflow-hidden">
+                    <div class="position-absolute mission-icon" style="padding: 10px;">🎯</div>
+                    <h3 class="mb-4 text-primary position-relative z-1 fw-bold">La mia missione</h3>
 
                     <div class="position-relative z-1 story-section">
-                        <p>Questo sito è il mio laboratorio e il mio diario di bordo.</p>
+                        <p class="fs-5">Questo sito è il mio laboratorio e il mio diario di bordo.</p>
                         <p><strong>Voglio aiutare persone e piccole realtà a raccontarsi online in modo semplice, chiaro
                                 e autentico,</strong> mentre costruisco ogni giorno il mio percorso da architetto
                             software specializzato in C#.</p>
@@ -151,21 +258,21 @@
                             modo migliore per crescere sia proprio <strong>mettere in pratica ciò che si impara</strong>
                             e migliorarlo insieme a chi ci dà fiducia.</p>
 
-                        <p class="mt-4 mb-3">Per questo oggi mi propongo come:</p>
-                        <ul class="list-group list-group-flush bg-transparent mb-4">
-                            <li class="list-group-item bg-transparent border-0 ps-0"><i
+                        <p class="mt-4 mb-3 fw-bold">Per questo oggi mi propongo come:</p>
+                        <ul class="list-group list-group-flush bg-transparent mb-4 fs-5">
+                            <li class="list-group-item bg-transparent border-0 ps-0 pb-3"><i
                                     class="bi bi-laptop text-primary me-2"></i> 👨‍💻 creatore di siti HTML su misura,
                                 per professionisti e piccole attività che vogliono una presenza online semplice ma
-                                efficace,</li>
-                            <li class="list-group-item bg-transparent border-0 ps-0"><i
+                                efficace.</li>
+                            <li class="list-group-item bg-transparent border-0 ps-0 pb-3"><i
                                     class="bi bi-people text-primary me-2"></i> 🤝 collaboratore per aziende che cercano
-                                qualcuno motivato, serio e affamato di crescita,</li>
+                                qualcuno motivato, serio e affamato di crescita.</li>
                             <li class="list-group-item bg-transparent border-0 ps-0"><i
                                     class="bi bi-compass text-primary me-2"></i> 🧭 compagno di viaggio per chi, come
                                 me, vuole reinventarsi nel mondo dello sviluppo software, con la giusta mentalità.</li>
                         </ul>
 
-                        <div class="alert alert-primary border-0 bg-white shadow-sm mb-0">
+                        <div class="alert alert-primary border-0 bg-white shadow-sm mb-0 fs-5">
                             <strong>La mia missione non è solo tecnica, è anche personale:</strong> migliorare ogni
                             giorno, costruire valore reale e ispirare altri a fare lo stesso, senza scorciatoie e con
                             tanta verità.
@@ -174,42 +281,43 @@
                 </section>
             </div>
         </div>
-        <!-- FINE MISSION -->
 
-        <!-- SEZIONE 4: Il Sito e gli Obiettivi -->
-        <div class="row mb-5 story-section">
-            <div class="col-12">
-                <p><strong>Fa parte di una delle conquiste che ho accumulato nel tempo</strong>, capendo cosa mi faceva
-                    stare male, dentro e fuori e cosa invece mi dava gioia e soddisfazione.</p>
-                <p>Questo sito è creato <strong>interamente da me</strong>, con ciò che ho imparato negli ultimi anni.
+        <!-- SEZIONE 4: Il Sito e gli Obiettivi (Sempre centrata) -->
+        <div class="row justify-content-center mb-5 story-section">
+            <div class="col-lg-10">
+                <h3 class="story-chapter-title fs-4">L'officina del codice</h3>
+                <p>Tutto questo fa parte di una delle conquiste che ho accumulato nel tempo, capendo cosa mi faceva
+                    stare male dentro e fuori e cosa invece mi dava gioia e soddisfazione.</p>
+                <p>Questo sito è creato <strong>interamente da me</strong>, riga per riga, con ciò che ho imparato negli
+                    ultimi anni.
                 </p>
-                <p><strong>Nasce dalla volontà di creare qualcosa di mio</strong>, in cui poter parlare di me, ma non
-                    per essere al centro dell'attenzione, ma piuttosto per <strong>aiutare qualcuno</strong> che ha
-                    vissuto o sta vivendo situazioni simili e far capire che se siamo insoddisfatti o soffriamo per
-                    emozioni negative, la maggior parte delle volte è causa nostra.</p>
+                <p><strong>Nasce dalla volontà di creare qualcosa di mio</strong>. Non per essere al centro
+                    dell'attenzione, ma piuttosto per <strong>aiutare qualcuno</strong> che ha
+                    vissuto o sta vivendo situazioni simili, e far capire che se siamo insoddisfatti o soffriamo per
+                    emozioni negative, la maggior parte delle volte la causa siamo noi stessi.</p>
                 <p>Qui ti parlerò della mia <strong>evoluzione personale</strong>, che continua tuttora e che non
-                    interromperò mai fino all'ultimo dei miei giorni, del mio <strong>percorso da programmatore</strong>
-                    (ecco perché "il viaggio del programmatore"), di <strong>mindset</strong> e decisioni e delle mie
+                    interromperò mai, del mio <strong>percorso da programmatore</strong>
+                    (ecco perché "il viaggio del programmatore"), di <strong>mindset</strong> e decisioni, e delle mie
                     più grandi passioni: <strong>la moto, i viaggi e i viaggi in moto</strong>.</p>
-                <p>Se sei curioso ti racconterò delle mie <strong>esperienze di vita</strong>, positive e negative e
-                    soprattutto il perché del nome di questo sito.</p>
-                <p class="fs-5 mt-4 text-center">Da cosa nasce e lo <strong>scopo</strong> per cui lo costruirò giorno
-                    dopo giorno per perseguire il mio più grande <strong>obiettivo</strong>: <br><span
-                        class="text-primary fw-bold">diventare un affermato architetto software e poter vivere la vita a
-                        pieno, molto più di adesso!</span></p>
+
+                <div class="text-center mt-5 p-4 bg-white rounded shadow-sm border border-light">
+                    <p class="fs-5 mb-0">Lo scopo per cui costruirò tutto questo, giorno dopo giorno, è per perseguire
+                        il mio più grande <strong>obiettivo</strong>:<br>
+                        <span class="text-primary fw-bold display-6 d-block mt-3">diventare un affermato architetto
+                            software e vivere la vita appieno!</span>
+                    </p>
+                </div>
             </div>
         </div>
 
-        <!-- NUOVA SEZIONE: Strumenti Condivisi (Glossario e Risorse) -->
-        <div class="row mt-5 mb-5 pt-4 border-top">
+        <!-- NUOVA SEZIONE: Strumenti Condivisi -->
+        <div class="row mt-5 mb-5 pt-5 border-top">
             <div class="col-12 text-center mb-5">
-                <h3 class="fw-bold">I miei strumenti condivisi</h3>
-                <p class="text-muted">Ho creato queste sezioni come appunti e strumenti per il mio percorso di studio e
-                    lavoro.<br>Ho deciso di renderle pubbliche sperando che possano far risparmiare tempo e aiutare
-                    anche te!</p>
+                <h3 class="fw-bold display-6">I miei strumenti condivisi</h3>
+                <p class="text-muted fs-5">Appunti e attrezzi del mestiere.<br>Spero possano far risparmiare tempo e
+                    aiutare anche te!</p>
             </div>
 
-            <!-- Card Glossario -->
             <div class="col-md-6 mb-4">
                 <div class="card border-0 shadow-sm tool-card rounded-4 p-3 bg-light">
                     <div class="card-body">
@@ -218,18 +326,17 @@
                                 style="width: 50px; height: 50px;">
                                 <i class="bi bi-book fs-4"></i>
                             </div>
-                            <h4 class="card-title mb-0 fw-bold">Glossario Informatico</h4>
+                            <h4 class="card-title mb-0 fw-bold">Glossario informatico</h4>
                         </div>
                         <p class="card-text text-muted">Un dizionario in continua espansione dove annoto e spiego con
                             parole mie i termini tecnici, i design pattern e i concetti architetturali (soprattutto
                             mondo C# e .NET) che incontro nel mio viaggio.</p>
-                        <a href="/glossario-csharp.html" class="btn btn-outline-primary mt-2">Esplora il Glossario <i
+                        <a href="/glossario-csharp.html" class="btn btn-outline-primary mt-2">Esplora il glossario <i
                                 class="bi bi-arrow-right ms-1"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- Card Risorse -->
             <div class="col-md-6 mb-4">
                 <div class="card border-0 shadow-sm tool-card rounded-4 p-3 bg-light">
                     <div class="card-body">
@@ -238,32 +345,33 @@
                                 style="width: 50px; height: 50px;">
                                 <i class="bi bi-link-45deg fs-4"></i>
                             </div>
-                            <h4 class="card-title mb-0 fw-bold">Link e Risorse Utili</h4>
+                            <h4 class="card-title mb-0 fw-bold">Link e risorse utili</h4>
                         </div>
                         <p class="card-text text-muted">La mia "cassetta degli attrezzi" personale. Una raccolta
                             organizzata di link a tool gratuiti, documentazione, canali YouTube e siti che uso
                             quotidianamente per sviluppare e formarmi.</p>
-                        <a href="../risorse.html" class="btn btn-outline-success mt-2">Scopri le Risorse <i
+                        <a href="../risorse.html" class="btn btn-outline-success mt-2">Scopri le risorse <i
                                 class="bi bi-arrow-right ms-1"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- FINE NUOVA SEZIONE -->
 
         <!-- SEZIONE 5: Conclusione e Saluti -->
-        <div class="row text-center mt-5 pt-4 story-section">
-            <div class="col-12">
-                <p>Sarò felice se vorrai seguirmi, ma lo sarò altrettanto se passerai oltre e ti scorderai di me.</p>
-                <p>In fondo la <strong>vita</strong> è anche questo: scoperte, perdite, riscoperte e cambiamento.</p>
+        <div class="row text-center mt-3 pt-5 border-top story-section">
+            <div class="col-lg-10 mx-auto">
+                <p class="fs-5">Sarò felice se vorrai seguirmi, ma lo sarò altrettanto se passerai oltre e ti scorderai
+                    di me.</p>
+                <p class="fs-5">In fondo la <strong>vita</strong> è anche questo: scoperte, perdite, riscoperte e
+                    cambiamento.</p>
                 <p class="fs-5 mt-4">
                     Ci vediamo sul <strong>blog</strong> (<a href="../blog.html"
-                        class="text-decoration-none fw-bold border-bottom border-primary">clicca qui</a> se sei
+                        class="text-decoration-none fw-bold border-bottom border-primary pb-1">clicca qui</a> se sei
                     curioso), che dividerò in due macro sezioni:
-                    <br><strong>mindset e storie di vita</strong> e una parte <strong>tecnica relativa allo sviluppo
-                        software</strong>.
+                    <br><strong class="text-dark">Mindset e storie di vita</strong> e una parte <strong
+                        class="text-dark">tecnica relativa allo sviluppo software</strong>.
                 </p>
-                <h4 class="mt-5 text-primary fw-bold pb-4">A presto e buona vita!</h4>
+                <h4 class="mt-5 text-primary display-6 fw-bold pb-4">A presto e buona vita!</h4>
             </div>
         </div>
 
