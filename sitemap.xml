@@ -34,7 +34,7 @@
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/blog/development.html</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/blog/mindset.html</loc>
@@ -103,6 +103,10 @@
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/blog/dev-section/dependency-injection-pragmatica.html</loc>
     <lastmod>2026-02-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ilviaggiodelprogrammatore.com/blog/dev-section/fail-fast-guard-clauses.html</loc>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/001-una-svolta-chiamata-mindset.html</loc>
