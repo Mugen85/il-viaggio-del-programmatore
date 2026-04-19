@@ -17,7 +17,7 @@ Se cerchi un professionista serio, motivato e affamato di crescita per il tuo pr
 
 ---
 
-## 🛠️ Il Progetto e l'Architettura
+## 🛠️ Il rogetto e l'architettura
 
 L'architettura del sito segue una filosofia volutamente minimalista ed efficiente. Il frontend è scritto in puro **HTML, CSS (Bootstrap) e JavaScript**, per garantire performance massime, un controllo totale sull'UX e un'ottimizzazione SEO perfetta.
 
