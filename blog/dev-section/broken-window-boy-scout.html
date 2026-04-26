@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Finestre rotte e Boy Scout rule: la cura che fa durare le cose | Il Viaggio del Programmatore</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Perché le cose durano? Dalla teoria delle finestre rotte alla regola del boy scout: come la cura del dettaglio salva il codice e i rapporti umani.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical"
+        href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/broken-window-boy-scout.html">
+
+    <meta property="og:title" content="Finestre rotte e Boy Scout rule: la cura che fa durare le cose">
+    <meta property="og:description"
+        content="Non è solo Clean Code. È una filosofia di vita: riparare la prima crepa per evitare il degrado, nel software come nei sentimenti.">
+    <meta property="og:image"
+        content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/broken-window-preview.webp">
+    <meta property="og:url"
+        content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/broken-window-boy-scout.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        #backToDevelopment {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .status-area {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid #dee2e6;
+        }
+
+        .window-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .win-box {
+            height: 35px;
+            background: #3498db;
+            border-radius: 4px;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 0.8rem;
+        }
+
+        .win-box.broken {
+            background: #555;
+            transform: scale(0.9);
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .win-box.broken::after {
+            content: '✕';
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <header class="blog-header header-development">
+        <h1>Sviluppo Software</h1>
+        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il
+            proprio futuro con coraggio e competenza.</p>
+    </header>
+
+
+    <div class="article-container">
+        <div class="article-content">
+
+            <figure class="figure w-100 text-center mb-5">
+                <img src="../../images/blog/development/moto-meteora.webp"
+                    alt="Io e la mia compagna a Meteora, Grecia, con la nostra XT1200Z da 230.000 km"
+                    class="figure-img img-fluid rounded shadow-sm featured-img">
+                <figcaption class="figure-caption mt-2">
+                    <i class="fas fa-camera me-1"></i>
+                    <em>Meteora, Grecia. 230.000 km sul groppone e non sentirli. Questa moto va ancora così bene perché ogni singolo bullone ha ricevuto la cura che meritava.</em>
+                </figcaption>
+            </figure>
+
+            <h2 class="article-title">
+                La cura del dettaglio: perché le cose durano (nel codice e nella vita)
+            </h2>
+
+            <p class="text-muted">Scritto da Marco Morello il 26 aprile 2026</p>
+
+            <blockquote class="blockquote alert alert-info my-4">
+                <p class="mb-0">
+                    <strong>💡 In sintesi</strong>: Il degrado chiama degrado (teoria delle finestre rotte). L'unico
+                    modo per contrastarlo è la manutenzione incrementale (regola del boy scout): lascia ogni cosa un po'
+                    meglio di come l'hai trovata. Vale per il tuo codice in .NET, ma soprattutto per le persone che ami.
+                </p>
+            </blockquote>
+
+            <hr>
+
+            <p>C’è un momento preciso, durante un viaggio in moto verso un passo appenninico, in cui senti un piccolo
+                vibrare metallico. È quasi impercettibile, coperto dal rombo del motore, ma se hai orecchio lo senti.
+                Potrebbe essere un bullone del paracoppa che si è allentato per le vibrazioni della tua
+                moto. In quel momento hai due strade: puoi ignorarlo, perché "tanto la moto va e la
+                meta è vicina", oppure puoi accostare in una piazzola, tirare fuori la brugola dal sottosella e
+                stringerlo.</p>
+
+            <p>Se lo ignori, quella vibrazione col tempo ne creerà altre. Alla fine del viaggio, non avrai solo perso il
+                bullone: avrai rovinato la filettatura, magari incrinato la staffa e, cosa peggiore, avrai viaggiato con
+                l’ansia sottopelle. Questo non è solo un problema di meccanica. È la <strong>teoria delle finestre
+                    rotte</strong> applicata alla realtà quotidiana.</p>
+
+            <h3 id="finestre-rotte">1. La genesi del disordine: le finestre rotte</h3>
+
+            <p>Nata in ambito criminologico negli anni '80 (Kelling e Wilson), questa teoria suggerisce che il degrado
+                chiama altro degrado. Se una finestra di un edificio viene rotta e non viene riparata immediatamente,
+                chi passa di lì penserà che a nessuno importi di quel posto. In breve tempo, verranno rotte altre
+                finestre, appariranno i graffiti, si accumulerà la spazzatura. Il segnale è chiaro: "Qui non c'è nessuno
+                al comando".</p>
+
+            <p>Nel software, una "finestra rotta" non è un bug catastrofico, ma quel piccolo debito tecnico che
+                decidiamo di non pagare. È un metodo da 500 righe che "per ora funziona", un commento che mente o una
+                variabile chiamata <code>data1</code>. Quando lasciamo queste brutture nel codice, stiamo lanciando un
+                messaggio ai colleghi (e a noi stessi del futuro): <em>"In questo progetto la qualità non è una
+                    priorità, scrivi pure codice sporco anche tu"</em>. È così che nascono i legacy code che tutti
+                odiamo: un bullone allentato alla volta.</p>
+
+            <hr>
+
+            <h3 id="boy-scout-rule">2. L'antidoto: la regola del boy scout</h3>
+
+            <p>A questa deriva verso il caos si oppone una filosofia tanto semplice quanto potente, resa celebre nel
+                mondo dev da Robert C. Martin (Uncle Bob): <strong>la regola del boy scout</strong>.</p>
+
+            <blockquote class="blockquote border-start border-4 ps-3 fst-italic">
+                "Lascia il campo più pulito di come lo hai trovato."
+            </blockquote>
+
+            <p>Non significa che ogni volta che apri un file devi riscrivere l'intera architettura. Significa che, se
+                devi aggiungere una riga di codice, approfittane per pulire quella riga accanto che è scritta male.
+                Rinomina una funzione ambigua, estrai un piccolo metodo, aggiungi un test unitario.</p>
+
+            <p>In officina lo chiamiamo <strong>"il colpo di straccio"</strong>. Mentre aspetti che l'olio finisca di
+                scolare, pulisci il carter. Non te l'ha chiesto nessuno, ma la prossima volta che metterai mano a quel
+                motore, lavorerai meglio. È manutenzione incrementale: trasforma il degrado costante in un miglioramento
+                costante.</p>
+
+            <!-- WIDGET BANCO PROVA -->
+            <div class="my-5">
+                <h4 class="fw-bold mb-3"><i class="fas fa-tools text-warning me-2"></i> Banco prova: simulatore di cura
+                </h4>
+                <p class="text-muted small">Sperimenta visivamente come l'indifferenza o la cura costante cambiano
+                    radicalmente l'integrità di un sistema (o di un rapporto).</p>
+
+                <div class="officina-widget-container"
+                    style="border-radius: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); overflow: hidden; border: 1px solid #dee2e6;">
+                    <div
+                        style="background: #f8f9fa; padding: 15px 20px; border-bottom: 2px solid #2c3e50; display: flex; justify-content: space-between; align-items: center;">
+                        <h5
+                            style="margin: 0; color: #333; font-size: 1.1rem; display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-shield-heart text-primary"></i> Integrità del progetto
+                        </h5>
+                    </div>
+
+                    <div class="p-4" style="background: #fff;">
+                        <div class="status-area">
+                            <div id="status-label" class="fw-bold mb-2">Sistema integro</div>
+                            <div class="window-grid" id="sim-grid"></div>
+                            <div class="small text-muted" id="sim-stats">Finestre rotte: 0 / 15</div>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-6">
+                                <button onclick="simulateNeglect()" class="btn btn-outline-danger w-100 fw-bold">
+                                    <i class="fas fa-pills me-2"></i>Trascura
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button onclick="simulateCare()" class="btn btn-success w-100 fw-bold text-white">
+                                    <i class="fas fa-hand-sparkles me-2"></i>Cura
+                                </button>
+                            </div>
+                        </div>
+                        <p id="sim-msg" class="mt-3 text-center small fst-italic text-secondary">Tutto è in ordine. La
+                            manutenzione è facile quando è costante.</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h3 id="manutenzione-anima">3. La manutenzione dell'anima: non è solo codice</h3>
+
+            <p>Ho 40 anni. Ho passato metà della mia vita con le mani sporche di grasso a montare pezzi meccanici e
+                gli ultimi anni a scrivere logica in C#. Se c'è una cosa che ho capito, è che <strong>nulla rimane integro
+                    senza intenzione</strong>. Le cose fisiche cedono all'entropia, ma quelle immateriali sono ancora
+                più fragili.</p>
+
+            <p>Prendi un rapporto umano, un'amicizia o l'amore per una persona. Spesso facciamo l'errore di pensare che
+                siano "punti d'arrivo". Ma i sentimenti non sono monumenti di marmo; sono più simili a una <strong>moto
+                    d'epoca</strong> che porti fuori la domenica. Vanno curati.</p>
+
+            <p>Se smetti di ascoltare i piccoli segnali, se smetti di riparare le "finestre rotte" della comunicazione —
+                una parola non detta, una gentilezza dimenticata, il tempo negato — il degrado inizierà a corrodere le
+                fondamenta. Non te ne accorgi subito, ma un giorno ti sveglierai e troverai un edificio in rovina. Il
+                costo per rimettere in piedi qualcosa che è stato trascurato per anni è immensamente superiore al "colpo
+                di straccio" quotidiano.</p>
+
+            <h3 id="valore-dettaglio">Il valore del dettaglio</h3>
+
+            <p>Prendersi cura del codice non ti rende solo un programmatore più pagato. Ti rende una persona che dà
+                valore a ciò che tocca. Che tu stia disegnando un'architettura a microservizi su .NET 9 o che tu stia
+                preparando la cena per chi ami, il segreto è lo stesso: <strong>fermati a stringere quel
+                    bullone.</strong></p>
+
+            <p>I dettagli fanno la differenza perché sono la prova tangibile che qualcuno, in quel momento, ci ha messo
+                la testa e il cuore. Sono il segno del rispetto verso chi userà quel software o verso chi vivrà con noi.
+            </p>
+
+            <div class="mt-5 p-4 bg-light rounded border border-primary shadow-sm">
+                <h4 class="fw-bold">Sii quello che ripara la finestra</h4>
+                <p class="mb-0">Non aspettare il grande refactoring della vita o del progetto. Sii quello che ripara la
+                    finestra appena vede la prima crepa. Sii l'artigiano che lascia il mondo un po' più pulito di come
+                    lo ha trovato. Perché le cose durano solo se c'è qualcuno disposto a curarle.</p>
+            </div>
+
+            <div id="firma-placeholder"></div>
+        </div>
+    </div>
+
+    <a href="../../blog/development.html" class="btn btn-hero" id="backToDevelopment"
+        style="position: fixed; bottom: 150px; right: 20px; z-index: 999; font-size: 0.8rem !important">
+        &larr; Torna indietro
+    </a>
+
+    <div id="footer-placeholder" class="mt-auto"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        // Simulatore Banco Prova
+        let brokenCount = 0;
+        const maxWin = 15;
+
+        function initSim() {
+            const grid = document.getElementById('sim-grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < maxWin; i++) {
+                const d = document.createElement('div');
+                d.className = 'win-box';
+                grid.appendChild(d);
+            }
+        }
+
+        function updateSim() {
+            const boxes = document.querySelectorAll('.win-box');
+            boxes.forEach((b, i) => {
+                if (i < brokenCount) b.classList.add('broken');
+                else b.classList.remove('broken');
+            });
+
+            const label = document.getElementById('status-label');
+            const msg = document.getElementById('sim-msg');
+            const stats = document.getElementById('sim-stats');
+
+            stats.innerText = `Finestre rotte: ${brokenCount} / ${maxWin}`;
+
+            if (brokenCount === 0) {
+                label.innerText = "Sistema integro"; label.style.color = "#27ae60";
+                msg.innerText = "Tutto è in ordine. La manutenzione è facile quando è costante.";
+            } else if (brokenCount < 6) {
+                label.innerText = "Segni di trascuratezza"; label.style.color = "#f39c12";
+                msg.innerText = "Un bug ignorato o una parola non detta iniziano a pesare.";
+            } else if (brokenCount < 12) {
+                label.innerText = "Degrado in corso"; label.style.color = "#e67e22";
+                msg.innerText = "Il debito tecnico (o emotivo) sta aumentando rapidamente.";
+            } else {
+                label.innerText = "Sistema compromesso"; label.style.color = "#e74c3c";
+                msg.innerText = "Il caos regna. Recuperare richiederà uno sforzo enorme.";
+            }
+        }
+
+        function simulateNeglect() { if (brokenCount < maxWin) { brokenCount++; updateSim(); } }
+        function simulateCare() { if (brokenCount > 0) { brokenCount--; updateSim(); } }
+
+        $(function () {
+            $("#header-placeholder").load("../../header.html");
+            $("#footer-placeholder").load("../../footer.html");
+            $("#firma-placeholder").load("../../firma.html");
+            initSim();
+            updateSim();
+        });
+
+        window.addEventListener("scroll", function () {
+            const backBtn = document.getElementById("backToDevelopment");
+            if (window.scrollY > 400) { backBtn.style.display = "block"; }
+            else { backBtn.style.display = "none"; }
+        });
+    </script>
+</body>
+
+</html>
