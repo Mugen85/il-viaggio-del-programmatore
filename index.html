@@ -26,11 +26,17 @@
     <link href="../base.css" rel="stylesheet">
 
     <!-- CSS Non Critici (Icone): Caricamento differito (Asincrono) per non bloccare il rendering -->
-    <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></noscript>
-    
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </noscript>
+
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    </noscript>
 
     <!-- Favicon -->
     <link rel="icon" href="../images/postazione-di-lavoro-100.png" type="image/png">
@@ -229,7 +235,26 @@
                 <div class="articles-grid"
                     style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
 
-                    <!-- Articolo 1 (L'ultimo pubblicato) -->
+                    <!-- Articolo 1 (Il nuovo protagonista) -->
+                    <article class="card"
+                        style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <span class="category"
+                            style="font-size: 0.8rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">Sviluppo
+                            C#</span>
+                        <h3 style="font-size: 1.3rem; margin: 0.5rem 0;">
+                            <a href="/blog/dev-section/broken-window-boy-scout.html"
+                                style="color: var(--text-color); text-decoration: none;">Finestre rotte e Boy Scout
+                                rule: la cura che fa durare le cose</a>
+                        </h3>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">230.000 km in moto e
+                            un codice che non invecchia. Perché la cura del dettaglio e la manutenzione costante sono le
+                            uniche armi contro il degrado.</p>
+                        <a href="/blog/dev-section/broken-window-boy-scout.html"
+                            style="display: inline-block; margin-top: 1rem; color: var(--accent-color); font-weight: bold; text-decoration: none;">Leggi
+                            l'articolo &rarr;</a>
+                    </article>
+
+                    <!-- Articolo 2 (Spostato) -->
                     <article class="card"
                         style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
                         <span class="category"
@@ -237,15 +262,18 @@
                             C#</span>
                         <h3 style="font-size: 1.3rem; margin: 0.5rem 0;">
                             <a href="/blog/dev-section/fail-fast-guard-clauses.html"
-                                style="color: var(--text-color); text-decoration: none;">Fail Fast e Guard Clauses: basta Arrow Code</a>
+                                style="color: var(--text-color); text-decoration: none;">Fail fast e guard clauses:
+                                basta arrow code</a>
                         </h3>
-                        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">Il codice annidato a forma di freccia distrugge la leggibilità. Scopri come il principio Fail Fast e le Guard Clauses azzerano il carico cognitivo e salvano il tuo software.</p>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">Il codice annidato a
+                            forma di freccia distrugge la leggibilità. Scopri come il principio fail fast e le guard
+                            clauses azzerano il carico cognitivo.</p>
                         <a href="/blog/dev-section/fail-fast-guard-clauses.html"
                             style="display: inline-block; margin-top: 1rem; color: var(--accent-color); font-weight: bold; text-decoration: none;">Leggi
                             l'articolo &rarr;</a>
                     </article>
 
-                    <!-- Articolo 2 (Il penultimo tecnico) -->
+                    <!-- Articolo 3 (Spostato) -->
                     <article class="card"
                         style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
                         <span class="category"
@@ -253,8 +281,8 @@
                             C#</span>
                         <h3 style="font-size: 1.3rem; margin: 0.5rem 0;">
                             <a href="/blog/dev-section/dependency-injection-pragmatica.html"
-                                style="color: var(--text-color); text-decoration: none;">Dependency Injection
-                                Pragmatica</a>
+                                style="color: var(--text-color); text-decoration: none;">Dependency injection
+                                pragmatica</a>
                         </h3>
                         <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">Come slegare le
                             componenti del tuo software. Se non puoi smontare un pezzo senza rompere gli altri, hai
@@ -264,27 +292,9 @@
                             l'articolo &rarr;</a>
                     </article>
 
-                    <!-- Articolo 3 (Mindset) -->
-                    <article class="card"
-                        style="background: var(--bg-card); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-color);">
-                        <span class="category"
-                            style="font-size: 0.8rem; color: var(--accent-color); text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">Mindset</span>
-                        <h3 style="font-size: 1.3rem; margin: 0.5rem 0;">
-                            <a href="/blog/mindset-section/013-usa-il-cervello.html"
-                                style="color: var(--text-color); text-decoration: none;">Usa il cervello, non l'ego</a>
-                        </h3>
-                        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.5;">Perché per diventare
-                            un Architetto Software devi smettere di innamorarti del tuo codice e iniziare a risolvere i
-                            problemi reali del cliente.</p>
-                        <a href="/blog/mindset-section/013-usa-il-cervello.html"
-                            style="display: inline-block; margin-top: 1rem; color: var(--accent-color); font-weight: bold; text-decoration: none;">Leggi
-                            l'articolo &rarr;</a>
-                    </article>
-
                 </div>
                 <div style="text-align: center; margin-top: 2rem;">
-                    <!-- FIX: Aggiunto color: #000 (o un colore scuro) per garantire contrasto sul bottone chiaro -->
-                    <a href="/blog.html" class="btn"
+                    <a href="/blog/development.html" class="btn"
                         style="display: inline-block; padding: 12px 24px; background: var(--accent-color); color: #1a1a1a; text-decoration: none; border-radius: 6px; font-weight: 700; transition: opacity 0.3s ease;">Esplora
                         l'officina (tutti gli articoli)</a>
                 </div>
