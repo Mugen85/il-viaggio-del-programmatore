@@ -1,73 +1,40 @@
-RewriteEngine on
+RewriteEngine On
 
-# Redirect non-www → www
-RewriteCond %{HTTP_HOST} !^www\. [NC]
-RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-
-# Redirect http → https (se non già gestito dall'hosting)
+# 1. Forza HTTPS e WWW in un unico passaggio (zero doppi redirect)
+RewriteCond %{HTTP_HOST} !^www\. [NC,OR]
 RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteRule ^(.*)$ https://www.ilviaggiodelprogrammatore.com/$1 [R=301,L]
 
-# Redirect /index.html → /
+# 2. Pulisci l'index.html dalla root (SEO friendly)
 RewriteRule ^index\.html$ https://www.ilviaggiodelprogrammatore.com/ [R=301,L]
-RewriteCond %{HTTPS} off
-RewriteCond %{HTTP:X-Forwarded-SSL} !on
-RewriteCond %{HTTP_HOST} ^www\.ilviaggiodelprogrammatore\.com$
-RewriteRule ^/?$ "https\:\/\/www\.ilviaggiodelprogrammatore\.com\/" [R=301,L]
 
 # ----------------------------------------------------------------------
-# REGOLE DI CACHE E COMPRESSIONE AGGIUNTE
+# COMPRESSIONE GZIP/BROTLI (Lasciamo questa che funzionava bene)
 # ----------------------------------------------------------------------
-
-<IfModule mod_expires.c>
-    ExpiresActive On
-    
-    # Immagini
-    ExpiresByType image/jpg "access plus 1 year"
-    ExpiresByType image/jpeg "access plus 1 year"
-    ExpiresByType image/gif "access plus 1 year"
-    ExpiresByType image/png "access plus 1 year"
-    ExpiresByType image/webp "access plus 1 year"
-    ExpiresByType image/svg+xml "access plus 1 year"
-    ExpiresByType image/x-icon "access plus 1 year"
-    
-    # CSS, JavaScript
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType text/javascript "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType application/x-javascript "access plus 1 month"
-    
-    # Altri formati
-    ExpiresByType application/pdf "access plus 1 month"
-    ExpiresByType application/x-shockwave-flash "access plus 1 month"
-    
-    # Default
-    ExpiresDefault "access plus 2 days"
-</IfModule>
-
-# Abilita la compressione GZIP / Deflate per velocizzare il trasferimento
 <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/plain
-    AddOutputFilterByType DEFLATE text/html
-    AddOutputFilterByType DEFLATE text/xml
-    AddOutputFilterByType DEFLATE text/css
-    AddOutputFilterByType DEFLATE application/xml
-    AddOutputFilterByType DEFLATE application/xhtml+xml
-    AddOutputFilterByType DEFLATE application/rss+xml
-    AddOutputFilterByType DEFLATE application/javascript
-    AddOutputFilterByType DEFLATE application/x-javascript
-    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript image/svg+xml
 </IfModule>
 
-# Header Cache-Control (fallback se mod_expires non è disponibile)
+# ----------------------------------------------------------------------
+# FORZATURA CACHE BROWSER (Aggressiva)
+# ----------------------------------------------------------------------
 <IfModule mod_headers.c>
-    <FilesMatch "\.(ico|jpe?g|png|gif|swf|svg|webp)$">
-        Header set Cache-Control "max-age=31536000, public"
+    # 1. Smontiamo eventuali direttive di default del server
+    Header unset Cache-Control
+    Header unset Pragma
+
+    # 2. Immagini e media: un anno, file immutabili (il browser non chiede mai se sono aggiornati)
+    <FilesMatch "\.(ico|jpe?g|png|gif|svg|webp|woff2?|ttf|eot)$">
+        Header always set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
-    <FilesMatch "\.(css)$">
-        Header set Cache-Control "max-age=2592000, public"
+
+    # 3. CSS e JS: un mese
+    <FilesMatch "\.(css|js)$">
+        Header always set Cache-Control "max-age=2592000, public"
     </FilesMatch>
-    <FilesMatch "\.(js)$">
-        Header set Cache-Control "max-age=2592000, private"
+
+    # 4. HTML: controllo frequente per fargli scaricare i nuovi articoli
+    <FilesMatch "\.(html|htm)$">
+        Header always set Cache-Control "max-age=3600, private, must-revalidate"
     </FilesMatch>
 </IfModule>
