@@ -60,25 +60,6 @@
         content="Sviluppatore C# .NET disponibile per collaborazioni freelance e formazione on the job. Costruisco app .NET MAUI, architetture pulite e siti web su misura.">
     <meta name="twitter:image" content="https://www.ilviaggiodelprogrammatore.com/images/og-home.jpg">
 
-    <!-- Microsoft Clarity -->
-    <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "qxx2bckw9a");
-    </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-VKFY8GY6HY');
-    </script>
-
     <script type="application/ld+json">
         {
         "@context": "https://schema.org",
@@ -364,7 +345,8 @@
                                     class="btn project-btn-primary">
                                     <i class="fab fa-android me-1"></i> APK v1.4
                                 </a>
-                                <a href="https://github.com/Mugen85/MechTools" target="_blank"
+                                <a href="https://github.com/Mugen85/MechTools" target="_blank" 
+                                rel="noopener noreferrer"
                                     class="btn project-btn-ghost">
                                     GitHub <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
@@ -395,10 +377,11 @@
                             </div>
                             <div class="project-actions">
                                 <a href="https://github.com/Mugen85/wallet-wise-maui-app/releases/latest"
-                                    target="_blank" class="btn project-btn-primary">
+                                    target="_blank" rel="noopener noreferrer" class="btn project-btn-primary">
                                     <i class="fab fa-android me-1"></i> APK v1.2.0
                                 </a>
                                 <a href="https://github.com/Mugen85/wallet-wise-maui-app" target="_blank"
+                                    rel="noopener noreferrer"
                                     class="btn project-btn-ghost">
                                     GitHub <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
@@ -429,7 +412,7 @@
                                 <span class="project-tag">xUnit</span>
                             </div>
                             <div class="project-actions">
-                                <a href="https://github.com/Mugen85/MotoLogPro" target="_blank"
+                                <a href="https://github.com/Mugen85/MotoLogPro" target="_blank" rel="noopener noreferrer"
                                     class="btn project-btn-primary">
                                     <i class="fab fa-github me-1"></i> Esplora README
                                 </a>
@@ -464,7 +447,7 @@
                         <span class="project-tag">Core Web Vitals</span>
                     </div>
                     <div class="project-wide-actions">
-                        <a href="https://inviaggioconlacri.com" target="_blank" class="btn project-btn-primary">
+                        <a href="https://inviaggioconlacri.com" target="_blank" rel="noopener noreferrer" class="btn project-btn-primary">
                             <i class="fas fa-globe me-1"></i> Visita il sito
                         </a>
                     </div>
@@ -499,7 +482,7 @@
                         <span class="project-tag">GitHub Actions</span>
                     </div>
                     <div class="project-wide-actions">
-                        <a href="https://github.com/Mugen85/Playground" target="_blank" class="btn project-btn-primary"
+                        <a href="https://github.com/Mugen85/Playground" target="_blank" rel="noopener noreferrer" class="btn project-btn-primary"
                             style="background-color: #24292e; border-color: #24292e; color: #ffffff;">
                             <i class="fab fa-github me-1"></i> Esplora la Repo
                         </a>
@@ -512,7 +495,7 @@
             <div class="project-github-footer">
                 <i class="fab fa-github me-2"></i>
                 Altri repository e contributi &rarr;
-                <a href="https://github.com/Mugen85" target="_blank">github.com/Mugen85</a>
+                <a href="https://github.com/Mugen85" target="_blank" rel="noopener noreferrer">github.com/Mugen85</a>
             </div>
 
         </section>
@@ -793,14 +776,43 @@ e la sezione #cta nell'index.html
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- jQuery for loading external HTML -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(function () {
-            $("#header-placeholder").load("header.html");
-            $("#footer-placeholder").load("footer.html");
+        document.addEventListener("DOMContentLoaded", () => {
+            // Carica Header
+            fetch('header.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('header-placeholder').innerHTML = html;
+                })
+                .catch(err => console.error('Errore caricamento header:', err));
+
+            // Carica Footer
+            fetch('footer.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer-placeholder').innerHTML = html;
+                })
+                .catch(err => console.error('Errore caricamento footer:', err));
         });
+    </script>    
+        <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "qxx2bckw9a");
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-VKFY8GY6HY');
     </script>
 </body>
 
