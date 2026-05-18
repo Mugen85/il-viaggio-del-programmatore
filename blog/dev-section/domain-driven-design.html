@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Domain-Driven Design: Progettare Software che non teme il Business | Il Viaggio del Programmatore</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Cos'è il Domain-Driven Design? Dalle Entities agli Aggregati, dai Bounded Context ai Domain Events: una guida pratica con esempi in C# per costruire software che non teme il cambiamento.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/domain-driven-design.html">
+
+    <meta property="og:title" content="Domain-Driven Design: Progettare Software che non teme il Business">
+    <meta property="og:description"
+        content="Entities, Value Objects, Aggregati, Bounded Context, Domain Events: DDD spiegato con l'analogia dell'officina e con esempi pratici in C#.">
+    <meta property="og:image"
+        content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/ddd-preview.webp">
+    <meta property="og:url"
+        content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/domain-driven-design.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com&display=swap/css2?family=Open+Sans:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* ─── BACK BUTTON ──────────────────────────────────────── */
+        #backToDevelopment {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+            font-size: 0.8rem !important;
+        }
+
+        /* ─── CIPOLLA SVG ──────────────────────────────────────── */
+        .onion-wrapper {
+            background: #0d1b2a;
+            border-radius: 12px;
+            padding: 2rem 1rem 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid #1e3a5f;
+            overflow: hidden;
+        }
+
+        .onion-wrapper h5 {
+            color: #7fb3d3;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .onion-wrapper svg {
+            display: block;
+            margin: 0 auto;
+            max-width: 480px;
+            width: 100%;
+        }
+
+        /* ─── BOUNDED CONTEXT WIDGET ───────────────────────────── */
+        .bc-widget {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+            margin: 2rem 0;
+        }
+
+        .bc-header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+        }
+
+        .bc-tabs {
+            display: flex;
+            border-bottom: 2px solid #dee2e6;
+            background: #f8f9fa;
+            flex-wrap: wrap;
+        }
+
+        .bc-tab {
+            padding: 0.6rem 1.1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #6c757d;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .bc-tab.active {
+            color: #2c3e50;
+            border-bottom-color: #3498db;
+        }
+
+        .bc-tab:hover:not(.active) {
+            color: #2c3e50;
+            background: #e9ecef;
+        }
+
+        .bc-body {
+            padding: 1.5rem;
+            background: #fff;
+        }
+
+        .bc-context-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            margin-bottom: 0.8rem;
+        }
+
+        .bc-prop {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.88rem;
+            padding: 0.35rem 0;
+            border-bottom: 1px dashed #dee2e6;
+        }
+
+        .bc-prop:last-child {
+            border-bottom: none;
+        }
+
+        .bc-prop .prop-name {
+            font-weight: 600;
+            min-width: 130px;
+            color: #2c3e50;
+        }
+
+        .bc-prop .prop-val {
+            color: #555;
+        }
+
+        .bc-note {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 0.83rem;
+            font-style: italic;
+        }
+
+        /* ─── ENTITY vs VO DEMO ────────────────────────────────── */
+        .evo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 600px) {
+            .evo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .evo-card {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid;
+            transition: transform 0.2s;
+        }
+
+        .evo-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .evo-card.entity {
+            border-color: #2980b9;
+        }
+
+        .evo-card.vo {
+            border-color: #27ae60;
+        }
+
+        .evo-card-header {
+            padding: 0.75rem 1rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .entity .evo-card-header {
+            background: #2980b9;
+        }
+
+        .vo .evo-card-header {
+            background: #27ae60;
+        }
+
+        .evo-card-body {
+            padding: 1rem;
+            background: #fff;
+            font-size: 0.85rem;
+        }
+
+        .evo-trait {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0;
+            color: #444;
+        }
+
+        .evo-trait i {
+            width: 16px;
+            text-align: center;
+        }
+
+        /* ─── PRIMITIVE OBSESSION DEMO ─────────────────────────── */
+        .po-widget {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .po-widget h6 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .po-col {
+            margin-bottom: 1rem;
+        }
+
+        .po-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+        }
+
+        .po-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .po-input-group input {
+            flex: 1;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .po-input-group.danger input {
+            border: 2px solid #e74c3c;
+        }
+
+        .po-input-group.success input {
+            border: 2px solid #27ae60;
+        }
+
+        .po-result {
+            margin-top: 0.5rem;
+            font-size: 0.83rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .po-result.ok {
+            background: #d5f5e3;
+            color: #1e8449;
+        }
+
+        .po-result.fail {
+            background: #fdecea;
+            color: #c0392b;
+        }
+
+        .po-result.neutral {
+            background: #eee;
+            color: #777;
+        }
+
+        /* ─── SERVICE TABLE ────────────────────────────────────── */
+        .service-table {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #dee2e6;
+            font-size: 0.88rem;
+            margin: 1.5rem 0;
+        }
+
+        .service-table th {
+            background: #2c3e50;
+            color: #fff;
+            padding: 0.65rem 1rem;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .service-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: top;
+        }
+
+        .service-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .service-table tr:nth-child(even) td {
+            background: #f8f9fa;
+        }
+
+        .badge-app {
+            background: #2980b9;
+            color: #fff;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-dom {
+            background: #27ae60;
+            color: #fff;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* ─── DOMAIN EVENT FLOW ────────────────────────────────── */
+        .de-flow {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+            justify-content: center;
+        }
+
+        .de-node {
+            border-radius: 8px;
+            padding: 0.6rem 1rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-align: center;
+            min-width: 110px;
+        }
+
+        .de-arrow {
+            font-size: 1.2rem;
+            color: #95a5a6;
+            flex-shrink: 0;
+        }
+
+        .de-node.aggr {
+            background: #1a2a4a;
+            color: #7fb3d3;
+            border: 2px solid #2980b9;
+        }
+
+        .de-node.event {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #f39c12;
+        }
+
+        .de-node.handler {
+            background: #d5f5e3;
+            color: #1e8449;
+            border: 2px solid #27ae60;
+        }
+
+        .de-handlers {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+
+
+        /* ─── SOURCES ──────────────────────────────────────────── */
+        .sources-box {
+            background: #f0f4f8;
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 3rem;
+            border-left: 4px solid #3498db;
+        }
+
+        .sources-box h6 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #5d8aa8;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .sources-box a {
+            display: block;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            text-decoration: none;
+            padding: 0.25rem 0;
+        }
+
+        .sources-box a:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+
+        .sources-box a i {
+            margin-right: 0.4rem;
+            color: #3498db;
+            font-size: 0.75rem;
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+    <meta name="google-adsense-account" content="ca-pub-7088224155406510">
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <header class="blog-header header-development">
+        <h1>Sviluppo Software</h1>
+        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il
+            proprio futuro con coraggio e competenza.</p>
+    </header>
+
+    <div class="article-container">
+        <div class="article-content">
+
+            <figure class="figure w-100 text-center mb-5">
+                <img src="../../images/blog/development/ddd-cover.webp"
+                    alt="Architettura a cipolla del Domain-Driven Design"
+                    class="figure-img img-fluid rounded shadow-sm featured-img">
+                <figcaption class="figure-caption mt-2">
+                    <i class="fas fa-camera me-1"></i>
+                    <em>Come la moto va avanti grazie a decine di sistemi che non si disturbano tra loro, il software
+                        DDD separa responsabilità e protegge il nucleo centrale dalle influenze esterne.</em>
+                </figcaption>
+            </figure>
+
+            <h2 class="article-title">
+                Domain-Driven Design: progettare software che non teme il Business
+            </h2>
+
+            <p class="text-muted">Scritto da Marco Morello il 16 maggio 2026</p>
+
+            <blockquote class="blockquote alert alert-info my-4">
+                <p class="mb-0">
+                    <strong>💡 In sintesi</strong>: il software fallisce quando modella il database invece della realtà.
+                    Il Domain-Driven Design ribalta la prospettiva: il codice deve essere lo specchio esatto del
+                    business, con lo stesso linguaggio, gli stessi confini e le stesse regole. Il risultato è un sistema
+                    che non teme il cambiamento perché è costruito attorno a ciò che non cambia: la logica reale del
+                    problema.
+                </p>
+            </blockquote>
+
+            <hr>
+
+            <p>Nelle scorse tappe del nostro viaggio abbiamo capito come
+                <a href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/broken-window-boy-scout.html">riparare
+                    le "finestre rotte"</a>
+                e come proteggere l'esecuzione del codice con le
+                <a href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/fail-fast-guard-clauses.html">Guard
+                    Clauses</a>.
+                Ma ora dobbiamo rispondere alla domanda più difficile,
+                quella che separa un programmatore che <em>scrive codice</em> da un ingegnere che <em>costruisce
+                    sistemi</em>: <strong>dove mettiamo la logica quando il problema diventa complicato?</strong>
+            </p>
+
+            <p>Spesso il software diventa un groviglio inestricabile perché cerchiamo di modellarlo attorno al database
+                o ai framework. È la cosiddetta <strong>"Big Ball of Mud"</strong>. Il <strong>Domain-Driven
+                    Design</strong> (DDD), introdotto da
+                <a href="https://www.domainlanguage.com/ddd/" target="_blank" rel="noopener noreferrer">Eric Evans nel
+                    2003</a>,
+                ribalta completamente questa prospettiva: il software deve essere lo specchio esatto della realtà che
+                vuoi gestire — il <strong>Dominio</strong>. Se il business cambia, il codice deve cambiare seguendo
+                la stessa logica, senza traduzioni forzate.
+            </p>
+
+            <hr>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <h3 id="architettura-cipolla">1. L'architettura a cipolla: proteggere il cuore pulsante</h3>
+
+            <p>Immagina una cipolla. Al centro c'è il <strong>Dominio</strong>, la parte più preziosa e delicata.
+                Questa struttura non è un vezzo estetico, ma risponde al principio della
+                <a href="https://martinfowler.com/articles/dipInTheWild.html" target="_blank"
+                    rel="noopener noreferrer">Dependency Inversion</a>:
+                le dipendenze puntano <em>sempre e solo</em> verso il centro.
+            </p>
+
+            <!-- INFOGRAFICA CIPOLLA -->
+            <div class="onion-wrapper">
+                <h5><i class="fas fa-layer-group me-2"></i>architettura a cipolla — dependency flow</h5>
+                <svg viewBox="0 0 480 300" xmlns="http://www.w3.org/2000/svg"
+                    aria-label="Diagramma architettura a cipolla">
+                    <defs>
+                        <radialGradient id="gInfra" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#1e3a5f" />
+                            <stop offset="100%" stop-color="#0d1b2a" />
+                        </radialGradient>
+                        <radialGradient id="gApp" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#1e4976" />
+                            <stop offset="100%" stop-color="#1a3a5c" />
+                        </radialGradient>
+                        <radialGradient id="gDomain" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#2980b9" />
+                            <stop offset="100%" stop-color="#1a6fa0" />
+                        </radialGradient>
+                        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L8,3 L0,6 Z" fill="#f39c12" />
+                        </marker>
+                    </defs>
+
+                    <!-- Strato esterno: Infrastruttura -->
+                    <ellipse cx="240" cy="150" rx="230" ry="138" fill="url(#gInfra)" stroke="#2980b9" stroke-width="1.5"
+                        opacity="0.9" />
+
+                    <!-- Strato medio: Application -->
+                    <ellipse cx="240" cy="150" rx="170" ry="102" fill="url(#gApp)" stroke="#3498db"
+                        stroke-width="1.5" />
+
+                    <!-- Cuore: Domain Core -->
+                    <ellipse cx="240" cy="150" rx="100" ry="60" fill="url(#gDomain)" stroke="#5dade2"
+                        stroke-width="2" />
+
+                    <!-- Labels -->
+                    <text x="240" y="143" text-anchor="middle" fill="#fff" font-size="13" font-weight="700"
+                        font-family="monospace">DOMAIN CORE</text>
+                    <text x="240" y="160" text-anchor="middle" fill="#aed6f1" font-size="9.5"
+                        font-family="sans-serif">Entità · Value Objects · Aggregati</text>
+                    <text x="240" y="172" text-anchor="middle" fill="#aed6f1" font-size="9.5"
+                        font-family="sans-serif">Domain Services · Invarianti</text>
+
+                    <text x="240" y="223" text-anchor="middle" fill="#fff" font-size="11" font-weight="700"
+                        font-family="sans-serif">APPLICATION SERVICES</text>
+                    <text x="240" y="236" text-anchor="middle" fill="#7fb3d3" font-size="9" font-family="sans-serif">Use
+                        Cases · Coordinamento · Repository</text>
+
+                    <text x="50" y="90" text-anchor="middle" fill="#fff" font-size="10" font-weight="700"
+                        font-family="sans-serif">INFRASTRUTTURA</text>
+                    <text x="50" y="104" text-anchor="middle" fill="#5d8aa8" font-size="8.5"
+                        font-family="sans-serif">Database · Email</text>
+                    <text x="50" y="116" text-anchor="middle" fill="#5d8aa8" font-size="8.5"
+                        font-family="sans-serif">API · SMS · File</text>
+
+                    <!-- Frecce dipendenza → verso centro -->
+                    <line x1="390" y1="80" x2="310" y2="115" stroke="#f39c12" stroke-width="2" marker-end="url(#arr)"
+                        stroke-dasharray="5,3" opacity="0.8" />
+                    <line x1="390" y1="220" x2="310" y2="190" stroke="#f39c12" stroke-width="2" marker-end="url(#arr)"
+                        stroke-dasharray="5,3" opacity="0.8" />
+                    <line x1="270" y1="245" x2="255" y2="215" stroke="#f39c12" stroke-width="2" marker-end="url(#arr)"
+                        stroke-dasharray="5,3" opacity="0.8" />
+
+                    <text x="385" y="75" text-anchor="middle" fill="#f39c12" font-size="8"
+                        font-family="sans-serif">dipende da</text>
+                    <text x="385" y="235" text-anchor="middle" fill="#f39c12" font-size="8"
+                        font-family="sans-serif">dipende da</text>
+                </svg>
+                <p class="text-center mt-3" style="color:#5d8aa8; font-size:0.8rem;">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Le frecce arancioni indicano la direzione delle dipendenze: sempre e solo verso il centro. Se cambi
+                    il database, il Domain Core non lo sa nemmeno.
+                </p>
+            </div>
+
+            <p><strong>Il cuore (Domain Core):</strong> qui vivono le regole sacre, quelle che il tuo cliente ti
+                spiega davanti a un caffè. Il cuore è "agnostico": non sa nulla di internet, di database SQL, di file
+                JSON o di server cloud. È puro ragionamento logico. Se la tua azienda fallisse e dovessi gestire tutto
+                con carta e penna, le regole nel cuore resterebbero le stesse.</p>
+
+            <p><strong>Lo strato intermedio (Application Services):</strong> pensa a questo strato come al "direttore
+                d'orchestra". Non suona nessuno strumento (non contiene logica di business), ma decide quando deve
+                entrare il violino e quando i timpani. Riceve un comando dall'esterno e coordina i pezzi del dominio
+                per portarlo a termine.</p>
+
+            <p><strong>La buccia (Infrastruttura):</strong> qui ci sono i dettagli "sporchi" e intercambiabili — il
+                database (SQL, NoSQL), l'invio delle notifiche (Email, SMS, Push), le integrazioni esterne (PayPal,
+                Stripe).</p>
+
+            <div class="alert alert-warning">
+                <strong>⚡ La regola d'oro:</strong> se decidi di cambiare il database da MySQL a MongoDB, il tuo
+                cuore non deve nemmeno accorgersene. Questo rende il sistema facilissimo da testare: puoi simulare
+                il database con una lista in memoria e testare tutta la logica in pochi millisecondi.
+            </div>
+
+            <hr>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <h3 id="bounded-context">2. Bounded Context: dividere per regnare</h3>
+
+            <div class="alert alert-danger">
+                <strong>⚠️ Questo è il concetto strategico più importante del DDD</strong>, spesso omesso nelle
+                introduzioni. Saltarlo equivale a spiegare i motori senza menzionare il cambio.
+            </div>
+
+            <p>Un sistema complesso non ha un unico dominio monolitico, ma più <strong>Bounded Context</strong>
+                (Contesti Delimitati): sottosistemi con il proprio linguaggio, le proprie regole e i propri modelli.
+                Il confine non è solo concettuale — si riflette nel codice in namespace, project e team separati.</p>
+
+            <p>Nell'e-commerce, la parola <strong>"Prodotto"</strong> significa cose radicalmente diverse a seconda
+                di chi la usa. Esplora i contesti qui sotto:</p>
+
+            <!-- BOUNDED CONTEXT WIDGET -->
+            <div class="bc-widget">
+                <div class="bc-header">
+                    <i class="fas fa-cubes"></i> La stessa parola, quattro modelli diversi: "Prodotto"
+                </div>
+                <div class="bc-tabs" id="bcTabs">
+                    <button class="bc-tab active" data-ctx="catalogo">📦 Catalogo</button>
+                    <button class="bc-tab" data-ctx="magazzino">🏭 Magazzino</button>
+                    <button class="bc-tab" data-ctx="spedizione">🚚 Spedizione</button>
+                    <button class="bc-tab" data-ctx="fatturazione">🧾 Fatturazione</button>
+                </div>
+                <div class="bc-body" id="bcBody"></div>
+            </div>
+
+            <p>Se cerchi di creare una classe <code>Prodotto</code> che soddisfi tutti e quattro i contesti
+                contemporaneamente, ottieni un mostro con 40 proprietà di cui il 70% è sempre <code>null</code>.
+                <strong>Il DDD dice: crea quattro classi <code>Prodotto</code> diverse, ognuna nel suo
+                    contesto.</strong>
+                I Bounded Context comunicano tra loro tramite interfacce ben definite, spesso attraverso Domain Events
+                o un Anti-Corruption Layer.
+            </p>
+
+            <hr>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <h3 id="ubiquitous-language">3. Ubiquitous Language: eliminare il "debito di traduzione"</h3>
+
+            <p>Uno dei motivi principali per cui il software fallisce è il malinteso tra chi lo progetta e chi lo usa.
+                Se il tuo cliente dice: <em>"Dobbiamo declassare il cliente a 'Silver' se non ordina da 6 mesi"</em>,
+                nel tuo codice non deve comparire un criptico <code>Status = 2</code>. Deve esserci un metodo
+                esplicito:</p>
+
+            <pre><code class="language-csharp">// ❌ Il codice è una black box: nessuno capisce cosa significa "2"
+cliente.Status = 2;
+
+// ✅ Il codice si legge come un requisito di business
+cliente.DeclassaASilver();</code></pre>
+
+            <p>Ogni volta che devi "tradurre" quello che dice il business in termini tecnici, stai accumulando
+                <strong>debito cognitivo</strong>. Come spiega
+                <a href="https://martinfowler.com/bliki/DomainDrivenDesign.html" target="_blank" rel="noopener">Martin
+                    Fowler</a>,
+                il linguaggio deve essere <em>ubiquo</em>: lo stesso nei documenti dei requisiti, nelle chiacchiere
+                tra colleghi e, soprattutto, nel codice.
+            </p>
+
+            <div class="alert alert-info">
+                <strong>💡 L'Implicazione pratica:</strong> se un esperto del settore legge i nomi dei tuoi metodi
+                e classi e non li capisce, il tuo modello è sbagliato. Il codice si deve leggere come una frase di senso
+                compiuto. Questo riduce drasticamente i bug dovuti a requisiti interpretati male.
+            </div>
+
+            <hr>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <h3 id="entities-vo">4. Entities vs Value Objects: identità o sostanza?</h3>
+
+            <p>In officina, distinguere questi due mattoni fondamentali pulisce istantaneamente metà del codice sporco.
+            </p>
+
+            <!-- ENTITY vs VO CARD GRID -->
+            <div class="evo-grid">
+                <div class="evo-card entity">
+                    <div class="evo-card-header">
+                        <i class="fas fa-id-card"></i> Entity (Entità)
+                    </div>
+                    <div class="evo-card-body">
+                        <div class="evo-trait"><i class="fas fa-fingerprint text-primary"></i> Ha un ID univoco</div>
+                        <div class="evo-trait"><i class="fas fa-sync text-primary"></i> Può cambiare nel tempo</div>
+                        <div class="evo-trait"><i class="fas fa-equals text-primary"></i> Uguaglianza per ID</div>
+                        <div class="evo-trait"><i class="fas fa-motorcycle text-primary"></i> <em>Es: una Moto
+                                (targa)</em></div>
+                        <div class="evo-trait"><i class="fas fa-user text-primary"></i> <em>Es: un Cliente
+                                (clienteId)</em></div>
+                        <hr class="my-2">
+                        <p class="mb-0 small text-muted">Ridipingi la moto di giallo, cambia motore e ruote: resta la
+                            <strong>stessa</strong> moto, identificata dal telaio.
+                        </p>
+                    </div>
+                </div>
+                <div class="evo-card vo">
+                    <div class="evo-card-header">
+                        <i class="fas fa-gem"></i> Value Object (VO)
+                    </div>
+                    <div class="evo-card-body">
+                        <div class="evo-trait"><i class="fas fa-ban text-success"></i> Nessun ID</div>
+                        <div class="evo-trait"><i class="fas fa-lock text-success"></i> Immutabile</div>
+                        <div class="evo-trait"><i class="fas fa-equals text-success"></i> Uguaglianza per valore</div>
+                        <div class="evo-trait"><i class="fas fa-euro-sign text-success"></i> <em>Es: un Importo
+                                (€10)</em></div>
+                        <div class="evo-trait"><i class="fas fa-palette text-success"></i> <em>Es: un Colore
+                                (#FF0000)</em></div>
+                        <hr class="my-2">
+                        <p class="mb-0 small text-muted"><code>€10</code> non "diventa" <code>€20</code>: lo butti e
+                            crei un <strong>nuovo</strong> oggetto. Non si modifica, si sostituisce.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p>In C# moderno la differenza si esprime in modo elegante con i <code>record</code>:</p>
+
+            <pre><code class="language-csharp">// Entity: ha un ID, si compara per identità
+public class Moto
+{
+    public Guid Id { get; private set; }
+    public string Targa { get; private set; }
+    public Colore Colore { get; private set; }  // ← contiene un VO
+
+    public void Ridipingi(Colore nuovoColore) => Colore = nuovoColore;
+}
+
+// Value Object: immutabile, si compara per valore
+// "record" in C# implementa Equals/GetHashCode per valore automaticamente
+public record Colore(string Esadecimale)
+{
+    public static Colore Rosso => new("#FF0000");
+    public static Colore Blu   => new("#0000FF");
+}</code></pre>
+
+            <h4 id="primitive-obsession" class="mt-4">🛠️ Malizia senior: sconfiggere la "Primitive Obsession"</h4>
+
+            <p>Un errore comune è usare tipi primitivi (<code>string</code>, <code>int</code>, <code>decimal</code>)
+                per tutto. Non usare una <code>string</code> per un'email — usa un Value Object <code>Email</code>:</p>
+
+            <pre><code class="language-csharp">public record Email
+{
+    public string Valore { get; }
+
+    public Email(string valore)
+    {
+        // L'oggetto nasce solo se il dato è valido: Always Valid!
+        if (string.IsNullOrWhiteSpace(valore) || !valore.Contains('@'))
+            throw new ArgumentException("Indirizzo email non valido.");
+
+        Valore = valore.ToLowerInvariant();
+    }
+}
+
+// Se hai in mano un oggetto Email, sai già che è valido.
+// Non devi più scrivere: if (email != null && email.Contains("@"))
+var email = new Email("mario@officina.it"); // ✅ valida alla nascita
+// var email = new Email("Pippo123");        // ❌ esplode subito, non in produzione</code></pre>
+
+            <!-- DEMO INTERATTIVA PRIMITIVE OBSESSION -->
+            <div class="po-widget">
+                <h6><i class="fas fa-flask me-2"></i>Prova la differenza: string primitiva vs Value Object Email</h6>
+                <div class="row g-3">
+                    <div class="col-md-6 po-col">
+                        <div class="po-label text-danger">❌ string primitiva</div>
+                        <div class="po-input-group danger">
+                            <input type="text" id="rawEmailInput" placeholder="Scrivi qualcosa...">
+                        </div>
+                        <div class="po-result neutral" id="rawResult"><span>Scrivi un'email...</span></div>
+                    </div>
+                    <div class="col-md-6 po-col">
+                        <div class="po-label text-success">✅ Value Object Email</div>
+                        <div class="po-input-group success">
+                            <input type="text" id="voEmailInput" placeholder="Scrivi qualcosa...">
+                        </div>
+                        <div class="po-result neutral" id="voResult"><span>Scrivi un'email...</span></div>
+                    </div>
+                </div>
+                <p class="text-muted small mb-0 mt-2">
+                    <i class="fas fa-info-circle me-1"></i>
+                    La string accetta qualsiasi valore. Il VO valida alla costruzione e fallisce immediatamente se il
+                    dato è sbagliato.
+                </p>
+            </div>
+
+            <hr>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <h3 id="aggregati">5. Aggregati: la fortezza della coerenza interna</h3>
+
+            <p>Un <strong>Aggregato</strong> è un gruppo di oggetti (Entità e VO) che vivono e muoiono insieme.
+                C'è un solo punto di ingresso ufficiale: l'<strong>Aggregate Root</strong> (la Radice).</p>
+
+            <p>Immagina un <code>Ordine</code> e le sue <code>RigheOrdine</code>. L'<code>Ordine</code> è la radice.</p>
+
+            <pre><code class="language-csharp">public class Ordine // ← Aggregate Root
+{
+    private readonly List&lt;RigaOrdine&gt; _righe = new();
+    public IReadOnlyCollection&lt;RigaOrdine&gt; Righe => _righe.AsReadOnly();
+    public StatoOrdine Stato { get; private set; }
+
+    public void AggiungiPezzo(Pezzo pezzo, int quantita)
+    {
+        // L'Aggregate Root protegge le invarianti di business
+        if (Stato == StatoOrdine.Spedito)
+            throw new InvalidOperationException(
+                "Impossibile modificare un ordine già spedito.");
+
+        _righe.Add(new RigaOrdine(pezzo, quantita));
+    }
+}</code></pre>
+
+            <div class="alert alert-warning">
+                <strong>⚡ La regola senior:</strong> nessuno dall'esterno dell'aggregato può toccare una
+                <code>RigaOrdine</code> direttamente. Questo protegge le <strong>Invarianti</strong>: regole di
+                business che non possono mai essere violate. <br><br>
+                <strong>Nota sul design:</strong> tieni gli aggregati piccoli. Un aggregato grande è difficile da
+                caricare, testare e gestire in concorrenza. Se ti trovi a mettere molti oggetti insieme, hai trovato
+                un confine di Bounded Context.
+            </div>
+
+            <hr>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <h3 id="services">6. Domain Services vs Application Services: chi comanda e chi esegue?</h3>
+
+            <p>Questa è la parte dove la confusione regna sovrana. Usiamo l'analogia dell'officina.</p>
+
+            <table class="service-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th><span class="badge-app">Application Service</span></th>
+                        <th><span class="badge-dom">Domain Service</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Analogia</strong></td>
+                        <td>Il capofficina al bancone</td>
+                        <td>Il meccanico specialista</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fa</strong></td>
+                        <td>Coordina, carica, salva, notifica</td>
+                        <td>Calcola, decide, applica regole complesse</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Conosce</strong></td>
+                        <td>Repository, servizi esterni</td>
+                        <td>Solo oggetti di dominio</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tocca DB</strong></td>
+                        <td>✅ Sì (tramite Repository)</td>
+                        <td>❌ Mai</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Domanda</strong></td>
+                        <td><em>"Cosa fare?"</em></td>
+                        <td><em>"Come decidere?"</em></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <pre><code class="language-csharp">// APPLICATION SERVICE — il coordinatore
+public class CambioOlioService
+{
+    private readonly IMotoRepository _repository;
+    private readonly INotificaService _notifica;
+
+    public async Task EseguiAsync(Guid motoId)
+    {
+        var moto = await _repository.GetByIdAsync(motoId);       // 1. Recupera
+        moto.AggiornaManutenzione(TipoManutenzione.CambioOlio);  // 2. Delega al dominio
+        await _repository.SaveAsync(moto);                        // 3. Salva
+        await _notifica.InviaAsync(moto.ProprietarioId, "Moto pronta!"); // 4. Notifica
+    }
+}
+
+// DOMAIN SERVICE — lo specialista
+public class CalcolatorePreventivoService
+{
+    // Pura logica: riceve dati, applica le regole, restituisce risultato.
+    // Non tocca MAI il database.
+    public Importo Calcola(IEnumerable&lt;Pezzo&gt; pezzi, Fornitore fornitore, RegioneFiscale regione)
+    {
+        var costoBase       = pezzi.Sum(p =&gt; p.Prezzo.Valore);
+        var tasseApplicabili = regione.CalcolaTasse(costoBase);
+        var scontoFornitore  = fornitore.ApplicaSconto(costoBase);
+        return new Importo(costoBase + tasseApplicabili - scontoFornitore);
+    }
+}</code></pre>
+
+            <hr>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <h3 id="avanzate">7. Malizie avanzate per un software indistruttibile</h3>
+
+            <h4 class="mt-4">Anti-Corruption Layer (ACL)</h4>
+            <p>Se il tuo software moderno deve parlare con un vecchio gestionale degli anni '90, non farlo entrare
+                nel tuo cuore. Crea una classe "traduttrice" che converte quei dati fangosi nei tuoi bellissimi
+                Value Objects. Proteggi il dominio dall'inquinamento esterno.</p>
+
+            <pre><code class="language-csharp">public class AdattatoreGestionaleVecchio : IClienteRepository
+{
+    private readonly VecchioGestionale _legacy;
+
+    public Cliente GetById(int id)
+    {
+        var raw = _legacy.CERCA_CLIENTE(id); // API orrenda del sistema legacy
+        return new Cliente(                  // Traduzione nel tuo modello pulito
+            new ClienteId(raw.COD_CLI),
+            new NomeCompleto(raw.COGNOME, raw.NOME),
+            new Email(raw.MAIL_PRINCIPALE)   // ← VO che valida automaticamente
+        );
+    }
+}</code></pre>
+
+            <h4 class="mt-4">Domain Events: la notifica disaccoppiata</h4>
+
+            <p>Quando succede qualcosa di importante (es: <code>MotoRiparata</code>), l'aggregato non chiama
+                direttamente il servizio SMS. <em>Urla</em> un evento all'interno del sistema, e handler separati
+                decidono come reagire. Questo è il flusso:</p>
+
+            <!-- DOMAIN EVENTS FLOW -->
+            <div class="de-flow">
+                <div class="de-node aggr"><i class="fas fa-cog me-1"></i>Aggregato<br><small>pubblica evento</small>
+                </div>
+                <div class="de-arrow">→</div>
+                <div class="de-node event"><i class="fas fa-bolt me-1"></i>MotoRiparata<br><small>Domain Event</small>
+                </div>
+                <div class="de-arrow">→</div>
+                <div class="de-handlers">
+                    <div class="de-node handler"><i class="fas fa-sms me-1"></i>SMS Handler</div>
+                    <div class="de-node handler"><i class="fas fa-chart-bar me-1"></i>Dashboard Handler</div>
+                    <div class="de-node handler"><i class="fas fa-envelope me-1"></i>Email Handler</div>
+                </div>
+            </div>
+
+            <pre><code class="language-csharp">// L'aggregato pubblica l'evento (non sa chi lo ascolterà)
+public class Moto
+{
+    private readonly List&lt;IDomainEvent&gt; _eventi = new();
+    public IReadOnlyCollection&lt;IDomainEvent&gt; Eventi => _eventi.AsReadOnly();
+
+    public void CompletaRiparazione()
+    {
+        Stato = StatoMoto.Pronta;
+        _eventi.Add(new MotoRiparataEvent(Id, DateTime.UtcNow));
+    }
+}
+
+// Un handler separato, totalmente disaccoppiato, decide cosa fare
+public class MotoRiparataHandler : IEventHandler&lt;MotoRiparataEvent&gt;
+{
+    public async Task HandleAsync(MotoRiparataEvent evento)
+    {
+        await _smsService.InviaAsync(/* ... */);
+        await _dashboardService.AggiornaPannelloAsync(/* ... */);
+    }
+}</code></pre>
+
+            <p>Questo rende il sistema flessibile come un modulo LEGO: aggiungi nuovi comportamenti senza toccare il
+                codice esistente — è l'<strong>Open/Closed Principle</strong> in azione.</p>
+
+            <h4 class="mt-4">Referenzia solo per ID</h4>
+            <p>Un Aggregato non dovrebbe contenere un altro Aggregato intero. Se l'<code>Ordine</code> ha bisogno del
+                <code>Cliente</code>, tieni solo il <code>ClienteId</code>. Caricare l'intero grafo significa portare
+                metà database in memoria e rallentare tutto il sistema.
+            </p>
+
+            <hr>
+
+            <!-- ══════════════════════════════════════════════════════ -->
+            <h3 id="quando-usare">8. Quando scendere in pista con il DDD?</h3>
+
+            <p>Il DDD è un investimento con un costo reale in termini di tempo e complessità iniziale.</p>
+
+            <div class="row g-3 my-3">
+                <div class="col-md-6">
+                    <div class="card border-success h-100">
+                        <div class="card-header bg-success text-white fw-bold">
+                            <i class="fas fa-check-circle me-2"></i>Usa DDD quando...
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">La logica è un labirinto di "se", "ma" e eccezioni continue</li>
+                            <li class="list-group-item">Il progetto è destinato a crescere e durare anni</li>
+                            <li class="list-group-item">Hai accesso diretto agli esperti del dominio</li>
+                            <li class="list-group-item">Il team è abbastanza grande da beneficiare dei confini espliciti
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-danger h-100">
+                        <div class="card-header bg-danger text-white fw-bold">
+                            <i class="fas fa-times-circle me-2"></i>Evita DDD quando...
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Stai costruendo un CRUD semplice (salva, mostra, elimina)</li>
+                            <li class="list-group-item">Il progetto ha vita breve o requisiti stabili e banali</li>
+                            <li class="list-group-item">Non hai accesso agli esperti del dominio</li>
+                            <li class="list-group-item">Stai usando un reattore nucleare per accendere un fiammifero
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <h4 class="fw-bold"><i class="fas fa-handshake me-2 text-primary"></i>Il rispetto per il mestiere</h4>
+                <p>
+                    Alla fine del giro, il <strong>DDD</strong> non è un dogma religioso. È rispetto. Rispetto per il
+                    business
+                    che ti paga lo stipendio e rispetto per te stesso, che quel codice dovrai riaprirlo tra sei mesi.
+                </p>
+                <p>
+                    Applicare questi concetti è come preparare la moto per un viaggio transcontinentale: richiede tempo,
+                    fatica
+                    e qualche imprecazione in officina prima di partire. Potresti semplicemente montare in sella e
+                    andare, ma
+                    sai che al primo passo di montagna sotto la pioggia, se non hai controllato i serraggi e la logica
+                    della
+                    tua strumentazione, rimarrai a piedi.
+                </p>
+                <p>
+                    Progettare software "Domain-Driven" significa smettere di essere dei passacarte tra un database e
+                    una
+                    pagina web e iniziare a essere dei veri architetti. Non aver paura di sbagliare i confini dei tuoi
+                    contesti
+                    all'inizio; la meccanica del software si impara sporcandosi le mani e ascoltando il rumore dei bug.
+                </p>
+                <p class="fw-bold italic">
+                    Ogni volta che scrivi una classe che modella fedelmente la realtà, stai costruendo un sistema che
+                    non teme
+                    il cambiamento, ma lo cavalca. Ed è lì che il viaggio del programmatore diventa davvero divertente.
+                </p>
+            </div>
+
+            <!-- FONTI -->
+            <div class="sources-box">
+                <h6><i class="fas fa-book-open me-1"></i>Fonti e Approfondimenti</h6>
+                <a href="https://www.domainlanguage.com/ddd/" target="_blank" rel="noopener">
+                    <i class="fas fa-external-link-alt"></i>
+                    domainlanguage.com — Sito ufficiale di Eric Evans, padre del DDD
+                </a>
+                <a href="https://www.dddcommunity.org/book/evans_2003/" target="_blank" rel="noopener">
+                    <i class="fas fa-external-link-alt"></i>
+                    dddcommunity.org — Community ufficiale DDD, Evans 2003
+                </a>
+                <a href="https://martinfowler.com/bliki/DomainDrivenDesign.html" target="_blank" rel="noopener">
+                    <i class="fas fa-external-link-alt"></i>
+                    martinfowler.com — Martin Fowler sul DDD (panoramica concisa e autorevole)
+                </a>
+                <a href="https://www.oreilly.com/library/view/domain-driven-design-tackling/0321125215/" target="_blank"
+                    rel="noopener">
+                    <i class="fas fa-external-link-alt"></i>
+                    O'Reilly — "DDD: Tackling Complexity in the Heart of Software" (il libro originale)
+                </a>
+            </div>
+
+            <div id="firma-placeholder"></div>
+        </div>
+    </div>
+
+    <!-- PROSSIMAMENTE -->
+    <div class="article-container mt-2 mb-5">
+        <div class="article-content">
+            <div class="card border-0 shadow-sm"
+                style="background: linear-gradient(135deg, #808ea8, #55789b); border-radius: 12px;">
+                <div class="card-body p-4 text-white">
+                    <h5 class="fw-bold mb-2"><i class="fas fa-road me-2 text-warning"></i>Prossimamente...</h5>
+                    <p class="mb-0" style="color: #aed6f1;">
+                        Tutto questo è bellissimo, ma <strong>come si salvano questi Aggregati sul database senza
+                            sporcare il Dominio puro?</strong> Entreremo nel mondo dei <strong>Repository
+                            Pattern</strong>
+                        e vedremo come implementare la persistenza con Entity Framework Core, proteggendo la nostra
+                        sacra "Cipolla" dalle infiltrazioni di SQL.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="../../blog/development.html" class="btn btn-hero" id="backToDevelopment">
+        &larr; Torna indietro
+    </a>
+
+    <div id="footer-placeholder" class="mt-auto"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        // ─── BOUNDED CONTEXT WIDGET ──────────────────────────────
+        const bcData = {
+            catalogo: {
+                label: "📦 Bounded Context: Catalogo",
+                color: "#2980b9",
+                bg: "#eaf4fb",
+                props: [
+                    { name: "Nome", val: "Olio Motore SAE 10W-40" },
+                    { name: "Descrizione", val: "Lubrificante sintetico per motori ad alto chilometraggio" },
+                    { name: "FotoUrl", val: "/images/olio-motore.webp" },
+                    { name: "PrezzoListino", val: "€ 22,90" },
+                    { name: "Categoria", val: "Lubrificanti" },
+                ],
+                note: "Il Catalogo non sa dove è fisicamente il prodotto né come viene spedito. Si preoccupa solo di come mostrarlo.",
+                noteColor: "#eaf4fb",
+                noteBorder: "#2980b9"
+            },
+            magazzino: {
+                label: "🏭 Bounded Context: Magazzino",
+                color: "#8e44ad",
+                bg: "#f5eef8",
+                props: [
+                    { name: "CodiceSKU", val: "OLI-10W40-1L-SYN" },
+                    { name: "QuantitàDisponibile", val: "142 unità" },
+                    { name: "Scaffale", val: "B-07-03" },
+                    { name: "ScortaMinima", val: "20 unità" },
+                    { name: "FornitoreId", val: "FORN-0042" },
+                ],
+                note: "Il Magazzino ignora il nome commerciale e il prezzo pubblico. Gli interessa solo sapere dov'è il prodotto e quanti ne ha.",
+                noteColor: "#f5eef8",
+                noteBorder: "#8e44ad"
+            },
+            spedizione: {
+                label: "🚚 Bounded Context: Spedizione",
+                color: "#d35400",
+                bg: "#fef5ec",
+                props: [
+                    { name: "PesoKg", val: "1.05" },
+                    { name: "DimensioniCm", val: "15 × 10 × 25" },
+                    { name: "ÈFragile", val: "false" },
+                    { name: "ClasseMerce", val: "Liquido non pericoloso" },
+                    { name: "CodiceDogana", val: "2710.19.90" },
+                ],
+                note: "La Spedizione non sa nulla del prezzo o della descrizione. Le servono solo i dati fisici del collo.",
+                noteColor: "#fef5ec",
+                noteBorder: "#d35400"
+            },
+            fatturazione: {
+                label: "🧾 Bounded Context: Fatturazione",
+                color: "#27ae60",
+                bg: "#eafaf1",
+                props: [
+                    { name: "PrezzoNetto", val: "€ 18,77" },
+                    { name: "AliquotaIVA", val: "22%" },
+                    { name: "CodiceFiscale", val: "IT-94-SAE10" },
+                    { name: "UnitàMisura", val: "LT" },
+                    { name: "CategoriaTributaria", val: "Oli minerali" },
+                ],
+                note: "La Fatturazione si preoccupa esclusivamente di IVA, aliquote e codici fiscali. Il nome sul catalogo è irrilevante.",
+                noteColor: "#eafaf1",
+                noteBorder: "#27ae60"
+            }
+        };
+
+        function renderBC(ctx) {
+            const d = bcData[ctx];
+            const propsHtml = d.props.map(p =>
+                `<div class="bc-prop"><span class="prop-name">${p.name}</span><span class="prop-val">${p.val}</span></div>`
+            ).join('');
+            document.getElementById('bcBody').innerHTML = `
+                <span class="bc-context-badge" style="background:${d.color}; color:#fff;">${d.label}</span>
+                ${propsHtml}
+                <div class="bc-note" style="background:${d.noteColor}; border-left: 4px solid ${d.noteBorder}; color:#444;">
+                    <i class="fas fa-lightbulb me-1" style="color:${d.noteBorder}"></i>${d.note}
+                </div>`;
+        }
+
+        document.getElementById('bcTabs').addEventListener('click', function (e) {
+            const btn = e.target.closest('.bc-tab');
+            if (!btn) return;
+            document.querySelectorAll('.bc-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderBC(btn.dataset.ctx);
+        });
+
+        renderBC('catalogo');
+
+        // ─── PRIMITIVE OBSESSION DEMO ────────────────────────────
+        function checkRaw() {
+            const val = document.getElementById('rawEmailInput').value;
+            const el = document.getElementById('rawResult');
+            if (!val) { el.className = 'po-result neutral'; el.innerHTML = '<span>Scrivi un\'email...</span>'; return; }
+            // La string accetta TUTTO — nessuna validazione
+            el.className = 'po-result ok';
+            el.innerHTML = `<i class="fas fa-check"></i> Accettato: "<strong>${val}</strong>" — nessuna validazione, qualsiasi valore passa!`;
+        }
+
+        function checkVO() {
+            const val = document.getElementById('voEmailInput').value;
+            const el = document.getElementById('voResult');
+            if (!val) { el.className = 'po-result neutral'; el.innerHTML = '<span>Scrivi un\'email...</span>'; return; }
+            const isValid = val.includes('@') && val.includes('.') && val.length > 5;
+            if (isValid) {
+                el.className = 'po-result ok';
+                el.innerHTML = `<i class="fas fa-check-circle"></i> <code>new Email("${val}")</code> → <strong>oggetto valido creato</strong>`;
+            } else {
+                el.className = 'po-result fail';
+                el.innerHTML = `<i class="fas fa-times-circle"></i> <code>new Email("${val}")</code> → <strong>ArgumentException</strong>: formato non valido`;
+            }
+        }
+
+        // ─── SETUP COMUNE ────────────────────────────────────────
+        async function loadFragment(id, url) {
+            try {
+                const res = await fetch(url);
+                if (res.ok) document.getElementById(id).innerHTML = await res.text();
+            } catch (_) { /* fragment non disponibile in locale, silently fail */ }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFragment('header-placeholder', '../../header.html');
+            loadFragment('footer-placeholder', '../../footer.html');
+            loadFragment('firma-placeholder', '../../firma.html');
+
+            // Sposto gli handler oninput inline in addEventListener: più pulito, no globals
+            document.getElementById('rawEmailInput').addEventListener('input', checkRaw);
+            document.getElementById('voEmailInput').addEventListener('input', checkVO);
+        });
+
+        window.addEventListener('scroll', () => {
+            document.getElementById('backToDevelopment').style.display =
+                window.scrollY > 400 ? 'block' : 'none';
+        });
+    </script>
+</body>
+
+</html>
