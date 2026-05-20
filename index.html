@@ -78,6 +78,52 @@
     <!-- AdSense -->
     <meta name="google-adsense-account" content="ca-pub-7088224155406510">
     <!-- Fine AdSense -->
+
+    <style>
+        /* Aggiunte CSS specifiche per l'Hero Section della Home */
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            align-items: center; /* Allinea perfettamente al centro i due bottoni */
+        }
+
+        /* FIX DEFINITIVO ALLINEAMENTO: Forziamo la rimozione del margine ereditato da base.css */
+        .hero-actions .btn-hero,
+        .hero-actions .btn-hero-outline {
+            margin: 0 !important; 
+        }
+
+        .btn-hero {
+            border: 2px solid transparent; /* Compensa il bordo del bottone outline per renderli alti uguali */
+        }
+
+        .btn-hero-outline {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background: transparent;
+            border: 2px solid white;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .btn-hero-outline:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        /* Utility per distanziare meglio le sezioni */
+        .projects-spacer {
+            margin-top: 4rem;
+        }
+    </style>
 </head>
 
 <body>
@@ -91,7 +137,12 @@
             <h1>Sviluppo software, C# e architettura: il mio viaggio</h1>
             <p class="hero-subtitle">Esperienze, mindset e strategie per crescere nel mondo dello sviluppo software e
                 non solo.</p>
-            <a href="../blog.html" class="btn-hero">Scopri di più</a>
+            
+            <!-- Modificata: Doppia CTA -->
+            <div class="hero-actions">
+                <a href="#projects" class="btn-hero">I miei progetti</a>
+                <a href="/blog.html" class="btn-hero-outline">Esplora il blog</a>
+            </div>
         </div>
     </section>
 
@@ -109,7 +160,7 @@
                 <div class="about-photo-col">
                     <div class="about-photo-frame">
                         <img src="../images/index/marco-morello.webp"
-                            alt="Marco Morello - Sviluppatore C# .NET in Cappadocia" loading="eager">
+                            alt="Marco Morello - Sviluppatore C# .NET in Cappadocia" loading="eager" width="800" height="600">
                     </div>
                     <div class="about-status">
                         Disponibile per collaborazioni
@@ -124,21 +175,13 @@
                         Ho 40 anni, sono nato a Genova e ho cambiato abbastanza strade prima di trovare quella giusta.
                         Lavoro, corsi, crisi d'identità, qualche errore di troppo &mdash; il classico percorso di chi
                         non nasce con le idee chiare ma non smette di cercare. Oggi la meccanica mi dà ancora da
-                        mangiare,
-                        e non me ne vergogno: mi ha insegnato rigore, problem solving e come funziona davvero un sistema
+                        mangiare, e non me ne vergogno: mi ha insegnato rigore, problem solving e come funziona davvero un sistema
                         quando si rompe. Ma il codice mi accende qualcosa che le altre strade non riuscivano ad
-                        accendere
-                        &mdash; e ogni giorno costruisco il pezzo successivo, senza aspettare di essere pronto.
+                        accendere &mdash; e ogni giorno costruisco il pezzo successivo, senza aspettare di essere pronto.
                         Ecco perché questo sito si chiama <em>Il viaggio del programmatore</em>.
                     </p>
                     <p class="about-text">
-                        Oggi costruisco app .NET MAUI, architetture software pulite e siti web su misura per chi vuole
-                        raccontarsi online in modo autentico. Non aspetto di essere &ldquo;arrivato&rdquo; per creare
-                        valore:
-                        cresco insieme a chi mi dà fiducia, mettendo in pratica quello che imparo ogni giorno.
-                        Quando non scrivo codice sono in moto &mdash; come nella foto, alle 6 di mattina in
-                        Cappadocia
-                        con le mongolfiere. Anche lì: nessun GPS infallibile, solo la strada davanti.
+                        Il mio focus, il "motore" su cui lavoro ogni giorno, è lo <strong>sviluppo software in C# e .NET</strong>: costruisco app con .NET MAUI, API robuste con ASP.NET Core e progetto architetture pulite e testabili. E i siti web su misura? Quelli li scrivo in puro HTML e CSS più che altro perché mi diverte sporcarmi le mani col codice a basso livello, aiutando piccole realtà a raccontarsi online con performance estreme. Non aspetto di essere &ldquo;arrivato&rdquo; per creare valore: cresco mettendo in pratica quello che imparo. Quando non scrivo codice sono in moto &mdash; come nella foto in Cappadocia. Anche lì: nessun GPS infallibile, solo la strada davanti.
                     </p>
 
                     <!-- Skill: Sviluppo & Stack -->
@@ -195,7 +238,7 @@
                         </div>
                     </div>
 
-                                    <a href="../chisono.html" class="about-cta">
+                    <a href="/chisono.html" class="about-cta">
                         Scopri la mia mission &rarr;
                     </a>
 
@@ -207,7 +250,7 @@
         </section>
 
         <!-- NUOVA SEZIONE: Ultimi Articoli (Il Banco Prova) -->
-        <section class="latest-articles custom-section-padding">
+        <section class="latest-articles custom-section-padding projects-spacer">
             <div class="container">
                 <h2 class="section-title-accent">
                     <i class="fas fa-wrench me-2"></i> Dal banco prova
@@ -234,14 +277,14 @@
                         <a href="/blog/dev-section/fail-fast-guard-clauses.html" class="read-more-link">Leggi l'articolo &rarr;</a>
                     </article>
 
-                    <!-- Articolo 3 (Spostato) -->
+                    <!-- Articolo 3 (Aggiornato con DDD) -->
                     <article class="card article-card-custom">
-                        <span class="category">Sviluppo C#</span>
+                        <span class="category">Architettura Software</span>
                         <h3>
-                            <a href="/blog/dev-section/dependency-injection-pragmatica.html">Dependency injection pragmatica</a>
+                            <a href="/blog/dev-section/domain-driven-design.html">Domain-Driven Design: il codice che parla di business</a>
                         </h3>
-                        <p>Come slegare le componenti del tuo software. Se non puoi smontare un pezzo senza rompere gli altri, hai progettato male il motore.</p>
-                        <a href="/blog/dev-section/dependency-injection-pragmatica.html" class="read-more-link">Leggi l'articolo &rarr;</a>
+                        <p>Smetti di ragionare solo in tabelle e CRUD. Scopri come il DDD ti aiuta a governare la complessità reale, mettendo il dominio al centro del tuo blocco motore.</p>
+                        <a href="/blog/dev-section/domain-driven-design.html" class="read-more-link">Leggi l'articolo &rarr;</a>
                     </article>
 
                 </div>
@@ -253,7 +296,7 @@
         <!-- FINE NUOVA SEZIONE -->
 
         <!-- NUOVA SEZIONE: Risorse (Singola Call to Action) -->
-        <section class="resources-highlight">
+        <section class="resources-highlight projects-spacer">
             <div class="container resources-container">
 
                 <i class="fas fa-toolbox resources-icon"></i>
@@ -276,7 +319,7 @@
 
 
         <!-- ===================== PROJECTS SECTION ===================== -->
-        <section id="projects" class="mb-5">
+        <section id="projects" class="projects-spacer mb-5">
 
             <p class="projects-section-meta">Progetti</p>
             <h2 class="projects-section-title">I miei lavori</h2>
@@ -391,7 +434,7 @@
             <!-- FINE GRIGLIA APP MAUI -->
 
             <!-- DIVISORE WEB & FREELANCE -->
-            <div class="project-divider">
+            <div class="project-divider projects-spacer">
                 <span>Web &amp; Freelance</span>
             </div>
 
@@ -422,7 +465,7 @@
             <!-- FINE Card orizzontale -->
 
             <!-- DIVISORE LABORATORIO & REFACTORING -->
-            <div class="project-divider">
+            <div class="project-divider projects-spacer">
                 <span>Laboratorio &amp; Architettura</span>
             </div>
 
@@ -458,7 +501,7 @@
             <!-- FINE Card orizzontale Playground -->
 
             <!-- Footer GitHub -->
-            <div class="project-github-footer">
+            <div class="project-github-footer projects-spacer text-center">
                 <i class="fab fa-github me-2"></i>
                 Altri repository e contributi &rarr;
                 <a href="https://github.com/Mugen85" target="_blank" rel="noopener noreferrer">github.com/Mugen85</a>
@@ -469,22 +512,15 @@
 
 
 
-        <section class="missione-mini">
+        <section class="missione-mini projects-spacer">
             <h4 class="mb-2">🚀 La mia direzione</h4>
-            <p><strong>Cresco ogni giorno come sviluppatore e architetto software C#</strong>,
-                aiutando persone e realtà concrete a raccontarsi online con semplicità e valore. <b>Scopri la mia
-                    mission <a href="../chisono.html">qui</b></a></p>
+            <p><strong>Cresco ogni giorno come sviluppatore e architetto software nell'ecosistema C# / .NET.</strong> 
+                È lì che metto le mani nel motore per costruire software solido. I siti web? Una passione che porto avanti per divertimento e per il gusto dell'ottimizzazione estrema. <b>Scopri la mia mission <a href="/chisono.html">qui</a></b>.</p>
         </section>
 
         <div class="col-12" style="height:20px;"></div>
 
         <!-- ===================== FAQ SECTION ===================== -->
-        <!--
-DOVE INSERIRE: incolla questo blocco tra la sezione .missione-mini
-e la sezione #cta nell'index.html
--->
-
-        <!-- Schema SEO: FAQPage - va incollato nel <head> OPPURE qui inline -->
         <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -542,7 +578,7 @@ e la sezione #cta nell'index.html
 }
 </script>
 
-        <section id="faq" class="faq-section mb-5">
+        <section id="faq" class="faq-section projects-spacer mb-5">
 
             <p class="projects-section-meta">Domande frequenti</p>
             <h2 class="projects-section-title">Domande che mi fanno le aziende o i recruiter,</h2>
@@ -718,7 +754,7 @@ e la sezione #cta nell'index.html
 
 
         <!-- Call to Action Section -->
-        <section id="cta" class="text-center mb-5">
+        <section id="cta" class="text-center mb-5 projects-spacer">
             <h2>Contattami</h2>
             <p>Se vuoi collaborare con me o semplicemente saperne di più, non esitare a contattarmi.</p>
             <a href="mailto:doppiam1@gmail.com" class="btn btn-hero mt-3">Contattami</a>
@@ -742,7 +778,7 @@ e la sezione #cta nell'index.html
     <div id="footer-placeholder"></div>
 
     <!-- Bootstrap JS and dependencies -->
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             // Carica Header
@@ -772,7 +808,7 @@ e la sezione #cta nell'index.html
     </script>
 
     <!-- Google tag (gtag.js) -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
