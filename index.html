@@ -13,7 +13,7 @@
     <!-- Preconnect alle CDN per velocizzare la risoluzione DNS e connessione -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Preload Immagine LCP (Hero) -->
@@ -26,10 +26,10 @@
     <link href="../base.css" rel="stylesheet">
 
     <!-- CSS Non Critici (Icone): Caricamento differito (Asincrono) per non bloccare il rendering -->
-    <link rel="preload" href="https://fonts.googleapis.com&display=swap/icon?family=Material+Icons" as="style"
+    <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-        <link href="https://fonts.googleapis.com&display=swap/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap" rel="stylesheet">
     </noscript>
 
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style"
@@ -87,17 +87,19 @@
             justify-content: center;
             margin-top: 30px;
             flex-wrap: wrap;
-            align-items: center; /* Allinea perfettamente al centro i due bottoni */
+            align-items: center;
+            /* Allinea perfettamente al centro i due bottoni */
         }
 
         /* FIX DEFINITIVO ALLINEAMENTO: Forziamo la rimozione del margine ereditato da base.css */
         .hero-actions .btn-hero,
         .hero-actions .btn-hero-outline {
-            margin: 0 !important; 
+            margin: 0 !important;
         }
 
         .btn-hero {
-            border: 2px solid transparent; /* Compensa il bordo del bottone outline per renderli alti uguali */
+            border: 2px solid transparent;
+            /* Compensa il bordo del bottone outline per renderli alti uguali */
         }
 
         .btn-hero-outline {
@@ -118,7 +120,7 @@
             background: rgba(255, 255, 255, 0.1);
             color: white;
         }
-        
+
         /* Utility per distanziare meglio le sezioni */
         .projects-spacer {
             margin-top: 4rem;
@@ -137,7 +139,7 @@
             <h1>Sviluppo software, C# e architettura: il mio viaggio</h1>
             <p class="hero-subtitle">Esperienze, mindset e strategie per crescere nel mondo dello sviluppo software e
                 non solo.</p>
-            
+
             <!-- Modificata: Doppia CTA -->
             <div class="hero-actions">
                 <a href="#projects" class="btn-hero">I miei progetti</a>
@@ -160,7 +162,8 @@
                 <div class="about-photo-col">
                     <div class="about-photo-frame">
                         <img src="../images/index/marco-morello.webp"
-                            alt="Marco Morello - Sviluppatore C# .NET in Cappadocia" loading="eager" width="800" height="600">
+                            alt="Marco Morello - Sviluppatore C# .NET in Cappadocia" loading="eager" width="800"
+                            height="600">
                     </div>
                     <div class="about-status">
                         Disponibile per collaborazioni
@@ -175,13 +178,22 @@
                         Ho 40 anni, sono nato a Genova e ho cambiato abbastanza strade prima di trovare quella giusta.
                         Lavoro, corsi, crisi d'identità, qualche errore di troppo &mdash; il classico percorso di chi
                         non nasce con le idee chiare ma non smette di cercare. Oggi la meccanica mi dà ancora da
-                        mangiare, e non me ne vergogno: mi ha insegnato rigore, problem solving e come funziona davvero un sistema
+                        mangiare, e non me ne vergogno: mi ha insegnato rigore, problem solving e come funziona davvero
+                        un sistema
                         quando si rompe. Ma il codice mi accende qualcosa che le altre strade non riuscivano ad
-                        accendere &mdash; e ogni giorno costruisco il pezzo successivo, senza aspettare di essere pronto.
+                        accendere &mdash; e ogni giorno costruisco il pezzo successivo, senza aspettare di essere
+                        pronto.
                         Ecco perché questo sito si chiama <em>Il viaggio del programmatore</em>.
                     </p>
                     <p class="about-text">
-                        Il mio focus, il "motore" su cui lavoro ogni giorno, è lo <strong>sviluppo software in C# e .NET</strong>: costruisco app con .NET MAUI, API robuste con ASP.NET Core e progetto architetture pulite e testabili. E i siti web su misura? Quelli li scrivo in puro HTML e CSS più che altro perché mi diverte sporcarmi le mani col codice a basso livello, aiutando piccole realtà a raccontarsi online con performance estreme. Non aspetto di essere &ldquo;arrivato&rdquo; per creare valore: cresco mettendo in pratica quello che imparo. Quando non scrivo codice sono in moto &mdash; come nella foto in Cappadocia. Anche lì: nessun GPS infallibile, solo la strada davanti.
+                        Il mio focus, il "motore" su cui lavoro ogni giorno, è lo <strong>sviluppo software in C# e
+                            .NET</strong>: costruisco app con .NET MAUI, API robuste con ASP.NET Core e progetto
+                        architetture pulite e testabili. E i siti web su misura? Quelli li scrivo in puro HTML e CSS più
+                        che altro perché mi diverte sporcarmi le mani col codice a basso livello, aiutando piccole
+                        realtà a raccontarsi online con performance estreme. Non aspetto di essere
+                        &ldquo;arrivato&rdquo; per creare valore: cresco mettendo in pratica quello che imparo. Quando
+                        non scrivo codice sono in moto &mdash; come nella foto in Cappadocia. Anche lì: nessun GPS
+                        infallibile, solo la strada davanti.
                     </p>
 
                     <!-- Skill: Sviluppo & Stack -->
@@ -261,30 +273,39 @@
                     <article class="card article-card-custom">
                         <span class="category">Sviluppo C#</span>
                         <h3>
-                            <a href="/blog/dev-section/broken-window-boy-scout.html">Finestre rotte e Boy Scout rule: la cura che fa durare le cose</a>
+                            <a href="/blog/dev-section/broken-window-boy-scout.html">Finestre rotte e Boy Scout rule: la
+                                cura che fa durare le cose</a>
                         </h3>
-                        <p>230.000 km in moto e un codice che non invecchia. Perché la cura del dettaglio e la manutenzione costante sono le uniche armi contro il degrado.</p>
-                        <a href="/blog/dev-section/broken-window-boy-scout.html" class="read-more-link">Leggi l'articolo &rarr;</a>
+                        <p>230.000 km in moto e un codice che non invecchia. Perché la cura del dettaglio e la
+                            manutenzione costante sono le uniche armi contro il degrado.</p>
+                        <a href="/blog/dev-section/broken-window-boy-scout.html" class="read-more-link">Leggi l'articolo
+                            &rarr;</a>
                     </article>
 
                     <!-- Articolo 2 (Spostato) -->
                     <article class="card article-card-custom">
                         <span class="category">Sviluppo C#</span>
                         <h3>
-                            <a href="/blog/dev-section/fail-fast-guard-clauses.html">Fail fast e guard clauses: basta arrow code</a>
+                            <a href="/blog/dev-section/fail-fast-guard-clauses.html">Fail fast e guard clauses: basta
+                                arrow code</a>
                         </h3>
-                        <p>Il codice annidato a forma di freccia distrugge la leggibilità. Scopri come il principio fail fast e le guard clauses azzerano il carico cognitivo.</p>
-                        <a href="/blog/dev-section/fail-fast-guard-clauses.html" class="read-more-link">Leggi l'articolo &rarr;</a>
+                        <p>Il codice annidato a forma di freccia distrugge la leggibilità. Scopri come il principio fail
+                            fast e le guard clauses azzerano il carico cognitivo.</p>
+                        <a href="/blog/dev-section/fail-fast-guard-clauses.html" class="read-more-link">Leggi l'articolo
+                            &rarr;</a>
                     </article>
 
                     <!-- Articolo 3 (Aggiornato con DDD) -->
                     <article class="card article-card-custom">
                         <span class="category">Architettura Software</span>
                         <h3>
-                            <a href="/blog/dev-section/domain-driven-design.html">Domain-Driven Design: il codice che parla di business</a>
+                            <a href="/blog/dev-section/domain-driven-design.html">Domain-Driven Design: il codice che
+                                parla di business</a>
                         </h3>
-                        <p>Smetti di ragionare solo in tabelle e CRUD. Scopri come il DDD ti aiuta a governare la complessità reale, mettendo il dominio al centro del tuo blocco motore.</p>
-                        <a href="/blog/dev-section/domain-driven-design.html" class="read-more-link">Leggi l'articolo &rarr;</a>
+                        <p>Smetti di ragionare solo in tabelle e CRUD. Scopri come il DDD ti aiuta a governare la
+                            complessità reale, mettendo il dominio al centro del tuo blocco motore.</p>
+                        <a href="/blog/dev-section/domain-driven-design.html" class="read-more-link">Leggi l'articolo
+                            &rarr;</a>
                     </article>
 
                 </div>
@@ -354,8 +375,7 @@
                                     class="btn project-btn-primary">
                                     <i class="fab fa-android me-1"></i> APK v1.4
                                 </a>
-                                <a href="https://github.com/Mugen85/MechTools" target="_blank" 
-                                rel="noopener noreferrer"
+                                <a href="https://github.com/Mugen85/MechTools" target="_blank" rel="noopener noreferrer"
                                     class="btn project-btn-ghost">
                                     GitHub <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
@@ -385,13 +405,12 @@
                                 <span class="project-tag">xUnit</span>
                             </div>
                             <div class="project-actions">
-                                <a href="https://github.com/Mugen85/wallet-wise-maui-app/releases/latest"
+                                <a href="https://github.com/Mugen85/wallet-wise-maui-app/releases/download/v1.2.0/WalletWise-v1.2.0.apk"
                                     target="_blank" rel="noopener noreferrer" class="btn project-btn-primary">
                                     <i class="fab fa-android me-1"></i> APK v1.2.0
                                 </a>
                                 <a href="https://github.com/Mugen85/wallet-wise-maui-app" target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn project-btn-ghost">
+                                    rel="noopener noreferrer" class="btn project-btn-ghost">
                                     GitHub <i class="fas fa-arrow-right ms-1"></i>
                                 </a>
                             </div>
@@ -421,8 +440,8 @@
                                 <span class="project-tag">xUnit</span>
                             </div>
                             <div class="project-actions">
-                                <a href="https://github.com/Mugen85/MotoLogPro" target="_blank" rel="noopener noreferrer"
-                                    class="btn project-btn-primary">
+                                <a href="https://github.com/Mugen85/MotoLogPro" target="_blank"
+                                    rel="noopener noreferrer" class="btn project-btn-primary">
                                     <i class="fab fa-github me-1"></i> Esplora README
                                 </a>
                             </div>
@@ -456,7 +475,8 @@
                         <span class="project-tag">Core Web Vitals</span>
                     </div>
                     <div class="project-wide-actions">
-                        <a href="https://inviaggioconlacri.com" target="_blank" rel="noopener noreferrer" class="btn project-btn-primary">
+                        <a href="https://inviaggioconlacri.com" target="_blank" rel="noopener noreferrer"
+                            class="btn project-btn-primary">
                             <i class="fas fa-globe me-1"></i> Visita il sito
                         </a>
                     </div>
@@ -491,7 +511,8 @@
                         <span class="project-tag">GitHub Actions</span>
                     </div>
                     <div class="project-wide-actions">
-                        <a href="https://github.com/Mugen85/Playground" target="_blank" rel="noopener noreferrer" class="btn project-btn-primary"
+                        <a href="https://github.com/Mugen85/Playground" target="_blank" rel="noopener noreferrer"
+                            class="btn project-btn-primary"
                             style="background-color: #24292e; border-color: #24292e; color: #ffffff;">
                             <i class="fab fa-github me-1"></i> Esplora la Repo
                         </a>
@@ -514,8 +535,10 @@
 
         <section class="missione-mini projects-spacer">
             <h4 class="mb-2">🚀 La mia direzione</h4>
-            <p><strong>Cresco ogni giorno come sviluppatore e architetto software nell'ecosistema C# / .NET.</strong> 
-                È lì che metto le mani nel motore per costruire software solido. I siti web? Una passione che porto avanti per divertimento e per il gusto dell'ottimizzazione estrema. <b>Scopri la mia mission <a href="/chisono.html">qui</a></b>.</p>
+            <p><strong>Cresco ogni giorno come sviluppatore e architetto software nell'ecosistema C# / .NET.</strong>
+                È lì che metto le mani nel motore per costruire software solido. I siti web? Una passione che porto
+                avanti per divertimento e per il gusto dell'ottimizzazione estrema. <b>Scopri la mia mission <a
+                        href="/chisono.html">qui</a></b>.</p>
         </section>
 
         <div class="col-12" style="height:20px;"></div>
@@ -797,8 +820,8 @@
                 })
                 .catch(err => console.error('Errore caricamento footer:', err));
         });
-    </script>    
-        <!-- Microsoft Clarity -->
+    </script>
+    <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
             c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
