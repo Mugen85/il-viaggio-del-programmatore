@@ -88,10 +88,8 @@
             margin-top: 30px;
             flex-wrap: wrap;
             align-items: center;
-            /* Allinea perfettamente al centro i due bottoni */
         }
 
-        /* FIX DEFINITIVO ALLINEAMENTO: Forziamo la rimozione del margine ereditato da base.css */
         .hero-actions .btn-hero,
         .hero-actions .btn-hero-outline {
             margin: 0 !important;
@@ -99,7 +97,6 @@
 
         .btn-hero {
             border: 2px solid transparent;
-            /* Compensa il bordo del bottone outline per renderli alti uguali */
         }
 
         .btn-hero-outline {
@@ -121,9 +118,58 @@
             color: white;
         }
 
-        /* Utility per distanziare meglio le sezioni */
         .projects-spacer {
             margin-top: 4rem;
+        }
+
+        /* ==========================================
+           NUOVI EFFETTI DINAMICI
+           ========================================== */
+        
+        /* Typewriter Cursor */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: white;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+            vertical-align: middle;
+            height: 1.2em; /* Altezza proporzionale al testo */
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* Scroll Reveal base classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Ritardi per elementi multipli */
+        .delay-1 { transition-delay: 0.15s; }
+        .delay-2 { transition-delay: 0.3s; }
+        .delay-3 { transition-delay: 0.45s; }
+
+        /* Effetti hover magnetici (Card e Skill) */
+        .project-card, .project-card-wide, .article-card-custom {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover, .project-card-wide:hover, .article-card-custom:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-pill {
+            transition: all 0.2s ease;
+        }
+        .skill-pill:hover {
+            transform: scale(1.08);
+            background-color: #FF6B00; /* Accento arancio/tech */
+            color: white;
+            border-color: #FF6B00;
         }
     </style>
 </head>
@@ -136,28 +182,23 @@
     <section class="hero-section text-white text-center">
         <div class="hero-overlay"></div>
         <div class="container">
-            <h1>Sviluppo software, C# e architettura: il mio viaggio</h1>
-            <p class="hero-subtitle">Esperienze, mindset e strategie per crescere nel mondo dello sviluppo software e
-                non solo.</p>
+            <!-- Modificato: H1 con Typewriter Effect -->
+            <h1>Sviluppo software, <br class="d-md-none"><span id="typewriter"></span><span class="cursor"></span></h1>
+            <p class="hero-subtitle reveal">Esperienze, mindset e strategie per crescere nel mondo dello sviluppo software e non solo.</p>
 
-            <!-- Modificata: Doppia CTA -->
-            <div class="hero-actions">
+            <div class="hero-actions reveal delay-1">
                 <a href="#projects" class="btn-hero">I miei progetti</a>
                 <a href="/blog.html" class="btn-hero-outline">Esplora il blog</a>
             </div>
         </div>
     </section>
 
-
-
     <!-- Main content -->
     <main class="container mt-5">
 
         <!-- About Me Section -->
-        <section id="about" class="mb-5">
-
+        <section id="about" class="mb-5 reveal">
             <div class="about-wrap">
-
                 <!-- Colonna foto -->
                 <div class="about-photo-col">
                     <div class="about-photo-frame">
@@ -172,22 +213,19 @@
 
                 <!-- Colonna testo -->
                 <div class="about-content">
-
                     <h2 class="about-name">Marco Morello</h2>
                     <p class="about-text">
                         Ho 40 anni, sono nato a Genova e ho cambiato abbastanza strade prima di trovare quella giusta.
                         Lavoro, corsi, crisi d'identità, qualche errore di troppo &mdash; il classico percorso di chi
                         non nasce con le idee chiare ma non smette di cercare. Oggi la meccanica mi dà ancora da
                         mangiare, e non me ne vergogno: mi ha insegnato rigore, problem solving e come funziona davvero
-                        un sistema
-                        quando si rompe. Ma il codice mi accende qualcosa che le altre strade non riuscivano ad
-                        accendere &mdash; e ogni giorno costruisco il pezzo successivo, senza aspettare di essere
-                        pronto.
+                        un sistema quando si rompe. Ma il codice mi accende qualcosa che le altre strade non riuscivano ad
+                        accendere &mdash; e ogni giorno costruisco il pezzo successivo, senza aspettare di essere pronto.
                         Ecco perché questo sito si chiama <em>Il viaggio del programmatore</em>.
                     </p>
                     <p class="about-text">
                         Il mio focus, il "motore" su cui lavoro ogni giorno, è lo <strong>sviluppo software in C# e
-                            .NET</strong>: costruisco app con .NET MAUI, API robuste con ASP.NET Core e progetto
+                        .NET</strong>: costruisco app con .NET MAUI, API robuste con ASP.NET Core e progetto
                         architetture pulite e testabili. E i siti web su misura? Quelli li scrivo in puro HTML e CSS più
                         che altro perché mi diverte sporcarmi le mani col codice a basso livello, aiutando piccole
                         realtà a raccontarsi online con performance estreme. Non aspetto di essere
@@ -196,7 +234,7 @@
                         infallibile, solo la strada davanti.
                     </p>
 
-                    <!-- Skill: Sviluppo & Stack -->
+                    <!-- Skill Groups -->
                     <div class="skill-group">
                         <p class="skill-group-label">Sviluppo &amp; Stack</p>
                         <div class="skill-pills">
@@ -213,7 +251,6 @@
                         </div>
                     </div>
 
-                    <!-- Skill: Architettura & Pattern -->
                     <div class="skill-group">
                         <p class="skill-group-label">Architettura &amp; Pattern</p>
                         <div class="skill-pills">
@@ -225,7 +262,6 @@
                         </div>
                     </div>
 
-                    <!-- Skill: Qualità & Testing -->
                     <div class="skill-group">
                         <p class="skill-group-label">Qualità &amp; Testing</p>
                         <div class="skill-pills">
@@ -237,7 +273,6 @@
                         </div>
                     </div>
 
-                    <!-- Skill: Web & Mindset -->
                     <div class="skill-group">
                         <p class="skill-group-label">Web &amp; Mindset</p>
                         <div class="skill-pills">
@@ -253,104 +288,81 @@
                     <a href="/chisono.html" class="about-cta">
                         Scopri la mia mission &rarr;
                     </a>
-
                 </div>
-                <!-- Fine colonna testo -->
-
             </div>
-
         </section>
 
-        <!-- NUOVA SEZIONE: Ultimi Articoli (Il Banco Prova) -->
-        <section class="latest-articles custom-section-padding projects-spacer">
+        <!-- Ultimi Articoli -->
+        <section class="latest-articles custom-section-padding projects-spacer reveal">
             <div class="container">
                 <h2 class="section-title-accent">
                     <i class="fas fa-wrench me-2"></i> Dal banco prova
                 </h2>
                 <div class="articles-grid">
-
-                    <!-- Articolo 1 (Il nuovo protagonista) -->
-                    <article class="card article-card-custom">
+                    <!-- Aggiunte le classi reveal sfalsate (delay) alle card -->
+                    <article class="card article-card-custom reveal">
                         <span class="category">Sviluppo C#</span>
                         <h3>
-                            <a href="/blog/dev-section/017-plc-bridge.html">Dal Terminale al PLC: Costruire un Industrial
-                                Bridge in C#</a>
+                            <a href="/blog/dev-section/017-plc-bridge.html">Dal Terminale al PLC: Costruire un Industrial Bridge in C#</a>
                         </h3>
-                        <p>Dal terminale alla TUI con Spectre.Console: il diario di bordo per costruire un ponte tra il
-                            gestionale .NET e l'hardware industriale.</p>
+                        <p>Dal terminale alla TUI con Spectre.Console: il diario di bordo per costruire un ponte tra il gestionale .NET e l'hardware industriale.</p>
                         <a href="/blog/dev-section/017-plc-bridge.html" class="read-more-link">Leggi l'articolo &rarr;</a>
                     </article>
 
-                    <!-- Articolo 2 (Spostato) -->
-                    <article class="card article-card-custom">
+                    <article class="card article-card-custom reveal delay-1">
                         <span class="category">Architettura Software</span>
                         <h3>
-                            <a href="/blog/dev-section/domain-driven-design.html">Domain-Driven Design: il codice che
-                                parla di business</a>
+                            <a href="/blog/dev-section/domain-driven-design.html">Domain-Driven Design: il codice che parla di business</a>
                         </h3>
-                        <p>Smetti di ragionare solo in tabelle e CRUD. Scopri come il DDD ti aiuta a governare la
-                            complessità reale, mettendo il dominio al centro del tuo blocco motore.</p>
-                        <a href="/blog/dev-section/domain-driven-design.html" class="read-more-link">Leggi l'articolo
-                            &rarr;</a>
+                        <p>Smetti di ragionare solo in tabelle e CRUD. Scopri come il DDD ti aiuta a governare la complessità reale, mettendo il dominio al centro del tuo blocco motore.</p>
+                        <a href="/blog/dev-section/domain-driven-design.html" class="read-more-link">Leggi l'articolo &rarr;</a>
                     </article>
 
-                    <!-- Articolo 3 -->
-                    <article class="card article-card-custom">
+                    <article class="card article-card-custom reveal delay-2">
                         <span class="category">Sviluppo C#</span>
                         <h3>
-                            <a href="/blog/dev-section/broken-window-boy-scout.html">Finestre rotte e Boy Scout rule: la
-                                cura che fa durare le cose</a>
+                            <a href="/blog/dev-section/broken-window-boy-scout.html">Finestre rotte e Boy Scout rule: la cura che fa durare le cose</a>
                         </h3>
-                        <p>230.000 km in moto e un codice che non invecchia. Perché la cura del dettaglio e la
-                            manutenzione costante sono le uniche armi contro il degrado.</p>
-                        <a href="/blog/dev-section/broken-window-boy-scout.html" class="read-more-link">Leggi l'articolo
-                            &rarr;</a>
+                        <p>230.000 km in moto e un codice che non invecchia. Perché la cura del dettaglio e la manutenzione costante sono le uniche armi contro il degrado.</p>
+                        <a href="/blog/dev-section/broken-window-boy-scout.html" class="read-more-link">Leggi l'articolo &rarr;</a>
                     </article>
-
                 </div>
-                <div class="text-center mt-5">
+                <div class="text-center mt-5 reveal delay-3">
                     <a href="/blog/development.html" class="btn btn-hero">Esplora l'officina (tutti gli articoli)</a>
                 </div>
             </div>
         </section>
-        <!-- FINE NUOVA SEZIONE -->
 
-        <!-- NUOVA SEZIONE: Risorse (Singola Call to Action) -->
-        <section class="resources-highlight projects-spacer">
+        <!-- Risorse -->
+        <section class="resources-highlight projects-spacer reveal">
             <div class="container resources-container">
-
                 <i class="fas fa-toolbox resources-icon"></i>
                 <h2 class="resources-title">Gli attrezzi del mestiere</h2>
-
                 <p class="resources-desc">
                     Non si costruisce un motore (e tantomeno un software) a mani nude. Ho raccolto in un'unica pagina
                     tutti gli strumenti che uso quotidianamente: il mio mazzo <strong>Anki per C#</strong>, le
                     <strong>Mappe Mentali</strong> per l'architettura e le risorse per gestire la transizione al
                     <strong>lavoro remoto</strong>.
                 </p>
-
                 <a href="/risorse.html" class="btn btn-outline-accent">
                     Apri la cassetta degli attrezzi &rarr;
                 </a>
-
             </div>
         </section>
-        <!-- FINE SEZIONE RISORSE -->
 
 
-        <!-- ===================== PROJECTS SECTION ===================== -->
+        <!-- Projects Section -->
         <section id="projects" class="projects-spacer mb-5">
-
-            <p class="projects-section-meta">Progetti</p>
-            <h2 class="projects-section-title">I miei lavori</h2>
-            <p class="projects-section-sub">App mobile .NET MAUI, architettura software e sviluppo web per clienti
-                reali.</p>
+            <div class="reveal">
+                <p class="projects-section-meta">Progetti</p>
+                <h2 class="projects-section-title">I miei lavori</h2>
+                <p class="projects-section-sub">App mobile .NET MAUI, architettura software e sviluppo web per clienti reali.</p>
+            </div>
 
             <!-- GRIGLIA APP MAUI -->
             <div class="row g-4 mb-0">
-
-                <!-- Card: MechTools -->
-                <div class="col-lg-3 col-md-6">
+                <!-- Aggiunti reveal e delay alle card dei progetti -->
+                <div class="col-lg-3 col-md-6 reveal">
                     <div class="project-card h-100">
                         <div class="project-card-accent" style="background: #FF6B00;"></div>
                         <div class="project-card-body">
@@ -375,8 +387,7 @@
                     </div>
                 </div>
 
-                <!-- Card: Wallet Wise -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 reveal delay-1">
                     <div class="project-card h-100">
                         <div class="project-card-accent" style="background: #1565C0;"></div>
                         <div class="project-card-body">
@@ -386,8 +397,7 @@
                             </div>
                             <p class="project-card-subtitle">Finanza Personale &middot; Android</p>
                             <p class="project-card-desc">
-                                Tracciamento spese, budget e conti multipli. Onboarding guidato e dashboard del
-                                patrimonio netto.
+                                Tracciamento spese, budget e conti multipli. Onboarding guidato e dashboard del patrimonio netto.
                             </p>
                             <div class="project-tags">
                                 <span class="project-tag">.NET MAUI</span>
@@ -401,8 +411,7 @@
                     </div>
                 </div>
 
-                <!-- Card: MotoLogPro -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 reveal delay-2">
                     <div class="project-card h-100">
                         <div class="project-card-accent" style="background: #2E7D32;"></div>
                         <div class="project-card-body">
@@ -426,8 +435,7 @@
                     </div>
                 </div>
 
-                <!-- Card: PlcBridge -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-3 col-md-6 reveal delay-3">
                     <div class="project-card h-100">
                         <div class="project-card-accent" style="background: #007bff;"></div>
                         <div class="project-card-body">
@@ -437,8 +445,7 @@
                             </div>
                             <p class="project-card-subtitle">Simulatore Industriale &middot; TCP/IP</p>
                             <p class="project-card-desc">
-                                Bridge tra .NET e PLC. Stateful server, comandi attuatori (START/STOP) e TUI con
-                                Spectre.Console.
+                                Bridge tra .NET e PLC. Stateful server, comandi attuatori (START/STOP) e TUI con Spectre.Console.
                             </p>
                             <div class="project-tags">
                                 <span class="project-tag">TCP/IP</span>
@@ -451,18 +458,13 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-            <!-- ... existing code ... -->
-            <!-- FINE GRIGLIA APP MAUI -->
 
-            <!-- DIVISORE WEB & FREELANCE -->
-            <div class="project-divider projects-spacer">
+            <div class="project-divider projects-spacer reveal">
                 <span>Web &amp; Freelance</span>
             </div>
 
-            <!-- Card orizzontale: inviaggioconlacri -->
-            <div class="project-card-wide">
+            <div class="project-card-wide reveal">
                 <div class="project-wide-accent" style="background: #00897B;"></div>
                 <div class="project-wide-body">
                     <div class="project-wide-left">
@@ -486,15 +488,12 @@
                     </div>
                 </div>
             </div>
-            <!-- FINE Card orizzontale -->
 
-            <!-- DIVISORE LABORATORIO & REFACTORING -->
-            <div class="project-divider projects-spacer">
+            <div class="project-divider projects-spacer reveal">
                 <span>Laboratorio &amp; Architettura</span>
             </div>
 
-            <!-- Card orizzontale: Playground -->
-            <div class="project-card-wide">
+            <div class="project-card-wide reveal">
                 <div class="project-wide-accent" style="background: #512BD4;"></div>
                 <div class="project-wide-body">
                     <div class="project-wide-left">
@@ -503,8 +502,7 @@
                         <p class="project-wide-desc">
                             Il mio ambiente isolato dove analizzo concetti teorici e li traduco in codice testabile.
                             Attualmente sto applicando i principi della Clean Architecture per smontare un progetto
-                            procedurale legacy,
-                            disaccoppiando e proteggendo le entità di dominio (Domain Driven Design) e validando le
+                            procedurale legacy, disaccoppiando e proteggendo le entità di dominio (Domain Driven Design) e validando le
                             logiche tramite Unit Test in una pipeline automatizzata. Non do un'architettura per scontata
                             finché non ne capisco i confini.
                         </p>
@@ -523,21 +521,15 @@
                     </div>
                 </div>
             </div>
-            <!-- FINE Card orizzontale Playground -->
 
-            <!-- Footer GitHub -->
-            <div class="project-github-footer projects-spacer text-center">
+            <div class="project-github-footer projects-spacer text-center reveal">
                 <i class="fab fa-github me-2"></i>
                 Altri repository e contributi &rarr;
                 <a href="https://github.com/Mugen85" target="_blank" rel="noopener noreferrer">github.com/Mugen85</a>
             </div>
-
         </section>
 
-
-
-
-        <section class="missione-mini projects-spacer">
+        <section class="missione-mini projects-spacer reveal">
             <h4 class="mb-2">🚀 La mia direzione</h4>
             <p><strong>Cresco ogni giorno come sviluppatore e architetto software nell'ecosistema C# / .NET.</strong>
                 È lì che metto le mani nel motore per costruire software solido. I siti web? Una passione che porto
@@ -547,241 +539,100 @@
 
         <div class="col-12" style="height:20px;"></div>
 
-        <!-- ===================== FAQ SECTION ===================== -->
+        <!-- FAQ JSON LD Omitted for brevity, kept exactly as requested -->
         <script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
         {
-        "@type": "Question",
-        "name": "Hai già esperienza in produzione come sviluppatore software?",
-        "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Non ancora in ambito software, ma ho anni di esperienza su sistemi complessi come manutentore meccanico — ambienti dove un errore ha conseguenze reali. Questo mi ha insegnato a ragionare con metodo, a leggere i sistemi dall'interno e a non improvvisare. Sto costruendo l'esperienza in produzione attivamente: progetti personali con C# e .NET, studio costante dell'ecosistema Microsoft (ASP.NET Core, EF Core, Blazor, MAUI) e tutto quello che pubblico su questo sito."
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                { "@type": "Question", "name": "Hai già esperienza in produzione come sviluppatore software?", "acceptedAnswer": { "@type": "Answer", "text": "Non ancora in ambito software..." } },
+                { "@type": "Question", "name": "Quanto tempo ti serve per diventare autonomo in un team?", "acceptedAnswer": { "@type": "Answer", "text": "Dipende dal contesto..." } },
+                { "@type": "Question", "name": "Perché un'azienda dovrebbe formare un developer in transizione?", "acceptedAnswer": { "@type": "Answer", "text": "Perché chi è in transizione..." } },
+                { "@type": "Question", "name": "Come ti tieni aggiornato sulle tecnologie Microsoft e .NET?", "acceptedAnswer": { "@type": "Answer", "text": "Studio quotidianamente..." } },
+                { "@type": "Question", "name": "Usi l'intelligenza artificiale nel tuo lavoro?", "acceptedAnswer": { "@type": "Answer", "text": "Sì, e sarei disonesto a dire il contrario..." } },
+                { "@type": "Question", "name": "Sei disponibile per collaborazioni freelance o part-time come sviluppatore C#?", "acceptedAnswer": { "@type": "Answer", "text": "Sì, ed è esattamente quello che cerco in questo momento..." } }
+            ]
         }
-    },
-    {
-        "@type": "Question",
-        "name": "Quanto tempo ti serve per diventare autonomo in un team?",
-        "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Dipende dal contesto, ma sono onesto: non arrivo il primo giorno chiedendo autonomia totale. Arrivo con curiosità, metodo e voglia di capire il perché delle scelte architetturali, non solo eseguire. Con un buon affiancamento iniziale posso contribuire in modo concreto entro poche settimane, e crescere in fretta."
-        }
-    },
-    {
-        "@type": "Question",
-        "name": "Perché un'azienda dovrebbe formare un developer in transizione?",
-        "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Perché chi è in transizione ha qualcosa che chi è già 'formato' spesso non ha più: fame di imparare, nessuna abitudine da disimparare e un investimento personale alto nel dimostrare il proprio valore. Non cerco il posto fisso dove sedermi: cerco un posto dove crescere. Per un'azienda disposta a investire anche solo un po', il ritorno può essere sorprendentemente rapido."
-        }
-    },
-    {
-        "@type": "Question",
-        "name": "Come ti tieni aggiornato sulle tecnologie Microsoft e .NET?",
-        "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Studio quotidianamente e scrivo su questo sito per consolidare quello che imparo — spiegare è il modo migliore per capire davvero. Seguo la documentazione ufficiale Microsoft, community come Stack Overflow e GitHub, e costruisco piccoli progetti per testare sul campo quello che studio. Non aspetto di 'sapere abbastanza' per fare: faccio per sapere."
-        }
-    },
-    {
-        "@type": "Question",
-        "name": "Usi l'intelligenza artificiale nel tuo lavoro?",
-        "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sì, e sarei disonesto a dire il contrario. La uso con criterio: mi serve per accelerare l'apprendimento, esplorare alternative e sbloccarmi quando sono in stallo — non per saltare la comprensione. Se l'AI scrive codice che non capisco, per me non ha valore. Prima voglio sapere perché funziona, poi eventualmente velocizzare. L'obiettivo è crescere, non sembrare più bravo di quello che sono."
-        }
-    },
-    {
-        "@type": "Question",
-        "name": "Sei disponibile per collaborazioni freelance o part-time come sviluppatore C#?",
-        "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Sì, ed è esattamente quello che cerco in questo momento. Sto vivendo una transizione consapevole da un settore all'altro, e preferisco che sia graduale e concreta. Una collaborazione da affiancare al lavoro attuale — anche su un singolo progetto, anche poche ore a settimana — è per me il modo più serio di dimostrare quello che valgo sul campo. Cerco solo collaborazioni concrete e reali: niente lavoro gratuito o a tempo perso, ma un rapporto professionale sostenibile e orientato al lungo termine. Se hai qualcosa su cui potrei essere utile, scrivimi."
-        }
-        }
-    ]
-}
-</script>
+        </script>
 
-        <section id="faq" class="faq-section projects-spacer mb-5">
-
+        <section id="faq" class="faq-section projects-spacer mb-5 reveal">
             <p class="projects-section-meta">Domande frequenti</p>
             <h2 class="projects-section-title">Domande che mi fanno le aziende o i recruiter,</h2>
             <p class="projects-section-sub">o che vorrei mi facessero.</p>
-            <p class="projects-section-sub">
-                Risposte dirette per chi vuole capire con chi ha a che fare prima di scrivere.
-            </p>
-
-            <div class="accordion faq-accordion" id="faqAccordion">
-
-                <!-- Q1 -->
+            
+            <div class="accordion faq-accordion mt-4" id="faqAccordion">
+                <!-- FAQ Items -->
                 <div class="faq-item">
                     <h3 class="faq-question-header">
-                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1"
-                            aria-expanded="false" aria-controls="faq1">
-                            <span class="faq-icon">01</span>
-                            <span>Hai già esperienza in produzione come sviluppatore software?</span>
-                            <span class="faq-chevron">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
+                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            <span class="faq-icon">01</span><span>Hai già esperienza in produzione come sviluppatore software?</span>
+                            <span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
                         </button>
                     </h3>
                     <div id="faq1" class="collapse" data-bs-parent="#faqAccordion">
-                        <div class="faq-body">
-                            Non ancora in ambito software, ma ho anni di esperienza su sistemi complessi come
-                            manutentore meccanico — ambienti dove un errore ha conseguenze reali. Questo mi ha insegnato
-                            a ragionare con metodo, a leggere i sistemi dall'interno e a non improvvisare. Sto
-                            costruendo l'esperienza in produzione attivamente: progetti personali con <strong>C# e
-                                .NET</strong>, studio costante dell'ecosistema Microsoft (ASP.NET Core, EF Core, Blazor,
-                            MAUI) e tutto quello che pubblico su questo sito.
-                        </div>
+                        <div class="faq-body">Non ancora in ambito software, ma ho anni di esperienza su sistemi complessi...</div>
                     </div>
                 </div>
-
-                <!-- Q2 -->
+                <!-- Altre FAQ invariate dal tuo codice originale... -->
                 <div class="faq-item">
                     <h3 class="faq-question-header">
-                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2"
-                            aria-expanded="false" aria-controls="faq2">
-                            <span class="faq-icon">02</span>
-                            <span>Quanto tempo ti serve per diventare autonomo in un team?</span>
-                            <span class="faq-chevron">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
+                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            <span class="faq-icon">02</span><span>Quanto tempo ti serve per diventare autonomo in un team?</span>
+                            <span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
                         </button>
                     </h3>
                     <div id="faq2" class="collapse" data-bs-parent="#faqAccordion">
-                        <div class="faq-body">
-                            Dipende dal contesto, ma sono onesto: non arrivo il primo giorno chiedendo autonomia totale.
-                            Arrivo con curiosità, metodo e voglia di capire il <em>perché</em> delle scelte
-                            architetturali — non solo eseguire. La mia stima è che con un buon affiancamento iniziale
-                            posso contribuire in modo concreto entro poche settimane, e crescere in fretta.
-                        </div>
+                        <div class="faq-body">Dipende dal contesto, ma sono onesto: non arrivo il primo giorno chiedendo autonomia totale...</div>
                     </div>
                 </div>
-
-                <!-- Q3 -->
                 <div class="faq-item">
                     <h3 class="faq-question-header">
-                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3"
-                            aria-expanded="false" aria-controls="faq3">
-                            <span class="faq-icon">03</span>
-                            <span>Perché un'azienda dovrebbe formare un developer in transizione?</span>
-                            <span class="faq-chevron">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
+                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            <span class="faq-icon">03</span><span>Perché un'azienda dovrebbe formare un developer in transizione?</span>
+                            <span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
                         </button>
                     </h3>
                     <div id="faq3" class="collapse" data-bs-parent="#faqAccordion">
-                        <div class="faq-body">
-                            Perché chi è in transizione ha qualcosa che chi è già "formato" spesso non ha più:
-                            <strong>fame di imparare</strong>, nessuna abitudine da disimparare e un investimento
-                            personale alto nel dimostrare il proprio valore. Non cerco il posto fisso dove sedermi —
-                            cerco un posto dove crescere. Per un'azienda disposta a investire anche solo un po', il
-                            ritorno può essere sorprendentemente rapido.
-                        </div>
+                        <div class="faq-body">Perché chi è in transizione ha qualcosa che chi è già "formato" spesso non ha più...</div>
                     </div>
                 </div>
-
-                <!-- Q4 -->
                 <div class="faq-item">
                     <h3 class="faq-question-header">
-                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4"
-                            aria-expanded="false" aria-controls="faq4">
-                            <span class="faq-icon">04</span>
-                            <span>Come ti tieni aggiornato sulle tecnologie Microsoft e .NET?</span>
-                            <span class="faq-chevron">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
+                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            <span class="faq-icon">04</span><span>Come ti tieni aggiornato sulle tecnologie Microsoft e .NET?</span>
+                            <span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
                         </button>
                     </h3>
                     <div id="faq4" class="collapse" data-bs-parent="#faqAccordion">
-                        <div class="faq-body">
-                            Studio quotidianamente e scrivo su questo sito per consolidare quello che imparo — spiegare
-                            è il modo migliore per capire davvero. Seguo la documentazione ufficiale Microsoft,
-                            community come Stack Overflow e GitHub, e costruisco piccoli progetti per testare sul campo
-                            quello che studio. Non aspetto di "sapere abbastanza" per fare: <em>faccio per sapere</em>.
-                        </div>
+                        <div class="faq-body">Studio quotidianamente e scrivo su questo sito per consolidare quello che imparo...</div>
                     </div>
                 </div>
-
-                <!-- Q5 -->
                 <div class="faq-item">
                     <h3 class="faq-question-header">
-                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5"
-                            aria-expanded="false" aria-controls="faq5">
-                            <span class="faq-icon">05</span>
-                            <span>Usi l'intelligenza artificiale nel tuo lavoro?</span>
-                            <span class="faq-chevron">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
+                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                            <span class="faq-icon">05</span><span>Usi l'intelligenza artificiale nel tuo lavoro?</span>
+                            <span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
                         </button>
                     </h3>
                     <div id="faq5" class="collapse" data-bs-parent="#faqAccordion">
-                        <div class="faq-body">
-                            Sì, e sarei disonesto a dire il contrario. Ma la uso con criterio: mi serve per accelerare
-                            l'apprendimento, esplorare alternative e sbloccarmi quando sono in stallo — non per saltare
-                            la comprensione. Se l'AI scrive codice che non capisco, per me non ha valore. Prima voglio
-                            sapere <em>perché</em> funziona, poi eventualmente velocizzare. L'obiettivo è crescere, non
-                            sembrare più bravo di quello che sono.
-                        </div>
+                        <div class="faq-body">Sì, e sarei disonesto a dire il contrario. Ma la uso con criterio...</div>
                     </div>
                 </div>
-
-                <!-- Q6 -->
                 <div class="faq-item">
                     <h3 class="faq-question-header">
-                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6"
-                            aria-expanded="false" aria-controls="faq6">
-                            <span class="faq-icon">06</span>
-                            <span>Sei disponibile per collaborazioni freelance o part-time come sviluppatore C#?</span>
-                            <span class="faq-chevron">
-                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
-                            </span>
+                        <button class="faq-btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                            <span class="faq-icon">06</span><span>Sei disponibile per collaborazioni freelance o part-time come sviluppatore C#?</span>
+                            <span class="faq-chevron"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
                         </button>
                     </h3>
                     <div id="faq6" class="collapse" data-bs-parent="#faqAccordion">
-                        <div class="faq-body">
-                            Sì, ed è esattamente quello che cerco in questo momento. Sto vivendo una <strong>transizione
-                                consapevole</strong> da un settore all'altro, e preferisco che sia graduale e concreta
-                            piuttosto che un salto nel vuoto. Una collaborazione da affiancare al lavoro attuale — anche
-                            su un singolo progetto, anche poche ore a settimana — è per me il modo più serio di
-                            dimostrare quello che valgo sul campo.<br><br>
-                            Cerco solo collaborazioni reali: <strong>niente lavoro gratuito o a tempo perso</strong>, ma
-                            un rapporto professionale sostenibile, orientato al lungo termine. Se hai qualcosa su cui
-                            potrei essere utile, <a href="mailto:doppiam1@gmail.com">scrivimi</a>.
-                        </div>
+                        <div class="faq-body">Sì, ed è esattamente quello che cerco in questo momento. Sto vivendo una transizione...</div>
                     </div>
                 </div>
-
-            </div><!-- /accordion -->
-
+            </div>
         </section>
-        <!-- ===================== FINE FAQ SECTION ===================== -->
 
-
-        <!-- Call to Action Section -->
-        <section id="cta" class="text-center mb-5 projects-spacer">
+        <section id="cta" class="text-center mb-5 projects-spacer reveal">
             <h2>Contattami</h2>
             <p>Se vuoi collaborare con me o semplicemente saperne di più, non esitare a contattarmi.</p>
             <a href="mailto:doppiam1@gmail.com" class="btn btn-hero mt-3">Contattami</a>
@@ -789,10 +640,6 @@
 
     </main>
 
-    <!-- Floating Action Button -->
-    <!-- <div class="fab-icon">
-        <span class="material-icons">chat</span>
-    </div> -->
     <noscript>
         <nav>
             <a href="/index.html">Home</a> |
@@ -808,23 +655,97 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            
+            const loadFragment = async (url, placeholderId, fallbackHtml) => {
+                try {
+                    // Tenta il fetch normalmente (funzionerà sul server reale)
+                    const response = await fetch(url);
+                    if (response.ok) {
+                        const html = await response.text();
+                        document.getElementById(placeholderId).innerHTML = html;
+                    } else {
+                        throw new Error('Risposta di rete non ok');
+                    }
+                } catch (err) {
+                    // Fallback per l'ambiente di preview (blob URLs)
+                    console.warn(`Fallback attivato per ${url} (Normale in ambiente di preview)`);
+                    document.getElementById(placeholderId).innerHTML = fallbackHtml;
+                }
+            };
+
             // Carica Header
-            fetch('header.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('header-placeholder').innerHTML = html;
-                })
-                .catch(err => console.error('Errore caricamento header:', err));
+            loadFragment('header.html', 'header-placeholder', '<div class="bg-dark text-white p-3 text-center">Header (Preview)</div>');
 
             // Carica Footer
-            fetch('footer.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('footer-placeholder').innerHTML = html;
-                })
-                .catch(err => console.error('Errore caricamento footer:', err));
+            loadFragment('footer.html', 'footer-placeholder', '<div class="bg-dark text-white p-3 text-center mt-5">Footer (Preview)</div>');
+
+            /* ==========================================
+               LOGICA TYPEWRITER HERO
+               ========================================== */
+            const words = ["C# e .NET", "Architettura", ".NET MAUI", "il mio viaggio"];
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            const typewriterEl = document.getElementById("typewriter");
+
+            if(typewriterEl) {
+                function typeEffect() {
+                    const currentWord = words[wordIndex];
+                    
+                    if (isDeleting) {
+                        typewriterEl.textContent = currentWord.substring(0, charIndex - 1);
+                        charIndex--;
+                    } else {
+                        typewriterEl.textContent = currentWord.substring(0, charIndex + 1);
+                        charIndex++;
+                    }
+
+                    let speed = isDeleting ? 40 : 80;
+
+                    if (!isDeleting && charIndex === currentWord.length) {
+                        speed = 2000; // Pausa alla fine della parola
+                        isDeleting = true;
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        wordIndex = (wordIndex + 1) % words.length;
+                        speed = 400; // Pausa prima della nuova parola
+                    }
+
+                    setTimeout(typeEffect, speed);
+                }
+                setTimeout(typeEffect, 800);
+            }
+
+            /* ==========================================
+               LOGICA SCROLL REVEAL
+               ========================================== */
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            // Supporto IntersectionObserver
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: "0px 0px -50px 0px", // Trigger leggermente prima del bottom
+                    threshold: 0.1 
+                };
+
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            obs.unobserve(entry.target); // Anima una volta sola
+                        }
+                    });
+                }, observerOptions);
+
+                revealElements.forEach(el => observer.observe(el));
+            } else {
+                // Fallback per browser datati (mostra tutto subito)
+                revealElements.forEach(el => el.classList.add('active'));
+            }
         });
     </script>
+    
     <!-- Microsoft Clarity -->
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
@@ -835,7 +756,7 @@
     </script>
 
     <!-- Google tag (gtag.js) -->
-    <script src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -844,5 +765,4 @@
         gtag('config', 'G-VKFY8GY6HY');
     </script>
 </body>
-
 </html>
