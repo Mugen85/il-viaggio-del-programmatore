@@ -9,14 +9,14 @@
     <meta name="description"
         content="Come costruire un bridge industriale in C# tra software .NET e hardware PLC, affrontando errori di socket, TUI avanzate con Spectre.Console e architetture stateful prima del salto verso Blazor.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/017-plc-bridge.html">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/plc-bridge.html">
 
     <meta property="og:title" content="Dal Terminale al PLC: Costruire un Industrial Bridge in C#">
     <meta property="og:description"
         content="Dalla socket TCP bloccata alla TUI con Spectre.Console e memoria di stato: il diario di bordo di un simulatore industriale in C#.">
     <meta property="og:image"
         content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/plc-bridge-cover.webp">
-    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/017-plc-bridge.html">
+    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/plc-bridge.html">
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="Il Viaggio del Programmatore">
 
@@ -24,12 +24,22 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../base.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com&display=swap/css2?family=Open+Sans:wght@400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <style>
+        /* ─── OVERRIDE LARGHEZZA CONTENITORE ───────────────────── */
+        @media (min-width: 992px) {
+
+            .article-content,
+            .article-container {
+                max-width: 1000px !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
         /* ─── BACK BUTTON ──────────────────────────────────────── */
         #backToDevelopment {
             position: fixed;
@@ -59,6 +69,86 @@
 
         .terminal-preview .cmd {
             color: #f39c12;
+        }
+
+        /* ─── CONFRONTO ARCHITETTURALE ─────────────────────────── */
+        .arch-card {
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            padding: 1.5rem;
+            height: 100%;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .arch-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .arch-card.before {
+            background: #fffafa;
+            border-top: 4px solid #dc3545;
+            border-color: #f8d7da #e2e8f0 #e2e8f0 #e2e8f0;
+        }
+
+        .arch-card.after {
+            background: #f6ffed;
+            border-top: 4px solid #198754;
+            border-color: #d1e7dd #e2e8f0 #e2e8f0 #e2e8f0;
+        }
+
+        .arch-title {
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        .arch-diagram {
+            font-family: monospace;
+            font-size: 0.85rem;
+            background: #ffffff;
+            padding: 0.85rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .arch-node {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .arch-node.server {
+            background: #e9ecef;
+            color: #212529;
+            border: 1px solid #ced4da;
+        }
+
+        .arch-node.controller {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 1px solid #c6c8ca;
+        }
+
+        .arch-node.interface {
+            background: #cff4fc;
+            color: #055160;
+            border: 1px solid #b6effb;
+        }
+
+        .arch-arrow {
+            font-weight: bold;
+            margin: 0 0.3rem;
         }
 
         /* ─── SOURCES ──────────────────────────────────────────── */
@@ -171,7 +261,7 @@
 
             <hr>
 
-            <h3 id="filosofia-learn-by-doing">La filosofia del "learn by doing": perché la teoria non basta</h3>
+            <h3 id="filosofia-learn-by-doing">1. La filosofia del "learn by doing": perché la teoria non basta</h3>
 
             <p>Nel software industriale, la distanza tra un concetto astratto e la sua implementazione pratica è
                 immensa. Puoi leggere quanti libri vuoi sui socket TCP/IP, ma capirai cosa significa davvero gestire una
@@ -189,7 +279,7 @@
 
             <hr>
 
-            <h3 id="architettura-polling">L'architettura: perché il polling batte il push continuo</h3>
+            <h3 id="architettura-polling">2. L'architettura: perché il polling batte il push continuo</h3>
 
             <p>All'inizio la tentazione è semplice: creare un server che spara dati a raffica verso chiunque si
                 connetta. Ma nel mondo industriale la realtà è diversa. I PLC parlano quando è necessario, e i sistemi
@@ -206,38 +296,128 @@
 
             <hr>
 
-            <h3 id="tui-spectre-console">Dalla riga di comando scarna a una TUI professionale</h3>
+            <h3 id="refactoring-architetturale">4. Refactoring Architetturale: Dallo "Spaghetti" al Modulare (IoC & DI)
+            </h3>
+
+            <p>Durante lo sviluppo, mi sono accorto che il mio <code>Program.cs</code> stava diventando troppo pesante.
+                Il Server creava direttamente il PLC (<code>new PlcController()</code>). Questo creava un
+                <strong>accoppiamento forte</strong>: se avessi voluto cambiare logica o testare il PLC isolatamente,
+                avrei dovuto modificare il server stesso.
+            </p>
+
+            <p>Per risolvere questo problema strutturale, ho applicato l'<strong>Inversione di Controllo (IoC)</strong>
+                e la <strong>Dependency Injection (DI)</strong>. Il salto di qualità è evidente:</p>
+
+            <div class="row g-4 my-4">
+                <div class="col-md-6">
+                    <div class="arch-card before">
+                        <div>
+                            <div class="arch-title text-danger"><i class="fas fa-times-circle me-2"></i> IL PASSATO:
+                                Accoppiamento Forte</div>
+                            <p class="small text-muted mb-3">Il server istanzia direttamente il controller tramite la
+                                parola
+                                chiave <code>new</code>. I due componenti sono saldati insieme, rendendo impossibile
+                                testare
+                                il PLC isolatamente.</p>
+                            <pre class="mb-3 rounded"
+                                style="font-size: 0.78rem; background: #1e293b; color: #f8fafc; padding: 0.75rem; overflow-x: auto;"><code class="language-csharp">// Accoppiamento rigido (Tight Coupling)
+public class PlcServer 
+{
+    // Il Server 'possiede' direttamente l'istanza
+    private PlcController _plc = new PlcController();
+}</code></pre>
+                        </div>
+                        <div class="arch-diagram d-flex align-items-center justify-content-center flex-wrap gap-1">
+                            <span class="arch-node server">Server</span>
+                            <span class="arch-arrow text-danger">──new──►</span>
+                            <span class="arch-node controller">PlcController</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="arch-card after">
+                        <div>
+                            <div class="arch-title text-success"><i class="fas fa-check-circle me-2"></i> IL PRESENTE:
+                                Clean
+                                Architecture</div>
+                            <p class="small text-muted mb-3">Il server riceve un'astrazione. Posso testare il PLC
+                                isolatamente iniettando finte istanze nel Server tramite l'interfaccia
+                                <code>IPlcController</code>.
+                            </p>
+                            <pre class="mb-3 rounded"
+                                style="font-size: 0.78rem; background: #1e293b; color: #f8fafc; padding: 0.75rem; overflow-x: auto;"><code class="language-csharp">// Inversione di controllo (Dependency Injection)
+public class PlcServer 
+{
+    private readonly IPlcController _plc;
+
+    // Il Server riceve il contratto via costruttore
+    public PlcServer(IPlcController plc) => _plc = plc;
+}</code></pre>
+                        </div>
+                        <div class="arch-diagram d-flex align-items-center justify-content-center flex-wrap gap-1">
+                            <span class="arch-node server">Server</span>
+                            <span class="arch-arrow text-success">──►</span>
+                            <span class="arch-node interface">IPlcController</span>
+                            <span class="arch-arrow text-success">◄──</span>
+                            <span class="arch-node controller">PlcController</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-secondary border-start border-4 border-primary shadow-sm mb-5 p-4">
+                <i class="fas fa-lightbulb text-primary me-2"></i>
+                Il server ora non sa <em>cosa</em> stia usando, conosce solo il "contratto"
+                <code>IPlcController</code>. Questo mi permette di sostituire l'implementazione o
+                testare la logica di business senza far partire un intero server TCP. Il <strong>"new" è il nemico
+                    della manutenibilità</strong>, e imparare a passare le dipendenze
+                via costruttore è stato il salto di qualità definitivo verso un software professionale.
+            </div>
+
+            <hr>
+
+            <h3 id="tui-spectre-console">4. Dalla riga di comando scarna a una TUI professionale</h3>
 
             <p>Un programma che funziona ma è illeggibile è un software a metà. Se un operatore in cleanroom deve
                 monitorare un impianto, non può interpretare stringhe grezze perse in un terminale nero.</p>
 
-            <p>Prima di fare il salto verso il web, ho scelto di evolvere la user interface introducendo una libreria
+            <p>Prima di fare il salto verso il web, ho scelto di evolvere la user interface introducendo una
+                libreria
                 per creare interfacce a riga di comando avanzate, le cosiddette TUI:</p>
             <ul>
-                <li><strong>Tabelle formattate:</strong> i dati chiave come pressione, temperatura e stato della pompa
+                <li><strong>Tabelle formattate:</strong> i dati chiave come pressione, temperatura e stato della
+                    pompa
                     vengono presentati con una griglia pulita e leggibile a colpo d'occhio.</li>
                 <li><strong>Menu interattivi (selection prompt):</strong> invece di far digitare comandi a mano
-                    all'operatore — esponendo il fianco a errori di battitura e distrazioni umane — ho inserito un menu
+                    all'operatore — esponendo il fianco a errori di battitura e distrazioni umane — ho inserito un
+                    menu
                     interattivo navigabile con le frecce. È il principio del <em><a
                             href="https://it.wikipedia.org/wiki/Poka-yoke" target="_blank"
                             rel="noopener">poka-yoke</a></em>, cioè a prova di errore,
                     applicato alla CLI.</li>
             </ul>
 
-            <div class="terminal-preview">
-                <span class="prompt">PS C:\PROGETTI CSHARP\PlcBridge&gt;</span> dotnet run client<br>
-                <span class="cmd">CLIENT/MONITOR di Supervisione</span><br>
-                Seleziona il comando di controllo o lettura:<br>
-                &gt; READ_PRESSURE<br>
-                &nbsp;&nbsp;READ_TEMP<br>
-                &nbsp;&nbsp;START_PUMP
+            <div class="terminal-preview p-4">
+                <span class="prompt">PS C:\PROGETTI CSHARP\PlcBridge&gt;</span> dotnet run client<br><br>
+                <span class="fw-bold" style="color: #00ff00;">▶ CLIENT/MONITOR di Supervisione (TUI)</span><br><br>
+                <span style="color: #a8a8a8;">?</span> Seleziona il comando di controllo o lettura:<br>
+                &nbsp;&nbsp;<span style="color: #666;">READ_PRESSURE</span><br>
+                &nbsp;&nbsp;<span style="color: #666;">READ_TEMP</span><br>
+                <span style="color: #00ffff; font-weight: bold;">&gt; START_PUMP</span><br>
+                &nbsp;&nbsp;<span style="color: #666;">STOP_PUMP</span><br>
+                &nbsp;&nbsp;<span style="color: #666;">SYSTEM_STATUS</span><br><br>
+                <span style="color: #f39c12;">[Invio]</span><br>
+                <span style="color: #a8a8a8;">Connessione al PLC in corso (127.0.0.1:5000)...</span><br>
+                <span style="color: #27ae60; font-weight: bold;">✔ SUCCESS:</span> Pump is now RUNNING
             </div>
 
             <hr>
 
-            <h3 id="stateful-server">Da stateless a stateful: la memoria del PLC</h3>
+            <h3 id="stateful-server">5. Da stateless a stateful: la memoria del PLC</h3>
 
-            <p>Un vero PLC non si limita a generare numeri casuali: ha uno stato interno. Accendere una pompa richiede
+            <p>Un vero PLC non si limita a generare numeri casuali: ha uno stato interno. Accendere una pompa
+                richiede
                 che il sistema ricordi l'azione nel tempo.</p>
 
             <p>Nel mio <em>PlcBridge</em> ho introdotto una memoria di stato persistente per variabili come lo stato
@@ -245,56 +425,101 @@
                 trasformandosi da semplice script di test in un vero nodo bidirezionale.</p>
 
             <pre><code class="language-csharp">// Stato interno del PLC simulato (memoria dei registri)
-private static bool isPumpRunning = false;
-private static double currentPressure = 12.0;
-private static double currentTemperature = 22.0;
+private bool _isPumpRunning = false;
+private double _currentPressure = 12.0;
 
-private static string SetPumpState(bool state)
+public string StartPump()
 {
-    isPumpRunning = state;
-    string statusText = isPumpRunning ? "[green]AVVIATA[/]" : "[red]ARRESTATA[/]";
-    AnsiConsole.MarkupLine($"[bold blue]Comando Attuatore:[/] Pompa {statusText}");
-    return $"SUCCESS: Pump is now {(isPumpRunning ? "RUNNING" : "STOPPED")}";
+    _isPumpRunning = true;
+    return "SUCCESS: Pump is now RUNNING";
 }</code></pre>
 
             <hr>
 
-            <h3 id="lezioni-imparate">Lezione imparata: gli errori come indicazioni stradali</h3>
+            <h3 id="lezioni-imparate">6. Lezioni dal cantiere digitale: gli errori come indicatori di rotta</h3>
 
-            <p>Costruire software significa inevitabilmente sbattere contro i muri. Ecco alcune delle cicatrici tecniche
-                che mi hanno insegnato di più in questo percorso:</p>
-            <ol>
-                <li><strong>Il socket occupato:</strong> ho imparato che i processi server rimangono in ascolto finché
-                    non vengono terminati correttamente. Usare i comandi di sistema per chiudere un processo bloccato
-                    non è un ripiego, è igiene sistemistica.</li>
-                <li><strong>I messaggi di Git:</strong> i messaggi di errore non vanno temuti. Git non mi sta bloccando,
-                    mi sta chiedendo chiarezza su come gestire i repository remoti.</li>
-                <li><strong>CI/CD con GitHub Actions:</strong> configurare un workflow automatico significa avere una
-                    certezza fondamentale: la sicurezza che il codice compila e supera i test in un ambiente pulito,
-                    indipendentemente dal mio PC.</li>
-            </ol>
+            <p>Costruire software significa inevitabilmente sbattere contro i muri. Invece di nascondere la polvere
+                sotto il tappeto, ho tracciato ogni singola anomalia di questo sprint. Ecco le <strong>cicatrici
+                    tecniche</strong> che mi hanno insegnato di più:</p>
+
+            <div class="alert alert-warning border-start border-4 border-warning shadow-sm mb-4">
+                <strong>💡 Il vero valore non è scrivere codice che funziona al primo colpo</strong>, ma capire
+                <em>perché</em> si è rotto. La fase di troubleshooting è la vera palestra dell'architetto software.
+            </div>
+
+            <ul class="list-group list-group-flush mb-5 shadow-sm rounded border">
+                <li class="list-group-item p-4">
+                    <h5 class="h6 fw-bold text-dark mb-2"><i class="fas fa-bug text-danger me-2"></i>1. La porta
+                        fantasma e l'igiene di sistema (MSB3026)</h5>
+                    <p class="mb-0 text-muted small">Quando il server TCP resta appeso, la porta 5000 non perdona.
+                        Il
+                        compilatore si blocca perché l'eseguibile è in uso. Imparare a usare <code>taskkill</code> e
+                        a
+                        gestire correttamente la chiusura del <em>Socket</em> è stato un prezioso bagno di realtà
+                        sistemistica.</p>
+                </li>
+                <li class="list-group-item p-4">
+                    <h5 class="h6 fw-bold text-dark mb-2"><i class="fas fa-folder-tree text-primary me-2"></i>2. Il
+                        labirinto dell'Annidamento (.sln e CS0579)</h5>
+                    <p class="mb-0 text-muted small">Aver creato la cartella dei test <em>dentro</em> quella del
+                        progetto principale ha mandato in crisi il compilatore, generando decine di attributi
+                        duplicati.
+                        La soluzione? Ristrutturare tutto usando una <strong>Solution (.sln)</strong> alla radice,
+                        il
+                        "direttore d'orchestra" che isola e gestisce i progetti .NET in modo pulito.</p>
+                </li>
+                <li class="list-group-item p-4">
+                    <h5 class="h6 fw-bold text-dark mb-2"><i class="fas fa-link text-success me-2"></i>3.
+                        Referenziare
+                        con precisione chirurgica</h5>
+                    <p class="mb-0 text-muted small">Il comando <code>dotnet add reference</code> non vuole cartelle
+                        generiche, esige il puntamento esatto al file <code>.csproj</code>. Un dettaglio sintattico
+                        che
+                        mi ha costretto a studiare come il framework risolve le dipendenze interne tra i moduli.</p>
+                </li>
+                <li class="list-group-item p-4">
+                    <h5 class="h6 fw-bold text-dark mb-2"><i class="fab fa-git-alt text-warning me-2"></i>4. I
+                        messaggi
+                        di Git non sono minacce</h5>
+                    <p class="mb-0 text-muted small">Il classico <em>"Remote origin already exists"</em> all'inizio
+                        spaventa. Poi capisci che Git non ti sta bloccando: ti sta chiedendo chiarezza. Riscrivere
+                        l'URL
+                        con <code>set-url</code> mi ha insegnato a padroneggiare il versioning senza farmi
+                        intimorire
+                        dalla console.</p>
+                </li>
+            </ul>
+
+            <p>Ma la soddisfazione più grande? Vedere la <strong>pipeline CI/CD su GitHub Actions</strong>
+                illuminarsi
+                di verde. Sapere che ogni singola modifica viene compilata e validata dai miei test unitari in un
+                ambiente cloud isolato, mi dà la tranquillità e la solidità di un workflow aziendale vero e proprio.
+            </p>
 
             <hr>
 
             <h3 id="verso-blazor">E adesso? Verso il web con Blazor</h3>
 
-            <p>Questo progetto non è un punto d'arrivo, ma una solida fondamenta. Ho un server robusto, un protocollo
+            <p>Questo progetto non è un punto d'arrivo, ma una solida fondamenta. Ho un server robusto, un
+                protocollo
                 chiaro, una CLI curata e una pipeline CI/CD pronta all'uso.</p>
 
-            <p>Il prossimo passo? Prenderò questo backend di comunicazione e lo porterò sul web con Blazor, per creare
+            <p>Il prossimo passo? Prenderò questo backend di comunicazione e lo porterò sul web con Blazor, per
+                creare
                 una dashboard interattiva accessibile da qualsiasi browser o tablet industriale.</p>
 
             <p>La strada è lunga e l'umiltà tanta, ma i mattoni sono posati dritti. Meglio fatto ma non perfetto che
-                niente: rimettere in movimento il sito e continuare a scrivere codice un pezzetto alla volta è l'unico
+                niente: rimettere in movimento il sito e continuare a scrivere codice un pezzetto alla volta è
+                l'unico
                 modo per crescere davvero. Ci risentiamo alla prossima iterazione.</p>
 
             <!-- FONTI -->
             <div class="sources-box">
                 <h6><i class="fas fa-book-open me-1"></i>Fonti e Approfondimenti</h6>
-                <a href="https://learn.microsoft.com/en-us/dotnet/fundamentals/networking/sockets/sockets-overview"
-                    target="_blank" rel="noopener">
+                <a href="https://learn.microsoft.com/en-us/dotnet/core/network-primitives" target="_blank"
+                    rel="noopener">
                     <i class="fas fa-external-link-alt"></i>
-                    Microsoft Docs — Sockets in .NET
+                    Microsoft Docs — Networking primitives and sockets in .NET
                 </a>
                 <a href="https://spectreconsole.net/" target="_blank" rel="noopener">
                     <i class="fas fa-external-link-alt"></i>
@@ -318,7 +543,8 @@ private static string SetPumpState(bool state)
                 <div class="card-body p-4 text-white">
                     <h5 class="fw-bold mb-2"><i class="fas fa-road me-2 text-warning"></i>Prossimamente...</h5>
                     <p class="mb-0" style="color: #aed6f1;">
-                        Porteremo questo backend TCP/IP nel mondo web moderno con <strong>Blazor</strong>, trasformando
+                        Porteremo questo backend TCP/IP nel mondo web moderno con <strong>Blazor</strong>,
+                        trasformando
                         la nostra console in una dashboard grafica interattiva accessibile da qualsiasi tablet in
                         officina.
                     </p>
