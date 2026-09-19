@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <title>Unit Testing in C#: il collaudo al banco | Il Viaggio del Programmatore</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Guida pratica agli Unit Test in C# con xUnit. Scopri come testare il software isolando i componenti con il pattern AAA, evitando di rincorrere bug in produzione.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/018-unit-testing-csharp.html">
+
+    <meta property="og:title" content="Unit Testing in C#: il banco di collaudo che ti salva il venerdì sera">
+    <meta property="og:description"
+        content="Prima di montare un gruppo valvole su una macchina, lo provi al banco. Perché con il codice facciamo il contrario? Guida terra-terra a xUnit e al pattern AAA.">
+    <meta property="og:image"
+        content="https://www.ilviaggiodelprogrammatore.com/images/blog/development/unit-testing-cover.webp">
+    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/dev-section/018-unit-testing-csharp.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Il Viaggio del Programmatore">
+
+    <link rel="icon" href="../../images/postazione-di-lavoro-100.png" type="image/png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../base.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* ─── OVERRIDE LARGHEZZA CONTENITORE ───────────────────── */
+        @media (min-width: 992px) {
+            .article-content,
+            .article-container {
+                max-width: 1000px !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* ─── BACK BUTTON ──────────────────────────────────────── */
+        #backToDevelopment {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            display: none;
+            z-index: 1000;
+            font-size: 0.8rem !important;
+        }
+
+        /* ─── CUSTOM ARTICLE STYLING ────────────────────────────── */
+        .formula-box {
+            background: #f8f9fa;
+            border-left: 4px solid #0d6efd;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.25rem;
+            text-align: center;
+            border-radius: 0 8px 8px 0;
+            color: #333;
+        }
+
+        /* ─── INFOGRAFICHE CSS PURE ────────────────────────────── */
+        .chart-container {
+            background: #0d1b2a;
+            border-radius: 10px;
+            padding: 2rem 1rem;
+            margin: 2rem 0;
+            border: 1px solid #1e3a5f;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px; /* Aumentato per visibilità */
+            padding-top: 20px;
+            margin-top: 15px;
+        }
+
+        .bar-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end; /* Spinge testo e barre verso il basso */
+            height: 100%; /* FIX FONDAMENTALE: Dà alle barre un'altezza su cui calcolare le percentuali */
+            width: 22%;
+            gap: 10px;
+        }
+
+        .bar {
+            width: 100%;
+            max-width: 50px;
+            border-radius: 4px 4px 0 0;
+            transition: height 0.5s ease;
+        }
+
+        .flow-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            background: #0d1b2a;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #1e3a5f;
+        }
+
+        .flow-step {
+            flex: 1;
+            min-width: 150px;
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .flow-arrow {
+            color: #64748b;
+            font-size: 1.5rem;
+        }
+
+        /* ─── SOURCES ──────────────────────────────────────────── */
+        .sources-box {
+            background: #f0f4f8;
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 3rem;
+            border-left: 4px solid #3498db;
+        }
+
+        .sources-box h6 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #5d8aa8;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+        }
+
+        .sources-box a {
+            display: block;
+            font-size: 0.85rem;
+            color: #2c3e50;
+            text-decoration: none;
+            padding: 0.25rem 0;
+        }
+
+        .sources-box a:hover {
+            color: #3498db;
+            text-decoration: underline;
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VKFY8GY6HY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-VKFY8GY6HY');
+    </script>
+</head>
+
+<body>
+    <div id="header-placeholder"></div>
+
+    <header class="blog-header header-development">
+        <h1>Sviluppo Software</h1>
+        <p>Strumenti, idee e visione per diventare uno sviluppatore consapevole, ambizioso e pronto a costruire il
+            proprio futuro con coraggio e competenza.</p>
+    </header>
+
+    <div class="article-container">
+        <div class="article-content">
+
+            <figure class="figure w-100 text-center mb-5">
+                <img src="../../images/blog/development/unit-testing-cover.webp" alt="Collaudo meccanico e codice C#"
+                    class="figure-img img-fluid rounded shadow-sm featured-img" onerror="this.src='https://via.placeholder.com/1000x500/1e293b/7fb3d3?text=Unit+Testing+in+C%23'">
+                <figcaption class="figure-caption mt-2">
+                    <i class="fas fa-camera me-1"></i>
+                    <em>Come al banco di prova: validare i singoli componenti prima dell'assemblaggio finale.</em>
+                </figcaption>
+            </figure>
+
+            <h2 class="article-title">
+                Unit Testing in C#: il banco di collaudo che ti salva il venerdì sera
+            </h2>
+
+            <p class="text-muted">Scritto da Marco Morello il 10 Agosto 2026</p>
+
+            <blockquote class="blockquote alert alert-info my-4 shadow-sm border-0 border-start border-4 border-info">
+                <p class="mb-0">
+                    <strong>💡 In sintesi</strong>: Nessun meccanico sano di mente revisionerebbe una pompa per poi richiudere serbatoio e carene sperando che la moto parta al primo colpo a trecento chilometri da casa. Prima, il pezzo si fissa alla morsa e si mette in pressione. Nel software, invece, spesso assembliamo tutto e testiamo avviando l'intera applicazione. In questo articolo esploriamo come strutturare un banco di collaudo affidabile usando <strong>xUnit</strong> e il pattern <strong>AAA</strong>.
+                </p>
+            </blockquote>
+
+            <hr class="my-5">
+
+            <p>Prima di serrare l'ultimo dado sul telaio, il pezzo si fissa alla morsa. Si collegano i tubi di mandata, si attacca il manometro e si mette in pressione il circuito. Se una guarnizione perde o un paraolio cede sotto sforzo, lo scopri lì: su un banco d'acciaio pulito, in cinque minuti, con uno straccio a portata di mano. Non a piedi su un passo di montagna sotto la pioggia battente, né in corsia di sorpasso.</p>
+
+            <p>Nel software, invece, molti sviluppatori continuano a montare il motore direttamente sulla strada. Modificano tre righe nella logica di calcolo, premono <code>F5</code>, aspettano che l'applicazione compili, effettuano il login manuale a schermo, navigano attraverso quattro schermate, compilano un form con dati fittizi e guardano se il risultato torna.</p>
+
+            <p>Ripetono questo ciclo quindici volte al giorno. Poi rilasciano in produzione il venerdì pomeriggio e passano il fine settimana a rincorrere le eccezioni non gestite sollevate dagli utenti.</p>
+
+            <p>I <strong>test unitari</strong> non sono un esercizio accademico per puristi del codice o una voce da spuntare su una checklist aziendale: sono il banco di collaudo dei singoli componenti prima dell'assemblaggio finale.</p>
+
+            <h3 id="illusione-del-tempo" class="mt-5 mb-3">1. L'illusione del "Non ho tempo per scrivere test"</h3>
+
+            <p>L'obiezione più frequente nei team di sviluppo è sempre la stessa: <em>"Dobbiamo consegnare la feature entro fine sprint, non abbiamo tempo per scrivere codice che testa altro codice"</em>.</p>
+
+            <p>È lo stesso ragionamento di chi dice di non avere tempo per controllare la pressione degli pneumatici prima di un viaggio di tremila chilometri perché deve partire subito. Finisci per fermarti ogni cinquanta chilometri a gonfiare la gomma a mano, chiedendoti perché il viaggio duri il doppio del previsto.</p>
+
+            <p>Testare manualmente avviando l'intera applicazione comporta costi occulti enormi:</p>
+            <ul>
+                <li><strong>Lentezza del ciclo di feedback:</strong> Compilare l'intero stack, avviare il web server, caricare l'interfaccia e ricreare lo stato dei dati richiede minuti. Un test unitario gira in millisecondi.</li>
+                <li><strong>Effetti collaterali invisibili:</strong> Quando tocchi una classe per correggere un bug, non puoi sapere a occhio nudo se hai rotto un comportamento introdotto sei mesi fa su un flusso correlato.</li>
+                <li><strong>Mancanza di regressione automatica:</strong> Se scopri un difetto oggi e lo sistemi senza un test a presidio, quello stesso bug si ripresenterà non appena un collega rimetterà mano a quel file.</li>
+            </ul>
+
+            <div class="chart-container text-center">
+                <h6 style="color: #a8a8a8; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; margin-bottom: 0;">L'evoluzione del costo di un bug nel ciclo di vita del software</h6>
+                <div class="bar-chart">
+                    <div class="bar-col">
+                        <div class="bar" style="height: 15%; background: #4ec9b0;"></div>
+                        <div style="font-size: 0.75rem; color: #a8a8a8;">Sviluppo</div>
+                        <div style="font-size: 0.75rem; color: #4ec9b0; font-weight: bold;">$ MINIMO</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar" style="height: 40%; background: #dcdcaa;"></div>
+                        <div style="font-size: 0.75rem; color: #a8a8a8;">QA / Test</div>
+                        <div style="font-size: 0.75rem; color: #dcdcaa; font-weight: bold;">$$ MEDIO</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar" style="height: 70%; background: #ce9178;"></div>
+                        <div style="font-size: 0.75rem; color: #a8a8a8;">Rilascio</div>
+                        <div style="font-size: 0.75rem; color: #ce9178; font-weight: bold;">$$$ ALTO</div>
+                    </div>
+                    <div class="bar-col">
+                        <div class="bar" style="height: 100%; background: #f14c4c;"></div>
+                        <div style="font-size: 0.75rem; color: #a8a8a8;">Produzione</div>
+                        <div style="font-size: 0.75rem; color: #f14c4c; font-weight: bold;">$$$$ CRITICO</div>
+                    </div>
+                </div>
+            </div>
+
+            <p>Scrivere unit test significa <strong>spostare il rilevamento del guasto a monte (Shift-Left)</strong>, quando risolverlo costa pochi secondi e zero frustrazione.</p>
+
+            <hr class="my-5">
+
+            <h3 id="pattern-aaa" class="mt-5 mb-3">2. Il Pattern AAA: Come si allestisce la prova</h3>
+
+            <p>In <strong>xUnit</strong> (il framework di test standard de facto nell'ecosistema moderno di .NET), un test unitario ben strutturato segue una regola ferrea: il pattern <strong>AAA (Arrange, Act, Assert)</strong>.</p>
+
+            <p>Se hai familiarità con un banco di flussaggio o una prova di trazione meccanica, il parallelo è millimetrico:</p>
+
+            <div class="flow-container">
+                <div class="flow-step" style="border-top: 4px solid #4ec9b0;">
+                    <div style="font-weight: bold; color: #4ec9b0; font-size: 1.1rem; margin-bottom: 5px;">1. Arrange</div>
+                    <div style="font-size: 0.85rem; color: #94a3b8;">Allestimento:<br>Morsa e Parametri iniziali</div>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="flow-step" style="border-top: 4px solid #3b82f6;">
+                    <div style="font-weight: bold; color: #3b82f6; font-size: 1.1rem; margin-bottom: 5px;">2. Act</div>
+                    <div style="font-size: 0.85rem; color: #94a3b8;">Azione:<br>Esecuzione della sollecitazione</div>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-chevron-right"></i></div>
+                <div class="flow-step" style="border-top: 4px solid #dcdcaa;">
+                    <div style="font-weight: bold; color: #dcdcaa; font-size: 1.1rem; margin-bottom: 5px;">3. Assert</div>
+                    <div style="font-size: 0.85rem; color: #94a3b8;">Verifica:<br>Misura reale vs Tolleranza</div>
+                </div>
+            </div>
+
+            <p>Immaginiamo di dover collaudare una logica di officina reale: un componente che calcola la correzione della coppia di serraggio quando si utilizza una prolunga sulla chiave dinamometrica. La formula fisica richiede che la coppia impostata sulla scala della chiave sia inferiore a quella effettiva richiesta sul bullone, in base alla lunghezza della prolunga.</p>
+            
+            <div class="formula-box shadow-sm">
+                C<sub>impostata</sub> = C<sub>target</sub> &times; [ L<sub>chiave</sub> / (L<sub>chiave</sub> + L<sub>prolunga</sub>) ]
+            </div>
+
+            <p>Vediamo la classe di dominio pulita, isolata da qualsiasi database o interfaccia grafica:</p>
+
+<pre class="mb-4 shadow-sm rounded" style="font-size: 0.85rem;"><code class="language-csharp">namespace Officina.Core.Meccanica;
+
+public class CalcolatoreDinamometrica
+{
+    public decimal CalcolaCoppiaScala(decimal coppiaTargetNm, decimal lunghezzaChiaveMm, decimal prolungaMm)
+    {
+        if (coppiaTargetNm <= 0)
+            throw new ArgumentOutOfRangeException(nameof(coppiaTargetNm), "La coppia target deve essere positiva.");
+
+        if (lunghezzaChiaveMm <= 0)
+            throw new ArgumentOutOfRangeException(nameof(lunghezzaChiaveMm), "La lunghezza della chiave deve essere positiva.");
+
+        if (prolungaMm < 0)
+            throw new ArgumentOutOfRangeException(nameof(prolungaMm), "La prolunga non può avere misura negativa.");
+
+        if (prolungaMm == 0)
+            return coppiaTargetNm;
+
+        decimal rapporto = lunghezzaChiaveMm / (lunghezzaChiaveMm + prolungaMm);
+        return Math.Round(coppiaTargetNm * rapporto, 2);
+    }
+}</code></pre>
+
+            <p>Ed ecco il relativo banco prova scritto con xUnit sfruttando l'attributo <code>[Fact]</code>, che identifica un test a scenario singolo:</p>
+
+<pre class="mb-4 shadow-sm rounded" style="font-size: 0.85rem;"><code class="language-csharp">namespace Officina.Core.Tests;
+
+using Xunit;
+using Officina.Core.Meccanica;
+
+public class CalcolatoreDinamometricaTests
+{
+    [Fact]
+    public void CalcolaCoppiaScala_ConProlungaValida_DeveRidurreCoppiaImpostataCorrettamente()
+    {
+        // 1. Arrange (Allestimento del banco)
+        var calcolatore = new CalcolatoreDinamometrica();
+        decimal coppiaTarget = 100m;
+        decimal lunghezzaChiave = 400m;
+        decimal lunghezzaProlunga = 100m;
+        decimal valoreAtteso = 80.00m; // 100 * (400 / 500) = 80
+
+        // 2. Act (Esecuzione della misura)
+        decimal risultatoReale = calcolatore.CalcolaCoppiaScala(coppiaTarget, lunghezzaChiave, lunghezzaProlunga);
+
+        // 3. Assert (Verifica tolleranza)
+        Assert.Equal(valoreAtteso, risultatoReale);
+    }
+
+    [Fact]
+    public void CalcolaCoppiaScala_SenzaProlunga_DeveRestituireLaCoppiaTargetInalterata()
+    {
+        // Arrange
+        var calcolatore = new CalcolatoreDinamometrica();
+        decimal coppiaTarget = 50m;
+        decimal lunghezzaChiave = 300m;
+        decimal prolungaNulla = 0m;
+
+        // Act
+        decimal risultatoReale = calcolatore.CalcolaCoppiaScala(coppiaTarget, lunghezzaChiave, prolungaNulla);
+
+        // Assert
+        Assert.Equal(coppiaTarget, risultatoReale);
+    }
+
+    [Fact]
+    public void CalcolaCoppiaScala_ConCoppiaTargetNegativa_DeveLanciareArgumentOutOfRangeException()
+    {
+        // Arrange
+        var calcolatore = new CalcolatoreDinamometrica();
+
+        // Act & Assert (Verifica della sicurezza intrinseca per scenari di errore)
+        Assert.Throws&lt;ArgumentOutOfRangeException&gt;(() => 
+            calcolatore.CalcolaCoppiaScala(-10m, 400m, 50m));
+    }
+}</code></pre>
+
+            <p>La convenzione dei nomi è esplicita: <code>Metodo_Condizione_RisultatoAtteso</code>. Chiunque legga il report del test sa esattamente cosa si è rotto senza dover aprire il file sorgente.</p>
+
+            <hr class="my-5">
+
+            <h3 id="test-parametrici" class="mt-5 mb-3">3. [Theory] e [InlineData]: Il Collaudo Parametrico</h3>
+
+            <p>Nella produzione reale non provi un solo pezzo a una sola temperatura. Vuoi vedere come risponde il componente al minimo, a regime nominale e al limite di snervamento.</p>
+
+            <p>Copiare e incollare lo stesso metodo di test dieci volte cambiando solo due numeri genera codice spazzatura, difficile da mantenere. Per questo xUnit mette a disposizione l'attributo <code>[Theory]</code> combinato con <code>[InlineData]</code>:</p>
+
+<pre class="mb-4 shadow-sm rounded" style="font-size: 0.85rem;"><code class="language-csharp">public class CollaudoIdraulicoTests
+{
+    [Theory]
+    [InlineData(10, 100, 90.0)]   // Regime normale: 10 cicli = 90 bar residui
+    [InlineData(50, 100, 50.0)]   // Mezza vita: 50 cicli = 50 bar residui
+    [InlineData(90, 100, 10.0)]   // Fine vita: 90 cicli = 10 bar residui
+    [InlineData(100, 100, 0.0)]   // Esaurimento totale: 0 bar
+    public void CalcolaPressioneResidua_DatiCicliLavoro_RestituiscePressioneCorretta(
+        int cicliEseguiti, 
+        decimal pressioneInizialeBar, 
+        decimal pressioneAttesaBar)
+    {
+        // Arrange
+        var circuito = new CircuitoPneumatico();
+
+        // Act
+        decimal pressioneReale = circuito.CalcolaPressioneResidua(cicliEseguiti, pressioneInizialeBar);
+
+        // Assert
+        Assert.Equal(pressioneAttesaBar, pressioneReale);
+    }
+}</code></pre>
+
+            <p>Con una sola dichiarazione, xUnit esegue quattro collaudi distinti nel terminale. Se la formula fallisce soltanto per il caso limite a 100 cicli, il runner isola esattamente la riga incriminata senza bloccare l'ispezione delle altre.</p>
+
+            <hr class="my-5">
+
+            <h3 id="regole-officina" class="mt-5 mb-3">4. Cosa collaudare (e cosa lasciare stare)</h3>
+
+            <p>Uno degli errori tipici di chi inizia con gli unit test è voler testare qualsiasi riga di codice:</p>
+
+            <ul class="list-group list-group-flush mb-5 shadow-sm rounded border">
+                <li class="list-group-item p-4">
+                    <h5 class="h6 fw-bold text-dark mb-2"><i class="fas fa-times-circle text-danger me-2"></i>Proprietà banali</h5>
+                    <p class="mb-0 text-muted small">Evita di testare getter e setter semplici come <code>public string Modello { get; set; }</code>. Non c'è logica. Staresti testando il compilatore C#, che è già stato ampiamente testato da Microsoft.</p>
+                </li>
+                <li class="list-group-item p-4">
+                    <h5 class="h6 fw-bold text-dark mb-2"><i class="fas fa-times-circle text-danger me-2"></i>Librerie esterne e Framework</h5>
+                    <p class="mb-0 text-muted small">Non devi verificare se <code>List.Add()</code> inserisce effettivamente un elemento in memoria, o se Entity Framework salva un record su disco. Testa il tuo codice, non gli strumenti consolidati.</p>
+                </li>
+                <li class="list-group-item p-4">
+                    <h5 class="h6 fw-bold text-dark mb-2"><i class="fas fa-times-circle text-danger me-2"></i>Dettagli implementativi privati</h5>
+                    <p class="mb-0 text-muted small">Testa sempre il contratto pubblico della classe (cosa entra e cosa esce). Se in futuro ottimizzi un algoritmo privato interno mantenendo invariato il risultato finale, i test dovranno continuare a passare senza necessitare di aggiornamenti.</p>
+                </li>
+            </ul>
+
+            <div class="alert alert-secondary border-start border-4 border-primary shadow-sm mb-5 p-4">
+                <i class="fas fa-wrench text-primary me-2"></i>
+                <strong>Regola d'officina:</strong> Concentrati sulla logica di calcolo, sulle ramificazioni condizionali (gli <code>if/else</code> complessi), sulle eccezioni di guardia (valori nulli) e sui valori limite matematici (zero, negativi, overflow). Testa lì dove un errore costa ore di fermo macchina o frustrazione per l'utente.
+            </div>
+
+            <hr class="my-5">
+
+            <h3 id="banco-prova-interattivo" class="mt-5 mb-3">5. Il Banco Prova: Metti alla prova la suite xUnit</h3>
+
+            <p>Per toccare con mano la differenza tra un collaudo superato e una rottura a banco, usa il simulatore sottostante. Il codice simula il calcolo del decadimento di pressione idraulica in base ai cicli macchina.</p>
+
+            <div class="chart-container" style="padding: 1.5rem; font-family: Consolas, 'Courier New', monospace;">
+                <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-3 mb-3">
+                    <span style="font-weight: bold; color: #4ec9b0; text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;"><i class="fas fa-vial me-2"></i>[Banco Prova xUnit] CircuitoIdraulicoTests.cs</span>
+                    <span id="suite-status" class="badge bg-secondary px-3 py-2">IDLE</span>
+                </div>
+
+                <div style="background: #1e293b; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; border-left: 4px solid #3b82f6; font-size: 0.85rem; line-height: 1.6;">
+                    <div style="color: #6a9955;">// Logica sotto test (SUT - System Under Test)</div>
+                    <div><span style="color: #569cd6;">public decimal</span> <span style="color: #dcdcaa;">CalcolaPressioneResidua</span>(<span style="color: #569cd6;">int</span> cicli, <span style="color: #569cd6;">decimal</span> barIniziali)</div>
+                    <div>{</div>
+                    <div style="margin-left: 20px;" id="code-logic">
+                        <span style="color: #569cd6;">return</span> barIniziali - (cicli * <span style="color: #b5cea8;">1.0m</span>);
+                    </div>
+                    <div>}</div>
+                </div>
+
+                <div class="row g-3 align-items-center mb-4">
+                    <div class="col-md-auto">
+                        <label class="col-form-label text-light" style="font-size: 0.85rem;">Condizione del Componente:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <select id="test-mode" class="form-select form-select-sm bg-dark text-light border-secondary">
+                            <option value="nominal">Componente Conforme (Logica corretta)</option>
+                            <option value="bug-operator">Guasto Logico: Somma invece di sottrarre (+)</option>
+                            <option value="bug-scale">Guasto Tolleranza: Tasso di decadimento errato (* 1.5)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-auto ms-auto">
+                        <button id="run-btn" class="btn btn-sm btn-primary w-100 fw-bold">
+                            <i class="fas fa-play me-1"></i> Avvia Collaudo
+                        </button>
+                    </div>
+                </div>
+
+                <div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; padding: 1rem;">
+                    <div style="font-size: 0.75rem; color: #64748b; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px;">Esito Test Runner:</div>
+                    <div id="test-results" style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px;">
+                        <div style="color: #64748b; font-style: italic;">In attesa di esecuzione banco prova...</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-5">
+
+            <h3 id="conclusioni" class="mt-5 mb-3">Conclusioni: L'abitudine che fa la differenza</h3>
+
+            <p>Imparare a scrivere test unitari all'inizio richiede uno sforzo cosciente: ti costringe a scrivere classi disaccoppiate, a rispettare il principio di singola responsabilità (SRP) e a evitare metodi monolitici da cinquecento righe impossibili da isolare.</p>
+
+            <p>Tuttavia, una volta acquisito l'automatismo, il ritorno sull'investimento è immediato:</p>
+            <ul>
+                <li>Refattorizzi il codice senza paura, perché hai una cintura di sicurezza che ti avverte al minimo passo falso.</li>
+                <li>Non perdi tempo a rieseguire flussi manuali infiniti a ogni modifica.</li>
+                <li>Dormi sonni tranquilli la notte dopo una release, perché i tuoi componenti sono stati collaudati a banco singolarmente prima di essere spediti al cliente.</li>
+            </ul>
+
+            <div class="sources-box">
+                <h6><i class="fas fa-book-open me-1"></i>Fonti e Approfondimenti</h6>
+                <a href="https://xunit.net/" target="_blank" rel="noopener">
+                    <i class="fas fa-external-link-alt"></i>
+                    xUnit.net — Strumento di testing per il .NET Framework
+                </a>
+                <a href="https://learn.microsoft.com/it-it/dotnet/core/testing/unit-testing-best-practices" target="_blank" rel="noopener">
+                    <i class="fas fa-external-link-alt"></i>
+                    Microsoft Docs — Best practice per unit test in .NET
+                </a>
+            </div>
+
+            <div id="firma-placeholder"></div>
+        </div>
+    </div>
+
+    <div class="article-container mt-2 mb-5">
+        <div class="article-content">
+            <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #808ea8, #55789b); border-radius: 12px;">
+                <div class="card-body p-4 text-white">
+                    <h5 class="fw-bold mb-2"><i class="fas fa-road me-2 text-warning"></i>Prossimamente...</h5>
+                    <p class="mb-0" style="color: #aed6f1;">
+                        Nel prossimo articolo affronteremo il gemello operativo del collaudo: <strong>la scatola nera del software</strong>. Vedremo come implementare un logging pratico e strutturato con <code>ILogger</code> per diagnosticare i problemi sul campo senza dover tirare a indovinare.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="../../blog/development.html" class="btn btn-hero" id="backToDevelopment">
+        &larr; Torna indietro
+    </a>
+
+    <div id="footer-placeholder" class="mt-auto"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+    <script>
+        // Gestione Widget Test Runner
+        (function() {
+            const runBtn = document.getElementById('run-btn');
+            const testMode = document.getElementById('test-mode');
+            const codeLogic = document.getElementById('code-logic');
+            const testResults = document.getElementById('test-results');
+            const suiteStatus = document.getElementById('suite-status');
+
+            testMode.addEventListener('change', function() {
+                if (this.value === 'nominal') {
+                    codeLogic.innerHTML = '<span style="color:#569cd6;">return</span> barIniziali - (cicli * <span style="color:#b5cea8;">1.0m</span>);';
+                } else if (this.value === 'bug-operator') {
+                    codeLogic.innerHTML = '<span style="color:#569cd6;">return</span> barIniziali <span style="color:#f14c4c; font-weight:bold;">+</span> (cicli * <span style="color:#b5cea8;">1.0m</span>); <span style="color:#6a9955;">// Errore operatore: guasto logico</span>';
+                } else if (this.value === 'bug-scale') {
+                    codeLogic.innerHTML = '<span style="color:#569cd6;">return</span> barIniziali - (cicli * <span style="color:#f14c4c; font-weight:bold;">1.5m</span>); <span style="color:#6a9955;">// Errore di tolleranza</span>';
+                }
+            });
+
+            runBtn.addEventListener('click', function() {
+                suiteStatus.textContent = 'EXECUTING...';
+                suiteStatus.className = 'badge bg-primary px-3 py-2';
+                testResults.innerHTML = '<div style="color:#64748b;">Avvio xUnit Test Runner, compilazione in corso...</div>';
+                runBtn.disabled = true;
+
+                setTimeout(() => {
+                    const mode = testMode.value;
+                    const testCases = [
+                        { name: 'RegimeNormale_10Cicli', cicli: 10, bar: 100, expected: 90 },
+                        { name: 'MedioCarico_50Cicli', cicli: 50, bar: 100, expected: 50 },
+                        { name: 'PressioneMinima_90Cicli', cicli: 90, bar: 100, expected: 10 }
+                    ];
+
+                    let allPassed = true;
+                    let html = '';
+
+                    testCases.forEach((tc) => {
+                        let actual = 0;
+                        if (mode === 'nominal') actual = tc.bar - (tc.cicli * 1.0);
+                        else if (mode === 'bug-operator') actual = tc.bar + (tc.cicli * 1.0);
+                        else if (mode === 'bug-scale') actual = tc.bar - (tc.cicli * 1.5);
+
+                        const passed = (actual === tc.expected);
+                        if (!passed) allPassed = false;
+
+                        const color = passed ? '#4ec9b0' : '#f14c4c';
+                        const symbol = passed ? '<i class="fas fa-check-circle"></i> PASSED' : '<i class="fas fa-times-circle"></i> FAILED';
+                        
+                        const details = passed 
+                            ? `<span style="color:#6a9955;">[Tempo: <1ms] Atteso: ${tc.expected} | Rilevato: ${actual}</span>`
+                            : `<span style="color:#cca700;">Assert.Equal() Failure!<br>Atteso: ${tc.expected}<br>Rilevato: ${actual}</span>`;
+
+                        html += `
+                            <div style="border-bottom: 1px solid #1e293b; padding: 10px 0; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                                <div>
+                                    <span style="color:${color}; font-weight:bold; font-size: 0.8rem;">[${symbol}]</span>
+                                    <span style="color:#dcdcaa; margin-left:10px; font-weight: 600;">${tc.name}</span>
+                                </div>
+                                <div style="font-size:0.75rem; text-align: right;">${details}</div>
+                            </div>
+                        `;
+                    });
+
+                    testResults.innerHTML = html;
+
+                    if (allPassed) {
+                        suiteStatus.textContent = '3/3 PASSED';
+                        suiteStatus.className = 'badge bg-success px-3 py-2';
+                    } else {
+                        suiteStatus.textContent = 'SUITE FAILED';
+                        suiteStatus.className = 'badge bg-danger px-3 py-2';
+                    }
+                    
+                    runBtn.disabled = false;
+                }, 400); // Ritardo simulato per l'effetto esecuzione
+            });
+        })();
+
+        // Logica base pagina
+        async function loadFragment(id, url) {
+            try {
+                const res = await fetch(url);
+                if (res.ok) document.getElementById(id).innerHTML = await res.text();
+            } catch (_) { /* fragment non disponibile in locale */ }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFragment('header-placeholder', '../../header.html');
+            loadFragment('footer-placeholder', '../../footer.html');
+            loadFragment('firma-placeholder', '../../firma.html');
+        });
+
+        window.addEventListener('scroll', () => {
+            const btn = document.getElementById('backToDevelopment');
+            if(btn) {
+                btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
