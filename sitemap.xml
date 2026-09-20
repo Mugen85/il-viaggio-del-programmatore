@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/</loc>
-    <lastmod>2026-09-19</lastmod>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/glossario-csharp.html</loc>
@@ -38,7 +38,7 @@
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/blog/mindset.html</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/risorse/risorse-anki-csharp.html</loc>
@@ -179,5 +179,9 @@
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/014-piani-crescita-italia.html</loc>
     <lastmod>2026-06-16</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/015-refactoring-vita-sistemi-praticita.html</loc>
+    <lastmod>2026-09-20</lastmod>
   </url>
 </urlset>
