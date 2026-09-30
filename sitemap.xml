@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-30</lastmod>
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/glossario-csharp.html</loc>
@@ -38,7 +38,7 @@
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/blog/mindset.html</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-30</lastmod>
   </url>
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/risorse/risorse-anki-csharp.html</loc>
@@ -183,5 +183,9 @@
   <url>
     <loc>https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/015-refactoring-vita-sistemi-praticita.html</loc>
     <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/016-italia-2026-disinserire-pilota-automatico.html</loc>
+    <lastmod>2026-09-30</lastmod>
   </url>
 </urlset>

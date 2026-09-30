@@ -124,16 +124,56 @@
 
     <main class="container my-5">
 
-    <!-- ── Ultimi articoli in evidenza ── -->
+<!-- ── Ultimi articoli in evidenza ── -->
     <div class="featured-section">
         <div class="featured-label">✦ Ultimi articoli</div>
         <div class="row g-4">
 
-            <!-- Articolo 15 (Nuovo) -->
+            <!-- Articolo 19 / Nuovo (Senza immagine esterna: copertina tecnica SVG integrata) -->
             <div class="col-md-6">
                 <div class="card h-100 featured-card">
                     <div class="card-img-wrapper">
                         <span class="new-badge">Nuovo</span>
+                        <!-- Copertina vettoriale 0 KB in stile Telemetria/Officina per mantenere l'allineamento con le altre card -->
+                        <svg class="card-img-top" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg"
+                            role="img" aria-label="Italia 2026, disinserire il pilota automatico: diario di un tecnico"
+                            style="width: 100%; height: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; background: linear-gradient(135deg, #121519 0%, #1f242d 100%); border-bottom: 3px solid #FF6B00;">
+                            <defs>
+                                <pattern id="techGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+                                </pattern>
+                            </defs>
+                            <rect width="800" height="450" fill="url(#techGrid)" />
+                            <!-- Arco contagiri / telemetria -->
+                            <path d="M 270 300 A 150 150 0 0 1 530 300" fill="none" stroke="#2b3035" stroke-width="14" stroke-linecap="round" />
+                            <path d="M 270 300 A 150 150 0 0 1 485 170" fill="none" stroke="#FF6B00" stroke-width="14" stroke-linecap="round" />
+                            <circle cx="400" cy="260" r="6" fill="#adb5bd" />
+                            <line x1="400" y1="260" x2="465" y2="190" stroke="#FF6B00" stroke-width="5" stroke-linecap="round" />
+                            <!-- Testi diagnostici -->
+                            <text x="400" y="95" text-anchor="middle" fill="#FF6B00" font-family="monospace" font-size="17" font-weight="bold" letter-spacing="3">
+                                SYS_TELEMETRY // ITALIA 2026
+                            </text>
+                            <text x="400" y="355" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="26" font-weight="800" letter-spacing="1">
+                                PILOTA AUTOMATICO: OFF
+                            </text>
+                            <text x="400" y="390" text-anchor="middle" fill="#adb5bd" font-family="monospace" font-size="15">
+                                [ Officina &middot; Codice &middot; Potere d'Acquisto ]
+                            </text>
+                        </svg>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Italia 2026, disinserire il pilota automatico: diario di un tecnico tra officina, codice e scelte di vita</h5>
+                        <p class="card-text flex-grow-1">Stipendi fermi al palo, rincari dei carburanti, sovraccarico mediatico e simulatore di erosione del potere d'acquisto: come difendere la propria lucidità e restare alla guida.</p>
+                        <a href="../blog/mindset-section/016-italia-2026-disinserire-pilota-automatico.html"
+                            class="btn btn-hero mt-2">Leggi l'articolo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articolo 15 (Rimosso badge 'Nuovo', resta in evidenza in seconda posizione) -->
+            <div class="col-md-6">
+                <div class="card h-100 featured-card">
+                    <div class="card-img-wrapper">
                         <img src="../images/blog/mindset/old-new-habits-concept.webp"
                             class="card-img-top"
                             alt="Refactoring della vita: sistemi finanziari, scelte consapevoli e il ritorno alla praticità">
@@ -142,26 +182,6 @@
                         <h5 class="card-title">Refactoring della vita: sistemi finanziari, scelte consapevoli e il ritorno alla praticità</h5>
                         <p class="card-text flex-grow-1">Applichiamo il mindset da sviluppatore alla vita reale: dal "divide et impera" applicato alle finanze personali alla scelta consapevole di uno smartphone pragmatico per riprendere il controllo.</p>
                         <a href="../blog/mindset-section/015-refactoring-vita-sistemi-praticita.html"
-                            class="btn btn-hero mt-2">Leggi l'articolo</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Articolo 14 -->
-            <div class="col-md-6">
-                <div class="card h-100 featured-card">
-                    <div class="card-img-wrapper">
-                        <img src="../images/blog/mindset/crescita-illusoria.webp"
-                            class="card-img-top"
-                            alt="Volere una carriera in Italia sembra una malattia — la verità (spietata) sui piani di crescita">
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">Volere una carriera in Italia sembra una malattia — la verità
-                            (spietata) sui piani di crescita</h5>
-                        <p class="card-text flex-grow-1">Ti promettono percorsi strutturati e ti buttano in
-                            produzione dal secondo giorno. Un'analisi spietata basata su dati macroeconomici reali
-                            su perché i piani di sviluppo in Italia si inceppano, e come uscirne a testa alta.</p>
-                        <a href="../blog/mindset-section/014-piani-crescita-italia.html"
                             class="btn btn-hero mt-2">Leggi l'articolo</a>
                     </div>
                 </div>
@@ -182,7 +202,24 @@
     <div id="archiveSection">
         <div class="row g-4">
 
-            <!-- Articolo 13 (Spostato in Archivio) -->
+            <!-- Articolo 14 (Spostato in Archivio con layout a 4 colonne) -->
+            <div class="col-md-6 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <img src="../images/blog/mindset/crescita-illusoria.webp" class="card-img-top"
+                        alt="Volere una carriera in Italia sembra una malattia — la verità (spietata) sui piani di crescita">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Volere una carriera in Italia sembra una malattia — la verità
+                            (spietata) sui piani di crescita</h5>
+                        <p class="card-text flex-grow-1">Ti promettono percorsi strutturati e ti buttano in
+                            produzione dal secondo giorno. Un'analisi spietata basata su dati macroeconomici reali
+                            su perché i piani di sviluppo in Italia si inceppano, e come uscirne a testa alta.</p>
+                        <a href="../blog/mindset-section/014-piani-crescita-italia.html"
+                            class="btn btn-hero mt-2">Leggi l'articolo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Articolo 13 -->
             <div class="col-md-6 col-lg-3">
                 <div class="card h-100 shadow-sm">
                     <img src="../images/blog/mindset/usa-il-cervello.webp" class="card-img-top"
