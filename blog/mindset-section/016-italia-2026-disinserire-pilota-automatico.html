@@ -9,7 +9,7 @@
     <meta name="description"
         content="Riflessioni di un tecnico tra officina e sviluppo software nell'Italia del 2026: stipendi fermi, rincari carburante, Euro Digitale, scelte expat e amor proprio per disinserire il pilota automatico.">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/016-italia-2026-disinserire-pilota-automatico.html">
+    <link rel="canonical" href="https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/019-italia-2026-disinserire-pilota-automatico.html">
 
     <!-- Preconnect alle CDN per velocizzare la risoluzione DNS e connessione -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -41,7 +41,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/016-italia-2026-disinserire-pilota-automatico.html">
+    <meta property="og:url" content="https://www.ilviaggiodelprogrammatore.com/blog/mindset-section/019-italia-2026-disinserire-pilota-automatico.html">
     <meta property="og:title" content="Italia 2026, disinserire il pilota automatico: diario di un tecnico | Il Viaggio del Programmatore">
     <meta property="og:description"
         content="Quando il sistema Paese va in thermal throttling, l'unica risposta sensata è rifiutare il pilota automatico, analizzare la telemetria del proprio stipendio e tenere le mani salde sul manubrio.">
@@ -106,20 +106,19 @@
             line-height: 1.75;
         }
 
-        /* Hero Articolo: override su base.css per evitare tagli su monitor grandi (27"+) */
+        /* Hero Articolo: override su base.css per evitare tagli sotto la navbar fissa e su monitor grandi */
         .hero-section {
             position: relative;
             background: linear-gradient(135deg, #121519 0%, #1f242d 100%);
             height: auto !important;
-            min-height: 360px !important;
+            min-height: 380px !important;
             max-height: none !important;
-            padding: clamp(5.5rem, 9vh, 8.5rem) 1rem clamp(3.5rem, 6vh, 5rem) !important;
+            /* Padding superiore maggiorato per lasciare spazio alla navbar fissa (desktop e hamburger mobile) */
+            padding: clamp(7.5rem, 13vh, 10rem) 1rem clamp(3.5rem, 6vh, 5rem) !important;
             border-bottom: 4px solid var(--accent-orange);
             overflow-x: hidden;
             overflow-y: visible !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: block !important;
         }
 
         .hero-section .container {
@@ -131,21 +130,69 @@
         }
 
         .article-badge-top {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            white-space: nowrap;
             background: rgba(255, 107, 0, 0.15);
             color: #ff8533;
             border: 1px solid rgba(255, 107, 0, 0.4);
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 50px;
             font-size: 0.82rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1.4rem;
+            min-height: 36px;
+        }
+
+        .badge-sep {
+            margin: 0 6px;
+            opacity: 0.7;
+        }
+
+        .typewriter-wrapper {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Fix specifico per Smartphone e Tablet: evita il salto di riga continuo (Layout Shift) e il taglio sotto l'hamburger */
+        @media (max-width: 767.98px) {
+            .hero-section {
+                padding-top: 8.2rem !important;
+                padding-bottom: 3rem !important;
+            }
+
+            .article-badge-top {
+                display: inline-flex;
+                flex-direction: column;
+                border-radius: 14px;
+                padding: 8px 16px;
+                font-size: 0.75rem;
+                /* Altezza fissa su due righe: il testo sotto non salta mai mentre scrive/cancella */
+                height: 54px;
+                min-width: 240px;
+                justify-content: center;
+                white-space: nowrap;
+            }
+
+            .badge-sep {
+                display: none;
+            }
+
+            .typewriter-wrapper {
+                display: block;
+                height: 1.35em;
+                line-height: 1.35em;
+                margin-top: 2px;
+                color: #ffffff;
+            }
         }
 
         .hero-section h1.hero-title {
-            font-size: clamp(1.75rem, 2.5vw, 2.65rem) !important;
+            font-size: clamp(1.65rem, 2.5vw, 2.65rem) !important;
             font-weight: 800;
             letter-spacing: -0.5px;
             max-width: 880px;
@@ -368,9 +415,11 @@
     <section class="hero-section text-white text-center">
         <div class="hero-overlay"></div>
         <div class="container">
-            <span class="article-badge-top reveal">
-                <i class="fas fa-tachometer-alt me-1"></i> Mindset &amp; Attualità // <span id="typewriter"></span><span class="cursor"></span>
-            </span>
+            <div class="article-badge-top reveal">
+                <span><i class="fas fa-tachometer-alt me-1"></i> Mindset &amp; Attualità</span>
+                <span class="badge-sep">//</span>
+                <span class="typewriter-wrapper"><span id="typewriter"></span><span class="cursor"></span></span>
+            </div>
             <h1 class="hero-title reveal">Italia 2026, disinserire il pilota automatico: diario di un tecnico tra officina, codice e scelte di vita</h1>
             <p class="hero-subtitle reveal delay-1">
                 Come difendere la propria lucidità mentale ed economica quando il sistema intorno a noi viaggia in costante <em>thermal throttling</em>.
