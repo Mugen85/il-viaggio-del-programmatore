@@ -27,51 +27,73 @@
     <meta name="google-adsense-account" content="ca-pub-7088224155406510">
 
     <style>
-        /* ── Sezione "Ultimi articoli" ── */
-        .featured-section {
+        .blog-header.header-mindset {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--on-secondary-container) 100%);
+            border-bottom: 4px solid var(--secondary-container);
+        }
+
+        .featured-section,
+        #archiveSection {
             margin-bottom: 3rem;
         }
 
-        .featured-label {
+        .featured-label,
+        .archive-label {
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: #4a7ab5;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: var(--text-muted);
         }
 
-        .featured-label::after {
+        .featured-label::after,
+        .archive-label::after {
             content: '';
             flex: 1;
             height: 1px;
-            background: #e0e0e0;
+            background: var(--border-subtle);
+        }
+
+        .featured-card,
+        #archiveSection .card {
+            background: var(--surface);
+            border: 1px solid var(--border-subtle) !important;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm) !important;
+            overflow: hidden;
+            transition: transform var(--transition-standard), box-shadow var(--transition-standard), border-color var(--transition-standard);
         }
 
         .featured-card {
-            border: 2px solid #4a7ab5 !important;
-            box-shadow: 0 4px 18px rgba(74, 122, 181, 0.13) !important;
+            border-color: rgba(234, 88, 12, 0.24) !important;
+        }
+
+        .featured-card:hover,
+        #archiveSection .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover) !important;
         }
 
         .featured-card .card-img-top {
-            border-bottom: 2px solid #4a7ab5;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         .new-badge {
             position: absolute;
             top: 10px;
             left: 10px;
-            background: #4a7ab5;
-            color: #fff;
+            background: var(--secondary-container);
+            color: var(--on-secondary-container);
             font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            padding: 0.25rem 0.65rem;
-            border-radius: 20px;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
             z-index: 2;
         }
 
@@ -79,31 +101,28 @@
             position: relative;
         }
 
-        /* ── Separatore archivio ── */
+        .featured-card .card-img-top,
+        #archiveSection .card-img-top,
+        .card-img-wrapper svg.card-img-top {
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            width: 100%;
+            display: block;
+        }
+
+        .card-title,
+        .card-text {
+            color: var(--text-primary);
+        }
+
         .archive-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: #999;
-            margin-bottom: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            margin-top: 2rem;
         }
 
-        .archive-label::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: #e0e0e0;
-        }
-
-        /* ── Bottone mostra altri ── */
         #toggleArchive {
             font-size: 0.88rem;
             padding: 0.55rem 1.6rem;
-            border-radius: 30px;
+            border-radius: 999px;
         }
 
         #archiveSection {

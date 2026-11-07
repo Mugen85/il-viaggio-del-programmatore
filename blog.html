@@ -39,10 +39,94 @@
     <!-- Include Header -->
     <div id="header-placeholder"></div>
 
+    <style>
+        .blog-header.blog-home-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-bottom: 4px solid var(--primary-container);
+        }
+
+        .home-hero-shell {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .home-pill-row {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .home-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #fff;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .home-hero-shell h1 {
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .home-hero-shell p {
+            color: rgba(255, 255, 255, 0.92);
+            max-width: 72ch;
+            margin: 0 auto;
+        }
+
+        .home-sections .card {
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            transition: transform var(--transition-standard), box-shadow var(--transition-standard), border-color var(--transition-standard);
+        }
+
+        .home-sections .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(37, 99, 235, 0.24);
+        }
+
+        .home-sections .card-body {
+            padding: 1.5rem;
+        }
+
+        .home-sections .card-title,
+        .home-sections .card-text {
+            color: var(--text-primary);
+        }
+
+        .home-sections .card-text {
+            color: var(--text-secondary);
+        }
+
+        .home-sections .btn-hero {
+            margin-top: 0.75rem;
+        }
+    </style>
+
     <!-- Blog Header -->
-    <header class="blog-header" id="blog">
-        <h1>Benvenuto/a nel mio blog!</h1>
-        <p>Esplora i miei articoli e approfondimenti sul mondo dello sviluppo software e del mindset.</p>
+    <header class="blog-header blog-home-header" id="blog">
+        <div class="home-hero-shell text-center py-4 py-md-5">
+            <div class="home-pill-row">
+                <span class="home-pill">Development</span>
+                <span class="home-pill">Mindset</span>
+                <span class="home-pill">C# / .NET</span>
+            </div>
+            <h1>Benvenuto/a nel mio blog!</h1>
+            <p>Esplora i miei articoli e approfondimenti sul mondo dello sviluppo software e del mindset.</p>
+        </div>
     </header>
 
     <!-- Introductory Section -->
@@ -76,7 +160,7 @@
         </p>
     </section>
     <!-- Main Content -->
-    <main class="container">
+    <main class="container home-sections">
         <!-- Main Sections -->
         <section id="main-sections" class="mb-5">
             <div class="row">
