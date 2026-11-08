@@ -176,14 +176,15 @@ code[class*="language-"] {
 .hero-section {
     position: relative;
     background: url('../images/index/index2.webp') no-repeat center center;
-    background-size: 110% auto;
+    background-size: cover; /* Cambiato da 110% auto per riempire sempre lo schermo */
     background-attachment: fixed;
-    height: 75vh;
+    /* RIMUOVI height: 75vh; e padding: 0 20px; */
+    min-height: 75vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 20px;
+    margin-top: -1px; /* Hack per eliminare il microscopico gap di sub-pixel rendering */
 }
 
 /* Overlay per contrasto migliore */
@@ -510,76 +511,78 @@ section.missione {
     text-align: center;
 }
 
+/* ==========================================
+   HEADER GLOBALE
+   ========================================== */
 .site-header {
     position: sticky;
     top: 0;
     z-index: 1030;
     --header-bg: #0F172A;
-    --header-border: rgba(255, 255, 255, 0.08);
-    --header-link: #F8FAFC;
-    --header-link-hover: #FFFFFF;
-    --footer-link: #F8FAFC;
-    --header-accent: var(--secondary);
-    --header-brand-hover: #FDBA74;
-    --bs-navbar-color: var(--header-link);
-    --bs-navbar-hover-color: var(--header-link-hover);
-    --bs-navbar-active-color: var(--header-link-hover);
-    --bs-navbar-brand-color: var(--header-link-hover);
-    --bs-navbar-brand-hover-color: var(--header-brand-hover);
-    --bs-navbar-toggler-border-color: transparent;
-    background-color: var(--header-bg);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--header-bg);
+    border-bottom: 0;
     box-shadow: none;
-    transition: background-color var(--transition-standard), border-color var(--transition-standard), box-shadow var(--transition-standard);
+    transition: background var(--transition-standard), box-shadow var(--transition-standard);
 }
 
 .site-nav {
     max-width: 1180px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
-    gap: 1rem;
+    margin: 0 auto;
+    padding: 0.85rem 1rem;
     width: 100%;
 }
 
-.site-header .navbar {
-    color: var(--header-link);
+/* Stile base dei testi nell'header */
+.site-brand,
+.site-header .nav-link {
+    color: #F8FAFC !important;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.site-brand {
-    color: var(--header-link-hover);
-    font-size: clamp(1rem, 1.2vw, 1.4rem);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    max-width: none;
-    white-space: normal;
-    flex: 1 1 auto;
-    min-width: 0;
-}
-
+/* Hover Brand */
 .site-brand:hover,
 .site-brand:focus-visible {
-    color: var(--header-brand-hover);
+    color: var(--secondary) !important;
+    text-shadow: 0 0 12px rgba(234, 88, 12, 0.5);
 }
 
-.site-nav-collapse {
-    border-radius: 0;
+/* Hover Link Menu - L'effetto sottolineato arancione */
+.site-header .nav-link {
+    position: relative;
+    background: transparent;
+    border: 0;
 }
 
-.site-header.is-scrolled {
-    box-shadow: var(--shadow-md);
+.site-header .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--secondary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-standard);
 }
 
-.site-header .navbar-toggler {
-    border-color: transparent;
-    flex: 0 0 auto;
-    color: var(--header-link-hover);
+.site-header .nav-link:hover,
+.site-header .nav-link:focus-visible,
+.site-header .nav-link.active,
+.site-header .nav-link[aria-current="page"] {
+    color: var(--secondary) !important;
 }
 
+.site-header .nav-link:hover::after,
+.site-header .nav-link:focus-visible::after,
+.site-header .nav-link.active::after,
+.site-header .nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+}
+
+/* Toggler Menu Mobile */
 .site-header .navbar-toggler-icon {
-    background-image: none;
-    background-color: var(--header-link) !important;
+    background-color: #F8FAFC !important;
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M4 7h22M4 15h22M4 23h22' stroke='%23000' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
     mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M4 7h22M4 15h22M4 23h22' stroke='%23000' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
     -webkit-mask-repeat: no-repeat;
@@ -590,107 +593,30 @@ section.missione {
     mask-size: 100% 100%;
 }
 
-.site-nav-list {
-    background: transparent;
-}
-
-.site-header .nav-link {
-    position: relative;
-    color: var(--header-link) !important;
-    background: transparent;
-    border: 0;
-    box-shadow: none;
-    transition: color var(--transition-standard);
-}
-
-.site-header .nav-link::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    background: var(--header-accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--transition-standard);
-}
-
-.site-header .nav-link:hover,
-.site-header .nav-link:focus-visible {
-    color: var(--header-link-hover);
-}
-
-.site-header .nav-link:hover::after,
-.site-header .nav-link:focus-visible::after,
-.site-header .nav-link.active::after,
-.site-header .nav-link[aria-current="page"]::after {
-    transform: scaleX(1);
-}
-
-.site-header .nav-link.active,
-.site-header .nav-link[aria-current="page"] {
-    color: var(--header-link-hover);
-    font-weight: 600;
-}
-
-.site-header .navbar-brand:focus-visible,
-.site-header .nav-link:focus-visible,
-.site-header .navbar-toggler:focus-visible {
-    outline: 2px solid var(--header-brand-hover);
-    outline-offset: 2px;
-}
-
+/* Responsive Tablet/Mobile (< 992px) */
 @media (max-width: 991.98px) {
-    .site-header {
-        background-color: rgba(var(--header-bg-rgb), 0.96);
-    }
-
     .site-nav-collapse {
-        width: 100%;
-        margin-top: 0.75rem;
+        background: var(--header-bg) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
         padding: 1rem;
-        background-color: rgba(var(--header-bg-rgb), 0.98) !important;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        position: relative;
-        z-index: 1050;
-    }
-
-    .site-nav-list {
-        gap: 0;
-    }
-
-    .site-nav-list .nav-item + .nav-item {
-        border-top: 1px solid var(--header-border);
+        position: absolute; /* Evita che spinga giù il contenuto */
+        width: 100%;
+        left: 0;
+        top: 100%;
     }
 
     .site-header .nav-link {
-        display: block;
-        width: 100%;
-        min-height: 44px;
-        padding: 0.875rem 1rem;
-        color: var(--header-link) !important;
+        color: #F8FAFC !important; /* Forza il bianco sui link chiusi */
+    }
+
+    .site-header .nav-link:hover,
+    .site-header .nav-link.active {
+        color: var(--secondary) !important; /* Forza l'arancione all'hover */
     }
 
     .site-header .nav-link::after {
         left: 1rem;
         right: 1rem;
-    }
-
-    .site-header .nav-link.active,
-    .site-header .nav-link[aria-current="page"] {
-        border-left: 3px solid var(--header-accent);
-        padding-left: calc(1rem - 3px);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .site-header,
-    .site-header .nav-link,
-    .site-header .nav-link::after,
-    .site-header .navbar-toggler-icon {
-        transition: none;
     }
 }
 
@@ -750,16 +676,6 @@ section.missione {
 .site-footer__brand:hover,
 .site-footer__brand:focus-visible {
     color: var(--header-brand-hover);
-}
-
-.site-brand,
-.site-footer__brand {
-    color: #F8FAFC !important;
-}
-
-.site-brand:hover,
-.site-footer__brand:hover {
-    color: #FFFFFF !important;
 }
 
 .site-footer__copyright {
@@ -896,40 +812,13 @@ section.missione {
 
     .site-nav-collapse {
         width: 100%;
-        margin-top: 0.75rem;
+        margin-top: 0;
         padding: 1rem;
         background-color: var(--header-bg) !important;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        border-top: 0;
+        box-shadow: none;
         position: relative;
         z-index: 1050;
-    }
-
-    .site-nav-list {
-        gap: 0;
-    }
-
-    .site-nav-list .nav-item + .nav-item {
-        border-top: 1px solid var(--header-border);
-    }
-
-    .site-header .nav-link {
-        display: block;
-        width: 100%;
-        min-height: 44px;
-        padding: 0.875rem 1rem;
-        color: var(--header-link) !important;
-    }
-
-    .site-header .nav-link::after {
-        left: 1rem;
-        right: 1rem;
-    }
-
-    .site-header .nav-link.active,
-    .site-header .nav-link[aria-current="page"] {
-        border-left: 3px solid var(--header-accent);
-        padding-left: calc(1rem - 3px);
     }
 }
 
@@ -1339,41 +1228,40 @@ code[class*="language-"] {
 }
 
 /* ---------------------------------------------------------------
-SEZIONE CHI SONO
+SEZIONE CHI SONO (Bio Home)
 --------------------------------------------------------------- */
 
 .about-wrap {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 40px;
+    /* Su Mobile e Tablet (<992px) layout a singola colonna, niente trafiletti stretti */
+    grid-template-columns: 1fr; 
+    gap: 2.5rem;
     align-items: center;
-    justify-content: center;
-    max-width: 1100px;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 1140px;
+    margin: 0 auto;
 }
 
-@media (min-width: 1200px) {
+/* Su Desktop diamo il 40% alla foto e il 60% al testo */
+@media (min-width: 992px) {
     .about-wrap {
-        grid-template-columns: 380px 1fr;
-        gap: 48px;
+        grid-template-columns: 4fr 6fr;
+        column-gap: 4rem;
     }
 }
 
-/* --- Colonna foto --- */
 .about-photo-col {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
+    width: 100%;
 }
 
 .about-photo-frame {
     width: 100%;
     aspect-ratio: 4 / 3;
-    border-radius: var(--radius-md);
+    border-radius: 20px;
     overflow: hidden;
-    border: 1px solid var(--color-primary-light);
 }
 
 .about-photo-frame img {
@@ -1382,9 +1270,20 @@ SEZIONE CHI SONO
     object-fit: cover;
     object-position: center top;
     display: block;
+    /* Sfumatura verso il basso per Mobile/Tablet */
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
 }
 
-/* Badge disponibilità con puntino animato */
+@media (min-width: 992px) {
+    .about-photo-frame img {
+        /* Sfumatura verso destra su Desktop per fondersi col testo */
+        -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 100%);
+        mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 100%);
+    }
+}
+
+/* Status Badge animato */
 .about-status {
     display: inline-flex;
     align-items: center;
@@ -1396,7 +1295,6 @@ SEZIONE CHI SONO
     border: 1px solid var(--color-border-success);
     border-radius: 20px;
     padding: 4px 12px;
-    white-space: nowrap;
 }
 
 .about-status::before {
@@ -1405,51 +1303,39 @@ SEZIONE CHI SONO
     height: 7px;
     border-radius: 50%;
     background: var(--color-success);
-    flex-shrink: 0;
     animation: about-pulse 2s ease-in-out infinite;
 }
 
 @keyframes about-pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.35;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
 }
 
-/* --- Colonna testo --- */
+/* Pulizia del blocco testo: via i margini negativi e le shadow pesanti */
+.about-content--hero {
+    position: relative;
+    padding: 0;
+    background: transparent;
+}
+
 .about-name {
-    font-size: 1.4rem;
+    font-size: clamp(1.8rem, 2.4vw, 2.4rem);
     font-weight: 700;
-    margin: 0 0 4px;
+    margin: 0 0 1rem;
     color: var(--text-main);
-}
-
-.about-role {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin: 0 0 16px;
 }
 
 .about-text {
-    font-size: 14px;
-    color: var(--text-main);
+    font-size: 1.05rem;
+    color: var(--text-secondary);
     line-height: 1.8;
-    margin: 0 0 14px;
-}
-
-.about-text em {
-    font-style: italic;
-    color: var(--color-primary);
+    margin: 0 0 1.5rem;
+    max-width: 70ch;
 }
 
 /* --- Gruppi skill --- */
 .skill-group {
-    margin-bottom: 14px;
+    margin-bottom: 1rem;
 }
 
 .skill-group-label {
@@ -1488,22 +1374,32 @@ SEZIONE CHI SONO
 /* CTA */
 .about-cta {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 1.25rem;
     font-size: 13px;
     font-weight: 600;
     color: var(--color-primary);
-    border: 1.5px solid var(--color-primary-light);
-    border-radius: 7px;
-    padding: 8px 18px;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.2rem 0;
     text-decoration: none;
-    transition: background 0.15s, border-color 0.15s;
+    transition: color 0.15s, transform 0.15s;
 }
 
 .about-cta:hover {
-    background: var(--color-primary-light);
-    border-color: var(--color-primary);
     color: var(--color-primary);
     text-decoration: none;
+    transform: translateX(3px);
+}
+
+.about-content--hero {
+    position: relative;
+    z-index: 2;
+    margin-left: clamp(-2rem, -3vw, -4rem);
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.75rem);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 242, 0.78));
+    border-radius: 32px;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.07);
+    backdrop-filter: blur(2px);
 }
 
 /* --- Responsive mobile --- */
@@ -1525,6 +1421,15 @@ SEZIONE CHI SONO
         /* griglia → blocco, niente più colonne */
     }
 
+    .about-content--hero {
+        margin-left: 0;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        backdrop-filter: none;
+    }
+
     .about-photo-col {
         width: 100%;
         margin-bottom: 24px;
@@ -1540,6 +1445,14 @@ SEZIONE CHI SONO
         max-width: 100%;
         height: auto;
         aspect-ratio: 4 / 3;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    .about-status--hero {
+        margin-right: 0;
+        margin-left: 0;
+        align-self: flex-start;
     }
 }
 
