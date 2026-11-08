@@ -183,7 +183,8 @@
 
         <!-- SEZIONE 1: Intro e Foto -->
         <div class="row align-items-center mb-5 pb-4 border-bottom">
-            <div class="col-lg-6 mb-4 mb-lg-0 story-section pe-lg-4">
+            <!-- Aggiunto col-12 per vincolare la larghezza su smartphone -->
+            <div class="col-12 col-lg-6 mb-4 mb-lg-0 story-section pe-lg-4">
                 <h1 class="display-5 fw-bold mb-4 gradient-text">Benvenuto/a! <span
                         class="fs-3 d-block mt-2 text-muted">Piacere di averti qui!</span></h1>
                 <p class="lead fw-bold mb-2">Ciao, sono Marco Morello!</p>
@@ -199,10 +200,11 @@
                     che ci ha letteralmente affascinati e che rappresenta bene la nostra voglia di scoprire strade
                     nuove.</p>
             </div>
-            <!-- Colonna Foto -->
-            <div class="col-lg-6 text-center">
-                <img src="../images/chisono/io-e-cri.webp" class="hero-img-cover shadow-lg"
-                    alt="Marco e Cristina nel deserto di Merzouga" />
+            <!-- Colonna Foto: col-12 assicura che non sfori su mobile -->
+            <div class="col-12 col-lg-6 text-center mt-4 mt-lg-0">
+                <!-- img-fluid e w-100 sono il lucchetto che blocca l'immagine -->
+                <img src="../images/chisono/io-e-cri.webp" class="img-fluid w-100 hero-img-cover shadow-lg"
+                    alt="Marco e Cristina nel deserto di Merzouga" loading="lazy" />
             </div>
         </div>
 
