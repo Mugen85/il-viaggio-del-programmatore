@@ -72,6 +72,13 @@ PALETTE E VARIABILI GLOBALI (L'Officina Digitale)
     --bg-card: var(--surface);
     --text-main: var(--text-primary);
     --text-muted-legacy: var(--text-muted);
+    --page-bg-color: var(--bg-page);
+    --header-bg: #0F172A;
+    --footer-bg: #0F172A;
+    --footer-bg: #0F172A;
+    --header-text: #F8FAFC;
+    --footer-text: #F8FAFC;
+    --border-divider: rgba(255, 255, 255, 0.08);
 }
 
 /* ========================================= */
@@ -82,6 +89,10 @@ body {
     color: var(--text-primary);
     line-height: 1.75;
 }
+
+body.page-home { --header-bg: linear-gradient(135deg, var(--color-mindset-start), var(--color-mindset-end)); --footer-bg: #0F172A; }
+body.page-blog { --header-bg: linear-gradient(135deg, var(--color-development-start), var(--color-development-end)); --footer-bg: #0F172A; }
+body.page-about { --header-bg: #0F172A; --footer-bg: #0F172A; }
 
 html {
     scroll-behavior: smooth;
@@ -165,7 +176,7 @@ code[class*="language-"] {
 .hero-section {
     position: relative;
     background: url('../images/index/index2.webp') no-repeat center center;
-    background-size: cover;
+    background-size: 110% auto;
     background-attachment: fixed;
     height: 75vh;
     display: flex;
@@ -192,14 +203,14 @@ code[class*="language-"] {
     position: relative;
     z-index: 2;
     max-width: 100%;
-    width: min(800px, 100%);
+    width: min(900px, 100%);
     padding-left: clamp(1rem, 3vw, 2rem);
     padding-right: clamp(1rem, 3vw, 2rem);
 }
 
 /* Stile per il titolo */
 .hero-section h1 {
-    font-size: clamp(1.75rem, 4vw, 3.6rem);
+    font-size: clamp(2rem, 4.8vw, 4.4rem);
     font-weight: 700;
     line-height: 1.15;
     max-width: 100%;
@@ -212,7 +223,7 @@ code[class*="language-"] {
 
 /* Stile per il sottotitolo */
 .hero-subtitle {
-    font-size: 1.4rem;
+    font-size: clamp(1.15rem, 1.8vw, 1.75rem);
     font-weight: 400;
     margin-top: 10px;
     opacity: 0.9;
@@ -300,14 +311,15 @@ code[class*="language-"] {
         height: auto;
         padding: 100px 20px;
         background-attachment: scroll;
+        background-size: cover;
     }
 
     .hero-section h1 {
-        font-size: 2.5rem;
+        font-size: clamp(2rem, 5.5vw, 3rem);
     }
 
     .hero-subtitle {
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 2.8vw, 1.3rem);
     }
 
     .btn-hero {
@@ -323,7 +335,7 @@ code[class*="language-"] {
 
 /* Stile del testo per maggiore leggibilità */
 .hero-section h1 {
-    font-size: clamp(1.75rem, 4vw, 3.6rem);
+    font-size: clamp(2rem, 4.8vw, 4.4rem);
     font-weight: 700;
     line-height: 1.15;
     margin-bottom: 30px;
@@ -334,9 +346,9 @@ code[class*="language-"] {
 }
 
 .hero-section p {
-    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-size: clamp(1.05rem, 1.9vw, 1.5rem);
     /* Testo adattabile tra 1rem e 1.5rem */
-    max-width: 800px;
+    max-width: 860px;
     /* Impedisce che il testo diventi troppo largo */
     margin: 0 auto 20px auto;
     /* Centra e aggiunge spazio tra i paragrafi */
@@ -346,14 +358,18 @@ code[class*="language-"] {
 
 /* Per dispositivi molto piccoli */
 @media (max-width: 480px) {
+    .hero-section {
+        background-size: cover;
+    }
+
     .hero-section h1 {
-        font-size: 1.8rem;
+        font-size: 1.9rem;
         line-height: 1.4;
         /* Spazio leggermente maggiore per migliorare leggibilità */
     }
 
     .hero-section p {
-        font-size: 1rem;
+        font-size: 1.02rem;
         line-height: 1.7;
         /* Testo più leggibile su schermi piccoli */
         margin-bottom: 15px;
@@ -502,6 +518,7 @@ section.missione {
     --header-border: rgba(255, 255, 255, 0.08);
     --header-link: #F8FAFC;
     --header-link-hover: #FFFFFF;
+    --footer-link: #F8FAFC;
     --header-accent: var(--secondary);
     --header-brand-hover: #FDBA74;
     --bs-navbar-color: var(--header-link);
@@ -510,8 +527,8 @@ section.missione {
     --bs-navbar-brand-color: var(--header-link-hover);
     --bs-navbar-brand-hover-color: var(--header-brand-hover);
     --bs-navbar-toggler-border-color: transparent;
-    background: var(--header-bg) !important;
-    border-bottom: 1px solid var(--header-border);
+    background-color: var(--header-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: none;
     transition: background-color var(--transition-standard), border-color var(--transition-standard), box-shadow var(--transition-standard);
 }
@@ -626,14 +643,14 @@ section.missione {
 
 @media (max-width: 991.98px) {
     .site-header {
-        background: var(--header-bg);
+        background-color: rgba(var(--header-bg-rgb), 0.96);
     }
 
     .site-nav-collapse {
         width: 100%;
         margin-top: 0.75rem;
         padding: 1rem;
-        background-color: var(--header-bg) !important;
+        background-color: rgba(var(--header-bg-rgb), 0.98) !important;
         border-top: 1px solid rgba(255,255,255,0.1);
         box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         position: relative;
@@ -680,9 +697,9 @@ section.missione {
 .site-footer {
     width: 100%;
     margin-top: 0;
-    background-color: #0F172A !important;
-    border-top: none;
-    color: var(--header-link);
+    background-color: var(--footer-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--footer-link);
     position: relative;
 }
 
