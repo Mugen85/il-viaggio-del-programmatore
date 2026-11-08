@@ -1233,34 +1233,37 @@ SEZIONE CHI SONO (Bio Home)
 
 .about-wrap {
     display: grid;
-    /* Su Mobile e Tablet (<992px) layout a singola colonna, niente trafiletti stretti */
-    grid-template-columns: 1fr; 
-    gap: 2.5rem;
-    align-items: center;
+    grid-template-columns: 1fr;
+    align-items: start;
     max-width: 1140px;
     margin: 0 auto;
+    background: var(--surface-variant);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
 }
 
-/* Su Desktop diamo il 40% alla foto e il 60% al testo */
 @media (min-width: 992px) {
     .about-wrap {
-        grid-template-columns: 4fr 6fr;
-        column-gap: 4rem;
+        grid-template-columns: 5fr 7fr;
     }
 }
 
 .about-photo-col {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 12px;
+    align-items: stretch;
+    justify-content: center;
     width: 100%;
+    height: 100%;
 }
 
 .about-photo-frame {
     width: 100%;
     aspect-ratio: 4 / 3;
-    border-radius: 20px;
+    border-radius: var(--radius-md);
     overflow: hidden;
 }
 
@@ -1270,17 +1273,7 @@ SEZIONE CHI SONO (Bio Home)
     object-fit: cover;
     object-position: center top;
     display: block;
-    /* Sfumatura verso il basso per Mobile/Tablet */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
-}
-
-@media (min-width: 992px) {
-    .about-photo-frame img {
-        /* Sfumatura verso destra su Desktop per fondersi col testo */
-        -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 100%);
-        mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 100%);
-    }
+    border-radius: var(--radius-md);
 }
 
 /* Status Badge animato */
@@ -1295,6 +1288,8 @@ SEZIONE CHI SONO (Bio Home)
     border: 1px solid var(--color-border-success);
     border-radius: 20px;
     padding: 4px 12px;
+    margin-top: 1rem;
+    align-self: center;
 }
 
 .about-status::before {
@@ -1335,7 +1330,21 @@ SEZIONE CHI SONO (Bio Home)
 
 /* --- Gruppi skill --- */
 .skill-group {
-    margin-bottom: 1rem;
+    margin: 0;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.skills-grid .skill-group {
+    padding: 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
 }
 
 .skill-group-label {
@@ -1394,12 +1403,18 @@ SEZIONE CHI SONO (Bio Home)
 .about-content--hero {
     position: relative;
     z-index: 2;
-    margin-left: clamp(-2rem, -3vw, -4rem);
-    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.75rem);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 242, 0.78));
-    border-radius: 32px;
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.07);
-    backdrop-filter: blur(2px);
+    margin-left: 0;
+    padding: 1.5rem;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+@media (min-width: 992px) {
+    .about-content--hero {
+        padding: 3rem;
+    }
 }
 
 /* --- Responsive mobile --- */
@@ -1416,18 +1431,8 @@ SEZIONE CHI SONO (Bio Home)
         padding-right: 1rem;
     }
 
-    .about-wrap {
-        display: block;
-        /* griglia → blocco, niente più colonne */
-    }
-
     .about-content--hero {
-        margin-left: 0;
-        padding: 0;
-        background: transparent;
-        border-radius: 0;
-        box-shadow: none;
-        backdrop-filter: none;
+        padding: 1.5rem;
     }
 
     .about-photo-col {
@@ -1444,9 +1449,9 @@ SEZIONE CHI SONO (Bio Home)
         width: 100%;
         max-width: 100%;
         height: auto;
-        aspect-ratio: 4 / 3;
-        -webkit-mask-image: none;
-        mask-image: none;
+        aspect-ratio: auto;
+        -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 72%, rgba(0, 0, 0, 0) 100%);
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 72%, rgba(0, 0, 0, 0) 100%);
     }
 
     .about-status--hero {
