@@ -145,6 +145,15 @@
             transform: scale(1.1) rotate(5deg);
         }
 
+        .passion-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .passion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+        }
+
         .profile-img {
             border-radius: 24px !important;
             transition: transform 0.5s ease, box-shadow 0.5s ease;
@@ -169,99 +178,116 @@
     <!-- Include Header -->
     <div id="header-placeholder"></div>
 
-    <div class="col-12 mb-sm-4" style="height: 50px;"></div>
-
     <!-- Main content -->
     <main class="container about-container py-4">
 
-        <!-- SEZIONE 1: Intro e Foto affiancata -->
+        <!-- SEZIONE 1: Intro e Foto -->
         <div class="row align-items-center mb-5 pb-4 border-bottom">
-            <div class="col-lg-7 mb-4 mb-lg-0 story-section">
-                <h2 class="display-5 fw-bold mb-4 gradient-text">Benvenuto/a! <span class="fs-3 d-block mt-2"
-                        style="-webkit-text-fill-color: initial; color: #6c757d;">Piacere di
-                        averti qui!</span></h2>
-                <p class="lead fw-bold">Ciao, sono Marco Morello! Benvenuto sul mio sito!</p>
-                <p>Se sei qui è perché <i>sono riuscito a incuriosirti</i> un po' e ne sono contento.</p>
-                <p>Sono un 40enne alle prese con mille domande sulla propria vita.</p>
-                <p><strong>Nasco a Genova</strong> nell'ormai lontano 1985 e cresco in questa città di mare e montagne.
-                </p>
-                <p>Sono cresciuto in periferia e ne sono contento riflettendoci oggi con le esperienze
-                    di vita che ho vissuto.</p>
-                <p>Sono una persona normale, che conduce una vita abbastanza normale, ma con <strong>grandi sogni e
-                        ambizioni</strong>.</p>
+            <div class="col-lg-6 mb-4 mb-lg-0 story-section pe-lg-4">
+                <h2 class="display-5 fw-bold mb-4 gradient-text">Benvenuto/a! <span
+                        class="fs-3 d-block mt-2 text-muted">Piacere di averti qui!</span></h2>
+                <p class="lead fw-bold mb-2">Ciao, sono Marco Morello!</p>
+                <p class="mb-2">Se sei qui è perché <i>sono riuscito a incuriosirti</i> un po' e ne sono contento.</p>
+                <p class="mb-2"><strong>Nasco a Genova</strong> nell'ormai lontano 1985 e cresco in questa città di mare
+                    e montagne. Oggi sono un quarantenne alle prese con la continua voglia di evolversi, con grandi
+                    sogni e ambizioni.</p>
+                <p class="mb-2">Sono cresciuto in periferia e, riflettendoci oggi con le esperienze che ho vissuto, ne
+                    sono contento.</p>
+                <p class="mb-0">Oltre al codice e all'officina, la mia più grande passione è viaggiare, in moto e non,
+                    insieme alla mia compagna Cristina. La foto qui accanto ci ritrae nel deserto di Merzouga, un luogo
+                    che ci ha letteralmente affascinati e che rappresenta bene la nostra voglia di scoprire strade
+                    nuove.</p>
             </div>
-            <div class="col-lg-5 text-center">
-                <img src="../images/chisono/io-e-cri.webp" class="img-fluid profile-img shadow-lg"
-                    alt="Marco Morello e Cristina" style="max-height: 600px; object-fit: cover;" />
+            <!-- Colonna Foto: prende la sua metà su PC, va sotto su mobile, non si deforma -->
+            <div class="col-lg-6 text-center">
+                <img src="../images/chisono/io-e-cri.webp" class="hero-img-cover shadow-lg"
+                    alt="Marco e Cristina nel deserto di Merzouga" />
             </div>
         </div>
 
-        <!-- SEZIONE 2: La storia (Colonna singola centrata e ariosa) -->
-        <div class="row justify-content-center story-section mb-5">
-            <div class="col-lg-10">
+        <!-- SEZIONE 2: Il mio percorso -->
+        <div class="row justify-content-center mt-5 mb-5">
+            <div class="col-12 text-center mb-4">
+                <h3 class="display-6 fw-bold gradient-text">Il mio percorso</h3>
+                <p class="fs-5 text-muted fs-5 mx-auto">Dalla diagnostica industriale all'architettura software.</p>
+            </div>
 
-                <h3 class="story-chapter-title fs-4">Le prime sfide</h3>
-                <p>Non sono mai stato quello che da adolescente tutti cercano, ma <strong>ho dovuto conquistare la mia
-                        sicurezza</strong> negli anni.</p>
-                <p><strong>Ho dovuto combattere con l'obesità</strong> alle medie, periodo tra i peggiori probabilmente
-                    per esserlo, ma sono sopravvissuto!</p>
-                <p>Ovviamente è ironico e spero di non offendere nessuno, ma non nego che è stata una bella prova,
-                    superare le continue prese in giro dei coetanei, alcune fatte innocentemente e altre con cattiveria.
-                </p>
-                <p>Tuttavia questa situazione mi ha instradato a diventare la persona che sono oggi, quindi non posso
-                    che essere grato anche dell'aver subito del bullismo (come viene definito oggi)!</p>
-
-                <div class="highlight-quote shadow-sm">
-                    <p class="mb-0 fs-5">Tanto è vero che dopo le medie ho iniziato ad allenarmi in palestra, prima per
-                        dimostrare agli altri di cosa ero capace, ma poi col tempo ho capito che se lo facevo
-                        principalmente per me ero ancora più motivato e soddisfatto.</p>
+            <div class="col-12 col-lg-10 mx-auto">
+                <!-- Card 1 -->
+                <div class="card mb-4 border-0 shadow-sm rounded-4 bg-light percorso-card">
+                    <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center gap-4">
+                        <img src="../images/blog/mindset/adattamento.webp" alt="Manutenzione"
+                            class="rounded-3 shadow-sm" style="width: 200px; height: auto; object-fit: cover;">
+                        <div class="text-start w-100">
+                            <span class="text-primary fw-bold font-monospace mb-2 d-block">2010 – 2022</span>
+                            <h4 class="fw-bold mb-2">La trincea della Manutenzione</h4>
+                            <p class="text-muted mb-0">Per oltre dodici anni, tra linee alimentari e camere bianche
+                                farmaceutiche ISO, ho fatto il manutentore. Il mio pane quotidiano era il
+                                <em>fault-finding</em>: arrivare a linea ferma, capire cosa non andava sotto pressione e
+                                far ripartire il motore. Il mindset per il debugging l'ho forgiato qui, con il grasso
+                                sulle mani.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <h3 class="story-chapter-title fs-4">Crisi e consapevolezza</h3>
-                <p>Infatti non ho più smesso per molti anni e anzi, ho iniziato ad andare in <strong>mountain
-                        bike</strong>, grazie a un mio ex collega. Sì, perché nel frattempo si cresce e si inizia a
-                    lavorare.</p>
-                <p>E qui iniziano le prime "<strong>crisi di identità</strong>" che mi hanno portato ad affrontare tanti
-                    scheletri nell'armadio, che piano piano ho eliminato con soddisfazione.</p>
-                <p>A partire dal percorso di studi dopo le medie, che mi ha portato a essere un <strong>ragioniere
-                        perito programmatore</strong>, che mi fa un po' ridere perché mi viene in mente il ragionier
-                    Fantozzi.</p>
-                <p>Percorso scelto un po' a caso (a 13 anni non si hanno le idee molto chiare) e per seguire qualcuno
-                    che ritenevo una persona che mi ispirava fiducia in quel momento. Poi però ha scelto un'altra strada
-                    e mi ha lasciato da solo, ma forse anche questo è stato un bene, perché ho conosciuto un sacco di
-                    persone meravigliose che frequento ancora oggi!</p>
+                <!-- Card 2 -->
+                <div class="card mb-4 border-0 shadow-sm rounded-4 bg-light percorso-card">
+                    <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center gap-4">
+                        <img src="../images/blog/development/software-architecture.webp" alt="Codice"
+                            class="rounded-3 shadow-sm" style="width: 200px; height: auto; object-fit: cover;">
+                        <div class="text-start w-100">
+                            <span class="text-primary fw-bold font-monospace mb-2 d-block">2023 – 2024</span>
+                            <h4 class="fw-bold mb-2">La scintilla e l'Architettura</h4>
+                            <p class="text-muted mb-0">L'esperienza come Junior Dev per sistemi gestionali (SQL, VBA) e
+                                il master da Software Architect (DevBull) mi aprono gli occhi. Capisco che il reverse
+                                engineering meccanico e il debugging del codice C# richiedono la stessa logica. Inizio a
+                                strutturare i miei primi applicativi .NET con i princìpi della Clean Architecture.</p>
+                        </div>
+                    </div>
+                </div>
 
-                <h3 class="story-chapter-title fs-4">I fuorigiri e la direzione</h3>
-                <p>Poi ci sono stati <strong>i mille lavori cambiati</strong> e <strong>i mille corsi
-                        frequentati</strong>, di cui ti
-                    racconterò nel mio blog.</p>
-                <p>La <strong>continua ricerca di affermazione e accettazione</strong> fino al punto di fare disastri
-                    economici per avere gli ultimi accessori alla moda.</p>
-                <p>Insomma diciamo che ho affrontato diverse situazioni esteriori e interiori
-                    che mi hanno portato qui dove sei ora, cioè sul <strong>mio sito personale</strong>.</p>
+                <!-- Card 3 -->
+                <div class="card mb-4 border-0 shadow-sm rounded-4 bg-light percorso-card">
+                    <div class="card-body p-4 d-flex flex-column flex-md-row align-items-center gap-4">
+                        <img src="../images/blog/development/plc-bridge-cover.webp" alt="Montaggio"
+                            class="rounded-3 shadow-sm" style="width: 200px; height: auto; object-fit: cover;">
+                        <div class="text-start w-100">
+                            <span class="text-primary fw-bold font-monospace mb-2 d-block">Set. 2025 – Oggi</span>
+                            <h4 class="fw-bold mb-2">Montatore Meccanico &amp; Sviluppatore</h4>
+                            <p class="text-muted mb-0">In A.L.B.A. Srl assemblo macchinari industriali partendo da zero,
+                                leggendo schemi complessi e collaudando impianti. Parallelamente, continuo a scrivere
+                                codice: lo stesso rigore che uso per serrare i raccordi ad alta pressione lo applico
+                                quando scrivo Unit Test o definisco interfacce software.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- SEZIONE 3: Mission -->
+        <!-- SEZIONE MISSION -->
         <div class="row justify-content-center mb-5">
-            <div class="col-lg-10">
-                <section class="p-5 mission-section position-relative overflow-hidden">
-                    <div class="position-absolute mission-icon" style="padding: 10px;">🎯</div>
+            <div class="col-12">
+                <section class="p-4 p-md-5 mission-section position-relative overflow-hidden text-center">
+                    <div class="position-absolute mission-icon">🎯</div>
                     <h3 class="mb-4 text-primary position-relative z-1 fw-bold">La mia missione</h3>
 
-                    <div class="position-relative z-1 story-section">
-                        <p class="fs-5">Questo sito è il mio laboratorio e il mio diario di bordo.</p>
-                        <p>Il mio focus centrale, il "motore" su cui lavoro ogni giorno, è lo <strong>sviluppo software
-                                nell'ecosistema C# e .NET</strong>. Progetto architetture pulite, sviluppo app con .NET
-                            MAUI e backend con ASP.NET Core. Non mi interessa scrivere script che "funzionano per
-                            miracolo": voglio capire i princìpi e costruire sistemi robusti e testabili.</p>
-                        <p>E i siti web? Quelli li scrivo in <strong>puro HTML e CSS</strong> per il puro gusto
-                            dell'ottimizzazione estrema. Lo faccio per divertimento e per aiutare piccole realtà ad
-                            avere una presenza online
-                            velocissima, senza la zavorra di CMS pesanti.</p>
+                    <div class="position-relative z-1 story-section d-flex flex-column align-items-center">
+                        <p class="fs-5 mx-auto">Questo sito è il mio laboratorio e il mio diario di bordo.</p>
+                        <p class="mx-auto">Il mio focus centrale, il "motore" su cui lavoro ogni giorno, è lo
+                            <strong>sviluppo software nell'ecosistema C# e .NET</strong>. Progetto architetture pulite,
+                            sviluppo app con .NET MAUI e backend con ASP.NET Core. Non mi interessa scrivere script che
+                            "funzionano per miracolo": voglio capire i princìpi e costruire sistemi robusti e testabili.
+                        </p>
+                        <p class="mx-auto">E i siti web? Quelli li scrivo in <strong>puro HTML e CSS</strong> per il
+                            puro gusto dell'ottimizzazione estrema. Lo faccio per divertimento e per aiutare piccole
+                            realtà ad avere una presenza online velocissima, senza la zavorra di CMS pesanti.</p>
 
-                        <p class="mt-4 mb-3 fw-bold">Per questo oggi mi propongo come:</p>
-                        <ul class="list-group list-group-flush bg-transparent mb-4 fs-5">
+                        <p class="mt-4 mb-3 fw-bold mx-auto">Per questo oggi mi propongo come:</p>
+
+                        <!-- Lista allineata a sx ma centrata nella pagina -->
+                        <ul class="list-group list-group-flush bg-transparent mb-4 fs-5 text-start mx-auto"
+                            style="max-width: 800px;">
                             <li class="list-group-item bg-transparent border-0 ps-0 pb-3"><i
                                     class="bi bi-code-slash text-primary me-2"></i> ⚙️ <strong>Sviluppatore C# /
                                     .NET</strong>, per aziende o team (anche freelance/part-time) che cercano qualcuno
@@ -276,7 +302,9 @@
                                 software con la mentalità da maratoneta, non da scattista.</li>
                         </ul>
 
-                        <div class="alert alert-primary border-0 bg-white shadow-sm mb-0 fs-5">
+                        <!-- Alert centrato -->
+                        <div class="alert alert-primary border-0 bg-white shadow-sm mb-0 fs-5 mx-auto"
+                            style="max-width: 800px;">
                             <strong>La mia missione non è solo tecnica, è anche personale:</strong> migliorare ogni
                             giorno, costruire valore reale e ispirare altri a fare lo stesso, senza scorciatoie e con
                             tanta verità.
@@ -286,40 +314,69 @@
             </div>
         </div>
 
-        <!-- SEZIONE 4: Il Sito e gli Obiettivi (Sempre centrata) -->
-        <div class="row justify-content-center mb-5 story-section">
-            <div class="col-lg-10">
-                <h3 class="story-chapter-title fs-4">L'officina del codice</h3>
-                <p>Tutto questo fa parte di una delle conquiste che ho accumulato nel tempo, capendo cosa mi faceva
-                    stare male dentro e fuori e cosa invece mi dava gioia e soddisfazione.</p>
-                <p>Questo sito è creato <strong>interamente da me</strong>, riga per riga, con ciò che ho imparato negli
-                    ultimi anni.
-                </p>
-                <p><strong>Nasce dalla volontà di creare qualcosa di mio</strong>. Non per essere al centro
-                    dell'attenzione, ma piuttosto per <strong>aiutare qualcuno</strong> che ha
-                    vissuto o sta vivendo situazioni simili, e far capire che se siamo insoddisfatti o soffriamo per
-                    emozioni negative, la maggior parte delle volte la causa siamo noi stessi.</p>
-                <p>Qui ti parlerò della mia <strong>evoluzione personale</strong>, che continua tuttora e che non
-                    interromperò mai, del mio <strong>percorso da programmatore</strong>
-                    (ecco perché "il viaggio del programmatore"), di <strong>mindset</strong> e decisioni, e delle mie
-                    più grandi passioni: <strong>la moto, i viaggi e i viaggi in moto</strong>.</p>
+        <!-- GRIGLIA PASSIONI -->
+        <div class="row mt-5 mb-5">
+            <div class="col-12 text-center mb-4">
+                <h3 class="display-6 fw-bold gradient-text">Fuori dall'IDE</h3>
+                <p class="fs-5 text-muted mx-auto">L'equilibrio si trova lontano dagli schermi.</p>
+            </div>
 
-                <div class="text-center mt-5 p-4 bg-white rounded shadow-sm border border-light">
-                    <p class="fs-5 mb-0">Lo scopo per cui costruirò tutto questo, giorno dopo giorno, è per perseguire
-                        il mio più grande <strong>obiettivo</strong>:<br>
-                        <span class="text-primary fw-bold display-6 d-block mt-3">diventare un affermato architetto
-                            software e vivere la vita appieno!</span>
-                    </p>
-                </div>
+            <!-- MOTO -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="../blog/mindset-section/011-piloti-della-propria-vita.html"
+                    class="card border-0 shadow-sm h-100 text-decoration-none passion-card">
+                    <!-- height: auto impedisce il taglio verticale -->
+                    <img src="../images/blog/mindset/piloti-della-propria-vita.webp" alt="Viaggi in moto"
+                        class="card-img-top" style="height: auto; width: 100%; display: block;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <span class="badge bg-secondary align-self-start mb-3 px-3 py-2 text-uppercase">Leggi
+                            l'articolo</span>
+                        <h4 class="fw-bold text-dark">Yamaha XT1200Z &amp; Il Viaggio</h4>
+                        <p class="text-muted mb-0">In sella, come nel software, non conta la velocità di punta, ma la
+                            resistenza, la pianificazione e la capacità di gestire gli imprevisti di percorso.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- CALISTHENICS -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="../blog/mindset-section/012-il-motore-perfetto.html"
+                    class="card border-0 shadow-sm h-100 text-decoration-none passion-card">
+                    <img src="../images/blog/mindset/il-motore-perfetto.webp" alt="Calisthenics" class="card-img-top"
+                        style="height: auto; width: 100%; display: block;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <span class="badge bg-secondary align-self-start mb-3 px-3 py-2 text-uppercase">Leggi
+                            l'articolo</span>
+                        <h4 class="fw-bold text-dark">Calisthenics</h4>
+                        <p class="text-muted mb-0">Disciplina e corpo libero da oltre 10 anni. La costruzione della
+                            forza richiede pazienza e costanza: un mattoncino alla volta si costruisce una struttura
+                            solida, proprio come nel codice.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- MTB -->
+            <div class="col-12 col-md-4 mb-4">
+                <a href="../blog/mindset-section/009-aspettative-e-mtb.html"
+                    class="card border-0 shadow-sm h-100 text-decoration-none passion-card">
+                    <img src="../images/blog/mindset/aspettative-mtb.webp" alt="Mountain Bike" class="card-img-top"
+                        style="height: auto; width: 100%; display: block;">
+                    <div class="card-body p-4 d-flex flex-column">
+                        <span class="badge bg-secondary align-self-start mb-3 px-3 py-2 text-uppercase">Leggi
+                            l'articolo</span>
+                        <h4 class="fw-bold text-dark">Mountain Bike</h4>
+                        <p class="text-muted mb-0">Sui pedali da quasi 20 anni. Il fango sui sentieri liguri, le salite
+                            impossibili e la resilienza di non scendere di sella nei momenti più duri.</p>
+                    </div>
+                </a>
             </div>
         </div>
-
-        <!-- NUOVA SEZIONE: Strumenti Condivisi -->
+        <!-- STRUMENTI CONDIVISI -->
         <div class="row mt-5 mb-5 pt-5 border-top">
             <div class="col-12 text-center mb-5">
                 <h3 class="fw-bold display-6">I miei strumenti condivisi</h3>
-                <p class="text-muted fs-5">Appunti e attrezzi del mestiere.<br>Spero possano far risparmiare tempo e
-                    aiutare anche te!</p>
+                <p class="text-muted fs-5 mx-auto">Appunti e attrezzi del mestiere.<br>Spero possano far risparmiare
+                    tempo e aiutare anche te!</p>
             </div>
 
             <div class="col-md-6 mb-4">
@@ -361,7 +418,7 @@
             </div>
         </div>
 
-        <!-- SEZIONE 5: Conclusione e Saluti -->
+        <!-- CONCLUSIONE -->
         <div class="row text-center mt-3 pt-5 border-top story-section">
             <div class="col-lg-10 mx-auto">
                 <p class="fs-5">Sarò felice se vorrai seguirmi, ma lo sarò altrettanto se passerai oltre e ti scorderai

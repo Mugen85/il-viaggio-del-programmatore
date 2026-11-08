@@ -94,6 +94,67 @@ body.page-home { --header-bg: linear-gradient(135deg, var(--color-mindset-start)
 body.page-blog { --header-bg: linear-gradient(135deg, var(--color-development-start), var(--color-development-end)); --footer-bg: #0F172A; }
 body.page-about { --header-bg: #0F172A; --footer-bg: #0F172A; }
 
+/* About page redesign */
+body.page-about {
+    background: var(--bg-page);
+}
+
+body.page-about #header-placeholder,
+body.page-about #footer-placeholder {
+    background: var(--header-bg);
+}
+
+.about-page {
+    padding-bottom: 4rem;
+}
+
+.about-hero,
+.timeline-section,
+.passions-section {
+    position: relative;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    font-size: .78rem;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    padding: .75rem 1rem;
+    border-radius: 999px;
+    background: var(--surface-variant);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.about-hero-media {
+    margin: 0;
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+}
+
+.about-hero-media img {
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--radius-lg) - 4px);
+    display: block;
+}
+
+.section-heading {
+    max-width: 760px;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -819,6 +880,78 @@ section.missione {
         box-shadow: none;
         position: relative;
         z-index: 1050;
+    }
+}
+
+@media (min-width: 1200px) {
+    .about-container {
+        max-width: 85%;
+    }
+}
+
+/* --- CHI SONO: STILI ESSENZIALI --- */
+.hero-img-cover {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+}
+.timeline-card {
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.timeline-card:hover, .passion-card-bs:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--border-subtle);
+    transform: translateX(-50%);
+}
+.timeline-marker {
+    position: absolute;
+    left: 50%;
+    top: 1.5rem;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: var(--surface);
+    border: 4px solid var(--primary);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 0 4px var(--bg-page);
+}
+/* Su mobile nascondiamo asse e pallini nativamente con d-lg-block di Bootstrap */
+.passion-card-bs {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.passion-img-bs {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+@media (max-width: 991.98px) {
+    .timeline-line,
+    .timeline-marker {
+        display: none !important;
     }
 }
 
@@ -1987,4 +2120,100 @@ SEZIONE FAQ
     background: var(--color-accent);
     color: #fff;
     text-decoration: none;
+}
+
+/* =========================================
+   CHI SONO: STILI ESSENZIALI (PULITI)
+   ========================================= */
+
+/* Foto Hero */
+.hero-img-cover {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+}
+
+/* Card Passioni "Fuori dall'IDE" */
+.passion-card-bs {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.passion-card-bs:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    color: inherit;
+}
+
+.passion-img-bs {
+    width: 100%;
+    height: auto;
+    /* NESSUN aspect-ratio, l'immagine prende la sua proporzione naturale */
+    display: block;
+}
+
+/* Animazione Card Percorso */
+.percorso-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.percorso-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-sm) !important;
+}
+
+/* Allargamento del container su desktop */
+@media (min-width: 1200px) {
+    .about-container {
+        max-width: 85%;
+    }
+}
+
+/* Card Passioni "Fuori dall'IDE" - Incolla queste in sostituzione a quelle di prima in fondo a base.css */
+.passion-card-bs {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    height: 100%;
+}
+
+.passion-card-bs:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    color: inherit;
+}
+
+/* LA SOLUZIONE: Un wrapper per incorniciare l'immagine e renderle tutte alte uguali */
+.passion-img-wrapper {
+    width: 100%;
+    height: 280px; /* Altezza maggiorata per non tagliare troppo il soggetto */
+    overflow: hidden;
+    position: relative;
+}
+
+/* L'immagine dentro la cornice si comporta come uno sfondo 'cover' */
+.passion-img-bs {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.passion-card-bs:hover .passion-img-bs {
+    transform: scale(1.03); /* Effetto zoom piacevole al passaggio del mouse */
 }
