@@ -83,8 +83,8 @@
             -webkit-backdrop-filter: blur(8px);
             border-bottom: 1px solid #e2e8f0;
             padding: 0.75rem 0;
-            width: 100%; 
-            overflow-x: hidden; 
+            width: 100%;
+            overflow-x: hidden;
         }
 
         .search-wrap {
@@ -231,7 +231,9 @@
             box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
         }
 
-        .section-intro a { word-break: break-all; }
+        .section-intro a {
+            word-break: break-all;
+        }
 
         .dict-card.hidden {
             display: none;
@@ -342,11 +344,25 @@
             line-height: 1.55;
         }
 
-        .code-keyword { color: #569cd6; }
-        .code-type { color: #4ec9b0; }
-        .code-string { color: #ce9178; }
-        .code-comment { color: #6a9955; }
-        .code-method { color: #dcdcaa; }
+        .code-keyword {
+            color: #569cd6;
+        }
+
+        .code-type {
+            color: #4ec9b0;
+        }
+
+        .code-string {
+            color: #ce9178;
+        }
+
+        .code-comment {
+            color: #6a9955;
+        }
+
+        .code-method {
+            color: #dcdcaa;
+        }
 
         .dict-context {
             padding: 1rem;
@@ -424,25 +440,46 @@
 
     <!-- Page Header -->
     <header class="article-hero development">
-    <div class="article-meta">
-        <span class="article-badge development">Sviluppo & .NET</span>
-        <span><i class="bi bi-calendar3 me-2"></i>Ottobre 2026</span>
-    </div>
-    <h1>Namespace</h1>
-</header>
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <i class="bi bi-braces-asterisk"></i> Sviluppo Software
+            </div>
+            <h1 class="hero-title">Glossario C# - I ferri del mestiere</h1>
+            <div class="hero-meta-bar">
+                <div class="meta-item">
+                    <i class="bi bi-person-bounding-box fs-5"></i>
+                    <span class="fw-bold text-dark">Marco Morello</span>
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-calendar3"></i> Ottobre 2026
+                </div>
+                <div class="meta-item">
+                    <i class="bi bi-clock-history"></i> 10 min read
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- Introductory Section -->
-    <section class="section-intro mb-4 container text-center">
-        <p class="lead">
-            Non la solita teoria accademica, ma una vera e propria <strong>Knowledge Base operativa</strong>. Ogni
-            termine è accompagnato da snippet di codice estratti direttamente dalle mie applicazioni (come MotoLogPro o
-            Wallet Wise), per farti vedere come i concetti si traducono in soluzioni reali.
-        </p>
-        <p class="lead mt-3">
-            <i class="fab fa-github"></i>
-            <strong>Dai un'occhiata al mio profilo GitHub</strong> per esplorare il codice sorgente completo:
-            <a href="https://github.com/Mugen85" target="_blank" rel="noopener noreferrer">github.com/Mugen85</a>
-        </p>
+    <section class="section-intro mb-5 container">
+        <div class="row justify-content-center">
+            <!-- Griglia progressiva: 100% mobile, ~83% tablet, ~66% desktop. mx-auto centra il blocco, text-center centra il testo -->
+            <div class="col-12 col-md-10 col-lg-8 mx-auto text-center">
+                <p class="lead">
+                    Non la solita teoria accademica, ma una vera e propria <strong>Knowledge Base operativa</strong>.
+                    Ogni
+                    termine è accompagnato da snippet di codice estratti direttamente dalle mie applicazioni (come
+                    MotoLogPro o
+                    Wallet Wise), per farti vedere come i concetti si traducono in soluzioni reali.
+                </p>
+                <p class="lead mt-3">
+                    <i class="fab fa-github"></i>
+                    <strong>Dai un'occhiata al mio profilo GitHub</strong> per esplorare il codice sorgente completo:
+                    <a href="https://github.com/Mugen85" target="_blank"
+                        rel="noopener noreferrer">github.com/Mugen85</a>
+                </p>
+            </div>
+        </div>
     </section>
 
     <!-- ═══════════════ STICKY TOOLBAR ═══════════════ -->
@@ -552,7 +589,8 @@
                                 <h4>La regola d'oro</h4>
                                 <p>Principio del minimo privilegio: esponi sempre il meno possibile. Inizia con
                                     <code>private</code>, e allarga la visibilità solo quando strettamente necessario.
-                                    Rende il codice più sicuro e manutenibile.</p>
+                                    Rende il codice più sicuro e manutenibile.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -692,7 +730,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- INCAPSULAMENTO -->
                 <div class="dict-card" data-term="incapsulamento encapsulation nascondere stato" data-tag="pilastro">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseEncapsulation"
@@ -705,10 +743,14 @@
                     </div>
                     <div id="collapseEncapsulation" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Il principio secondo cui i dati (lo stato) e i metodi (il comportamento) di un oggetto sono racchiusi al suo interno. La complessità viene nascosta al mondo esterno tramite i modificatori di accesso.</p>
+                            <p class="definition">Il principio secondo cui i dati (lo stato) e i metodi (il
+                                comportamento) di un oggetto sono racchiusi al suo interno. La complessità viene
+                                nascosta al mondo esterno tramite i modificatori di accesso.</p>
                             <div class="dict-context">
                                 <h4>La metafora dell'Officina</h4>
-                                <p>È il carter del motore. Chi guida la moto non deve sapere come le valvole si muovono o come l'olio lubrifica gli ingranaggi. Ha solo bisogno di una manopola del gas e di una frizione (metodi pubblici) per farla andare.</p>
+                                <p>È il carter del motore. Chi guida la moto non deve sapere come le valvole si muovono
+                                    o come l'olio lubrifica gli ingranaggi. Ha solo bisogno di una manopola del gas e di
+                                    una frizione (metodi pubblici) per farla andare.</p>
                             </div>
                         </div>
                     </div>
@@ -782,7 +824,10 @@
                                 <p>Nel <code>ApplicationDbContext</code> sovrascrivo questo metodo nativo di Entity
                                     Framework. Richiamo prima le logiche base del genitore con
                                     <code>base.OnModelCreating</code>, poi ci aggancio le mie configurazioni custom per
-                                    le tabelle. In officina: se dai il comando "Accendi", una moto a benzina fa la scintilla, una elettrica chiude un circuito. Stesso comando, implementazione diversa.</p>
+                                    le tabelle. In officina: se dai il comando "Accendi", una moto a benzina fa la
+                                    scintilla, una elettrica chiude un circuito. Stesso comando, implementazione
+                                    diversa.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -802,7 +847,8 @@
                         <div class="dict-card-body">
                             <p class="definition">Una classe incompleta che non può essere istanziata direttamente (no
                                 <code>new</code>), ma funge da base concettuale obbligando altre classi a derivare da
-                                essa.</p>
+                                essa.
+                            </p>
                             <div class="code-block">
                                 [<span class="code-type">ApiController</span>]
                                 [<span class="code-type">Route</span>(<span class="code-string">"[controller]"</span>)]
@@ -838,7 +884,8 @@
                         <div class="dict-card-body">
                             <p class="definition">L'opposto dell'abstract: una classe marcata <code>sealed</code>
                                 <em>non può</em> essere ereditata da nessuna altra classe. È la versione finale, chiusa
-                                ad ogni estensione.</p>
+                                ad ogni estensione.
+                            </p>
                             <div class="code-block">
                                 <span class="code-keyword">public sealed class</span> <span
                                     class="code-type">TokenService</span> : <span class="code-type">ITokenService</span>
@@ -1024,7 +1071,8 @@
                         <div class="dict-card-body">
                             <p class="definition">Due modi per rendere un valore non modificabile, con una differenza
                                 cruciale: <code>const</code> è risolto a compile-time (valore noto subito),
-                                <code>readonly</code> è risolto a runtime (valore assegnato nel costruttore).</p>
+                                <code>readonly</code> è risolto a runtime (valore assegnato nel costruttore).
+                            </p>
                             <div class="code-block">
                                 <span class="code-keyword">public class</span> <span class="code-type">ApiConfig</span>
                                 {
@@ -1050,7 +1098,8 @@
                                 <p>Usa <code>const</code> per valori primitivi davvero fissi (stringhe di versione,
                                     limiti numerici). Usa <code>readonly</code> per qualsiasi dipendenza o oggetto
                                     iniettato via costruttore — è il pattern che usi in ogni <code>AuthService</code> o
-                                    <code>ViewModel</code>.</p>
+                                    <code>ViewModel</code>.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1094,7 +1143,8 @@
                 </div>
 
                 <!-- INIT E REQUIRED -->
-                <div class="dict-card" data-term="init required modificatori proprietà immutabilità object initializer" data-tag="struttura">
+                <div class="dict-card" data-term="init required modificatori proprietà immutabilità object initializer"
+                    data-tag="struttura">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseInitRequired"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -1105,26 +1155,37 @@
                     </div>
                     <div id="collapseInitRequired" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Due parole chiave moderne per le proprietà: <code>init</code> sostituisce <code>set</code> permettendo di assegnare il valore solo al momento della creazione dell'oggetto; <code>required</code> obbliga chi crea l'oggetto a valorizzare quella proprietà, pena errore di compilazione.</p>
+                            <p class="definition">Due parole chiave moderne per le proprietà: <code>init</code>
+                                sostituisce <code>set</code> permettendo di assegnare il valore solo al momento della
+                                creazione dell'oggetto; <code>required</code> obbliga chi crea l'oggetto a valorizzare
+                                quella proprietà, pena errore di compilazione.</p>
                             <div class="code-block">
-                                <span class="code-keyword">public class</span> <span class="code-type">MaintenanceLogDto</span>
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">MaintenanceLogDto</span>
                                 {
-                                    <span class="code-keyword">public required int</span> MotorcycleId { <span class="code-keyword">get</span>; <span class="code-keyword">init</span>; }
-                                    <span class="code-keyword">public required string</span> Description { <span class="code-keyword">get</span>; <span class="code-keyword">init</span>; }
-                                    <span class="code-keyword">public decimal</span> Cost { <span class="code-keyword">get</span>; <span class="code-keyword">init</span>; }
+                                <span class="code-keyword">public required int</span> MotorcycleId { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">init</span>; }
+                                <span class="code-keyword">public required string</span> Description { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">init</span>; }
+                                <span class="code-keyword">public decimal</span> Cost { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">init</span>; }
                                 }
 
                                 <span class="code-comment">// Creazione pulita senza costruttori chilometrici</span>
-                                <span class="code-keyword">var</span> log = <span class="code-keyword">new</span> <span class="code-type">MaintenanceLogDto</span>
+                                <span class="code-keyword">var</span> log = <span class="code-keyword">new</span> <span
+                                    class="code-type">MaintenanceLogDto</span>
                                 {
-                                    MotorcycleId = 1,
-                                    Description = <span class="code-string">"Cambio olio e filtro"</span>
+                                MotorcycleId = 1,
+                                Description = <span class="code-string">"Cambio olio e filtro"</span>
                                 };
                                 <span class="code-comment">// log.MotorcycleId = 2; ❌ Errore: è init-only!</span>
                             </div>
                             <div class="dict-context">
                                 <h4>Perché ti salvano la giornata</h4>
-                                <p>Prima dovevi scrivere costruttori con 8 parametri solo per essere sicuro che nessuno creasse un oggetto "incompleto". Con <code>required</code> e <code>init</code> mantieni la comodità delle parentesi graffe <code>new { ... }</code> avendo la certezza matematica che i campi vitali siano presenti e non vengano più toccati.</p>
+                                <p>Prima dovevi scrivere costruttori con 8 parametri solo per essere sicuro che nessuno
+                                    creasse un oggetto "incompleto". Con <code>required</code> e <code>init</code>
+                                    mantieni la comodità delle parentesi graffe <code>new { ... }</code> avendo la
+                                    certezza matematica che i campi vitali siano presenti e non vengano più toccati.</p>
                             </div>
                         </div>
                     </div>
@@ -1181,7 +1242,8 @@
                             <p class="definition">Un <em>delegato</em> è un tipo che rappresenta un riferimento a un
                                 metodo (come un "puntatore a funzione" tipizzato). <code>Action</code> e
                                 <code>Func</code> sono delegati generici predefiniti in .NET che evitano di definire
-                                delegati custom.</p>
+                                delegati custom.
+                            </p>
                             <div class="code-block">
                                 <span class="code-comment">// Action: metodo che non ritorna nulla (void)</span>
                                 <span class="code-type">Action</span>&lt;<span class="code-keyword">string</span>&gt;
@@ -1215,7 +1277,8 @@
                                     <code>.Select()</code>, <code>.OrderBy()</code> accetta in realtà un
                                     <code>Func</code> come parametro. Quando scrivi una lambda
                                     <code>x => x.Brand == "Yamaha"</code>, stai passando una
-                                    <code>Func&lt;Vehicle, bool&gt;</code> in modo compatto.</p>
+                                    <code>Func&lt;Vehicle, bool&gt;</code> in modo compatto.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1367,7 +1430,8 @@
                 </div>
 
                 <!-- COLLEZIONI: IENUMERABLE, LIST, DICTIONARY -->
-                <div class="dict-card" data-term="collezioni list ienumerable dictionary array liste chiave valore" data-tag="struttura">
+                <div class="dict-card" data-term="collezioni list ienumerable dictionary array liste chiave valore"
+                    data-tag="struttura">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseCollections"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -1379,31 +1443,51 @@
                     <div id="collapseCollections" class="collapse">
                         <div class="dict-card-body">
                             <p class="definition">Le tre collezioni con cui lavori ogni singolo giorno:<br>
-                            - <code>IEnumerable&lt;T&gt;</code>: sequenza di sola lettura da scorrere col <code>foreach</code>.<br>
-                            - <code>List&lt;T&gt;</code>: lista dinamica in memoria su cui puoi fare <code>Add()</code> e <code>Remove()</code>.<br>
-                            - <code>Dictionary&lt;K, V&gt;</code>: mappa chiave-valore per ricerche istantanee.</p>
+                                - <code>IEnumerable&lt;T&gt;</code>: sequenza di sola lettura da scorrere col
+                                <code>foreach</code>.<br>
+                                - <code>List&lt;T&gt;</code>: lista dinamica in memoria su cui puoi fare
+                                <code>Add()</code> e <code>Remove()</code>.<br>
+                                - <code>Dictionary&lt;K, V&gt;</code>: mappa chiave-valore per ricerche istantanee.
+                            </p>
                             <div class="code-block">
-                                <span class="code-comment">// 1. IEnumerable: ottimo come ritorno o parametro di sola lettura</span>
-                                <span class="code-keyword">public</span> <span class="code-type">IEnumerable</span>&lt;<span class="code-type">VehicleDto</span>&gt; <span class="code-method">GetActive</span>() => _vehicles.<span class="code-method">Where</span>(v => v.IsActive);
+                                <span class="code-comment">// 1. IEnumerable: ottimo come ritorno o parametro di sola
+                                    lettura</span>
+                                <span class="code-keyword">public</span> <span
+                                    class="code-type">IEnumerable</span>&lt;<span
+                                    class="code-type">VehicleDto</span>&gt; <span class="code-method">GetActive</span>()
+                                => _vehicles.<span class="code-method">Where</span>(v => v.IsActive);
 
-                                <span class="code-comment">// 2. List: quando devi aggiungere o rimuovere elementi</span>
-                                <span class="code-keyword">var</span> logs = <span class="code-keyword">new</span> <span class="code-type">List</span>&lt;<span class="code-type">MaintenanceLog</span>&gt;();
+                                <span class="code-comment">// 2. List: quando devi aggiungere o rimuovere
+                                    elementi</span>
+                                <span class="code-keyword">var</span> logs = <span class="code-keyword">new</span> <span
+                                    class="code-type">List</span>&lt;<span
+                                    class="code-type">MaintenanceLog</span>&gt;();
                                 logs.<span class="code-method">Add</span>(newLog);
 
-                                <span class="code-comment">// 3. Dictionary: ricerca istantanea per targa o ID senza cicli</span>
-                                <span class="code-keyword">var</span> cacheByPlate = vehicles.<span class="code-method">ToDictionary</span>(v => v.LicensePlate);
-                                <span class="code-keyword">if</span> (cacheByPlate.<span class="code-method">TryGetValue</span>(<span class="code-string">"AB123CD"</span>, <span class="code-keyword">out var</span> moto)) { ... }
+                                <span class="code-comment">// 3. Dictionary: ricerca istantanea per targa o ID senza
+                                    cicli</span>
+                                <span class="code-keyword">var</span> cacheByPlate = vehicles.<span
+                                    class="code-method">ToDictionary</span>(v => v.LicensePlate);
+                                <span class="code-keyword">if</span> (cacheByPlate.<span
+                                    class="code-method">TryGetValue</span>(<span class="code-string">"AB123CD"</span>,
+                                <span class="code-keyword">out var</span> moto)) { ... }
                             </div>
                             <div class="dict-context">
                                 <h4>Quale scegliere?</h4>
-                                <p>Se devi solo scorrere o restituire dati da un servizio, esponi <code>IEnumerable&lt;T&gt;</code>. Se stai costruendo la collezione in memoria, usa <code>List&lt;T&gt;</code>. Se ti ritrovi a fare <code>.FirstOrDefault(x => x.Id == id)</code> dentro un ciclo, fermati e usa un <code>Dictionary</code>: passi da migliaia di confronti a una ricerca istantanea.</p>
+                                <p>Se devi solo scorrere o restituire dati da un servizio, esponi
+                                    <code>IEnumerable&lt;T&gt;</code>. Se stai costruendo la collezione in memoria, usa
+                                    <code>List&lt;T&gt;</code>. Se ti ritrovi a fare
+                                    <code>.FirstOrDefault(x => x.Id == id)</code> dentro un ciclo, fermati e usa un
+                                    <code>Dictionary</code>: passi da migliaia di confronti a una ricerca istantanea.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- INTERPOLAZIONE DI STRINGHE -->
-                <div class="dict-card" data-term="string interpolation interpolazione stringhe $ formattazione" data-tag="struttura">
+                <div class="dict-card" data-term="string interpolation interpolazione stringhe $ formattazione"
+                    data-tag="struttura">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseStringInterp"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -1414,21 +1498,32 @@
                     </div>
                     <div id="collapseStringInterp" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Anteponendo il simbolo <code>$</code> a una stringa, puoi inserire variabili ed espressioni C# direttamente dentro le parentesi graffe <code>{}</code>, inclusi i formati per date, valute e decimali.</p>
+                            <p class="definition">Anteponendo il simbolo <code>$</code> a una stringa, puoi inserire
+                                variabili ed espressioni C# direttamente dentro le parentesi graffe <code>{}</code>,
+                                inclusi i formati per date, valute e decimali.</p>
                             <div class="code-block">
                                 <span class="code-comment">// ❌ Vecchio stile illeggibile</span>
-                                <span class="code-keyword">string</span> msg = <span class="code-string">"Moto: "</span> + brand + <span class="code-string">" ("</span> + year + <span class="code-string">")"</span>;
+                                <span class="code-keyword">string</span> msg = <span class="code-string">"Moto: "</span>
+                                + brand + <span class="code-string">" ("</span> + year + <span
+                                    class="code-string">")"</span>;
 
                                 <span class="code-comment">// ✅ Interpolazione pulita + formattazione inline</span>
-                                <span class="code-keyword">string</span> summary = $<span class="code-string">"Moto: {brand} ({year}) - Costo: {cost:C2} il {date:dd/MM/yyyy}"</span>;
-                                <span class="code-comment">// → "Moto: Yamaha (2023) - Costo: 145,50 € il 15/03/2026"</span>
+                                <span class="code-keyword">string</span> summary = $<span class="code-string">"Moto:
+                                    {brand} ({year}) - Costo: {cost:C2} il {date:dd/MM/yyyy}"</span>;
+                                <span class="code-comment">// → "Moto: Yamaha (2023) - Costo: 145,50 € il
+                                    15/03/2026"</span>
 
                                 <span class="code-comment">// URL dinamici per chiamate API in MAUI</span>
-                                <span class="code-keyword">var</span> url = $<span class="code-string">"api/vehicles/{vehicleId}/logs?year={selectedYear}"</span>;
+                                <span class="code-keyword">var</span> url = $<span
+                                    class="code-string">"api/vehicles/{vehicleId}/logs?year={selectedYear}"</span>;
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in WalletWise e MotoLogPro</h4>
-                                <p>La uso decine di volte al giorno: per costruire gli endpoint delle chiamate <code>HttpClient</code>, nei messaggi di log e per formattare al volo importi monetari (<code>:C2</code>) o chilometri (<code>:N0</code>) senza concatenazioni con il segno <code>+</code>.</p>
+                                <p>La uso decine di volte al giorno: per costruire gli endpoint delle chiamate
+                                    <code>HttpClient</code>, nei messaggi di log e per formattare al volo importi
+                                    monetari (<code>:C2</code>) o chilometri (<code>:N0</code>) senza concatenazioni con
+                                    il segno <code>+</code>.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1560,7 +1655,8 @@
                                     metodo <code>Dispose()</code> con la logica di pulizia. Lo statement
                                     <code>using</code> è semplicemente zucchero sintattico che chiama quel metodo in
                                     modo garantito — è l'alternativa sicura al ricordarsi di farlo a mano in un
-                                    <code>finally</code>.</p>
+                                    <code>finally</code>.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1572,16 +1668,23 @@
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
                             <h2 class="term">Garbage Collector (GC)</h2>
-                            <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Risorse / Memoria</span>
+                            <span class="dict-tag flusso" style="background:#e0f7fa;color:#00695c;">Risorse /
+                                Memoria</span>
                         </div>
                         <i class="fas fa-chevron-down toggle-icon fa-lg"></i>
                     </div>
                     <div id="collapseGC" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Il sistema di gestione automatica della memoria del framework .NET. Si occupa di scansionare la memoria (Heap) alla ricerca di oggetti non più referenziati da alcuna variabile per liberarne lo spazio in sicurezza.</p>
+                            <p class="definition">Il sistema di gestione automatica della memoria del framework .NET. Si
+                                occupa di scansionare la memoria (Heap) alla ricerca di oggetti non più referenziati da
+                                alcuna variabile per liberarne lo spazio in sicurezza.</p>
                             <div class="dict-context">
                                 <h4>La metafora dell'Officina</h4>
-                                <p>È l'apprendista fidato che passa a fine giornata a raccogliere gli stracci sporchi e i pezzi vecchi che hai lasciato sul banco, buttandoli via per fare spazio. Noi sviluppatori C# abbiamo il privilegio di non dover fare <code>free()</code> o <code>delete</code> manuali come chi programma in C/C++.</p>
+                                <p>È l'apprendista fidato che passa a fine giornata a raccogliere gli stracci sporchi e
+                                    i pezzi vecchi che hai lasciato sul banco, buttandoli via per fare spazio. Noi
+                                    sviluppatori C# abbiamo il privilegio di non dover fare <code>free()</code> o
+                                    <code>delete</code> manuali come chi programma in C/C++.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -1602,7 +1705,8 @@
                             <p class="definition">C# distingue tra tipi che <em>possono</em> essere null (marcati con
                                 <code>?</code>) e tipi che non lo possono essere. Con Nullable Reference Types
                                 abilitati, il compilatore avvisa quando rischi una <code>NullReferenceException</code>
-                                prima ancora di eseguire il codice.</p>
+                                prima ancora di eseguire il codice.
+                            </p>
                             <div class="code-block">
                                 <span class="code-comment">// int non può essere null. int? sì.</span>
                                 <span class="code-keyword">int</span> km = <span class="code-keyword">null</span>; <span
@@ -1651,7 +1755,8 @@
                         <div class="dict-card-body">
                             <p class="definition">Una sintassi potente per testare un'espressione non solo contro un
                                 valore, ma anche contro un <em>tipo</em>, una <em>struttura</em> o una
-                                <em>condizione</em>, estraendo direttamente le informazioni in un'unica operazione.</p>
+                                <em>condizione</em>, estraendo direttamente le informazioni in un'unica operazione.
+                            </p>
                             <div class="code-block">
                                 <span class="code-comment">// is-pattern: controlla il tipo E assegna la variabile in un
                                     colpo</span>
@@ -1731,7 +1836,7 @@
                                 <span class="code-keyword">decimal</span> avgKm = vehicles.<span
                                     class="code-method">Average</span>(v => v.Km);
                                 <span class="code-keyword">bool</span> hasOld = vehicles.<span
-                                    class="code-method">Any</span>(v => v.Year &lt; 2000); 
+                                    class="code-method">Any</span>(v => v.Year &lt; 2000);
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
@@ -1745,7 +1850,8 @@
                 </div>
 
                 <!-- FIRSTORDEFAULT VS SINGLEORDEFAULT VS ANY -->
-                <div class="dict-card" data-term="firstordefault singleordefault any linq count ricerca query" data-tag="flusso">
+                <div class="dict-card" data-term="firstordefault singleordefault any linq count ricerca query"
+                    data-tag="flusso">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseLinqMethods"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -1756,30 +1862,42 @@
                     </div>
                     <div id="collapseLinqMethods" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">I tre metodi LINQ più usati ogni giorno per cercare un elemento o verificarne l'esistenza, ma con comportamenti molto diversi sotto il cofano.</p>
+                            <p class="definition">I tre metodi LINQ più usati ogni giorno per cercare un elemento o
+                                verificarne l'esistenza, ma con comportamenti molto diversi sotto il cofano.</p>
                             <div class="code-block">
-                                <span class="code-comment">// 1. FirstOrDefault: prende il PRIMO che trova e si ferma (SQL: TOP 1)</span>
-                                <span class="code-keyword">var</span> lastLog = <span class="code-keyword">await</span> _context.Logs
-                                    .<span class="code-method">OrderByDescending</span>(x => x.Date)
-                                    .<span class="code-method">FirstOrDefaultAsync</span>(x => x.MotorcycleId == id);
+                                <span class="code-comment">// 1. FirstOrDefault: prende il PRIMO che trova e si ferma
+                                    (SQL: TOP 1)</span>
+                                <span class="code-keyword">var</span> lastLog = <span class="code-keyword">await</span>
+                                _context.Logs
+                                .<span class="code-method">OrderByDescending</span>(x => x.Date)
+                                .<span class="code-method">FirstOrDefaultAsync</span>(x => x.MotorcycleId == id);
 
-                                <span class="code-comment">// 2. SingleOrDefault: pretende che ce ne sia MAX UNO (altrimenti lancia eccezione!)</span>
-                                <span class="code-keyword">var</span> moto = <span class="code-keyword">await</span> _context.Motorcycles
-                                    .<span class="code-method">SingleOrDefaultAsync</span>(x => x.Vin == telaio);
+                                <span class="code-comment">// 2. SingleOrDefault: pretende che ce ne sia MAX UNO
+                                    (altrimenti lancia eccezione!)</span>
+                                <span class="code-keyword">var</span> moto = <span class="code-keyword">await</span>
+                                _context.Motorcycles
+                                .<span class="code-method">SingleOrDefaultAsync</span>(x => x.Vin == telaio);
 
-                                <span class="code-comment">// 3. Any: controlla solo se esiste almeno un record (SQL: IF EXISTS)</span>
-                                <span class="code-keyword">bool</span> exists = <span class="code-keyword">await</span> _context.Motorcycles.<span class="code-method">AnyAsync</span>(x => x.Id == id);
+                                <span class="code-comment">// 3. Any: controlla solo se esiste almeno un record (SQL: IF
+                                    EXISTS)</span>
+                                <span class="code-keyword">bool</span> exists = <span class="code-keyword">await</span>
+                                _context.Motorcycles.<span class="code-method">AnyAsync</span>(x => x.Id == id);
                             </div>
                             <div class="dict-context">
                                 <h4>Errori classici da evitare</h4>
-                                <p>Non usare mai <code>.Count() &gt; 0</code> per vedere se una lista o tabella contiene dati: <code>Count()</code> scorre tutta la tabella, mentre <code>Any()</code> si ferma al primo risultato trovato. E usa <code>SingleOrDefault</code> solo quando cerchi per chiave univoca (es. numero di telaio o email) e vuoi che il programma blocchi tutto se ci sono duplicati anomali.</p>
+                                <p>Non usare mai <code>.Count() &gt; 0</code> per vedere se una lista o tabella contiene
+                                    dati: <code>Count()</code> scorre tutta la tabella, mentre <code>Any()</code> si
+                                    ferma al primo risultato trovato. E usa <code>SingleOrDefault</code> solo quando
+                                    cerchi per chiave univoca (es. numero di telaio o email) e vuoi che il programma
+                                    blocchi tutto se ci sono duplicati anomali.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- SERIALIZZAZIONE JSON -->
-                <div class="dict-card" data-term="json system.text.json serialize deserialize jsonpropertyname api" data-tag="flusso">
+                <div class="dict-card" data-term="json system.text.json serialize deserialize jsonpropertyname api"
+                    data-tag="flusso">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseJson"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -1790,23 +1908,41 @@
                     </div>
                     <div id="collapseJson" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Il processo quotidiano che trasforma un oggetto C# in testo JSON per spedirlo via rete (<em>Serializzazione</em>) e viceversa, da JSON a oggetto C# (<em>Deserializzazione</em>).</p>
+                            <p class="definition">Il processo quotidiano che trasforma un oggetto C# in testo JSON per
+                                spedirlo via rete (<em>Serializzazione</em>) e viceversa, da JSON a oggetto C#
+                                (<em>Deserializzazione</em>).</p>
                             <div class="code-block">
-                                <span class="code-keyword">public class</span> <span class="code-type">AuthResponseDto</span>
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">AuthResponseDto</span>
                                 {
-                                    [<span class="code-type">JsonPropertyName</span>(<span class="code-string">"access_token"</span>)]
-                                    <span class="code-keyword">public string</span> AccessToken { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; } = <span class="code-keyword">string</span>.Empty;
+                                [<span class="code-type">JsonPropertyName</span>(<span
+                                    class="code-string">"access_token"</span>)]
+                                <span class="code-keyword">public string</span> AccessToken { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">set</span>; } = <span
+                                    class="code-keyword">string</span>.Empty;
                                 }
 
-                                <span class="code-comment">// Deserializzazione automatica da chiamata HTTP in MAUI</span>
-                                <span class="code-keyword">var</span> data = <span class="code-keyword">await</span> _httpClient.<span class="code-method">GetFromJsonAsync</span>&lt;<span class="code-type">List</span>&lt;<span class="code-type">VehicleDto</span>&gt;&gt;(<span class="code-string">"api/vehicles"</span>);
+                                <span class="code-comment">// Deserializzazione automatica da chiamata HTTP in
+                                    MAUI</span>
+                                <span class="code-keyword">var</span> data = <span class="code-keyword">await</span>
+                                _httpClient.<span class="code-method">GetFromJsonAsync</span>&lt;<span
+                                    class="code-type">List</span>&lt;<span
+                                    class="code-type">VehicleDto</span>&gt;&gt;(<span
+                                    class="code-string">"api/vehicles"</span>);
 
-                                <span class="code-comment">// Serializzazione manuale (es. per salvare nelle Preferences o log)</span>
-                                <span class="code-keyword">string</span> json = <span class="code-type">JsonSerializer</span>.<span class="code-method">Serialize</span>(myVehicle);
+                                <span class="code-comment">// Serializzazione manuale (es. per salvare nelle Preferences
+                                    o log)</span>
+                                <span class="code-keyword">string</span> json = <span
+                                    class="code-type">JsonSerializer</span>.<span
+                                    class="code-method">Serialize</span>(myVehicle);
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
-                                <p>Quando l'app MAUI comunica con il backend ASP.NET Core, parlano in JSON. Usando metodi come <code>PostAsJsonAsync</code> e <code>GetFromJsonAsync</code>, .NET fa tutto il lavoro sporco in automatico. L'attributo <code>[JsonPropertyName]</code> è una salvezza quando un'API esterna usa nomi col trattino basso (<code>snake_case</code>) mentre in C# usiamo il <code>PascalCase</code>.</p>
+                                <p>Quando l'app MAUI comunica con il backend ASP.NET Core, parlano in JSON. Usando
+                                    metodi come <code>PostAsJsonAsync</code> e <code>GetFromJsonAsync</code>, .NET fa
+                                    tutto il lavoro sporco in automatico. L'attributo <code>[JsonPropertyName]</code> è
+                                    una salvezza quando un'API esterna usa nomi col trattino basso
+                                    (<code>snake_case</code>) mentre in C# usiamo il <code>PascalCase</code>.</p>
                             </div>
                         </div>
                     </div>
@@ -1833,9 +1969,8 @@
                                 <span class="code-method">LoginAsync</span>(<span class="code-keyword">string</span>
                                 email, <span class="code-keyword">string</span> pwd)
                                 {
-                                <span class="code-keyword">var</span> response = <span
-                                    class="code-keyword">await</span> _httpClient.<span
-                                    class="code-method">PostAsJsonAsync</span>(<span
+                                <span class="code-keyword">var</span> response = <span class="code-keyword">await</span>
+                                _httpClient.<span class="code-method">PostAsJsonAsync</span>(<span
                                     class="code-string">"/login"</span>, dto);
                                 <span class="code-keyword">return</span> response.IsSuccessStatusCode;
                                 }
@@ -1871,23 +2006,20 @@
                                     automaticamente</span>
                                 [<span class="code-type">HttpGet</span>]
                                 <span class="code-keyword">public async</span> <span
-                                    class="code-type">Task</span>&lt;<span
-                                    class="code-type">IActionResult</span>&gt; <span
-                                    class="code-method">GetVehiclesAsync</span>(<span
+                                    class="code-type">Task</span>&lt;<span class="code-type">IActionResult</span>&gt;
+                                <span class="code-method">GetVehiclesAsync</span>(<span
                                     class="code-type">CancellationToken</span> ct)
                                 {
-                                <span class="code-keyword">var</span> vehicles = <span
-                                    class="code-keyword">await</span> _context.Motorcycles
+                                <span class="code-keyword">var</span> vehicles = <span class="code-keyword">await</span>
+                                _context.Motorcycles
                                 .<span class="code-method">ToListAsync</span>(ct); <span class="code-comment">// si
                                     interrompe se il client chiude la connessione</span>
-                                <span class="code-keyword">return</span> <span
-                                    class="code-method">Ok</span>(vehicles);
+                                <span class="code-keyword">return</span> <span class="code-method">Ok</span>(vehicles);
                                 }
 
                                 <span class="code-comment">// Lato client: timeout manuale dopo 10 secondi</span>
-                                <span class="code-keyword">using var</span> cts = <span
-                                    class="code-keyword">new</span> <span
-                                    class="code-type">CancellationTokenSource</span>(<span
+                                <span class="code-keyword">using var</span> cts = <span class="code-keyword">new</span>
+                                <span class="code-type">CancellationTokenSource</span>(<span
                                     class="code-type">TimeSpan</span>.FromSeconds(10));
                                 <span class="code-keyword">var</span> data = <span class="code-keyword">await</span>
                                 _service.<span class="code-method">GetVehiclesAsync</span>(cts.Token);
@@ -1923,24 +2055,22 @@
                             <div class="code-block">
                                 <span class="code-comment">// Senza yield: crea TUTTA la lista in memoria prima di
                                     restituirla</span>
-                                <span class="code-type">IEnumerable</span>&lt;<span
-                                    class="code-keyword">int</span>&gt; <span
-                                    class="code-method">GetEvenNumbers</span>(<span class="code-keyword">int</span>
+                                <span class="code-type">IEnumerable</span>&lt;<span class="code-keyword">int</span>&gt;
+                                <span class="code-method">GetEvenNumbers</span>(<span class="code-keyword">int</span>
                                 max)
                                 {
                                 <span class="code-keyword">var</span> list = <span class="code-keyword">new</span>
                                 <span class="code-type">List</span>&lt;<span class="code-keyword">int</span>&gt;();
                                 <span class="code-keyword">for</span> (<span class="code-keyword">int</span> i = 0;
                                 i &lt;= max; i += 2) list.<span class="code-method">Add</span>(i);
-                                    <span class="code-keyword">return</span> list;
+                                <span class="code-keyword">return</span> list;
                                 }
 
                                 <span class="code-comment">// Con yield: produce UN elemento alla volta, solo se
                                     serve</span>
-                                <span class="code-type">IEnumerable</span>&lt;<span
-                                    class="code-keyword">int</span>&gt; <span
-                                    class="code-method">GetEvenNumbers</span>(<span
-                                    class="code-keyword">int</span> max)
+                                <span class="code-type">IEnumerable</span>&lt;<span class="code-keyword">int</span>&gt;
+                                <span class="code-method">GetEvenNumbers</span>(<span class="code-keyword">int</span>
+                                max)
                                 {
                                 <span class="code-keyword">for</span> (<span class="code-keyword">int</span> i =
                                 0; i &lt;= max; i += 2) <span class="code-keyword">yield return</span> i; <span
@@ -1999,9 +2129,8 @@
                                 ex)
                                 {
                                 <span class="code-keyword">await</span> Shell.Current.<span
-                                    class="code-method">DisplayAlert</span>(<span
-                                    class="code-string">"Errore"</span>, ex.Message, <span
-                                    class="code-string">"OK"</span>);
+                                    class="code-method">DisplayAlert</span>(<span class="code-string">"Errore"</span>,
+                                ex.Message, <span class="code-string">"OK"</span>);
                                 }
                                 <span class="code-keyword">finally</span>
                                 {
@@ -2043,15 +2172,20 @@
                     </div>
                     <div id="collapseSolid" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">L'acronimo d'oro dell'ingegneria del software. Cinque principi di design per mantenere il codice flessibile e scalabile:<br>
-                            - <strong>S</strong>RP: Una classe, una sola responsabilità.<br>
-                            - <strong>O</strong>CP: Aperto all'estensione, chiuso alla modifica.<br>
-                            - <strong>L</strong>SP: I "figli" non devono rompere i comportamenti dei "padri".<br>
-                            - <strong>I</strong>SP: Meglio tante piccole interfacce specifiche che una generica.<br>
-                            - <strong>D</strong>IP: Dipendi dalle astrazioni (interfacce), non dalle implementazioni.</p>
+                            <p class="definition">L'acronimo d'oro dell'ingegneria del software. Cinque principi di
+                                design per mantenere il codice flessibile e scalabile:<br>
+                                - <strong>S</strong>RP: Una classe, una sola responsabilità.<br>
+                                - <strong>O</strong>CP: Aperto all'estensione, chiuso alla modifica.<br>
+                                - <strong>L</strong>SP: I "figli" non devono rompere i comportamenti dei "padri".<br>
+                                - <strong>I</strong>SP: Meglio tante piccole interfacce specifiche che una generica.<br>
+                                - <strong>D</strong>IP: Dipendi dalle astrazioni (interfacce), non dalle
+                                implementazioni.</p>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
-                                <p>Applico la <em>Single Responsibility</em> separando rigorosamente le classi che interrogano il DB (Repository) da quelle che fanno i conti sulle statistiche o gestiscono la UI. Questo mi permette di isolare i problemi "come se smontassi un carburatore senza toccare l'albero a camme".</p>
+                                <p>Applico la <em>Single Responsibility</em> separando rigorosamente le classi che
+                                    interrogano il DB (Repository) da quelle che fanno i conti sulle statistiche o
+                                    gestiscono la UI. Questo mi permette di isolare i problemi "come se smontassi un
+                                    carburatore senza toccare l'albero a camme".</p>
                             </div>
                         </div>
                     </div>
@@ -2069,21 +2203,33 @@
                     </div>
                     <div id="collapseComposition" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Best practice che favorisce la creazione di comportamenti complessi assemblando più oggetti/servizi indipendenti ("Ha-un") invece di impilare strati su strati di classi base ("È-un"). L'ereditarietà profonda crea codice rigido e fragile.</p>
+                            <p class="definition">Best practice che favorisce la creazione di comportamenti complessi
+                                assemblando più oggetti/servizi indipendenti ("Ha-un") invece di impilare strati su
+                                strati di classi base ("È-un"). L'ereditarietà profonda crea codice rigido e fragile.
+                            </p>
                             <div class="code-block">
-                                <span class="code-comment">// ❌ Ereditarietà rigida: e se avessi una moto elettrica? </span>
-                                <span class="code-keyword">public class</span> <span class="code-type">MotoACombustione</span> : <span class="code-type">VeicoloMotore</span> { ... }
+                                <span class="code-comment">// ❌ Ereditarietà rigida: e se avessi una moto elettrica?
+                                </span>
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">MotoACombustione</span> : <span
+                                    class="code-type">VeicoloMotore</span> { ... }
 
                                 <span class="code-comment">// ✅ Composizione flessibile: assemblo i pezzi </span>
                                 <span class="code-keyword">public class</span> <span class="code-type">Motorcycle</span>
                                 {
-                                    <span class="code-keyword">private readonly</span> <span class="code-type">IMotor</span> _motor;
-                                    <span class="code-keyword">public</span> <span class="code-type">Motorcycle</span>(<span class="code-type">IMotor</span> motor) => _motor = motor;
+                                <span class="code-keyword">private readonly</span> <span class="code-type">IMotor</span>
+                                _motor;
+                                <span class="code-keyword">public</span> <span class="code-type">Motorcycle</span>(<span
+                                    class="code-type">IMotor</span> motor) => _motor = motor;
                                 }
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
-                                <p>Invece di avere un gigantesco "BaseViewModel" che sa fare di tutto (navigare, mostrare alert, chiamare le API), creo piccoli servizi specifici (<code>IDialogService</code>, <code>INavigationService</code>) e li inietto nei ViewModel (tramite la Dependency Injection). È esattamente come montare dei componenti scelti a mano sul telaio.</p>
+                                <p>Invece di avere un gigantesco "BaseViewModel" che sa fare di tutto (navigare,
+                                    mostrare alert, chiamare le API), creo piccoli servizi specifici
+                                    (<code>IDialogService</code>, <code>INavigationService</code>) e li inietto nei
+                                    ViewModel (tramite la Dependency Injection). È esattamente come montare dei
+                                    componenti scelti a mano sul telaio.</p>
                             </div>
                         </div>
                     </div>
@@ -2114,21 +2260,24 @@
                                 <span class="code-comment">// 2. Il ViewModel riceve il servizio in "Iniezione"
                                     (LoginViewModel.cs)</span>
                                 <span class="code-keyword">public</span> <span
-                                    class="code-type">LoginViewModel</span>(<span
-                                    class="code-type">IAuthService</span> authService) { ... }
+                                    class="code-type">LoginViewModel</span>(<span class="code-type">IAuthService</span>
+                                authService) { ... }
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
                                 <p>È il cuore di .NET. Gestendo tutto il "magazzino attrezzi" (IoC Container) da un
                                     unico file, posso cambiare il motore del software senza toccare minimamente le
-                                    pagine o le classi. In meccanica: decido sul momento se infilare un cacciavite a croce o a stella nel mandrino, senza dover smontare il trapano.</p>
+                                    pagine o le classi. In meccanica: decido sul momento se infilare un cacciavite a
+                                    croce o a stella nel mandrino, senza dover smontare il trapano.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- LIFETIME DI: TRANSIENT, SCOPED, SINGLETON -->
-                <div class="dict-card" data-term="transient scoped singleton ciclo di vita lifetime dependency injection" data-tag="pattern">
+                <div class="dict-card"
+                    data-term="transient scoped singleton ciclo di vita lifetime dependency injection"
+                    data-tag="pattern">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseDiLifetime"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -2139,23 +2288,38 @@
                     </div>
                     <div id="collapseDiLifetime" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Quando registri un servizio nella Dependency Injection, devi sempre scegliere quanto durerà in vita:<br>
-                            - <code>Transient</code>: ne viene creata una copia nuova di zecca ogni volta che qualcuno la chiede.<br>
-                            - <code>Scoped</code>: una sola istanza per l'intera richiesta HTTP (perfetto per il <code>DbContext</code>).<br>
-                            - <code>Singleton</code>: creato una sola volta all'avvio e condiviso per tutta la vita dell'app.</p>
+                            <p class="definition">Quando registri un servizio nella Dependency Injection, devi sempre
+                                scegliere quanto durerà in vita:<br>
+                                - <code>Transient</code>: ne viene creata una copia nuova di zecca ogni volta che
+                                qualcuno la chiede.<br>
+                                - <code>Scoped</code>: una sola istanza per l'intera richiesta HTTP (perfetto per il
+                                <code>DbContext</code>).<br>
+                                - <code>Singleton</code>: creato una sola volta all'avvio e condiviso per tutta la vita
+                                dell'app.
+                            </p>
                             <div class="code-block">
                                 <span class="code-comment">// MAUI: pagine e ViewModel nuovi ad ogni navigazione</span>
-                                builder.Services.<span class="code-method">AddTransient</span>&lt;<span class="code-type">VehicleDetailViewModel</span>&gt;();
+                                builder.Services.<span class="code-method">AddTransient</span>&lt;<span
+                                    class="code-type">VehicleDetailViewModel</span>&gt;();
 
-                                <span class="code-comment">// Web API: una connessione DB per singola chiamata HTTP</span>
-                                builder.Services.<span class="code-method">AddScoped</span>&lt;<span class="code-type">IVehicleRepository</span>, <span class="code-type">VehicleRepository</span>&gt;();
+                                <span class="code-comment">// Web API: una connessione DB per singola chiamata
+                                    HTTP</span>
+                                builder.Services.<span class="code-method">AddScoped</span>&lt;<span
+                                    class="code-type">IVehicleRepository</span>, <span
+                                    class="code-type">VehicleRepository</span>&gt;();
 
                                 <span class="code-comment">// Unica istanza condivisa in memoria per tutta l'app</span>
-                                builder.Services.<span class="code-method">AddSingleton</span>&lt;<span class="code-type">IConnectivity</span>&gt;(Connectivity.Current);
+                                builder.Services.<span class="code-method">AddSingleton</span>&lt;<span
+                                    class="code-type">IConnectivity</span>&gt;(Connectivity.Current);
                             </div>
                             <div class="dict-context">
                                 <h4>La metafora dell'Officina</h4>
-                                <p><strong>Singleton</strong> è il ponte sollevatore centrale dell'officina: ce n'è uno solo per tutti. <strong>Scoped</strong> è la scheda di lavoro legata alla singola moto che entra in accettazione: dura finché la moto non esce. <strong>Transient</strong> sono i guanti in nitrile monouso: ne prendi un paio nuovo a ogni operazione.</p>
+                                <p><strong>Singleton</strong> è il ponte sollevatore centrale dell'officina: ce n'è uno
+                                    solo per tutti. <strong>Scoped</strong> è la scheda di lavoro legata alla singola
+                                    moto che entra in accettazione: dura finché la moto non esce.
+                                    <strong>Transient</strong> sono i guanti in nitrile monouso: ne prendi un paio nuovo
+                                    a ogni operazione.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -2173,24 +2337,33 @@
                     </div>
                     <div id="collapseDTO" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Un oggetto "stupido" (senza metodi o logica di business) usato esclusivamente per trasportare pacchetti di dati tra i confini del sistema, ad esempio dall'API verso il client frontend.</p>
+                            <p class="definition">Un oggetto "stupido" (senza metodi o logica di business) usato
+                                esclusivamente per trasportare pacchetti di dati tra i confini del sistema, ad esempio
+                                dall'API verso il client frontend.</p>
                             <div class="code-block">
                                 <span class="code-comment">// Entità DB (ha la password e la chiave relazionale!)</span>
-                                <span class="code-keyword">public class</span> <span class="code-type">User</span> { <span class="code-keyword">public string</span> PasswordHash { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; } }
+                                <span class="code-keyword">public class</span> <span class="code-type">User</span> {
+                                <span class="code-keyword">public string</span> PasswordHash { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">set</span>; } }
 
                                 <span class="code-comment">// DTO di trasporto (sicuro e leggero)</span>
-                                <span class="code-keyword">public record</span> <span class="code-type">UserDto</span>(<span class="code-keyword">string</span> Email, <span class="code-keyword">string</span> FirstName);
+                                <span class="code-keyword">public record</span> <span
+                                    class="code-type">UserDto</span>(<span class="code-keyword">string</span> Email,
+                                <span class="code-keyword">string</span> FirstName);
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
-                                <p>È il vassoio dei pezzi. Evito sempre di far uscire direttamente all'esterno un'Entità completa del database. Potrebbe portare con sé campi sensibili, o cicli infiniti JSON dati dalle relazioni EF Core. I DTO sono il filtro in dogana.</p>
+                                <p>È il vassoio dei pezzi. Evito sempre di far uscire direttamente all'esterno un'Entità
+                                    completa del database. Potrebbe portare con sé campi sensibili, o cicli infiniti
+                                    JSON dati dalle relazioni EF Core. I DTO sono il filtro in dogana.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- CLEAN ARCHITECTURE -->
-                <div class="dict-card" data-term="clean architecture architettura cipolla onion domain core" data-tag="pattern">
+                <div class="dict-card" data-term="clean architecture architettura cipolla onion domain core"
+                    data-tag="pattern">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseCleanArch"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -2201,17 +2374,25 @@
                     </div>
                     <div id="collapseCleanArch" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Architettura strutturata a strati (onion) in cui il <em>Core</em> (il cuore delle regole di business e le interfacce) sta al centro. L'infrastruttura (database, API esterne) e l'interfaccia utente ruotano attorno al Core, dipendendo da esso. Il Core non sa nulla del mondo esterno.</p>
+                            <p class="definition">Architettura strutturata a strati (onion) in cui il <em>Core</em> (il
+                                cuore delle regole di business e le interfacce) sta al centro. L'infrastruttura
+                                (database, API esterne) e l'interfaccia utente ruotano attorno al Core, dipendendo da
+                                esso. Il Core non sa nulla del mondo esterno.</p>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
-                                <p>Il progetto <code>MotoLogPro.Domain</code> contiene solo pura logica in C#, zero dipendenze dal framework ASP.NET o da Entity Framework. Se in futuro l'azienda decide di passare da SQL Server a Postgres, il Core dell'app (le regole del "meccanico") non cambia di una virgola. Devo solo costruire un nuovo "carter" esterno (l'Infrastruttura).</p>
+                                <p>Il progetto <code>MotoLogPro.Domain</code> contiene solo pura logica in C#, zero
+                                    dipendenze dal framework ASP.NET o da Entity Framework. Se in futuro l'azienda
+                                    decide di passare da SQL Server a Postgres, il Core dell'app (le regole del
+                                    "meccanico") non cambia di una virgola. Devo solo costruire un nuovo "carter"
+                                    esterno (l'Infrastruttura).</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- DRY YAGNI -->
-                <div class="dict-card" data-term="dry yagni don't repeat yourself you aren't gonna need it pattern" data-tag="pattern">
+                <div class="dict-card" data-term="dry yagni don't repeat yourself you aren't gonna need it pattern"
+                    data-tag="pattern">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseDryYagni"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -2223,12 +2404,17 @@
                     <div id="collapseDryYagni" class="collapse">
                         <div class="dict-card-body">
                             <p class="definition">
-                                <strong>DRY (Don't Repeat Yourself)</strong>: Estrai la logica ripetuta in un solo punto. Se devi correggere un bug, lo correggi una volta sola.<br>
-                                <strong>YAGNI (You Aren't Gonna Need It)</strong>: Non scrivere funzionalità pensando "forse in futuro servirà". Scrivi solo ciò che è necessario oggi.
+                                <strong>DRY (Don't Repeat Yourself)</strong>: Estrai la logica ripetuta in un solo
+                                punto. Se devi correggere un bug, lo correggi una volta sola.<br>
+                                <strong>YAGNI (You Aren't Gonna Need It)</strong>: Non scrivere funzionalità pensando
+                                "forse in futuro servirà". Scrivi solo ciò che è necessario oggi.
                             </p>
                             <div class="dict-context">
                                 <h4>La mentalità</h4>
-                                <p>YAGNI è la mia bussola nei progetti personali. Inutile architettare un mastodontico sistema a microservizi se il prodotto non ha ancora un utente reale (over-engineering). Costruisco una base solida, modulare, e monto le "valigie in alluminio" solo se davvero partirò per il viaggio.</p>
+                                <p>YAGNI è la mia bussola nei progetti personali. Inutile architettare un mastodontico
+                                    sistema a microservizi se il prodotto non ha ancora un utente reale
+                                    (over-engineering). Costruisco una base solida, modulare, e monto le "valigie in
+                                    alluminio" solo se davvero partirò per il viaggio.</p>
                             </div>
                         </div>
                     </div>
@@ -2272,7 +2458,8 @@
                 </div>
 
                 <!-- OPTIONS PATTERN -->
-                <div class="dict-card" data-term="options pattern ioptions appsettings.json configurazione" data-tag="pattern">
+                <div class="dict-card" data-term="options pattern ioptions appsettings.json configurazione"
+                    data-tag="pattern">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseOptions"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -2283,24 +2470,40 @@
                     </div>
                     <div id="collapseOptions" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Il modo pulito e tipizzato per leggere le impostazioni dal file <code>appsettings.json</code>, mappandole direttamente su una classe C# invece di spargere stringhe magiche per tutta l'applicazione.</p>
+                            <p class="definition">Il modo pulito e tipizzato per leggere le impostazioni dal file
+                                <code>appsettings.json</code>, mappandole direttamente su una classe C# invece di
+                                spargere stringhe magiche per tutta l'applicazione.
+                            </p>
                             <div class="code-block">
-                                <span class="code-comment">// 1. Classe che rispecchia la sezione in appsettings.json</span>
-                                <span class="code-keyword">public class</span> <span class="code-type">JwtSettings</span>
+                                <span class="code-comment">// 1. Classe che rispecchia la sezione in
+                                    appsettings.json</span>
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">JwtSettings</span>
                                 {
-                                    <span class="code-keyword">public string</span> Issuer { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; } = <span class="code-keyword">string</span>.Empty;
-                                    <span class="code-keyword">public int</span> ExpiryMinutes { <span class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
+                                <span class="code-keyword">public string</span> Issuer { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">set</span>; } = <span
+                                    class="code-keyword">string</span>.Empty;
+                                <span class="code-keyword">public int</span> ExpiryMinutes { <span
+                                    class="code-keyword">get</span>; <span class="code-keyword">set</span>; }
                                 }
 
                                 <span class="code-comment">// 2. Registrazione in Program.cs</span>
-                                builder.Services.<span class="code-method">Configure</span>&lt;<span class="code-type">JwtSettings</span>&gt;(builder.Configuration.<span class="code-method">GetSection</span>(<span class="code-string">"Jwt"</span>));
+                                builder.Services.<span class="code-method">Configure</span>&lt;<span
+                                    class="code-type">JwtSettings</span>&gt;(builder.Configuration.<span
+                                    class="code-method">GetSection</span>(<span class="code-string">"Jwt"</span>));
 
                                 <span class="code-comment">// 3. Utilizzo sicuro tramite DI</span>
-                                <span class="code-keyword">public</span> <span class="code-type">TokenService</span>(<span class="code-type">IOptions</span>&lt;<span class="code-type">JwtSettings</span>&gt; options) => _jwt = options.Value;
+                                <span class="code-keyword">public</span> <span
+                                    class="code-type">TokenService</span>(<span
+                                    class="code-type">IOptions</span>&lt;<span class="code-type">JwtSettings</span>&gt;
+                                options) => _jwt = options.Value;
                             </div>
                             <div class="dict-context">
                                 <h4>Perché evita disastri</h4>
-                                <p>Leggere configurazioni con <code>_config["Jwt:ExpiryMinutes"]</code> è rischioso: basta una lettera sbagliata e te ne accorgi solo quando quel pezzo di codice gira in produzione. Con <code>IOptions&lt;T&gt;</code> hai l'IntelliSense e i tipi già convertiti in <code>int</code> o <code>bool</code>.</p>
+                                <p>Leggere configurazioni con <code>_config["Jwt:ExpiryMinutes"]</code> è rischioso:
+                                    basta una lettera sbagliata e te ne accorgi solo quando quel pezzo di codice gira in
+                                    produzione. Con <code>IOptions&lt;T&gt;</code> hai l'IntelliSense e i tipi già
+                                    convertiti in <code>int</code> o <code>bool</code>.</p>
                             </div>
                         </div>
                     </div>
@@ -2347,7 +2550,9 @@
                 </div>
 
                 <!-- DBCONTEXT E ASNOTRACKING -->
-                <div class="dict-card" data-term="dbcontext dbset asnotracking savechangesasync entity framework ef core change tracker" data-tag="db">
+                <div class="dict-card"
+                    data-term="dbcontext dbset asnotracking savechangesasync entity framework ef core change tracker"
+                    data-tag="db">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseDbContext"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -2358,29 +2563,44 @@
                     </div>
                     <div id="collapseDbContext" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Il <code>DbContext</code> è il ponte tra il codice C# e il database: tiene traccia delle modifiche agli oggetti caricati e le salva con <code>SaveChangesAsync()</code>. Quando però devi solo leggere dati senza modificarli, <code>AsNoTracking()</code> disattiva questo tracciamento velocizzando la query.</p>
+                            <p class="definition">Il <code>DbContext</code> è il ponte tra il codice C# e il database:
+                                tiene traccia delle modifiche agli oggetti caricati e le salva con
+                                <code>SaveChangesAsync()</code>. Quando però devi solo leggere dati senza modificarli,
+                                <code>AsNoTracking()</code> disattiva questo tracciamento velocizzando la query.
+                            </p>
                             <div class="code-block">
-                                <span class="code-comment">// Lettura pura per la Dashboard: AsNoTracking() = più veloce e meno RAM</span>
-                                <span class="code-keyword">var</span> list = <span class="code-keyword">await</span> _context.Motorcycles
-                                    .<span class="code-method">AsNoTracking</span>()
-                                    .<span class="code-method">Where</span>(m => m.UserId == userId)
-                                    .<span class="code-method">ToListAsync</span>();
+                                <span class="code-comment">// Lettura pura per la Dashboard: AsNoTracking() = più veloce
+                                    e meno RAM</span>
+                                <span class="code-keyword">var</span> list = <span class="code-keyword">await</span>
+                                _context.Motorcycles
+                                .<span class="code-method">AsNoTracking</span>()
+                                .<span class="code-method">Where</span>(m => m.UserId == userId)
+                                .<span class="code-method">ToListAsync</span>();
 
                                 <span class="code-comment">// Modifica: qui il Change Tracker ci serve!</span>
-                                <span class="code-keyword">var</span> moto = <span class="code-keyword">await</span> _context.Motorcycles.<span class="code-method">FindAsync</span>(id);
+                                <span class="code-keyword">var</span> moto = <span class="code-keyword">await</span>
+                                _context.Motorcycles.<span class="code-method">FindAsync</span>(id);
                                 moto!.Km = 25000;
-                                <span class="code-keyword">await</span> _context.<span class="code-method">SaveChangesAsync</span>(); <span class="code-comment">// genera l'UPDATE SQL</span>
+                                <span class="code-keyword">await</span> _context.<span
+                                    class="code-method">SaveChangesAsync</span>(); <span class="code-comment">// genera
+                                    l'UPDATE SQL</span>
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
-                                <p>Nelle API GET che restituiscono la lista dei veicoli o lo storico manutenzioni all'app mobile non devo modificare nulla sul DB. Aggiungere <code>.AsNoTracking()</code> evita a Entity Framework di creare "istantanee" in memoria per ogni riga letta: un'abitudine a costo zero che migliora subito le performance.</p>
+                                <p>Nelle API GET che restituiscono la lista dei veicoli o lo storico manutenzioni
+                                    all'app mobile non devo modificare nulla sul DB. Aggiungere
+                                    <code>.AsNoTracking()</code> evita a Entity Framework di creare "istantanee" in
+                                    memoria per ogni riga letta: un'abitudine a costo zero che migliora subito le
+                                    performance.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- INCLUDE E RELAZIONI EF CORE -->
-                <div class="dict-card" data-term="include theninclude eager loading relazioni join ef core n+1" data-tag="db">
+                <div class="dict-card" data-term="include theninclude eager loading relazioni join ef core n+1"
+                    data-tag="db">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseInclude"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -2391,17 +2611,24 @@
                     </div>
                     <div id="collapseInclude" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Istruisce Entity Framework a caricare in un'unica query SQL (tramite <code>JOIN</code>) anche le entità collegate, che altrimenti rimarrebbero vuote (<code>null</code> o liste vuote).</p>
+                            <p class="definition">Istruisce Entity Framework a caricare in un'unica query SQL (tramite
+                                <code>JOIN</code>) anche le entità collegate, che altrimenti rimarrebbero vuote
+                                (<code>null</code> o liste vuote).
+                            </p>
                             <div class="code-block">
                                 <span class="code-comment">// Senza Include: moto.MaintenanceLogs sarebbe vuoto!</span>
                                 <span class="code-comment">// Con Include: EF Core fa la JOIN e popola la lista</span>
-                                <span class="code-keyword">var</span> motoCompleta = <span class="code-keyword">await</span> _context.Motorcycles
-                                    .<span class="code-method">Include</span>(m => m.MaintenanceLogs)
-                                    .<span class="code-method">FirstOrDefaultAsync</span>(m => m.Id == motoId);
+                                <span class="code-keyword">var</span> motoCompleta = <span
+                                    class="code-keyword">await</span> _context.Motorcycles
+                                .<span class="code-method">Include</span>(m => m.MaintenanceLogs)
+                                .<span class="code-method">FirstOrDefaultAsync</span>(m => m.Id == motoId);
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
-                                <p>Quando apro la scheda dettaglio di una moto voglio vedere subito anche tutti i suoi tagliandi. Con <code>.Include(m => m.MaintenanceLogs)</code> faccio un solo viaggio verso SQL Server invece di fare una query per la moto e poi altre N query separate per i tagliandi (il famoso problema <em>N+1</em>).</p>
+                                <p>Quando apro la scheda dettaglio di una moto voglio vedere subito anche tutti i suoi
+                                    tagliandi. Con <code>.Include(m => m.MaintenanceLogs)</code> faccio un solo viaggio
+                                    verso SQL Server invece di fare una query per la moto e poi altre N query separate
+                                    per i tagliandi (il famoso problema <em>N+1</em>).</p>
                             </div>
                         </div>
                     </div>
@@ -2439,8 +2666,7 @@
                                 <span class="code-keyword">private async</span> <span class="code-type">Task</span>
                                 <span class="code-method">LoginAsync</span>()
                                 {
-                                <span class="code-keyword">if</span> (IsBusy) <span
-                                    class="code-keyword">return</span>;
+                                <span class="code-keyword">if</span> (IsBusy) <span class="code-keyword">return</span>;
                                 <span class="code-comment">// Logica del login...</span>
                                 }
                             </div>
@@ -2455,7 +2681,9 @@
                 </div>
 
                 <!-- OBSERVABLE COLLECTION -->
-                <div class="dict-card" data-term="observablecollection list ui collectionview aggiornamento automatico mvvm" data-tag="maui">
+                <div class="dict-card"
+                    data-term="observablecollection list ui collectionview aggiornamento automatico mvvm"
+                    data-tag="maui">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseObsCol"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -2466,24 +2694,36 @@
                     </div>
                     <div id="collapseObsCol" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Una lista speciale che notifica automaticamente la grafica (XAML) ogni volta che un elemento viene aggiunto, rimosso o svuotato, aggiornando lo schermo all'istante.</p>
+                            <p class="definition">Una lista speciale che notifica automaticamente la grafica (XAML) ogni
+                                volta che un elemento viene aggiunto, rimosso o svuotato, aggiornando lo schermo
+                                all'istante.</p>
                             <div class="code-block">
                                 <span class="code-comment">// Nel ViewModel</span>
-                                <span class="code-keyword">public</span> <span class="code-type">ObservableCollection</span>&lt;<span class="code-type">VehicleDto</span>&gt; Vehicles { <span class="code-keyword">get</span>; } = [];
+                                <span class="code-keyword">public</span> <span
+                                    class="code-type">ObservableCollection</span>&lt;<span
+                                    class="code-type">VehicleDto</span>&gt; Vehicles { <span
+                                    class="code-keyword">get</span>; } = [];
 
-                                <span class="code-comment">// Appena faccio Add, la CollectionView nello XAML mostra la nuova moto!</span>
+                                <span class="code-comment">// Appena faccio Add, la CollectionView nello XAML mostra la
+                                    nuova moto!</span>
                                 Vehicles.<span class="code-method">Add</span>(newMotorcycle);
                             </div>
                             <div class="dict-context">
                                 <h4>Perché List&lt;T&gt; non basta in MAUI?</h4>
-                                <p>È il dubbio classico di chi inizia con MAUI: se usi una normale <code>List&lt;VehicleDto&gt;</code> e fai <code>.Add()</code>, l'elemento entra in memoria ma la schermata non si muove perché <code>List</code> è "muta". <code>ObservableCollection</code> invece alza la mano e avvisa la <code>CollectionView</code> di ridisegnare la riga.</p>
+                                <p>È il dubbio classico di chi inizia con MAUI: se usi una normale
+                                    <code>List&lt;VehicleDto&gt;</code> e fai <code>.Add()</code>, l'elemento entra in
+                                    memoria ma la schermata non si muove perché <code>List</code> è "muta".
+                                    <code>ObservableCollection</code> invece alza la mano e avvisa la
+                                    <code>CollectionView</code> di ridisegnare la riga.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- DATA BINDING E X:DATATYPE -->
-                <div class="dict-card" data-term="data binding x:datatype compiled bindings xaml viewmodel" data-tag="maui">
+                <div class="dict-card" data-term="data binding x:datatype compiled bindings xaml viewmodel"
+                    data-tag="maui">
                     <div class="dict-card-header" data-bs-toggle="collapse" data-bs-target="#collapseBinding"
                         aria-expanded="false" role="button">
                         <div class="term-wrapper">
@@ -2494,19 +2734,30 @@
                     </div>
                     <div id="collapseBinding" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Il "cavo elettrico" che collega un controllo grafico XAML a una proprietà del ViewModel. Aggiungendo <code>x:DataType</code> si attivano i <em>Compiled Bindings</em>: il collegamento viene verificato a compile-time ed è molto più veloce.</p>
+                            <p class="definition">Il "cavo elettrico" che collega un controllo grafico XAML a una
+                                proprietà del ViewModel. Aggiungendo <code>x:DataType</code> si attivano i <em>Compiled
+                                    Bindings</em>: il collegamento viene verificato a compile-time ed è molto più
+                                veloce.</p>
                             <div class="code-block">
-                                <span class="code-comment">&lt;!-- Nello XAML della pagina: dichiaro il tipo del ViewModel --&gt;</span>
-                                &lt;<span class="code-keyword">ContentPage</span> xmlns:vm=<span class="code-string">"clr-namespace:MotoLogPro.ViewModels"</span>
-                                             x:DataType=<span class="code-string">"vm:LoginViewModel"</span>&gt;
+                                <span class="code-comment">&lt;!-- Nello XAML della pagina: dichiaro il tipo del
+                                    ViewModel --&gt;</span>
+                                &lt;<span class="code-keyword">ContentPage</span> xmlns:vm=<span
+                                    class="code-string">"clr-namespace:MotoLogPro.ViewModels"</span>
+                                x:DataType=<span class="code-string">"vm:LoginViewModel"</span>&gt;
 
-                                    &lt;<span class="code-keyword">Entry</span> Text=<span class="code-string">"{Binding Email}"</span> /&gt;
-                                    &lt;<span class="code-keyword">Button</span> Command=<span class="code-string">"{Binding LoginCommand}"</span> /&gt;
+                                &lt;<span class="code-keyword">Entry</span> Text=<span class="code-string">"{Binding
+                                    Email}"</span> /&gt;
+                                &lt;<span class="code-keyword">Button</span> Command=<span class="code-string">"{Binding
+                                    LoginCommand}"</span> /&gt;
                                 &lt;/<span class="code-keyword">ContentPage</span>&gt;
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in MotoLogPro</h4>
-                                <p>Senza <code>x:DataType</code>, se scrivo per sbaglio <code>{Binding Emailll}</code> con tre "l", l'app compila senza fiatare ma la casella di testo non funziona. Con <code>x:DataType</code> attivo, Visual Studio mi sottolinea subito l'errore in rosso e l'app su Android/iOS gira molto più fluida perché non usa la Reflection a runtime.</p>
+                                <p>Senza <code>x:DataType</code>, se scrivo per sbaglio <code>{Binding Emailll}</code>
+                                    con tre "l", l'app compila senza fiatare ma la casella di testo non funziona. Con
+                                    <code>x:DataType</code> attivo, Visual Studio mi sottolinea subito l'errore in rosso
+                                    e l'app su Android/iOS gira molto più fluida perché non usa la Reflection a runtime.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -2524,18 +2775,31 @@
                     </div>
                     <div id="collapseConverter" class="collapse">
                         <div class="dict-card-body">
-                            <p class="definition">Un "traduttore" che si mette a metà strada nel Data Binding per trasformare un dato del ViewModel (es. un <code>decimal</code> o un <code>bool</code>) in qualcosa che la grafica capisce (es. un <code>Color</code> verde/rosso o un'icona).</p>
+                            <p class="definition">Un "traduttore" che si mette a metà strada nel Data Binding per
+                                trasformare un dato del ViewModel (es. un <code>decimal</code> o un <code>bool</code>)
+                                in qualcosa che la grafica capisce (es. un <code>Color</code> verde/rosso o un'icona).
+                            </p>
                             <div class="code-block">
-                                <span class="code-keyword">public class</span> <span class="code-type">AmountToColorConverter</span> : <span class="code-type">IValueConverter</span>
+                                <span class="code-keyword">public class</span> <span
+                                    class="code-type">AmountToColorConverter</span> : <span
+                                    class="code-type">IValueConverter</span>
                                 {
-                                    <span class="code-keyword">public object</span> <span class="code-method">Convert</span>(<span class="code-keyword">object</span>? value, <span class="code-type">Type</span> t, <span class="code-keyword">object</span>? p, <span class="code-type">CultureInfo</span> c)
-                                        => value <span class="code-keyword">is decimal</span> d &amp;&amp; d &lt; 0 ? Colors.Red : Colors.Green;
-                                    <span class="code-comment">// ...</span>
+                                <span class="code-keyword">public object</span> <span
+                                    class="code-method">Convert</span>(<span class="code-keyword">object</span>? value,
+                                <span class="code-type">Type</span> t, <span class="code-keyword">object</span>? p,
+                                <span class="code-type">CultureInfo</span> c)
+                                => value <span class="code-keyword">is decimal</span> d &amp;&amp; d &lt; 0 ? Colors.Red
+                                : Colors.Green;
+                                <span class="code-comment">// ...</span>
                                 }
                             </div>
                             <div class="dict-context">
                                 <h4>Il caso d'uso in WalletWise</h4>
-                                <p>Il ViewModel non deve mai occuparsi di colori o pixel (niente proprietà tipo <code>Color TextColor</code> nel ViewModel!). Il ViewModel espone solo il dato puro (<code>decimal Amount = -50m</code>), e il Converter nello XAML lo colora di rosso se è una spesa o di verde se è un'entrata.</p>
+                                <p>Il ViewModel non deve mai occuparsi di colori o pixel (niente proprietà tipo
+                                    <code>Color TextColor</code> nel ViewModel!). Il ViewModel espone solo il dato puro
+                                    (<code>decimal Amount = -50m</code>), e il Converter nello XAML lo colora di rosso
+                                    se è una spesa o di verde se è un'entrata.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -2594,8 +2858,8 @@
                                     class="code-keyword">string</span>.IsNullOrEmpty(result.AccessToken))
                                 {
                                 <span class="code-keyword">await</span> SecureStorage.<span
-                                    class="code-method">SetAsync</span>(<span
-                                    class="code-string">"auth_token"</span>, result.AccessToken);
+                                    class="code-method">SetAsync</span>(<span class="code-string">"auth_token"</span>,
+                                result.AccessToken);
                                 }
                             </div>
                             <div class="dict-context">

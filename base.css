@@ -2223,7 +2223,7 @@ SEZIONE FAQ
 }
 
 /* =========================================
-   1. HEADER PAGINE HUB (MINDSET E DEVELOPMENT)
+1. HEADER PAGINE HUB (MINDSET E DEVELOPMENT)
    ========================================= */
 .blog-header {
     padding: 4rem 1.5rem;
@@ -2240,6 +2240,12 @@ SEZIONE FAQ
 /* Hub Development */
 .blog-header.header-development {
     background-color: #0a4275; /* Blu scuro (Modificalo con il tuo blu) */
+    color: #ffffff;
+}
+
+/* Hub Risorse */
+.blog-header.header-risorse {
+    background-color: #1e293b; /* Grigio ardesia tech, elegante e neutro */
     color: #ffffff;
 }
 
