@@ -1,0 +1,14 @@
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\BlogRefactorTool.GeneratedMSBuildEditorConfig.editorconfig
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\BlogRefactorTool.AssemblyInfoInputs.cache
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\BlogRefactorTool.AssemblyInfo.cs
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\BlogRefactorTool.csproj.CoreCompileInputs.cache
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\BlogRefactorTool.sourcelink.json
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\BlogRefactorTool.dll
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\refint\BlogRefactorTool.dll
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\BlogRefactorTool.pdb
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\bin\Debug\net10.0\BlogRefactorTool.deps.json
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\bin\Debug\net10.0\BlogRefactorTool.runtimeconfig.json
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\bin\Debug\net10.0\BlogRefactorTool.dll
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\bin\Debug\net10.0\BlogRefactorTool.pdb
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\BlogRefactorTool.genruntimeconfig.cache
+G:\Il mio Drive\Programming\WebSites\IlViaggioDelProgrammatore\IlViaggioDelProgrammatore\BlogRefactorTool\obj\Debug\net10.0\ref\BlogRefactorTool.dll

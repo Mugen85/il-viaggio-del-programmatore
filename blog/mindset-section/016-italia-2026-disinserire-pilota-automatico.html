@@ -192,6 +192,7 @@
         }
 
         .hero-section h1.hero-title {
+            color: #ffffff !important; /* <--- AGGIUNGI QUESTA RIGA */
             font-size: clamp(1.65rem, 2.5vw, 2.65rem) !important;
             font-weight: 800;
             letter-spacing: -0.5px;
@@ -690,19 +691,26 @@
             loadFragment(
                 '../../header.html',
                 'header-placeholder',
-                `<header class="preview-nav">
-                    <div class="container d-flex justify-content-between align-items-center">
-                        <a href="/index.html" class="fw-bold fs-5" style="color: #FF6B00 !important;">
-                            <i class="fas fa-terminal me-2"></i>Il Viaggio del Programmatore
-                        </a>
-                        <nav class="d-none d-md-block">
-                            <a href="/index.html">Home</a>
-                            <a href="/blog.html">Blog</a>
-                            <a href="/risorse.html">Risorse</a>
-                            <a href="/chisono.html">Chi Sono</a>
-                        </nav>
-                    </div>
-                </header>`
+                `<header class="article-hero mindset">
+    <div class="hero-inner">
+        <div class="hero-badge">
+            <i class="bi bi-compass"></i> Mindset & Vita
+        </div>
+        
+        <div class="hero-meta-bar">
+            <div class="meta-item">
+                <i class="bi bi-person-bounding-box fs-5"></i>
+                <span class="fw-bold text-dark">Marco Morello</span>
+            </div>
+            <div class="meta-item">
+                <i class="bi bi-calendar3"></i> 1 class="hero-title reveal">Italia 2026
+            </div>
+            <div class="meta-item">
+                <i class="bi bi-clock-history"></i> 14 min read
+            </div>
+        </div>
+    </div>
+</header>`
             );
 
             // Carica Footer

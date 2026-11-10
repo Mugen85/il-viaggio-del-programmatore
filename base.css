@@ -36,9 +36,9 @@ PALETTE E VARIABILI GLOBALI (L'Officina Digitale)
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
-    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
-    --shadow-hover: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     --transition-standard: 0.2s cubic-bezier(0.2, 0, 0, 1);
 
     /* Legacy aliases for backward compatibility */
@@ -90,9 +90,20 @@ body {
     line-height: 1.75;
 }
 
-body.page-home { --header-bg: linear-gradient(135deg, var(--color-mindset-start), var(--color-mindset-end)); --footer-bg: #0F172A; }
-body.page-blog { --header-bg: linear-gradient(135deg, var(--color-development-start), var(--color-development-end)); --footer-bg: #0F172A; }
-body.page-about { --header-bg: #0F172A; --footer-bg: #0F172A; }
+body.page-home {
+    --header-bg: linear-gradient(135deg, var(--color-mindset-start), var(--color-mindset-end));
+    --footer-bg: #0F172A;
+}
+
+body.page-blog {
+    --header-bg: linear-gradient(135deg, var(--color-development-start), var(--color-development-end));
+    --footer-bg: #0F172A;
+}
+
+body.page-about {
+    --header-bg: #0F172A;
+    --footer-bg: #0F172A;
+}
 
 /* About page redesign */
 body.page-about {
@@ -159,10 +170,25 @@ html {
     scroll-behavior: smooth;
 }
 
-h1 { font-size: clamp(2rem, 3.5vw + 1rem, 4rem); line-height: 1.15; }
-h2 { font-size: clamp(1.75rem, 2.5vw + 0.9rem, 3rem); line-height: 1.2; }
-h3 { font-size: clamp(1.35rem, 1.8vw + 0.85rem, 2.2rem); line-height: 1.25; }
-h4 { font-size: clamp(1.1rem, 1.2vw + 0.8rem, 1.6rem); line-height: 1.3; }
+h1 {
+    font-size: clamp(2rem, 3.5vw + 1rem, 4rem);
+    line-height: 1.15;
+}
+
+h2 {
+    font-size: clamp(1.75rem, 2.5vw + 0.9rem, 3rem);
+    line-height: 1.2;
+}
+
+h3 {
+    font-size: clamp(1.35rem, 1.8vw + 0.85rem, 2.2rem);
+    line-height: 1.25;
+}
+
+h4 {
+    font-size: clamp(1.1rem, 1.2vw + 0.8rem, 1.6rem);
+    line-height: 1.3;
+}
 
 p {
     line-height: 1.75;
@@ -210,15 +236,7 @@ code[class*="language-"] {
 
 /* Header comune a tutte le pagine */
 
-/* Header per Mindset */
-.header-mindset {
-    background: linear-gradient(135deg, var(--color-mindset-start), var(--color-mindset-end));
-}
 
-/* Header per Development */
-.header-development {
-    background: linear-gradient(135deg, var(--color-development-start), var(--color-development-end));
-}
 
 
 /*Index image*/
@@ -237,7 +255,8 @@ code[class*="language-"] {
 .hero-section {
     position: relative;
     background: url('../images/index/index2.webp') no-repeat center center;
-    background-size: cover; /* Cambiato da 110% auto per riempire sempre lo schermo */
+    background-size: cover;
+    /* Cambiato da 110% auto per riempire sempre lo schermo */
     background-attachment: fixed;
     /* RIMUOVI height: 75vh; e padding: 0 20px; */
     min-height: 75vh;
@@ -245,7 +264,8 @@ code[class*="language-"] {
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: -1px; /* Hack per eliminare il microscopico gap di sub-pixel rendering */
+    margin-top: -1px;
+    /* Hack per eliminare il microscopico gap di sub-pixel rendering */
 }
 
 /* Overlay per contrasto migliore */
@@ -533,9 +553,8 @@ section.missione {
     transform: scale(1.05);
 }
 
-.blog-header .container,
-.blog-header .home-hero-shell,
-.blog-header > .container,
+.container,
+.home-hero-shell,
 .site-nav,
 .site-footer .container,
 .bio-wrap,
@@ -547,33 +566,10 @@ section.missione {
     padding-right: 1rem;
 }
 
-.blog-header h1,
-.blog-header p {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
 
-.blog-header p {
-    max-width: 72ch;
-}
-
-.blog-header,
-.blog-header .container,
-.blog-header .home-hero-shell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.blog-header .container,
-.blog-header .home-hero-shell {
-    text-align: center;
-}
 
 /* ==========================================
-   HEADER GLOBALE
+HEADER GLOBALE
    ========================================== */
 .site-header {
     position: sticky;
@@ -660,19 +656,22 @@ section.missione {
         background: var(--header-bg) !important;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         padding: 1rem;
-        position: absolute; /* Evita che spinga giù il contenuto */
+        position: absolute;
+        /* Evita che spinga giù il contenuto */
         width: 100%;
         left: 0;
         top: 100%;
     }
 
     .site-header .nav-link {
-        color: #F8FAFC !important; /* Forza il bianco sui link chiusi */
+        color: #F8FAFC !important;
+        /* Forza il bianco sui link chiusi */
     }
 
     .site-header .nav-link:hover,
     .site-header .nav-link.active {
-        color: var(--secondary) !important; /* Forza l'arancione all'hover */
+        color: var(--secondary) !important;
+        /* Forza l'arancione all'hover */
     }
 
     .site-header .nav-link::after {
@@ -860,9 +859,7 @@ section.missione {
 }
 
 @media (max-width: 767.98px) {
-    .blog-header .container,
-    .blog-header .home-hero-shell,
-    .blog-header > .container,
+
     .site-nav,
     .bio-wrap,
     .bio-layout,
@@ -897,6 +894,7 @@ section.missione {
     object-fit: cover;
     border-radius: var(--radius-lg);
 }
+
 .timeline-card {
     background: var(--surface);
     border: 1px solid var(--border-subtle);
@@ -904,10 +902,13 @@ section.missione {
     box-shadow: var(--shadow-sm);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.timeline-card:hover, .passion-card-bs:hover {
+
+.timeline-card:hover,
+.passion-card-bs:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);
 }
+
 .timeline-line {
     position: absolute;
     left: 50%;
@@ -917,6 +918,7 @@ section.missione {
     background: var(--border-subtle);
     transform: translateX(-50%);
 }
+
 .timeline-marker {
     position: absolute;
     left: 50%;
@@ -930,6 +932,7 @@ section.missione {
     z-index: 2;
     box-shadow: 0 0 0 4px var(--bg-page);
 }
+
 /* Su mobile nascondiamo asse e pallini nativamente con d-lg-block di Bootstrap */
 .passion-card-bs {
     display: flex;
@@ -942,6 +945,7 @@ section.missione {
     color: inherit;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .passion-img-bs {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -949,6 +953,7 @@ section.missione {
 }
 
 @media (max-width: 991.98px) {
+
     .timeline-line,
     .timeline-marker {
         display: none !important;
@@ -1033,17 +1038,6 @@ section.missione {
     padding-right: 1.5rem;
 }
 
-
-.blog-header {
-    padding-top: 2.5rem;
-    padding-bottom: 50px;
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    text-align: center;
-    animation: slideInFromRight 1s ease-in;
-}
-
-
 .blog-post,
 .about-text {
     padding: 2rem;
@@ -1074,6 +1068,7 @@ main {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .site-footer__nav a,
     .site-footer__nav a::after,
     .site-footer__email {
@@ -1435,8 +1430,15 @@ SEZIONE CHI SONO (Bio Home)
 }
 
 @keyframes about-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.35; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
 }
 
 /* Pulizia del blocco testo: via i margini negativi e le shadow pesanti */
@@ -1552,9 +1554,8 @@ SEZIONE CHI SONO (Bio Home)
 
 /* --- Responsive mobile --- */
 @media (max-width: 767px) {
-    .blog-header .container,
-    .blog-header .home-hero-shell,
-    .blog-header > .container,
+
+
     .site-nav,
     .site-footer .container,
     .bio-wrap,
@@ -2165,6 +2166,7 @@ SEZIONE FAQ
 .percorso-card {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+
 .percorso-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-sm) !important;
@@ -2200,7 +2202,8 @@ SEZIONE FAQ
 /* LA SOLUZIONE: Un wrapper per incorniciare l'immagine e renderle tutte alte uguali */
 .passion-img-wrapper {
     width: 100%;
-    height: 280px; /* Altezza maggiorata per non tagliare troppo il soggetto */
+    height: 280px;
+    /* Altezza maggiorata per non tagliare troppo il soggetto */
     overflow: hidden;
     position: relative;
 }
@@ -2215,5 +2218,145 @@ SEZIONE FAQ
 }
 
 .passion-card-bs:hover .passion-img-bs {
-    transform: scale(1.03); /* Effetto zoom piacevole al passaggio del mouse */
+    transform: scale(1.03);
+    /* Effetto zoom piacevole al passaggio del mouse */
+}
+
+/* =========================================
+   1. HEADER PAGINE HUB (MINDSET E DEVELOPMENT)
+   ========================================= */
+.blog-header {
+    padding: 4rem 1.5rem;
+    margin-bottom: 3rem;
+    border-radius: var(--radius-lg, 8px); /* Opzionale, se vuoi ammorbidire gli angoli */
+}
+
+/* Hub Mindset */
+.blog-header.header-mindset {
+    background-color: #d35400; /* Arancione */
+    color: #ffffff;
+}
+
+/* Hub Development */
+.blog-header.header-development {
+    background-color: #0a4275; /* Blu scuro (Modificalo con il tuo blu) */
+    color: #ffffff;
+}
+
+.blog-header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: inherit;
+}
+
+.blog-header p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+}
+
+
+/* =========================================
+   1. HEADER PAGINE HUB (MINDSET E DEVELOPMENT)
+   ========================================= */
+.blog-header {
+    padding: 4rem 1.5rem;
+    margin-bottom: 3rem;
+    border-radius: 0; /* Taglio netto, prende tutta la larghezza senza smussature */
+    width: 100%;
+}
+
+/* Hub Mindset */
+.blog-header.header-mindset {
+    background-color: #d35400; 
+    color: #ffffff;
+}
+
+/* Hub Development */
+.blog-header.header-development {
+    background-color: #0a4275; 
+    color: #ffffff;
+}
+
+.blog-header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: inherit;
+}
+
+.blog-header p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+}
+
+/* =========================================
+   2. HEADER SINGOLI ARTICOLI (STILE TECH)
+   ========================================= */
+.article-hero {
+    position: relative;
+    background-color: var(--surface, #ffffff);
+    background-image: radial-gradient(var(--border-subtle, #e0e0e0) 1px, transparent 1px);
+    background-size: 24px 24px;
+    border-bottom: 1px solid var(--border-subtle, #e0e0e0);
+    padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 5vw, 2rem);
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    text-align: left;
+}
+
+.hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* COLORI SPECIFICI: DEVELOPMENT (BLU) */
+.article-hero.development {
+    border-top: 4px solid #0d6efd; 
+}
+.article-hero.development .hero-badge { color: #0d6efd; }
+
+/* COLORI SPECIFICI: MINDSET (ARANCIONE) */
+.article-hero.mindset {
+    border-top: 4px solid #d35400; 
+}
+.article-hero.mindset .hero-badge { color: #d35400; }
+
+/* TIPOGRAFIA E METADATI */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--text-main, #1a1a1a);
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+}
+
+.hero-meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    color: var(--text-muted, #6c757d);
+    border-top: 1px dashed var(--border-subtle, #e0e0e0);
+    padding-top: 1.5rem;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
