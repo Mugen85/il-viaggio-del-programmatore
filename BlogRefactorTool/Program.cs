@@ -3,67 +3,52 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
-var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
-
 string rootDir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), ".."));
 string[] htmlFiles = Directory.GetFiles(rootDir, "*.html", SearchOption.AllDirectories);
 
+// Messa in sicurezza 1: UTF8 pulito
+var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 int updatedCount = 0;
 
 foreach (var filePath in htmlFiles)
 {
     string fileName = Path.GetFileName(filePath);
     
-    // Ignoriamo file di sistema e pagine hub
+    // Ignoriamo file di sistema e hub
     string[] ignoredFiles = { "header.html", "footer.html", "index.html", "chisono.html", "risorse.html", "blog.html", "mindset.html", "development.html", "glossario-csharp.html", "risorse-anki-csharp.html" };
     if (Array.Exists(ignoredFiles, name => name.Equals(fileName, StringComparison.OrdinalIgnoreCase))) continue;
     if (filePath.Contains("BlogRefactorTool", StringComparison.OrdinalIgnoreCase)) continue;
     if (!filePath.Contains("blog" + Path.DirectorySeparatorChar)) continue;
 
     string content = File.ReadAllText(filePath, encoding);
-
-    // 1. Estrazione del titolo pulito
+    
+    // --- 1. ESTRAZIONE DATI ---
     Match titleTagMatch = Regex.Match(content, @"<title>(.*?)<\/title>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
     string articleTitle = "";
-
     if (titleTagMatch.Success)
     {
         articleTitle = titleTagMatch.Groups[1].Value;
         articleTitle = Regex.Replace(articleTitle, @"\s*[-–—]\s*Il Viaggio del Programmatore.*$", "", RegexOptions.IgnoreCase).Trim();
     }
-
-    if (string.IsNullOrEmpty(articleTitle))
-    {
-        MatchCollection h1Matches = Regex.Matches(content, @"<h1[^>]*>(.*?)<\/h1>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        foreach (Match match in h1Matches)
-        {
-            string text = Regex.Replace(match.Groups[1].Value, @"<[^>]+>", "").Trim();
-            if (!string.IsNullOrEmpty(text) && !text.Equals("Sviluppo Software", StringComparison.OrdinalIgnoreCase) && !text.Equals("Mindset & Vita", StringComparison.OrdinalIgnoreCase))
-            {
-                articleTitle = text;
-                break;
-            }
-        }
-    }
-
     if (string.IsNullOrEmpty(articleTitle)) articleTitle = Path.GetFileNameWithoutExtension(fileName).Replace("-", " ");
 
-    // 2. Estrazione data
     Match dateMatch = Regex.Match(content, @"(?:(\d{1,2}\s+[^\d<]+\s+\d{4})|([A-Za-z]+\s+\d{1,2},\s+\d{4}))");
     string dateString = dateMatch.Success ? dateMatch.Value : "Ottobre 2026";
 
-    // 3. Calcolo del tempo di lettura
     string pureText = Regex.Replace(content, @"<[^>]*>", "");
     int wordCount = pureText.Split(new char[] { ' ', '\r', '\n', '\t' }, StringSplitOptions.RemoveEmptyEntries).Length;
     int readTime = Math.Max(1, wordCount / 200);
 
-    // 4. Setup Categoria (per i colori blu/arancione)
     bool isMindset = filePath.Contains("mindset", StringComparison.OrdinalIgnoreCase);
     string categoryClass = isMindset ? "mindset" : "development";
     string badgeText = isMindset ? "Mindset & Vita" : "Sviluppo Software";
     string iconClass = isMindset ? "bi-compass" : "bi-braces-asterisk";
 
-    // 5. Costruzione dell'Header DEFINITIVO (Senza M, con colori dinamici e icona tech)
+    // Calcolo URL Canonico Esatto
+    string relativePath = filePath.Substring(rootDir.Length).Replace("\\", "/").TrimStart('/');
+    string canonicalUrl = $"https://www.ilviaggiodelprogrammatore.com/{relativePath}";
+
+    // --- 2. HEADER BODY ---
     string newHeader = $@"<header class=""article-hero {categoryClass}"">
     <div class=""hero-inner"">
         <div class=""hero-badge"">
@@ -85,9 +70,18 @@ foreach (var filePath in htmlFiles)
     </div>
 </header>";
 
+    // --- 3. COSTRUZIONE TAG SEO HEAD ---
+    string seoTags = $@"
+    <title>{articleTitle} | Il Viaggio del Programmatore</title>
+    <link rel=""canonical"" href=""{canonicalUrl}"">
+    <meta property=""og:title"" content=""{articleTitle} | Il Viaggio del Programmatore"">
+    <meta property=""og:url"" content=""{canonicalUrl}"">
+    <meta property=""og:type"" content=""article"">";
+
+    // --- 4. SOSTITUZIONI ---
     string updatedContent = content;
 
-    // Sostituzione blindata
+    // Body
     if (Regex.IsMatch(updatedContent, @"<header[^>]*class=""[^""]*(?:article-hero|blog-header)[^""]*""[^>]*>.*?<\/header>", RegexOptions.Singleline | RegexOptions.IgnoreCase))
     {
         updatedContent = Regex.Replace(updatedContent, @"<header[^>]*class=""[^""]*(?:article-hero|blog-header)[^""]*""[^>]*>.*?<\/header>", newHeader, RegexOptions.Singleline | RegexOptions.IgnoreCase);
@@ -97,17 +91,26 @@ foreach (var filePath in htmlFiles)
         updatedContent = Regex.Replace(updatedContent, @"<header\b[^>]*>.*?<\/header>", newHeader, RegexOptions.Singleline | RegexOptions.IgnoreCase);
     }
 
-    // Pulizia doppioni nel corpo
+    // H1
     string duplicateH1Pattern = $@"(?!<header[^>]*>.*?)(?:<h1[^>]*>\s*" + Regex.Escape(articleTitle) + @"\s*<\/h1>)";
     updatedContent = Regex.Replace(updatedContent, duplicateH1Pattern, "", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
+    // Head (rimozione vecchi tag per evitare duplicati e iniezione nuovi prima di </head>)
+    updatedContent = Regex.Replace(updatedContent, @"<title>.*?<\/title>", "", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+    updatedContent = Regex.Replace(updatedContent, @"<link\s+rel=""canonical""[^>]*>", "", RegexOptions.IgnoreCase);
+    updatedContent = Regex.Replace(updatedContent, @"<meta\s+property=""og:(title|url|type)""[^>]*>", "", RegexOptions.IgnoreCase);
+    
+    updatedContent = Regex.Replace(updatedContent, @"<\/head>", seoTags + "\n</head>", RegexOptions.IgnoreCase);
+
+    // --- 5. SALVATAGGIO CON FAIL-SAFE ---
     if (updatedContent != content)
     {
-        File.Copy(filePath, filePath + ".bak", overwrite: true);
+        string backupPath = filePath + ".bak";
+        File.Copy(filePath, backupPath, overwrite: true);
         File.WriteAllText(filePath, updatedContent, encoding);
-        Console.WriteLine($"[Stile Definitivo Applicato] {fileName}");
+        Console.WriteLine($"[Stile & SEO Inject] {fileName}");
         updatedCount++;
     }
 }
 
-Console.WriteLine($"\nMotore aggiornato e Avatar M ELIMINATO per sempre. Totale file riscritti: {updatedCount}");
+Console.WriteLine($"\nMotore aggiornato. Totale file riscritti: {updatedCount}");

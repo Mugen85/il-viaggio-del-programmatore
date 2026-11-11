@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BlogRefactorTool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac7cbf2642649c430dae57b9bd90e8320cdfb300")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9f03a969328b9d0ea8321efba652aa3eb679b01")]
 [assembly: System.Reflection.AssemblyProductAttribute("BlogRefactorTool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BlogRefactorTool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
