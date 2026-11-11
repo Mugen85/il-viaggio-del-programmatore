@@ -4,35 +4,32 @@ PALETTE E VARIABILI GLOBALI (L'Officina Digitale)
 */
 :root {
     /* Surface & Background */
-    --bg-page: #F8FAFC;
-    --surface: #FFFFFF;
-    --surface-variant: #F1F5F9;
-    --surface-elevated: #FFFFFF;
+    --bg-page: #f8fafc;
+    --surface: #ffffff;
+    --surface-variant: #f1f5f9;
 
     /* Text (On-Surface) */
-    --text-primary: #0F172A;
+    --text-primary: #0f172a;
     --text-secondary: #475569;
-    --text-muted: #64748B;
+    --text-muted: #64748b;
 
     /* Primary (Tech / .NET) */
-    --primary: #2563EB;
-    --primary-hover: #1D4ED8;
-    --primary-container: #DBEAFE;
-    --on-primary-container: #1E3A8A;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-container: #dbeafe;
 
     /* Secondary / Accent (Officina & Mindset) */
-    --secondary: #EA580C;
-    --secondary-hover: #C2410C;
-    --secondary-container: #FFEDD5;
-    --on-secondary-container: #7C2D12;
+    --secondary: #d35400;
+    --secondary-hover: #c2410c;
+    --secondary-container: #ffedd5;
 
     /* Semantici */
-    --success: #16A34A;
-    --warning: #D97706;
-    --danger: #DC2626;
+    --success: #16a34a;
+    --warning: #d97706;
+    --danger: #dc2626;
 
     /* Bordi, Raggi e Ombre Material */
-    --border-subtle: #E2E8F0;
+    --border-subtle: #e2e8f0;
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 16px;
@@ -48,36 +45,35 @@ PALETTE E VARIABILI GLOBALI (L'Officina Digitale)
     --color-accent-hover: var(--secondary-hover);
     --color-accent-deep: var(--secondary);
     --color-accent-deeper: var(--secondary-hover);
-    --color-warning: #FACC15;
-    --color-warning-text: var(--on-secondary-container);
-    --color-mindset-start: #4A148C;
-    --color-mindset-end: #7E57C2;
-    --color-development-start: #0D47A1;
-    --color-development-end: #1976D2;
+    --color-warning: #facc15;
+    --color-warning-text: #7c2d12;
+    --color-mindset-start: #d35400;
+    --color-mindset-end: #ea580c;
+    --color-development-start: #0a4275;
+    --color-development-end: #0d6efd;
     --color-overlay-dark: rgba(15, 23, 42, 0.6);
     --color-shadow-dark: rgba(15, 23, 42, 0.8);
-    --color-shadow-accent: rgba(234, 88, 12, 0.35);
-    --color-shadow-accent-strong: rgba(234, 88, 12, 0.5);
+    --color-shadow-accent: rgba(211, 84, 0, 0.35);
+    --color-shadow-accent-strong: rgba(211, 84, 0, 0.5);
     --color-surface-soft: var(--surface-variant);
-    --color-surface-muted: #E2E8F0;
-    --color-surface-warm: #FFF7ED;
+    --color-surface-muted: #e2e8f0;
+    --color-surface-warm: #fff7ed;
     --color-surface-neutral: var(--surface-variant);
-    --color-surface-success: #DCFCE7;
-    --color-border-success: #BBF7D0;
+    --color-surface-success: #dcfce7;
+    --color-border-success: #bbf7d0;
     --color-success-text: var(--success);
     --color-success: var(--success);
     --color-border-neutral: var(--border-subtle);
-    --color-white: #FFFFFF;
+    --color-white: #ffffff;
     --color-black: #000000;
     --bg-card: var(--surface);
     --text-main: var(--text-primary);
     --text-muted-legacy: var(--text-muted);
     --page-bg-color: var(--bg-page);
-    --header-bg: #0F172A;
-    --footer-bg: #0F172A;
-    --footer-bg: #0F172A;
-    --header-text: #F8FAFC;
-    --footer-text: #F8FAFC;
+    --header-bg: #0f172a;
+    --footer-bg: #0f172a;
+    --header-text: #f8fafc;
+    --footer-text: #f8fafc;
     --border-divider: rgba(255, 255, 255, 0.08);
 }
 

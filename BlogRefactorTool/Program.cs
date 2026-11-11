@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
+
+var encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
 string rootDir = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), ".."));
 string[] htmlFiles = Directory.GetFiles(rootDir, "*.html", SearchOption.AllDirectories);
@@ -17,7 +20,7 @@ foreach (var filePath in htmlFiles)
     if (filePath.Contains("BlogRefactorTool", StringComparison.OrdinalIgnoreCase)) continue;
     if (!filePath.Contains("blog" + Path.DirectorySeparatorChar)) continue;
 
-    string content = File.ReadAllText(filePath);
+    string content = File.ReadAllText(filePath, encoding);
 
     // 1. Estrazione del titolo pulito
     Match titleTagMatch = Regex.Match(content, @"<title>(.*?)<\/title>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
@@ -98,9 +101,13 @@ foreach (var filePath in htmlFiles)
     string duplicateH1Pattern = $@"(?!<header[^>]*>.*?)(?:<h1[^>]*>\s*" + Regex.Escape(articleTitle) + @"\s*<\/h1>)";
     updatedContent = Regex.Replace(updatedContent, duplicateH1Pattern, "", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
-    File.WriteAllText(filePath, updatedContent);
-    Console.WriteLine($"[Stile Definitivo Applicato] {fileName}");
-    updatedCount++;
+    if (updatedContent != content)
+    {
+        File.Copy(filePath, filePath + ".bak", overwrite: true);
+        File.WriteAllText(filePath, updatedContent, encoding);
+        Console.WriteLine($"[Stile Definitivo Applicato] {fileName}");
+        updatedCount++;
+    }
 }
 
 Console.WriteLine($"\nMotore aggiornato e Avatar M ELIMINATO per sempre. Totale file riscritti: {updatedCount}");
